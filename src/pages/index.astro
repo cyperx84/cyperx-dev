@@ -1,123 +1,207 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
-
-const posts = (await getCollection('blog')).sort((a, b) =>
-  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
-);
-const projects = await getCollection('projects');
+import '../styles/global.css';
 ---
 
-<BaseLayout title="OVERLOAD" activeNav="home">
-  <div class="flex flex-col items-center gap-24 lg:gap-40 pt-20 lg:pt-40 pb-64">
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Glitch Art Maximalist - OVERLOAD</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+</head>
+<body class="font-display antialiased min-h-screen relative selection:bg-primary selection:text-black dark:bg-background-dark overflow-x-hidden">
 
-    <!-- Terminal Header -->
-    <div class="w-full max-w-4xl border-4 border-primary bg-black p-4 font-mono mb-12 transform -rotate-1 relative z-30 shadow-[10px_10px_20px_rgba(0,0,0,0.5)]">
-      <div class="flex items-center gap-2 mb-4 border-b border-muted pb-2">
-        <div class="w-3 h-3 rounded-full bg-accent-red"></div>
-        <div class="w-3 h-3 rounded-full bg-primary"></div>
-        <div class="w-3 h-3 rounded-full bg-accent-magenta"></div>
-        <span class="ml-auto text-[10px] text-muted">tty1 - 80x24</span>
-      </div>
-      <div class="space-y-2">
-        <p class="text-primary"><span class="typewriter-text" style="animation: typewriter 2s steps(40, end), blink 0.75s step-end infinite;">root@shredder:~# cat manifesto.txt</span></p>
-        <div class="pl-4 text-white leading-relaxed space-y-2">
-          <p class="typewriter-text melting-text" style="animation-delay: 2s; animation: typewriter 4s steps(40, end), blink 0.75s step-end infinite;">The screen is the only window left.</p>
-          <p class="typewriter-text melting-text" style="animation-delay: 4s; animation: typewriter 5s steps(40, end), blink 0.75s step-end infinite;">We are pixels floating in a liquid crystal abyss.</p>
-          <p class="typewriter-text melting-text" style="animation-delay: 6s; animation: typewriter 3s steps(40, end), blink 0.75s step-end infinite;">Distort. Destroy. Rebuild. Repeat.</p>
+  <!-- Fractal & Noise Layers -->
+  <div class="ascii-noise animate-noise-bg">
+    ERROR_CODE_404_VOID_NULL_POINTER_EXCEPTION_SEGMENTATION_FAULT_REBOOT_IMMEDIATE_01010101_SHRED_REALITY_ERROR_CODE_404_VOID_NULL_POINTER_EXCEPTION_SEGMENTATION_FAULT_REBOOT_IMMEDIATE_01010101_SHRED_REALITY_SKULL_💀_💀_💀_ERROR_SKULL_💀
+  </div>
+  <div class="skull-bg"></div>
+  <div class="fractal-overlay"></div>
+  <div class="scanline-effect animate-scanline"></div>
+
+  <!-- Mode Toggle -->
+  <button id="mode-toggle" class="fixed top-6 right-6 z-[200] bg-accent-red text-white px-6 py-3 font-mono font-black border-4 border-white hover:bg-primary hover:text-black transition-all broken-toggle shadow-[5px_5px_0px_#00FFFF] active:translate-y-1 active:shadow-none cursor-pointer">
+    LUMINANCE_BREACH
+  </button>
+
+  <!-- Chaotic Emojis -->
+  <div class="fixed inset-0 pointer-events-none z-10 overflow-hidden">
+    <div class="bouncing-emoji animate-float-chaotic-1 top-[5%] left-[5%]">💀</div>
+    <div class="bouncing-emoji animate-float-chaotic-2 top-[55%] left-[85%]">🍄</div>
+    <div class="bouncing-emoji animate-float-chaotic-3 top-[25%] left-[35%] opacity-50">🏂</div>
+    <div class="bouncing-emoji animate-float-chaotic-4 top-[75%] left-[15%]">👾</div>
+    <div class="bouncing-emoji animate-float-chaotic-5 top-[45%] left-[65%]">🛹</div>
+    <div class="bouncing-emoji animate-float-chaotic-2 top-[15%] left-[75%]">🤖</div>
+    <div class="bouncing-emoji animate-float-chaotic-4 top-[85%] left-[45%] grayscale">👽</div>
+    <div class="bouncing-emoji animate-float-chaotic-3 top-[10%] left-[20%]">😎</div>
+    <!-- New Emojis -->
+    <div class="bouncing-emoji animate-float-chaotic-1 top-[30%] left-[80%]">🦞</div>
+    <div class="bouncing-emoji animate-float-chaotic-5 top-[60%] left-[40%]">🤙</div>
+  </div>
+
+  <div class="relative flex min-h-screen w-full lg:flex-row flex-col max-w-[1800px] mx-auto z-20">
+
+    <!-- Navigation (Melting Terminal) -->
+    <aside class="w-full lg:w-[360px] lg:fixed lg:h-screen p-8 flex flex-col gap-10 z-50 bg-background-dark/90 backdrop-blur-md lg:bg-transparent lg:backdrop-blur-none border-b-8 lg:border-b-0 border-primary">
+      <div class="border-4 border-primary bg-black/80 relative overflow-hidden transform -rotate-1">
+        <div class="absolute inset-0 bg-primary/10 animate-pulse pointer-events-none"></div>
+        <div class="bg-primary px-4 py-2 flex items-center justify-between">
+          <h1 class="text-black text-xs font-black uppercase tracking-[0.3em] typewriter-text" style="animation: typewriter 3s steps(40, end), blink 0.75s step-end infinite;">KERNEL_PANIC:shred</h1>
+          <div class="flex gap-2">
+            <div class="w-3 h-3 bg-black"></div>
+            <div class="w-3 h-3 bg-accent-red animate-ping"></div>
+          </div>
         </div>
-        <p class="text-primary"><span class="typewriter-text" style="animation-delay: 9s; animation: typewriter 2s steps(40, end), blink 0.75s step-end infinite;">root@shredder:~# _</span></p>
+        <div class="p-6 flex flex-col gap-4 font-mono text-xl">
+          <a class="flex items-center gap-4 px-3 py-2 hover:bg-primary/30 group relative" href="/">
+            <span class="text-primary group-hover:animate-bounce typewriter-text" style="animation: typewriter 1s steps(40, end), blink 0.75s step-end infinite;">ERR:</span>
+            <span class="dark:text-white text-black font-black uppercase tracking-tighter chromatic-text melting-text" data-text="HOME">HOME</span>
+            <div class="absolute bottom-0 left-0 w-full h-[2px] bg-accent-red scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+          </a>
+          <a class="flex items-center gap-4 px-3 py-2 hover:bg-accent-magenta/30 group relative" href="/manifesto">
+            <span class="text-muted group-hover:text-accent-magenta typewriter-text" style="animation: typewriter 1.5s steps(40, end) 0.5s, blink 0.75s step-end infinite;">ERR:</span>
+            <span class="dark:text-gray-400 text-gray-600 font-black uppercase tracking-tighter chromatic-text melting-text" data-text="MANIFESTO">MANIFESTO</span>
+          </a>
+          <a class="flex items-center gap-4 px-3 py-2 hover:bg-accent-red/30 group relative" href="/fragments">
+            <span class="text-muted group-hover:text-accent-red typewriter-text" style="animation: typewriter 2s steps(40, end) 1s, blink 0.75s step-end infinite;">ERR:</span>
+            <span class="dark:text-gray-400 text-gray-600 font-black uppercase tracking-tighter chromatic-text melting-text" data-text="FRAGMENTS">FRAGMENTS</span>
+          </a>
+        </div>
       </div>
-    </div>
 
-    <!-- Blog Posts -->
-    {posts.map((post, i) => {
-      const rotations = ['-rotate-1 lg:-ml-20 lg:translate-x-10', 'rotate-1 lg:self-end lg:-translate-x-20', '-rotate-2 lg:translate-x-32'];
-      const rotation = rotations[i % rotations.length];
-      const borderColors = ['border-muted/50', 'border-primary', 'border-double border-accent-magenta'];
-      const borderColor = borderColors[i % borderColors.length];
+      <div class="hidden lg:block mt-auto pb-12">
+        <div class="text-primary font-mono text-[10px] leading-none space-y-1 p-4 border-l-4 border-accent-magenta bg-black/40 animate-data-bleed">
+          <p class="typewriter-text" style="animation: typewriter 2s steps(40, end), blink 0.75s step-end infinite;">MEMORY_ADDR: 0xDEADBEEF</p>
+          <p class="typewriter-text" style="animation: typewriter 2.5s steps(40, end), blink 0.75s step-end infinite;">BUFFER_OVERFLOW: DETECTED</p>
+          <p class="typewriter-text" style="animation: typewriter 3s steps(40, end), blink 0.75s step-end infinite;">REALITY_SYNC: DISCONNECTED</p>
+          <p class="text-white bg-accent-red inline-block px-1 typewriter-text" style="animation: typewriter 1.5s steps(40, end), blink 0.75s step-end infinite;">SYSTEM_SHREDDING...</p>
+        </div>
+      </div>
+    </aside>
 
-      return (
-        <a href={`/blog/${post.id}/`} class:list={["post-card p-1 cursor-crosshair group", rotation]} style={i === 0 ? "animation: shatter 10s linear infinite;" : ""}>
-          {post.data.fragId && (
-            <div class="absolute -top-6 -right-6 bg-accent-magenta text-white px-4 py-2 font-mono text-sm font-black uppercase z-30 shadow-[4px_4px_0px_#000] rotate-3 animate-pulse">
-              CORRUPTION_LOG_{String(i + 1).padStart(2, '0')}
+    <!-- Main Content (Shattered Grid) -->
+    <main class="flex-1 lg:ml-[360px] p-6 lg:p-16 xl:p-24 relative overflow-hidden flex flex-col items-center gap-24 lg:gap-40 pt-20 lg:pt-40 pb-64">
+
+      <!-- Terminal Header Post -->
+      <div class="w-full max-w-4xl border-4 border-primary bg-black p-4 font-mono mb-12 transform -rotate-1 relative z-30 shadow-[10px_10px_20px_rgba(0,0,0,0.5)]">
+        <div class="flex items-center gap-2 mb-4 border-b border-muted pb-2">
+          <div class="w-3 h-3 rounded-full bg-accent-red"></div>
+          <div class="w-3 h-3 rounded-full bg-primary"></div>
+          <div class="w-3 h-3 rounded-full bg-accent-magenta"></div>
+          <span class="ml-auto text-[10px] text-muted">tty1 - 80x24</span>
+        </div>
+        <div class="space-y-2">
+          <p class="text-primary"><span class="typewriter-text" style="animation: typewriter 2s steps(40, end), blink 0.75s step-end infinite;">root@shredder:~# cat manifesto.txt</span></p>
+          <div class="pl-4 text-white leading-relaxed space-y-2">
+            <p class="typewriter-text melting-text" style="animation-delay: 2s; animation: typewriter 4s steps(40, end), blink 0.75s step-end infinite;">The screen is the only window left.</p>
+            <p class="typewriter-text melting-text" style="animation-delay: 4s; animation: typewriter 5s steps(40, end), blink 0.75s step-end infinite;">We are pixels floating in a liquid crystal abyss.</p>
+            <p class="typewriter-text melting-text" style="animation-delay: 6s; animation: typewriter 3s steps(40, end), blink 0.75s step-end infinite;">Distort. Destroy. Rebuild. Repeat.</p>
+          </div>
+          <p class="text-primary"><span class="typewriter-text" style="animation-delay: 9s; animation: typewriter 2s steps(40, end), blink 0.75s step-end infinite;">root@shredder:~# _</span></p>
+        </div>
+      </div>
+
+      <!-- Post 1 -->
+      <article class="post-card p-1 lg:-ml-20 lg:translate-x-10 cursor-crosshair group animate-shatter" style="animation-duration: 10s; animation-timing-function: linear;">
+        <div class="absolute -top-6 -right-6 bg-accent-magenta text-white px-4 py-2 font-mono text-sm font-black uppercase z-30 shadow-[4px_4px_0px_#000] rotate-3 animate-pulse">
+          CORRUPTION_LOG_01
+        </div>
+        <div class="dark:bg-surface bg-surface-light border-4 border-muted/50 p-6 lg:p-10 h-full w-full relative overflow-hidden">
+          <div class="absolute inset-0 bg-[repeating-linear-gradient(45deg,transparent,transparent_2px,rgba(255,0,0,0.05)_2px,rgba(255,0,0,0.05)_4px)] pointer-events-none"></div>
+          <div class="flex flex-col gap-6">
+            <div class="flex items-center gap-4 justify-between border-b-2 border-primary pb-2">
+              <p class="text-accent-red font-mono text-xs tracking-[0.5em] animate-data-bleed typewriter-text" style="animation: typewriter 2s steps(40, end), blink 0.75s step-end infinite;">13:37:00:VOID [TIME_ERR]</p>
+              <span class="bg-primary text-black px-3 py-1 text-[10px] font-black font-mono">FRAG_ID: CLAUDE_X</span>
             </div>
-          )}
-          <div class:list={["bg-surface border-4 p-6 lg:p-10 h-full w-full relative overflow-hidden", borderColor]}>
-            <div class="absolute inset-0 bg-[repeating-linear-gradient(45deg,transparent,transparent_2px,rgba(255,0,0,0.05)_2px,rgba(255,0,0,0.05)_4px)] pointer-events-none"></div>
-            <div class="flex flex-col gap-6">
-              <div class="flex items-center gap-4 justify-between border-b-2 border-primary pb-2">
-                <p class="text-accent-red font-mono text-xs tracking-[0.5em] animate-data-bleed typewriter-text" style="animation: typewriter 2s steps(40, end), blink 0.75s step-end infinite;">
-                  {post.data.date} [TIME_ERR]
-                </p>
-                {post.data.fragId && (
-                  <span class="bg-primary text-black px-3 py-1 text-[10px] font-black font-mono">FRAG_ID: {post.data.fragId}</span>
-                )}
+            <h2 class="text-4xl lg:text-6xl font-black uppercase leading-[0.85] tracking-tighter dark:text-white text-black group-hover:text-primary transition-colors italic">
+              <span class="chromatic-text typewriter-text melting-text" data-text="NEURAL" style="animation: typewriter 2s steps(40, end), blink 0.75s step-end infinite;">NEURAL</span><br />
+              <span class="text-3xl lg:text-5xl dark:text-gray-500 text-gray-400 block mt-2 chromatic-text typewriter-text melting-text" data-text="GHOST_IN_THE_CODE" style="animation-delay: 1s; animation: typewriter 3s steps(40, end), blink 0.75s step-end infinite;">GHOST_IN_THE_CODE</span>
+            </h2>
+            <div class="w-full h-64 lg:h-96 bg-black border-4 border-primary relative overflow-hidden group-hover:scale-[0.98] transition-transform duration-75">
+              <img alt="Glitch art" class="absolute inset-0 w-full h-full object-cover mix-blend-difference filter contrast-200 grayscale group-hover:grayscale-0 group-hover:hue-rotate-180 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkTJEtl77r6TKcAvFsYEciARxqr3_WHd9ucY2vKJowaUaUd8JdtNP2MFFoIyD2HiQU-sPyuSQb9SRt4HjNo4m0EY7GSGrpJ09fKfwv5aLXtpJ5csyt8KB7KqxJDzhKsS5q6sdOS9ILES2yhPWkoQ3_4h_kmAQyk8UbibaF3wInXegKFQPm0YldxDeFlN-8tnts4bcerKnmNVXenFprb0K7Aq7P2ojsyzfFX5sOdXIyC9_RpVd2JhJj-4Hi_Cf2IaV2DbIscakhShK_" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
+              <div class="absolute top-2 left-2 text-[10px] font-mono text-primary bg-black px-2 typewriter-text" style="animation: typewriter 2s steps(40, end), blink 0.75s step-end infinite;">STATUS: MELTING</div>
+            </div>
+            <div class="dark:text-gray-300 text-gray-700 font-mono text-base leading-tight border-l-8 border-accent-magenta pl-6 py-2 group-hover:translate-x-2 transition-transform">
+              <span class="typewriter-text whitespace-normal melting-text" style="animation-duration: 8s; animation: typewriter 8s steps(40, end), blink 0.75s step-end infinite;">Manual override initiated. The AI is no longer hallucinating; it is Dreaming in 12-bit color. We found the source of the leak in the recursive skate-loops. It tastes like copper and neon.</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Post 2 -->
+      <article class="post-card p-1 lg:self-end lg:-translate-x-20 group rotate-1">
+        <div class="dark:bg-surface bg-surface-light border-4 border-primary p-6 lg:p-10 h-full w-full relative overflow-hidden">
+          <div class="flex flex-col gap-6">
+            <div class="flex items-center gap-4 justify-between border-b-2 border-accent-magenta pb-2">
+              <p class="text-primary font-mono text-xs tracking-widest typewriter-text" style="animation: typewriter 2s steps(40, end), blink 0.75s step-end infinite;">ERROR_LOG_NULL [SYS_TIME]</p>
+              <div class="flex gap-1">
+                <span class="w-2 h-2 bg-accent-red animate-ping"></span>
+                <span class="w-2 h-2 bg-primary animate-ping" style="animation-delay: 0.1s"></span>
               </div>
-              <h2 class="text-4xl lg:text-6xl font-black uppercase leading-[0.85] tracking-tighter text-white group-hover:text-primary transition-colors italic">
-                <span class="chromatic-text melting-text" data-text={post.data.title.split(' ')[0]}>{post.data.title.split(' ')[0]}</span>
-                {post.data.subtitle && (
-                  <span class="text-3xl lg:text-5xl text-gray-500 block mt-2 chromatic-text melting-text" data-text={post.data.subtitle}>{post.data.subtitle}</span>
-                )}
-              </h2>
-              <div class="text-gray-300 font-mono text-base leading-tight border-l-8 border-accent-magenta pl-6 py-2 group-hover:translate-x-2 transition-transform">
-                <span class="melting-text">{post.data.description}</span>
-              </div>
-              <div class="flex flex-wrap gap-2 mt-2">
-                {post.data.tags.map((tag: string) => (
-                  <span class="text-[10px] font-mono text-primary border border-primary/30 px-2 py-0.5">[{tag}]</span>
-                ))}
+            </div>
+            <h2 class="text-4xl lg:text-6xl font-black uppercase leading-none tracking-tighter dark:text-white text-black chromatic-text typewriter-text melting-text" data-text="PSILOCYBIN_SHELL" style="animation: typewriter 3s steps(40, end), blink 0.75s step-end infinite;">
+              PSILOCYBIN_SHELL
+            </h2>
+            <p class="dark:text-gray-400 text-gray-600 font-mono text-lg italic border-r-8 border-primary pr-6 text-right">
+              <span class="typewriter-text whitespace-normal melting-text" style="animation-duration: 6s; animation: typewriter 6s steps(40, end), blink 0.75s step-end infinite;">"The root terminal is a gateway to a forest of binary trees. Each leaf is a bit, each branch a logic gate. We are the fungus spreading through the silicon."</span>
+            </p>
+            <div class="mt-4 bg-accent-red text-white p-6 font-mono text-sm overflow-hidden relative transform -skew-y-2">
+              <div class="absolute top-0 left-0 w-full h-full bg-black/20 animate-noise-bg"></div>
+              <div class="relative z-10 space-y-1">
+                <p class="typewriter-text" style="animation: typewriter 2s steps(40, end), blink 0.75s step-end infinite;">&gt; stack trace: infinity</p><br />
+                <p class="typewriter-text" style="animation: typewriter 2.5s steps(40, end), blink 0.75s step-end infinite;">&gt; heap overflow: psychic_leakage</p><br />
+                <p class="typewriter-text" style="animation: typewriter 3s steps(40, end), blink 0.75s step-end infinite;">&gt; terminating ego... DONE.</p>
               </div>
             </div>
           </div>
-        </a>
-      );
-    })}
+        </div>
+      </article>
 
-    <!-- Projects Section -->
-    <div class="w-full max-w-4xl">
-      <h2 class="text-5xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-br from-primary via-accent-magenta to-accent-red italic melting-text mb-16 text-center">
-        PROJECTS
-      </h2>
-      <div class="grid gap-8">
-        {projects.map((project) => (
-          <div class="border-4 border-primary bg-surface p-6 lg:p-10 relative group hover:border-accent-red transition-colors cursor-crosshair">
-            <div class="absolute inset-0 bg-primary/5 group-hover:bg-accent-red/5 transition-colors pointer-events-none"></div>
-            <div class="flex flex-col gap-4 relative z-10">
-              <div class="flex items-center justify-between">
-                <h3 class="text-2xl lg:text-4xl font-black uppercase tracking-tighter text-white glitch-text">{project.data.title}</h3>
-                <span class:list={[
-                  "text-[10px] font-mono font-black px-3 py-1",
-                  project.data.status === 'ACTIVE' && "bg-primary text-black",
-                  project.data.status === 'EXPERIMENTAL' && "bg-accent-magenta text-white",
-                  project.data.status === 'ARCHIVED' && "bg-muted text-white",
-                ]}>{project.data.status}</span>
-              </div>
-              <p class="text-gray-400 font-mono text-base">{project.data.description}</p>
-              <div class="flex gap-4 mt-2">
-                {project.data.github && (
-                  <span class="text-primary font-mono text-sm border-b border-primary">[GITHUB]</span>
-                )}
-                {project.data.url && (
-                  <span class="text-accent-magenta font-mono text-sm border-b border-accent-magenta">[LIVE]</span>
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
+      <!-- Post 3 (The 'Void' Card) -->
+      <article class="post-card p-1 lg:translate-x-32 group -rotate-2">
+        <div class="dark:bg-surface bg-surface-light border-8 border-double border-accent-magenta p-12 h-full w-full flex flex-col items-center justify-center min-h-[400px]">
+          <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')] opacity-10"></div>
+          <h2 class="text-7xl lg:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-br from-primary via-accent-magenta to-accent-red animate-glitch-rotate italic typewriter-text melting-text" style="animation-duration: 3s; animation: typewriter 3s steps(40, end), blink 0.75s step-end infinite;">
+            VOID
+          </h2>
+          <p class="font-mono text-xs text-muted mt-8 tracking-[1em] animate-pulse typewriter-text" style="animation-duration: 5s; animation: typewriter 5s steps(40, end), blink 0.75s step-end infinite;">REPLICATING_EXISTENCE...</p>
+        </div>
+      </article>
+
+      <!-- Footer Overload -->
+      <div class="w-full max-w-[800px] text-center mt-20 relative">
+        <div class="absolute inset-0 blur-3xl bg-primary/20 animate-pulse -z-10"></div>
+        <p class="font-mono text-accent-red font-black text-4xl lg:text-6xl tracking-tighter animate-data-bleed mb-8 typewriter-text melting-text" style="animation-duration: 4s; animation: typewriter 4s steps(40, end), blink 0.75s step-end infinite;">
+          [END_OF_SIMULATION]
+        </p>
+        <div class="flex flex-wrap justify-center gap-2 opacity-30 font-mono text-[8px] max-w-md mx-auto break-all">
+          01001110 01001111 01010100 01001000 01001001 01001110 01000111 00100000 01001001 01010011 00100000 01010010 01000101 01000001 01001100 00100000 01001001 01001110 00100000 01010111 01001111 01001001 01000101 00100000 01010111 01001111 01001001 01000101 💀 01001110 01001111 01010100 01001000 01001001 01001110 01000111
+        </div>
       </div>
-    </div>
+    </main>
 
-    <!-- Footer Overload -->
-    <div class="w-full max-w-[800px] text-center mt-20 relative">
-      <div class="absolute inset-0 blur-3xl bg-primary/20 animate-pulse -z-10"></div>
-      <p class="font-mono text-accent-red font-black text-4xl lg:text-6xl tracking-tighter animate-data-bleed mb-8 melting-text">
-        [END_OF_SIMULATION]
-      </p>
-      <div class="flex flex-wrap justify-center gap-2 opacity-30 font-mono text-[8px] max-w-md mx-auto break-all">
-        01001110 01001111 01010100 01001000 01001001 01001110 01000111 00100000 01001001 01010011 00100000 01010010 01000101 01000001 01001100 00100000 💀 01001110 01001111 01010100 01001000 01001001 01001110 01000111
+    <!-- Floating 3D Hyper-Glitch -->
+    <div class="fixed bottom-8 right-8 lg:bottom-16 lg:right-16 z-[300] pointer-events-none mix-blend-screen w-40 h-40 lg:w-64 lg:h-64">
+      <div class="w-full h-full relative animate-glitch-rotate filter drop-shadow-[0_0_40px_#FF00FF]">
+        <img alt="Fractalized Core" class="w-full h-full object-cover mix-blend-hard-light filter contrast-[3] hue-rotate-180 brightness-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0D7n7Rm2HHJKUa4C2cZN2tAY-TSZBSrAZkHax33lOTlrVBAWoGJGhFc57twIHVVv22mawdQnG7PbNQh5wkqTxiYCniFUDGqc0JxeoufuQOQQltk5oiVay5AOQsKBGFkuHpVTD9AOQdHzsz4viQ5AYsiGub9T_RmEomEnMUrYR2zW1sHx10gmQu6RQFvk8EzRMKUjgLxaW8wNWz46tcZcMN_Lek18o3QvQU7VfeRS-81-DmOlachY4ENUbfquMBgoLbPOe5EG9PH2-" style="clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);" />
+        <div class="absolute inset-0 border-[6px] border-primary animate-ping opacity-50"></div>
+        <div class="absolute inset-0 border-[2px] border-accent-red animate-glitch-rotate" style="animation-direction: reverse;"></div>
+        <div class="absolute -inset-4 bg-accent-magenta/20 blur-xl animate-pulse"></div>
       </div>
     </div>
   </div>
-</BaseLayout>
+
+  <script>
+    // Mode toggle
+    document.getElementById('mode-toggle')?.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      document.documentElement.classList.toggle('light');
+    });
+  </script>
+</body>
+</html>
