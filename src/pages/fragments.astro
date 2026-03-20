@@ -1,111 +1,181 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
-
-const posts = await getCollection('blog');
-const projects = await getCollection('projects');
-
-// Extract all unique tags
-const allTags = new Set<string>();
-posts.forEach(post => post.data.tags?.forEach((t: string) => allTags.add(t)));
-projects.forEach(proj => proj.data.tags?.forEach((t: string) => allTags.add(t)));
-
-const tagList = Array.from(allTags);
+import '../styles/global.css';
 ---
 
-<BaseLayout title="FRAGMENTS" activeNav="fragments">
-  <div class="flex flex-col items-center gap-12 pt-20 lg:pt-32 pb-64 w-full min-h-screen">
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Fragments - Glitch Art Maximalist</title>
+  <!-- Fonts and Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+Glitch&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+</head>
+<body class="antialiased min-h-screen relative font-display selection:bg-accent-red selection:text-white">
 
-    <!-- Header -->
-    <div class="w-full max-w-4xl text-center">
-      <h1 class="font-heading text-6xl text-white tracking-widest opacity-20" style="text-shadow: 4px 4px 0px #FF003C;">
-        ARCHIVE_FRAGMENTS
-      </h1>
-      <p class="text-muted font-mono text-sm mt-4">CLICK A FRAGMENT TO FILTER</p>
-    </div>
-
-    <!-- Emoji Clusters -->
-    <div class="absolute top-[20%] left-[30%] text-3xl mix-blend-difference pointer-events-none z-50">💀🍄🏂👽😎</div>
-    <div class="absolute bottom-[15%] right-[25%] text-4xl mix-blend-difference pointer-events-none z-50 opacity-50">👾🤖🛹👽😎</div>
-    <div class="absolute top-[70%] left-[5%] text-2xl mix-blend-difference pointer-events-none z-50">🍄⚠️👽😎</div>
-
-    <!-- Chaotic Tag Cloud -->
-    <div class="relative w-full max-w-5xl min-h-[500px] tag-cloud-container">
-      {tagList.map((tag, i) => {
-        const sizes = ['text-lg', 'text-2xl', 'text-4xl', 'text-6xl', 'text-7xl', 'text-8xl'];
-        const rotations = ['-5deg', '10deg', '-12deg', '5deg', '15deg', '-8deg', '25deg', '-30deg', '3deg'];
-        const fonts = ['font-code', 'font-heading', 'font-display', 'font-body'];
-        const colors = ['text-primary', 'text-white', 'text-accent-red', 'text-muted', 'text-accent-magenta'];
-        const size = sizes[i % sizes.length];
-        const rotation = rotations[i % rotations.length];
-        const font = fonts[i % fonts.length];
-        const color = colors[i % colors.length];
-        const top = `${10 + (i * 7) % 80}%`;
-        const left = `${5 + (i * 13) % 85}%`;
-
-        return (
-          <a
-            href={`/blog/?tag=${tag}`}
-            class={`absolute glitch-tag ${size} ${font} ${color} hover:text-white hover:scale-125 hover:z-[100] transition-transform duration-100 cursor-pointer whitespace-nowrap uppercase`}
-            style={`top: ${top}; left: ${left}; transform: rotate(${rotation});`}
-          >
-            [FRAG: {tag}]
-          </a>
-        );
-      })}
-
-      <!-- Extra noise tags -->
-      <div class="absolute glitch-tag text-muted font-body" style="top: 85%; left: 20%; font-size: 20px; transform: rotate(25deg);">404_LORE</div>
-      <div class="absolute glitch-tag text-white font-code border border-primary p-1" style="top: 45%; left: 70%; font-size: 16px; transform: rotate(-30deg);">RAW_DATA</div>
-      <div class="absolute glitch-tag text-accent-red font-heading" style="top: 25%; left: 80%; font-size: 42px; transform: rotate(5deg); opacity: 0.6;">HALLUCINATION</div>
-    </div>
-
-    <!-- All Posts (Jagged List) -->
-    <div class="w-full max-w-4xl space-y-8 mt-12">
-      <h2 class="text-4xl font-black uppercase tracking-tighter text-white glitch-text border-b-4 border-accent-red pb-4">
-        ALL_DATABLOCKS
-      </h2>
-      {posts.map((post) => (
-        <a href={`/blog/${post.slug}/`} class="block group">
-          <article class="post-card p-1 transform -rotate-1 group-hover:rotate-0 transition-transform">
-            <div class="bg-surface border-4 border-muted/50 p-6 h-full w-full relative overflow-hidden">
-              <div class="flex items-center gap-4 justify-between border-b-2 border-primary pb-2">
-                <p class="text-accent-red font-mono text-xs tracking-[0.5em]">{post.data.date}</p>
-                {post.data.tags?.map((tag: string) => (
-                  <span class="bg-primary text-black px-3 py-1 text-[10px] font-black font-mono">{tag.toUpperCase()}</span>
-                ))}
-              </div>
-              <h3 class="text-3xl lg:text-4xl font-black uppercase leading-[0.85] tracking-tighter text-white group-hover:text-primary transition-colors mt-4">
-                {post.data.title}
-              </h3>
-              <p class="text-gray-300 font-mono text-base leading-tight border-l-8 border-accent-magenta pl-6 py-2 mt-4 group-hover:translate-x-2 transition-transform">
-                {post.data.description}
-              </p>
-            </div>
-          </article>
-        </a>
-      ))}
-
-      <h2 class="text-4xl font-black uppercase tracking-tighter text-white glitch-text border-b-4 border-accent-magenta pb-4 mt-16">
-        ALL_PROJECTS
-      </h2>
-      {projects.map((proj) => (
-        <a href={proj.data.url || '#'} class="block group" target="_blank" rel="noopener">
-          <article class="post-card p-1 transform rotate-1 group-hover:rotate-0 transition-transform">
-            <div class="bg-surface border-4 border-primary p-6 h-full w-full relative overflow-hidden">
-              <div class="flex items-center gap-4 justify-between border-b-2 border-accent-magenta pb-2">
-                <p class="text-primary font-mono text-xs tracking-widest">PROJECT_LOG</p>
-                <span class="bg-accent-magenta text-black px-3 py-1 text-[10px] font-black font-mono">{proj.data.status?.toUpperCase() || 'ACTIVE'}</span>
-              </div>
-              <h3 class="text-3xl lg:text-4xl font-black uppercase leading-none tracking-tighter text-white chromatic-text group-hover:text-primary transition-colors mt-4">
-                {proj.data.title}
-              </h3>
-              <p class="text-gray-400 font-mono text-base mt-4">{proj.data.description}</p>
-            </div>
-          </article>
-        </a>
-      ))}
-    </div>
-
+  <!-- Background ASCII Noise -->
+  <div aria-hidden="true" class="ascii-noise-fragments">
+    %#@!&amp;*[&gt;SYS_ERR&lt;]*&amp;^%$#@!(*&amp;^%$#@!_FRAGMENT_FAULT_0x00A1%#@!&amp;*[&gt;SYS_ERR&lt;]*&amp;^%$#@!(*&amp;^%$#@!_FRAGMENT_FAULT_0x00A1
+    %#@!&amp;*[&gt;SYS_ERR&lt;]*&amp;^%$#@!(*&amp;^%$#@!_FRAGMENT_FAULT_0x00A1%#@!&amp;*[&gt;SYS_ERR&lt;]*&amp;^%$#@!(*&amp;^%$#@!_FRAGMENT_FAULT_0x00A1
+    %#@!&amp;*[&gt;SYS_ERR&lt;]*&amp;^%$#@!(*&amp;^%$#@!_FRAGMENT_FAULT_0x00A1%#@!&amp;*[&gt;SYS_ERR&lt;]*&amp;^%$#@!(*&amp;^%$#@!_FRAGMENT_FAULT_0x00A1
+    %#@!&amp;*[&gt;SYS_ERR&lt;]*&amp;^%$#@!(*&amp;^%$#@!_FRAGMENT_FAULT_0x00A1%#@!&amp;*[&gt;SYS_ERR&lt;]*&amp;^%$#@!(*&amp;^%$#@!_FRAGMENT_FAULT_0x00A1
   </div>
-</BaseLayout>
+
+  <div class="flex h-screen w-full relative">
+
+    <!-- Navigation Console (Sidebar) -->
+    <aside class="w-[250px] flex-shrink-0 h-full fixed left-0 top-0 z-40 p-4 mix-blend-difference pointer-events-none">
+      <div class="nav-console p-4 flex flex-col gap-6 pointer-events-auto h-full overflow-y-auto">
+        <div class="flex gap-3 border-b border-primary pb-4 mb-2">
+          <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-none size-12 border border-accent-red filter grayscale contrast-200" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBRkwT8_SMwwskhTxyHYtcp1kxhOwSiAfQPSn_nLxnAYhLnuUO8KyFMCg0PgatDc3-DbVSy-FJQi0tuiSdddC_Pk_7KPoRVF6ddrxODV_flFJHt8jWxXRdZoSS1esR9dO5Z513KdiUsjD3bWYavVir6il0c2RDmADpqV7SZU9E6U2_t-HqdVEnXNQR7jjWAx0TCsguH4ESrDMfChlp94NCbGBL0Wl4u8KfcSBBZ480q71aUdMS7vJ5BN6qmg-uytBa4Cd4xC5CA6pjO");'></div>
+          <div class="flex flex-col">
+            <h1 class="text-primary text-base font-code font-bold leading-tight">root@shredder:~</h1>
+            <p class="text-accent-red text-xs font-code font-normal leading-tight mt-1 animate-pulse">SYSTEM_ONLINE</p>
+          </div>
+        </div>
+
+        <nav class="flex flex-col gap-4 font-code text-sm">
+          <a class="nav-link flex items-center gap-3 text-text-main hover:bg-surface p-2 rounded-none" href="/">
+            <span class="material-symbols-outlined text-primary">house</span>
+            <span>[&gt; HOME]</span>
+          </a>
+          <a class="nav-link flex items-center gap-3 text-text-main hover:bg-surface p-2 rounded-none" href="/datablock">
+            <span class="material-symbols-outlined text-primary">code</span>
+            <span>[&gt; DATABLOCK]</span>
+          </a>
+          <a class="nav-link flex items-center gap-3 text-text-main hover:bg-surface p-2 rounded-none" href="/manifesto">
+            <span class="material-symbols-outlined text-primary">terminal</span>
+            <span>[&gt; MANIFESTO]</span>
+          </a>
+          <!-- Active State for FRAGMENTS -->
+          <a class="flex items-center gap-3 bg-primary text-background-dark p-2 rounded-none font-bold shadow-[2px_2px_0px_#FF003C]" href="/fragments">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">tag</span>
+            <span>[&gt; FRAGMENTS]</span>
+          </a>
+        </nav>
+
+        <div class="mt-auto pt-4 border-t border-muted">
+          <p class="text-muted text-xs font-body break-all leading-none opacity-50">
+            01010011 01011001 01010011 01011111 01000101 01010010 01010010
+          </p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area: The Tag Cloud -->
+    <main class="flex-1 relative ml-[250px] w-full h-full overflow-hidden">
+      <!-- Header/Title -->
+      <div class="absolute top-8 left-12 z-20 pointer-events-none mix-blend-exclusion">
+        <h2 class="font-heading text-6xl text-text-main tracking-widest opacity-20" style="text-shadow: 4px 4px 0px #FF003C;">ARCHIVE_FRAGMENTS</h2>
+      </div>
+
+      <!-- Emoji Clusters -->
+      <div class="emoji-cluster cluster-1">💀🍄🏂👽😎</div>
+      <div class="emoji-cluster cluster-2">👾🤖🛹👽😎</div>
+      <div class="emoji-cluster cluster-3">🍄⚠️👽😎</div>
+
+      <!-- Chaotic Tag Cloud -->
+      <div class="relative w-full h-full tag-cloud-container">
+        <div class="absolute glitch-tag tag-1 text-primary">[FRAG: CLAUDE]</div>
+        <div class="absolute glitch-tag tag-2 text-text-main">PSYCHONAUT</div>
+        <div class="absolute glitch-tag tag-3 text-accent-red">KICKFLIPS</div>
+        <div class="absolute glitch-tag tag-4 text-muted">SYS_CRASH</div>
+        <div class="absolute glitch-tag tag-5 text-text-main">[FRAG: OPENCLAW]</div>
+        <div class="absolute glitch-tag tag-6 text-primary">GENERATIVE_ART</div>
+        <!-- Extra noise tags -->
+        <div class="absolute glitch-tag text-muted font-body" style="top: 85%; left: 20%; font-size: 20px; transform: rotate(25deg);">404_LORE</div>
+        <div class="absolute glitch-tag text-text-main font-code" style="top: 45%; left: 70%; font-size: 16px; transform: rotate(-30deg); border: 1px solid #06f9f9; padding: 4px;">RAW_DATA</div>
+        <div class="absolute glitch-tag text-accent-red font-heading" style="top: 25%; left: 80%; font-size: 42px; transform: rotate(5deg); opacity: 0.6;">HALLUCINATION</div>
+      </div>
+    </main>
+  </div>
+
+  <style>
+    body {
+      background-color: #050505;
+      color: #F8F8F8;
+      overflow-x: hidden;
+      background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(85, 85, 85, 0.05) 2px,
+        rgba(85, 85, 85, 0.05) 4px
+      );
+    }
+
+    .ascii-noise-fragments {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.05;
+      color: #555555;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      word-wrap: break-word;
+      overflow: hidden;
+      line-height: 0.8;
+    }
+
+    .glitch-tag {
+      transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), color 0.1s;
+      cursor: pointer;
+      white-space: nowrap;
+      border-radius: 0;
+      text-transform: uppercase;
+    }
+    .glitch-tag:hover {
+      transform: scale(1.2);
+      z-index: 100;
+      color: #F8F8F8;
+      text-shadow: 3px 0px 0px #FF003C, -3px 0px 0px #06f9f9;
+      mix-blend-mode: exclusion;
+    }
+
+    .tag-1 { top: 10%; left: 5%; font-size: 24px; transform: rotate(-5deg); font-family: 'Space Mono', monospace; }
+    .tag-1:hover { transform: scale(1.2) rotate(-5deg); }
+    .tag-2 { top: 30%; left: 40%; font-size: 72px; transform: rotate(10deg); font-family: 'Rubik Glitch', system-ui; color: #06f9f9; }
+    .tag-2:hover { transform: scale(1.2) rotate(10deg); }
+    .tag-3 { top: 60%; left: 15%; font-size: 48px; transform: rotate(-12deg); font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+    .tag-3:hover { transform: scale(1.2) rotate(-12deg); }
+    .tag-4 { top: 80%; left: 60%; font-size: 128px; transform: rotate(5deg); font-family: 'Rubik Glitch', system-ui; opacity: 0.8; }
+    .tag-4:hover { transform: scale(1.2) rotate(5deg); }
+    .tag-5 { top: 15%; right: 10%; font-size: 36px; transform: rotate(15deg); font-family: 'Space Mono', monospace; color: #555555; }
+    .tag-5:hover { transform: scale(1.2) rotate(15deg); }
+    .tag-6 { top: 50%; right: 20%; font-size: 56px; transform: rotate(-8deg); font-family: 'VT323', monospace; letter-spacing: -2px; }
+    .tag-6:hover { transform: scale(1.2) rotate(-8deg); }
+
+    .emoji-cluster {
+      position: absolute;
+      font-size: 2rem;
+      z-index: 50;
+      pointer-events: none;
+      mix-blend-mode: difference;
+    }
+    .cluster-1 { top: 20%; left: 30%; font-size: 3rem; transform: rotate(45deg); }
+    .cluster-2 { bottom: 15%; right: 25%; font-size: 4rem; transform: rotate(-20deg); opacity: 0.5; }
+    .cluster-3 { top: 70%; left: 5%; font-size: 2.5rem; }
+
+    .nav-console {
+      border: 2px solid #06f9f9;
+      background-color: #111111;
+      box-shadow: 4px 4px 0px #FF003C;
+    }
+    .nav-link {
+      transition: all 0.2s;
+    }
+    .nav-link:hover {
+      color: #FF003C;
+      text-shadow: 2px 0 0 #06f9f9;
+      transform: translateX(5px);
+    }
+  </style>
+</body>
+</html>
