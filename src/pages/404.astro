@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="404 - BAD_TRIP" description="SECTOR CORRUPT">
+  <!-- Override main layout padding for fullscreen 404 -->
+  <div class="flex h-screen w-full flex-col items-center justify-center relative -mt-20">
+
+    <!-- Emoji clusters -->
+    <span class="absolute top-10 left-10 text-4xl opacity-50 z-0 drop-shadow-[0_0_10px_#FF00FF] animate-float-medium">💀🍄😎</span>
+    <span class="absolute bottom-20 right-20 text-5xl opacity-30 z-0 drop-shadow-[0_0_15px_#00FFFF] rotate-45 animate-float-slow">🛹👾👽</span>
+    <span class="absolute top-1/4 right-1/4 text-3xl opacity-40 z-0 drop-shadow-[0_0_5px_#FF003C] -rotate-12 animate-float-fast">🤖💥👾</span>
+
+    <div class="z-10 flex flex-col items-center gap-12 max-w-5xl px-6 w-full relative">
+
+      <!-- Glitch Header -->
+      <h1 class="text-5xl md:text-7xl lg:text-8xl text-center glitch-text leading-none w-full break-words">
+        <span class="block text-white">404</span>
+        <span class="block text-3xl md:text-5xl lg:text-6xl mt-4">BAD_TRIP /</span>
+        <span class="block text-3xl md:text-5xl lg:text-6xl text-accent-red">SECTOR CORRUPT</span>
+      </h1>
+
+      <!-- Paddle Back Out Button -->
+      <a href="/" class="group relative cursor-pointer border-2 border-primary bg-surface px-8 py-4 z-20 hover:bg-accent-red hover:border-accent-red hover:text-[#050505] transition-colors">
+        <span class="font-mono text-xl md:text-2xl font-bold uppercase tracking-widest block relative z-10 text-primary group-hover:text-[#050505]">
+          <span class="text-accent-red group-hover:text-[#050505] animate-blink inline-block mr-2">[&gt;</span>
+          PADDLE BACK OUT
+          <span class="text-accent-red group-hover:text-[#050505] animate-blink inline-block ml-2">&lt;]</span>
+        </span>
+        <div class="absolute inset-0 border-2 border-accent-red translate-x-2 translate-y-2 mix-blend-screen opacity-50 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform"></div>
+      </a>
+
+      <!-- Giant ASCII Art -->
+      <div class="w-full flex justify-center relative z-10 overflow-hidden">
+        <pre class="ascii-art">        .-.
+       (o.o)
+        |=|
+       __|__
+     //.=|=.\\
+    // .=|=. \\
+    \\ .=|=. //
+     \\(_=_)//
+      (:| |:)
+       || ||
+       () ()
+       || ||
+       || ||
+      ==' '==
+            </pre>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

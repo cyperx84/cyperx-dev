@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort((a, b) =>
+  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<BaseLayout title="DATABLOCKS" activeNav="datablocks">
+  <div class="flex flex-col items-center gap-16 pt-20 lg:pt-32 pb-64">
+
+    <div class="w-full max-w-4xl">
+      <h1 class="font-heading text-[60px] md:text-[90px] leading-[0.75] text-white uppercase glitch-shadow-intense break-words mb-4 melting-text">
+        DATA<span class="text-primary">BLOCKS</span>
+      </h1>
+      <p class="font-mono text-muted text-sm tracking-[0.5em] mb-16 animate-pulse">CORRUPTION_LOGS // ALL_ENTRIES</p>
+    </div>
+
+    <div class="w-full max-w-4xl flex flex-col gap-12">
+      {posts.map((post, i) => {
+        const rotations = ['-rotate-[0.5deg]', 'rotate-[0.5deg]', '-rotate-[1deg]'];
+        return (
+          <a href={`/blog/${post.id}/`} class:list={["post-card p-1 cursor-crosshair group w-full max-w-full", rotations[i % rotations.length]]}>
+            <div class="bg-surface border-4 border-muted/50 p-6 lg:p-10 h-full w-full relative overflow-hidden">
+              <div class="absolute inset-0 bg-[repeating-linear-gradient(45deg,transparent,transparent_2px,rgba(255,0,0,0.05)_2px,rgba(255,0,0,0.05)_4px)] pointer-events-none"></div>
+              <div class="flex flex-col gap-4">
+                <div class="flex items-center gap-4 justify-between border-b-2 border-primary pb-2">
+                  <p class="text-accent-red font-mono text-xs tracking-widest">{post.data.date} [TIME_ERR]</p>
+                  <div class="flex gap-1">
+                    <span class="w-2 h-2 bg-accent-red animate-ping"></span>
+                    <span class="w-2 h-2 bg-primary animate-ping" style="animation-delay: 0.1s;"></span>
+                  </div>
+                </div>
+                <h2 class="text-3xl lg:text-5xl font-black uppercase leading-none tracking-tighter text-white chromatic-text group-hover:text-primary transition-colors melting-text" data-text={post.data.title}>
+                  {post.data.title}
+                </h2>
+                <p class="text-gray-400 font-mono text-base leading-tight border-l-4 border-accent-magenta pl-4">
+                  {post.data.description}
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  {post.data.tags.map((tag: string) => (
+                    <span class="text-[10px] font-mono text-primary border border-primary/30 px-2 py-0.5">[{tag}]</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</BaseLayout>

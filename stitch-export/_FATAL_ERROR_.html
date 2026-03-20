@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>404 - BAD_TRIP / SECTOR CORRUPT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#06f9f9",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#050505",
+                        "surface": "#111111",
+                        "text-main": "#F8F8F8",
+                        "muted": "#555555",
+                        "accent": "#FF003C",
+                        "magenta": "#FF00FF"
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "mono": ["Space Mono", "monospace"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "0px"
+                    },
+                    animation: {
+                        'pulse-glitch': 'pulseGlitch 2s infinite alternate',
+                        'blink': 'blink 1s step-end infinite',
+                        'float-fast': 'float 3s ease-in-out infinite',
+                        'float-medium': 'float 6s ease-in-out infinite',
+                        'float-slow': 'float 10s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        pulseGlitch: {
+                            '0%': { textShadow: '3px 0px 0px #FF003C, -3px 0px 0px #06f9f9', opacity: '1' },
+                            '50%': { textShadow: '-3px 2px 0px #FF003C, 3px -2px 0px #06f9f9', opacity: '0.9' },
+                            '100%': { textShadow: '2px -2px 0px #FF003C, -2px 2px 0px #06f9f9', opacity: '1' },
+                        },
+                        blink: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) translateX(0px)' },
+                            '25%': { transform: 'translateY(-20px) translateX(10px)' },
+                            '50%': { transform: 'translateY(-10px) translateX(-20px)' },
+                            '75%': { transform: 'translateY(15px) translateX(5px)' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background-dark');
+            color: theme('colors.text-main');
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Subtle Background Noise */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 0;
+            mix-blend-mode: overlay;
+        }
+
+        .glitch-text {
+            position: relative;
+            display: inline-block;
+            animation: pulse-glitch 0.5s infinite;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        .ascii-art {
+            font-family: monospace;
+            white-space: pre;
+            text-align: center;
+            line-height: 1.1;
+            font-size: clamp(0.5rem, 1.5vw, 1rem);
+            color: theme('colors.primary');
+            text-shadow: 2px 0 theme('colors.accent'), -2px 0 theme('colors.primary');
+            transition: all 0.1s;
+        }
+
+        .paddle-btn:hover ~ .ascii-container .ascii-art {
+            color: theme('colors.accent');
+            text-shadow: 4px 4px 0 theme('colors.primary'), -4px -4px 0 theme('colors.magenta');
+            transform: scale(1.05) skewX(5deg);
+            filter: blur(1px);
+        }
+        
+        /* Scramble effect on hover */
+        .paddle-btn:hover ~ .ascii-container .ascii-art::before {
+             content: "01010101 \n 10101010 \n ERR_CORRUPT \n 01010101 \n 10101010 \n FATAL_ERR \n 01010101 \n 10101010 \n BAD_TRIP \n 01010101 \n 10101010 \n SHRED_SYS \n 01010101";
+             position: absolute;
+             top: 0;
+             left: 0;
+             width: 100%;
+             height: 100%;
+             background-color: theme('colors.background-dark');
+             color: theme('colors.text-main');
+             z-index: 10;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             font-size: 2rem;
+             animation: pulseGlitch 0.2s infinite;
+        }
+    </style>
+</head>
+<body class="font-display flex h-screen w-full flex-col items-center justify-center relative">
+<!-- Dense Emoji Cluster - Background Elements -->
+<span class="absolute top-10 left-10 text-4xl opacity-50 z-0 drop-shadow-[0_0_10px_#FF00FF] animate-float-medium">💀🍄😎</span>
+<span class="absolute bottom-20 right-20 text-5xl opacity-30 z-0 drop-shadow-[0_0_15px_#06f9f9] transform rotate-45 animate-float-slow">🛹👾👽</span>
+<span class="absolute top-1/4 right-1/4 text-3xl opacity-40 z-0 drop-shadow-[0_0_5px_#FF003C] -rotate-12 animate-float-fast">🤖💥👾</span>
+<div class="z-10 flex flex-col items-center gap-12 max-w-5xl px-6 w-full relative">
+<!-- Glitch Header -->
+<h1 class="text-5xl md:text-7xl lg:text-8xl text-center glitch-text leading-none w-full break-words">
+<span class="block text-text-main">404</span>
+<span class="block text-3xl md:text-5xl lg:text-6xl mt-4">BAD_TRIP /</span>
+<span class="block text-3xl md:text-5xl lg:text-6xl text-accent">SECTOR CORRUPT</span>
+</h1>
+<!-- Return Button (Placed before ASCII for CSS sibling selector hover effect) -->
+<a class="paddle-btn group relative cursor-pointer border-2 border-primary bg-surface px-8 py-4 z-20 hover:bg-accent hover:border-accent hover:text-background-dark transition-colors duration-0" href="/">
+<span class="font-mono text-xl md:text-2xl font-bold uppercase tracking-widest block relative z-10 group-hover:animate-none text-primary group-hover:text-background-dark">
+<span class="text-accent group-hover:text-background-dark animate-blink inline-block mr-2">[&gt;</span>
+                PADDLE BACK OUT
+                <span class="text-accent group-hover:text-background-dark animate-blink inline-block ml-2">&lt;]</span>
+</span>
+<!-- Button glitch shadow -->
+<div class="absolute inset-0 border-2 border-accent transform translate-x-2 translate-y-2 mix-blend-screen opacity-50 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform"></div>
+</a>
+<!-- Giant ASCII Art -->
+<div class="ascii-container w-full flex justify-center relative z-10 overflow-hidden">
+<pre class="ascii-art">        .-.
+       (o.o)
+        |=|
+       __|__
+     //.=|=.\\
+    // .=|=. \\
+    \\ .=|=. //
+     \\(_=_)//
+      (:| |:)
+       || ||
+       () ()
+       || ||
+       || ||
+      ==' '==
+            </pre>
+</div>
+</div>
+</body></html>

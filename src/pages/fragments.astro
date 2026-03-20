@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const projects = await getCollection('projects');
+
+// Extract all unique tags
+const allTags = new Set<string>();
+posts.forEach(post => post.data.tags?.forEach((t: string) => allTags.add(t)));
+projects.forEach(proj => proj.data.tags?.forEach((t: string) => allTags.add(t)));
+
+const tagList = Array.from(allTags);
+---
+
+<BaseLayout title="FRAGMENTS" activeNav="fragments">
+  <div class="flex flex-col items-center gap-12 pt-20 lg:pt-32 pb-64 w-full min-h-screen">
+
+    <!-- Header -->
+    <div class="w-full max-w-4xl text-center">
+      <h1 class="font-heading text-6xl text-white tracking-widest opacity-20" style="text-shadow: 4px 4px 0px #FF003C;">
+        ARCHIVE_FRAGMENTS
+      </h1>
+      <p class="text-muted font-mono text-sm mt-4">CLICK A FRAGMENT TO FILTER</p>
+    </div>
+
+    <!-- Emoji Clusters -->
+    <div class="absolute top-[20%] left-[30%] text-3xl mix-blend-difference pointer-events-none z-50">💀🍄🏂👽😎</div>
+    <div class="absolute bottom-[15%] right-[25%] text-4xl mix-blend-difference pointer-events-none z-50 opacity-50">👾🤖🛹👽😎</div>
+    <div class="absolute top-[70%] left-[5%] text-2xl mix-blend-difference pointer-events-none z-50">🍄⚠️👽😎</div>
+
+    <!-- Chaotic Tag Cloud -->
+    <div class="relative w-full max-w-5xl min-h-[500px] tag-cloud-container">
+      {tagList.map((tag, i) => {
+        const sizes = ['text-lg', 'text-2xl', 'text-4xl', 'text-6xl', 'text-7xl', 'text-8xl'];
+        const rotations = ['-5deg', '10deg', '-12deg', '5deg', '15deg', '-8deg', '25deg', '-30deg', '3deg'];
+        const fonts = ['font-code', 'font-heading', 'font-display', 'font-body'];
+        const colors = ['text-primary', 'text-white', 'text-accent-red', 'text-muted', 'text-accent-magenta'];
+        const size = sizes[i % sizes.length];
+        const rotation = rotations[i % rotations.length];
+        const font = fonts[i % fonts.length];
+        const color = colors[i % colors.length];
+        const top = `${10 + (i * 7) % 80}%`;
+        const left = `${5 + (i * 13) % 85}%`;
+
+        return (
+          <a
+            href={`/blog/?tag=${tag}`}
+            class={`absolute glitch-tag ${size} ${font} ${color} hover:text-white hover:scale-125 hover:z-[100] transition-transform duration-100 cursor-pointer whitespace-nowrap uppercase`}
+            style={`top: ${top}; left: ${left}; transform: rotate(${rotation});`}
+          >
+            [FRAG: {tag}]
+          </a>
+        );
+      })}
+
+      <!-- Extra noise tags -->
+      <div class="absolute glitch-tag text-muted font-body" style="top: 85%; left: 20%; font-size: 20px; transform: rotate(25deg);">404_LORE</div>
+      <div class="absolute glitch-tag text-white font-code border border-primary p-1" style="top: 45%; left: 70%; font-size: 16px; transform: rotate(-30deg);">RAW_DATA</div>
+      <div class="absolute glitch-tag text-accent-red font-heading" style="top: 25%; left: 80%; font-size: 42px; transform: rotate(5deg); opacity: 0.6;">HALLUCINATION</div>
+    </div>
+
+    <!-- All Posts (Jagged List) -->
+    <div class="w-full max-w-4xl space-y-8 mt-12">
+      <h2 class="text-4xl font-black uppercase tracking-tighter text-white glitch-text border-b-4 border-accent-red pb-4">
+        ALL_DATABLOCKS
+      </h2>
+      {posts.map((post) => (
+        <a href={`/blog/${post.slug}/`} class="block group">
+          <article class="post-card p-1 transform -rotate-1 group-hover:rotate-0 transition-transform">
+            <div class="bg-surface border-4 border-muted/50 p-6 h-full w-full relative overflow-hidden">
+              <div class="flex items-center gap-4 justify-between border-b-2 border-primary pb-2">
+                <p class="text-accent-red font-mono text-xs tracking-[0.5em]">{post.data.date}</p>
+                {post.data.tags?.map((tag: string) => (
+                  <span class="bg-primary text-black px-3 py-1 text-[10px] font-black font-mono">{tag.toUpperCase()}</span>
+                ))}
+              </div>
+              <h3 class="text-3xl lg:text-4xl font-black uppercase leading-[0.85] tracking-tighter text-white group-hover:text-primary transition-colors mt-4">
+                {post.data.title}
+              </h3>
+              <p class="text-gray-300 font-mono text-base leading-tight border-l-8 border-accent-magenta pl-6 py-2 mt-4 group-hover:translate-x-2 transition-transform">
+                {post.data.description}
+              </p>
+            </div>
+          </article>
+        </a>
+      ))}
+
+      <h2 class="text-4xl font-black uppercase tracking-tighter text-white glitch-text border-b-4 border-accent-magenta pb-4 mt-16">
+        ALL_PROJECTS
+      </h2>
+      {projects.map((proj) => (
+        <a href={proj.data.url || '#'} class="block group" target="_blank" rel="noopener">
+          <article class="post-card p-1 transform rotate-1 group-hover:rotate-0 transition-transform">
+            <div class="bg-surface border-4 border-primary p-6 h-full w-full relative overflow-hidden">
+              <div class="flex items-center gap-4 justify-between border-b-2 border-accent-magenta pb-2">
+                <p class="text-primary font-mono text-xs tracking-widest">PROJECT_LOG</p>
+                <span class="bg-accent-magenta text-black px-3 py-1 text-[10px] font-black font-mono">{proj.data.status?.toUpperCase() || 'ACTIVE'}</span>
+              </div>
+              <h3 class="text-3xl lg:text-4xl font-black uppercase leading-none tracking-tighter text-white chromatic-text group-hover:text-primary transition-colors mt-4">
+                {proj.data.title}
+              </h3>
+              <p class="text-gray-400 font-mono text-base mt-4">{proj.data.description}</p>
+            </div>
+          </article>
+        </a>
+      ))}
+    </div>
+
+  </div>
+</BaseLayout>

@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort((a, b) =>
+  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+const projects = await getCollection('projects');
+---
+
+<BaseLayout title="OVERLOAD" activeNav="home">
+  <div class="flex flex-col items-center gap-24 lg:gap-40 pt-20 lg:pt-40 pb-64">
+
+    <!-- Terminal Header -->
+    <div class="w-full max-w-4xl border-4 border-primary bg-black p-4 font-mono mb-12 transform -rotate-1 relative z-30 shadow-[10px_10px_20px_rgba(0,0,0,0.5)]">
+      <div class="flex items-center gap-2 mb-4 border-b border-muted pb-2">
+        <div class="w-3 h-3 rounded-full bg-accent-red"></div>
+        <div class="w-3 h-3 rounded-full bg-primary"></div>
+        <div class="w-3 h-3 rounded-full bg-accent-magenta"></div>
+        <span class="ml-auto text-[10px] text-muted">tty1 - 80x24</span>
+      </div>
+      <div class="space-y-2">
+        <p class="text-primary"><span class="typewriter-text" style="animation: typewriter 2s steps(40, end), blink 0.75s step-end infinite;">root@shredder:~# cat manifesto.txt</span></p>
+        <div class="pl-4 text-white leading-relaxed space-y-2">
+          <p class="typewriter-text melting-text" style="animation-delay: 2s; animation: typewriter 4s steps(40, end), blink 0.75s step-end infinite;">The screen is the only window left.</p>
+          <p class="typewriter-text melting-text" style="animation-delay: 4s; animation: typewriter 5s steps(40, end), blink 0.75s step-end infinite;">We are pixels floating in a liquid crystal abyss.</p>
+          <p class="typewriter-text melting-text" style="animation-delay: 6s; animation: typewriter 3s steps(40, end), blink 0.75s step-end infinite;">Distort. Destroy. Rebuild. Repeat.</p>
+        </div>
+        <p class="text-primary"><span class="typewriter-text" style="animation-delay: 9s; animation: typewriter 2s steps(40, end), blink 0.75s step-end infinite;">root@shredder:~# _</span></p>
+      </div>
+    </div>
+
+    <!-- Blog Posts -->
+    {posts.map((post, i) => {
+      const rotations = ['-rotate-1 lg:-ml-20 lg:translate-x-10', 'rotate-1 lg:self-end lg:-translate-x-20', '-rotate-2 lg:translate-x-32'];
+      const rotation = rotations[i % rotations.length];
+      const borderColors = ['border-muted/50', 'border-primary', 'border-double border-accent-magenta'];
+      const borderColor = borderColors[i % borderColors.length];
+
+      return (
+        <a href={`/blog/${post.id}/`} class:list={["post-card p-1 cursor-crosshair group", rotation]} style={i === 0 ? "animation: shatter 10s linear infinite;" : ""}>
+          {post.data.fragId && (
+            <div class="absolute -top-6 -right-6 bg-accent-magenta text-white px-4 py-2 font-mono text-sm font-black uppercase z-30 shadow-[4px_4px_0px_#000] rotate-3 animate-pulse">
+              CORRUPTION_LOG_{String(i + 1).padStart(2, '0')}
+            </div>
+          )}
+          <div class:list={["bg-surface border-4 p-6 lg:p-10 h-full w-full relative overflow-hidden", borderColor]}>
+            <div class="absolute inset-0 bg-[repeating-linear-gradient(45deg,transparent,transparent_2px,rgba(255,0,0,0.05)_2px,rgba(255,0,0,0.05)_4px)] pointer-events-none"></div>
+            <div class="flex flex-col gap-6">
+              <div class="flex items-center gap-4 justify-between border-b-2 border-primary pb-2">
+                <p class="text-accent-red font-mono text-xs tracking-[0.5em] animate-data-bleed typewriter-text" style="animation: typewriter 2s steps(40, end), blink 0.75s step-end infinite;">
+                  {post.data.date} [TIME_ERR]
+                </p>
+                {post.data.fragId && (
+                  <span class="bg-primary text-black px-3 py-1 text-[10px] font-black font-mono">FRAG_ID: {post.data.fragId}</span>
+                )}
+              </div>
+              <h2 class="text-4xl lg:text-6xl font-black uppercase leading-[0.85] tracking-tighter text-white group-hover:text-primary transition-colors italic">
+                <span class="chromatic-text melting-text" data-text={post.data.title.split(' ')[0]}>{post.data.title.split(' ')[0]}</span>
+                {post.data.subtitle && (
+                  <span class="text-3xl lg:text-5xl text-gray-500 block mt-2 chromatic-text melting-text" data-text={post.data.subtitle}>{post.data.subtitle}</span>
+                )}
+              </h2>
+              <div class="text-gray-300 font-mono text-base leading-tight border-l-8 border-accent-magenta pl-6 py-2 group-hover:translate-x-2 transition-transform">
+                <span class="melting-text">{post.data.description}</span>
+              </div>
+              <div class="flex flex-wrap gap-2 mt-2">
+                {post.data.tags.map((tag: string) => (
+                  <span class="text-[10px] font-mono text-primary border border-primary/30 px-2 py-0.5">[{tag}]</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </a>
+      );
+    })}
+
+    <!-- Projects Section -->
+    <div class="w-full max-w-4xl">
+      <h2 class="text-5xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-br from-primary via-accent-magenta to-accent-red italic melting-text mb-16 text-center">
+        PROJECTS
+      </h2>
+      <div class="grid gap-8">
+        {projects.map((project) => (
+          <div class="border-4 border-primary bg-surface p-6 lg:p-10 relative group hover:border-accent-red transition-colors cursor-crosshair">
+            <div class="absolute inset-0 bg-primary/5 group-hover:bg-accent-red/5 transition-colors pointer-events-none"></div>
+            <div class="flex flex-col gap-4 relative z-10">
+              <div class="flex items-center justify-between">
+                <h3 class="text-2xl lg:text-4xl font-black uppercase tracking-tighter text-white glitch-text">{project.data.title}</h3>
+                <span class:list={[
+                  "text-[10px] font-mono font-black px-3 py-1",
+                  project.data.status === 'ACTIVE' && "bg-primary text-black",
+                  project.data.status === 'EXPERIMENTAL' && "bg-accent-magenta text-white",
+                  project.data.status === 'ARCHIVED' && "bg-muted text-white",
+                ]}>{project.data.status}</span>
+              </div>
+              <p class="text-gray-400 font-mono text-base">{project.data.description}</p>
+              <div class="flex gap-4 mt-2">
+                {project.data.github && (
+                  <span class="text-primary font-mono text-sm border-b border-primary">[GITHUB]</span>
+                )}
+                {project.data.url && (
+                  <span class="text-accent-magenta font-mono text-sm border-b border-accent-magenta">[LIVE]</span>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Footer Overload -->
+    <div class="w-full max-w-[800px] text-center mt-20 relative">
+      <div class="absolute inset-0 blur-3xl bg-primary/20 animate-pulse -z-10"></div>
+      <p class="font-mono text-accent-red font-black text-4xl lg:text-6xl tracking-tighter animate-data-bleed mb-8 melting-text">
+        [END_OF_SIMULATION]
+      </p>
+      <div class="flex flex-wrap justify-center gap-2 opacity-30 font-mono text-[8px] max-w-md mx-auto break-all">
+        01001110 01001111 01010100 01001000 01001001 01001110 01000111 00100000 01001001 01010011 00100000 01010010 01000101 01000001 01001100 00100000 💀 01001110 01001111 01010100 01001000 01001001 01001110 01000111
+      </div>
+    </div>
+  </div>
+</BaseLayout>

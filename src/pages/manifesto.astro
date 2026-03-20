@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="MANIFESTO" activeNav="manifesto">
+  <div class="flex flex-col items-center gap-24 pt-20 lg:pt-40 pb-64">
+
+    <!-- Terminal: whoami -->
+    <div class="w-full max-w-5xl border-[3px] border-primary bg-black relative overflow-hidden shadow-[0_0_30px_rgba(0,255,255,0.15)]">
+      <!-- Skull watermark -->
+      <div class="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none select-none z-0">
+        <span class="text-[20rem]">💀</span>
+      </div>
+      <div class="absolute inset-0 glitch-bg pointer-events-none mix-blend-screen opacity-60 z-10"></div>
+
+      <div class="bg-accent-red px-6 py-3 flex items-center border-b-[3px] border-primary relative z-20">
+        <h2 class="text-white text-xl font-bold tracking-widest uppercase">root@shredder:~</h2>
+        <div class="ml-auto flex gap-3">
+          <div class="size-4 bg-[#050505] border border-primary"></div>
+          <div class="size-4 bg-[#050505] border border-primary"></div>
+          <div class="size-4 bg-primary border border-primary"></div>
+        </div>
+      </div>
+
+      <div class="p-6 md:p-10 space-y-8 relative z-20 min-h-[500px]">
+
+        <!-- whoami -->
+        <div class="reveal-element">
+          <div class="text-primary text-2xl font-bold mb-2 flex items-center">
+            <span class="mr-3 text-accent-red animate-pulse">#</span>
+            <span class="typewriter-text dark:text-white" style="animation: typewriter 1.5s steps(30, end) forwards;">whoami</span>
+          </div>
+          <div class="text-primary/80 font-mono text-sm ml-6 italic">
+            DIGITAL_CORRUPTOR // GLITCH_MAXIMALIST // VOID_WALKER
+          </div>
+        </div>
+
+        <!-- cat manifesto.txt -->
+        <div class="pt-2 reveal-element">
+          <div class="text-primary text-2xl font-bold mb-4 flex items-center">
+            <span class="mr-3">&gt;</span>
+            <span class="typewriter-text dark:text-white" style="animation: typewriter 1.5s steps(30, end) 2s forwards;">cat manifesto.txt</span>
+          </div>
+          <div class="space-y-6 text-xl text-gray-100 leading-relaxed border-l-[6px] border-accent-red pl-6 ml-2 bg-[#111111]/80 p-4">
+            <p class="glitch-text opacity-95">
+              I am the ghost in the machine learning model. A digital psychonaut carving paths through latent spaces and concrete waves.
+              My blood is <span class="text-primary font-black uppercase tracking-wider">50% monster energy</span> and <span class="text-accent-magenta font-black uppercase tracking-wider">50% unresolved segfaults</span>.
+            </p>
+            <p class="text-gray-300">
+              I build AI tools that hallucinate brutalist realities. When I'm not untangling prompt injections, I'm breaking bones on halfpipes.
+              The physical world is just a slow, legacy API. <span class="text-white font-bold bg-accent-red/20 px-1">We are compiling a new counter-culture.</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- ls -la /sys/modules/skills/ -->
+        <div class="pt-6 reveal-element">
+          <div class="text-primary text-2xl font-bold mb-6 flex items-center">
+            <span class="mr-3">&gt;</span>
+            <span class="typewriter-text dark:text-white" style="animation: typewriter 1.5s steps(30, end) 4s forwards;">ls -la /sys/modules/skills/</span>
+          </div>
+          <div class="space-y-3 font-mono text-lg ml-4">
+            <div class="flex items-center gap-4 bg-[#111111]/50 p-2 border border-primary/20 hover:border-primary transition-colors">
+              <span class="text-primary bg-primary/10 px-3 py-1 border border-primary font-bold shadow-[0_0_10px_rgba(0,255,255,0.3)]">[OK]</span>
+              <span class="text-gray-200">Claude_Code_Integration.so</span>
+              <span class="text-gray-500 ml-auto text-sm hidden md:block">0x00A1</span>
+            </div>
+            <div class="flex items-center gap-4 bg-[#111111]/50 p-2 border border-primary/20 hover:border-primary transition-colors">
+              <span class="text-primary bg-primary/10 px-3 py-1 border border-primary font-bold shadow-[0_0_10px_rgba(0,255,255,0.3)]">[OK]</span>
+              <span class="text-gray-200">Kickflips_v2.dll</span>
+              <span class="text-gray-500 ml-auto text-sm hidden md:block">0x00B2</span>
+            </div>
+            <div class="flex items-center gap-4 bg-accent-red/10 p-2 border border-accent-red/30 relative overflow-hidden">
+              <span class="text-accent-red bg-accent-red/20 px-3 py-1 border border-accent-red font-bold glitch-text relative z-10">[FAIL]</span>
+              <span class="text-gray-400 line-through opacity-80 relative z-10">Corporate_Compliance.exe</span>
+              <span class="text-accent-red ml-auto text-sm font-bold animate-pulse relative z-10">ERR_CORE_DUMP</span>
+            </div>
+            <div class="flex items-center gap-4 bg-[#111111]/50 p-2 border border-primary/20 hover:border-accent-magenta transition-colors">
+              <span class="text-primary bg-primary/10 px-3 py-1 border border-primary font-bold shadow-[0_0_10px_rgba(0,255,255,0.3)]">[OK]</span>
+              <span class="text-accent-magenta font-bold" style="text-shadow: 1px 0 #00FFFF, -1px 0 #FF003C;">Psilocybin_Protocol.sys</span>
+              <span class="text-gray-500 ml-auto text-sm hidden md:block">0x00D4</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active prompt -->
+        <div class="text-primary text-3xl mt-12 flex items-center font-bold reveal-element">
+          <span class="mr-4">&gt;</span>
+          <span class="w-4 h-8 bg-primary animate-blink shadow-[0_0_15px_rgba(0,255,255,0.8)]"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fragment: Building the Void -->
+    <div class="w-full max-w-5xl reveal-element">
+      <div class="border-[3px] border-accent-magenta bg-black/40 backdrop-blur-md p-8 relative overflow-hidden">
+        <div class="absolute -left-10 -bottom-10 opacity-[0.05] pointer-events-none select-none">
+          <span class="text-[15rem]">💀</span>
+        </div>
+        <div class="absolute -top-4 -right-4 bg-accent-magenta text-black font-bold px-4 py-1 text-sm skew-x-12 uppercase tracking-widest z-20">
+          Fragment_A // Neural_Lattice
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center relative z-10">
+          <div class="space-y-4">
+            <h3 class="text-3xl font-black italic glitch-text tracking-tighter uppercase">Building the Void</h3>
+            <p class="text-gray-400">Our architectures don't just host data; they breathe interference. We design for the collapse, for the beauty of the broken signal. 🦞🤙</p>
+            <div class="h-1 w-24 bg-primary"></div>
+          </div>
+          <div class="aspect-video bg-[#050505] border-2 border-accent-magenta/40 relative overflow-hidden group">
+            <div class="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-accent-red/20 opacity-50"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span class="text-6xl mix-blend-difference">💀</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Singularity is a Halfpipe -->
+    <div class="w-full max-w-5xl reveal-element mb-24">
+      <div class="border-[3px] border-primary/40 bg-black/40 backdrop-blur-md p-8 relative overflow-hidden">
+        <div class="flex flex-col items-center text-center gap-6 relative z-10">
+          <span class="material-symbols-outlined text-7xl text-accent-red animate-pulse">leak_add</span>
+          <h3 class="text-4xl font-black uppercase tracking-[0.2em] glitch-text">The Singularity is a Halfpipe</h3>
+          <p class="max-w-xl text-lg text-gray-400 italic">"The error is the only honest part of the system. In the glitch, we find the truth that the clean code tries to hide." 🦞</p>
+          <div class="flex gap-4">
+            <a href="/blog/" class="px-8 py-3 border-2 border-primary text-primary font-bold hover:bg-primary hover:text-black transition-all uppercase tracking-widest">Enter Datablocks</a>
+            <a href="/" class="px-8 py-3 bg-accent-red text-white font-bold hover:brightness-125 transition-all uppercase tracking-widest">Disconnect</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</BaseLayout>
