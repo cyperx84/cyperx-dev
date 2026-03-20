@@ -2,7 +2,7 @@
 
 /* ========================================
    CYPERX.DEV - GLITCH ART MAXIMALIST
-   Corrupted Mainframe Aesthetic
+   Ported from Stitch Chaos v2 exports
    ======================================== */
 
 @theme {
@@ -13,8 +13,11 @@
   --color-surface-light: #fefefe;
   --color-accent-red: #FF003C;
   --color-accent-magenta: #FF00FF;
+  --color-accent: #FF003C;
+  --color-magenta: #FF00FF;
   --color-acid: #39FF14;
   --color-muted: #444444;
+  --color-text-main: #F8F8F8;
 
   --font-display: "Space Grotesk", sans-serif;
   --font-heading: "Rubik Glitch", system-ui;
@@ -153,6 +156,90 @@
   50% { opacity: 0.7; transform: translateX(-5px); }
 }
 
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes drift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(20px, 20px) rotate(1deg); }
+}
+
+@keyframes float-bounce {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(10vw, 15vh) rotate(90deg); }
+  50% { transform: translate(20vw, -10vh) rotate(180deg); }
+  75% { transform: translate(-5vw, 20vh) rotate(270deg); }
+}
+
+@keyframes scanline-sweep {
+  0% { transform: translateY(-100%); opacity: 1; }
+  100% { transform: translateY(150%); opacity: 0; }
+}
+
+@keyframes shatter-entry {
+  0% {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    filter: contrast(3) hue-rotate(180deg) invert(1);
+    transform: translateX(-40px) scaleX(1.2);
+  }
+  25% { clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%); }
+  50% { clip-path: polygon(0% 20%, 100% 10%, 90% 90%, 10% 80%); }
+  75% { clip-path: polygon(5% 5%, 95% 2%, 98% 98%, 2% 95%); }
+  100% {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    filter: none;
+    transform: translateX(0) scaleX(1);
+  }
+}
+
+@keyframes glitch-left {
+  0% { transform: translate(0); }
+  50% { transform: translate(-3px, 2px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes glitch-right {
+  0% { transform: translate(0); }
+  50% { transform: translate(3px, -2px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes float-around {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(80vw, 20vh) rotate(90deg) scale(1.2); }
+  50% { transform: translate(20vw, 80vh) rotate(180deg) scale(0.8); }
+  75% { transform: translate(90vw, 50vh) rotate(270deg) scale(1.1); }
+  100% { transform: translate(0, 0) rotate(360deg); }
+}
+
+@keyframes melt {
+  0% { transform: scaleY(1) skewX(0deg); filter: blur(0px); }
+  50% { transform: scaleY(1.1) skewX(2deg); filter: blur(1px); }
+  100% { transform: scaleY(1.3) skewX(-1deg); filter: blur(2px); text-shadow: 0 10px 20px rgba(0, 255, 255, 0.5); }
+}
+
+@keyframes rotate-border {
+  to { --a: 360deg; }
+}
+
+@keyframes corrupt-scan {
+  0% { color: #00FFFF; transform: translate(0); }
+  25% { color: #FF003C; transform: translate(2px, -1px); }
+  50% { color: #39FF14; transform: translate(-2px, 1px); }
+  75% { color: #FF00FF; transform: translate(1px, 2px); }
+}
+
+@keyframes high-freq-flicker {
+  0%, 100% { opacity: 1; transform: translateX(0); }
+  10% { opacity: 0.8; transform: translateX(-2px); }
+  20% { opacity: 0.9; transform: translateX(2px) scaleY(1.05); }
+  30% { opacity: 0.5; filter: hue-rotate(90deg); }
+  40% { opacity: 1; transform: skewX(10deg); }
+  50% { opacity: 0.7; transform: translateX(-5px); }
+}
+
 /* ---- BASE STYLES ---- */
 
 body {
@@ -162,7 +249,25 @@ body {
   transition: background-color 0.1s steps(2), color 0.1s steps(2);
 }
 
-/* Chromatic Aberration Text */
+/* Selection */
+::selection {
+  background: #00FFFF;
+  color: #000;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 16px;
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: #FF003C;
+  border: 4px solid #000;
+}
+
+/* ---- UTILITY CLASSES ---- */
+
+/* Chromatic Aberration Text (INDEX style) */
 .chromatic-text {
   position: relative;
   display: inline-block;
@@ -190,7 +295,33 @@ body {
   animation: noise 0.15s infinite reverse;
 }
 
-/* ASCII Background Noise */
+/* Chromatic Aberration (DATABLOCK style) */
+.chromatic-aberration {
+  position: relative;
+}
+.chromatic-aberration::before, .chromatic-aberration::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+.chromatic-aberration::before {
+  color: #FF00FF;
+  left: -2px;
+  z-index: -1;
+  animation: glitch-left 0.3s infinite;
+}
+.chromatic-aberration::after {
+  color: #00FFFF;
+  left: 2px;
+  z-index: -2;
+  animation: glitch-right 0.3s infinite;
+}
+
+/* ASCII Background Noise (INDEX) */
 .ascii-noise {
   position: fixed;
   top: -50%;
@@ -207,6 +338,23 @@ body {
     repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0, 255, 255, 0.05) 1px, rgba(0, 255, 255, 0.05) 2px),
     repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(255, 0, 60, 0.05) 1px, rgba(255, 0, 60, 0.05) 2px);
   mix-blend-mode: hard-light;
+}
+
+/* ASCII Background (MANIFESTO/DATABLOCK style) */
+.ascii-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.15;
+  color: #555555;
+  font-size: 14px;
+  line-height: 1.2;
+  word-break: break-all;
+  pointer-events: none;
+  overflow: hidden;
 }
 
 /* Skull Background Pattern */
@@ -228,9 +376,9 @@ body {
   z-index: 60;
   pointer-events: none;
   opacity: 0.03;
+  background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuDlJ6LTGEQid_mpHupTTI3w-KGaSeZWf3otjDIbc45dLTmLahE9FTMP7CzHfYWLBKu9dp51I8-rXsLVwu5tkPrKzXeDtruan8-4ysbgyE9eXfewys0Et9kYLHCG8aIVRItPsYZrE99qct8i-bn7EDklKCiSst2sk4kz129IMz01snSH4z81OxG--RCrrLEvRjjB_NxpdF2wLw0K0_4KmiemaHecvaAuMcAV3Hm4X37LMcehRAcDPnZi-dzaQ7zwupRGeRSARp8tr3Mr);
   mask-image: radial-gradient(circle at center, transparent 30%, black 100%);
   mix-blend-mode: exclusion;
-  background: repeating-conic-gradient(#111 0deg 10deg, #050505 10deg 20deg);
 }
 
 /* Scanline Effect */
@@ -245,6 +393,11 @@ body {
   pointer-events: none;
 }
 
+/* Glitch BG (repeating lines) */
+.glitch-bg {
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 10px, rgba(6, 249, 249, 0.03) 10px, rgba(6, 249, 249, 0.03) 12px);
+}
+
 /* Post Card */
 .post-card {
   width: 100%;
@@ -256,6 +409,10 @@ body {
   z-index: 20;
   clip-path: polygon(0% 2%, 100% 0%, 98% 98%, 2% 100%);
 }
+.light .post-card {
+  background-color: #fff;
+  border-color: #000;
+}
 .post-card:hover {
   border-color: #FF003C;
   filter: hue-rotate(90deg) contrast(150%);
@@ -263,7 +420,7 @@ body {
   box-shadow: 10px 10px 0 #00FFFF, -10px -10px 0 #FF003C;
 }
 
-/* Floating Bouncing Emojis */
+/* Floating Bouncing Emojis (INDEX style) */
 .bouncing-emoji {
   position: absolute;
   font-size: 5rem;
@@ -272,7 +429,17 @@ body {
   mix-blend-mode: screen;
 }
 
-/* Typewriter Helper */
+/* Floating Emoji (MANIFESTO style) */
+.floating-emoji {
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(1px);
+  opacity: 0.4;
+  animation: float-bounce var(--duration, 20s) infinite linear alternate;
+}
+
+/* Typewriter Text (INDEX - border cursor style) */
 .typewriter-text {
   overflow: hidden;
   white-space: nowrap;
@@ -280,14 +447,32 @@ body {
   display: inline-block;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 16px;
-  background: #000;
+/* Typewriter (MANIFESTO - width animation style) */
+.typewriter {
+  overflow: hidden;
+  white-space: nowrap;
+  letter-spacing: .05em;
+  width: 0;
+  animation: typing 1.5s steps(30, end) forwards;
 }
-::-webkit-scrollbar-thumb {
-  background: #FF003C;
-  border: 4px solid #000;
+.typewriter-delayed {
+  animation-delay: 2s;
+}
+
+/* Ghost Window */
+.ghost-window {
+  position: fixed;
+  border: 1px solid rgba(6, 249, 249, 0.2);
+  background: rgba(5, 5, 5, 0.4);
+  backdrop-filter: blur(2px);
+  pointer-events: none;
+  z-index: 1;
+  padding: 10px;
+  font-family: monospace;
+  font-size: 10px;
+  color: rgba(6, 249, 249, 0.3);
+  overflow: hidden;
+  animation: drift var(--duration, 30s) infinite linear;
 }
 
 /* Broken Toggle */
@@ -306,28 +491,87 @@ body {
   text-shadow: 2px 0 #FF003C, -2px 0 #00FFFF;
 }
 
-/* Glitch Shadow Intense */
+/* Glitch Shadow Intense (DATABLOCK) */
 .glitch-shadow-intense {
   text-shadow: 4px 0 #FF003C, -4px 0 #00FFFF, 0 3px #FF00FF, 0 -3px #39FF14;
 }
 
-/* Ghost Window */
-.ghost-window {
-  position: fixed;
-  border: 1px solid rgba(0, 255, 255, 0.2);
-  background: rgba(5, 5, 5, 0.4);
-  backdrop-filter: blur(2px);
+/* Ghost Skull BG (inside terminals) */
+.ghost-skull-bg {
+  position: absolute;
+  inset: 0;
   pointer-events: none;
-  z-index: 1;
-  padding: 10px;
-  font-family: monospace;
-  font-size: 10px;
-  color: rgba(0, 255, 255, 0.3);
+  user-select: none;
+  opacity: 0.05;
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  line-height: 8px;
+  white-space: pre;
   overflow: hidden;
-  animation: drift var(--duration, 30s) infinite linear;
+  color: #fff;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Tearing Quote */
+/* Terminal ASCII Border */
+.terminal-ascii-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  opacity: 0.2;
+  font-family: monospace;
+  font-size: 8px;
+  line-height: 8px;
+  overflow: hidden;
+  z-index: 5;
+  color: #06f9f9;
+}
+
+/* Reveal on scroll */
+.reveal-element {
+  opacity: 0;
+  transform: translateY(60px) skewX(-15deg) rotate(-2deg) scale(0.9);
+  filter: blur(15px) brightness(3) saturate(0);
+  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+  position: relative;
+}
+.reveal-element.active {
+  opacity: 1;
+  transform: translateY(0) skewX(0deg) rotate(0deg) scale(1);
+  filter: blur(0px) brightness(1) saturate(1);
+}
+.reveal-element.active::before {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  background: linear-gradient(90deg, transparent, rgba(6, 249, 249, 0.6), transparent);
+  animation: scanline-sweep 0.7s ease-out forwards;
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* Hallucination Entry */
+.hallucinate-entry {
+  animation: shatter-entry 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Corrupt Metadata */
+.corrupt-meta {
+  animation: corrupt-scan 2s steps(4) infinite;
+  display: inline-block;
+}
+
+/* Flicker Glitch */
+.flicker-glitch {
+  animation: high-freq-flicker 0.15s infinite;
+}
+
+/* Tearing Quote (DATABLOCK) */
 .tearing-quote {
   position: relative;
   padding: 4rem 2rem;
@@ -347,53 +591,11 @@ body {
 .tearing-quote::before { top: 0; left: 0; transform: translateY(-50%) rotate(-1deg); }
 .tearing-quote::after { bottom: 0; right: 0; transform: translateY(50%) rotate(1deg); }
 
-/* Corrupt Metadata */
-.corrupt-meta {
-  animation: corruptScan 2s steps(4) infinite;
-  display: inline-block;
-}
-
-/* Flicker Glitch */
-.flicker-glitch {
-  animation: highFreqFlicker 0.15s infinite;
-}
-
-/* Ghost Skull BG (for inside terminals) */
-.ghost-skull-bg {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  user-select: none;
-  opacity: 0.05;
-  font-family: 'Space Mono', monospace;
-  font-size: 8px;
-  line-height: 8px;
-  white-space: pre;
-  overflow: hidden;
-  color: #fff;
-  z-index: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Reveal on scroll */
-.reveal-element {
-  opacity: 0;
-  transform: translateY(60px) skewX(-15deg) rotate(-2deg) scale(0.9);
-  filter: blur(15px) brightness(3) saturate(0);
-  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
-}
-.reveal-element.active {
-  opacity: 1;
-  transform: translateY(0) skewX(0deg) rotate(0deg) scale(1);
-  filter: blur(0px) brightness(1) saturate(1);
-}
-
-/* Selection */
-::selection {
-  background: #00FFFF;
-  color: #000;
+/* Breakout (full width) */
+.breakout {
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
 }
 
 /* Glitch active on rapid scroll */
@@ -401,3 +603,27 @@ body {
   filter: hue-rotate(90deg) invert(1) contrast(200%);
   transition: none;
 }
+
+/* Utility for diagonal lines in fail state */
+.bg-repeating-linear-gradient-45 {
+  background: repeating-linear-gradient(45deg, var(--tw-gradient-from), var(--tw-gradient-from) 2px, var(--tw-gradient-to) 2px, var(--tw-gradient-to) 4px);
+}
+
+/* ---- LIGHT MODE OVERRIDES ---- */
+
+.light body {
+  background-color: #f5f8f8;
+  color: #050505;
+}
+.light .ascii-bg { color: #000; opacity: 0.1; }
+.light .bg-background-dark { background-color: #ffffff; }
+.light main { background-color: #f0f0f0; }
+.light .terminal-container { background-color: #ffffff; border-color: #000; }
+.light .terminal-body { background-color: #ffffff; }
+.light .terminal-header { background-color: #000; }
+.light .ghost-window {
+  border-color: rgba(0,0,0,0.1);
+  color: rgba(0,0,0,0.2);
+  background: rgba(255,255,255,0.3);
+}
+.light .tearing-quote { background: #fff; color: #000; box-shadow: 0 0 30px rgba(0,0,0,0.2); }

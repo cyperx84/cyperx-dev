@@ -3,141 +3,174 @@ import '../styles/global.css';
 
 interface Props {
   title: string;
-  description?: string;
   activeNav?: string;
 }
 
-const { title, description = "CyperX - Digital Corruptor // Glitch Maximalist // Void Walker", activeNav = "" } = Astro.props;
-const currentPath = Astro.url.pathname;
+const { title, activeNav = "" } = Astro.props;
 ---
 
 <html class="dark" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>{title} | CYPERX.DEV</title>
-  <meta name="description" content={description} />
-  <meta name="generator" content={Astro.generator} />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <title>{title}</title>
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect" />
   <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Rubik+Glitch&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=VT323&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 </head>
-<body class="font-display antialiased min-h-screen relative overflow-x-hidden bg-background-dark">
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-100 dark:text-slate-100 min-h-[200vh] flex overflow-x-hidden transition-colors duration-300">
 
-  <!-- Fractal & Noise Layers -->
-  <div class="ascii-noise animate-noise-bg">
-    ERROR_CODE_404_VOID_NULL_POINTER_EXCEPTION_SEGMENTATION_FAULT_REBOOT_IMMEDIATE_01010101_SHRED_REALITY_ERROR_CODE_404_VOID_NULL_POINTER_EXCEPTION_SEGMENTATION_FAULT_REBOOT_IMMEDIATE_01010101_SHRED_REALITY_SKULL_💀_💀_💀_ERROR_SKULL_💀
+  <!-- Ghost Terminals (Chaos Layer) -->
+  <div class="ghost-window top-[10%] left-[60%] w-64 h-40" style="--duration: 40s;">
+    &gt; exec hallucinate.sh<br />
+    [DEBUG] Latent space overflow<br />
+    [WARN] Reality buffer low...<br />
+    0x00FF82: SIGKILL received<br />
+    &gt; _
   </div>
-  <div class="skull-bg"></div>
-  <div class="fractal-overlay"></div>
-  <div class="scanline-effect animate-scanline"></div>
-
-  <!-- Mode Toggle -->
-  <button
-    id="mode-toggle"
-    class="fixed top-6 right-6 z-[200] bg-accent-red text-white px-6 py-3 font-mono font-black border-4 border-white hover:bg-primary hover:text-black transition-all broken-toggle shadow-[5px_5px_0px_#00FFFF] active:translate-y-1 active:shadow-none cursor-pointer"
-  >
-    LUMINANCE_BREACH
-  </button>
-
-  <!-- Chaotic Emojis -->
-  <div class="fixed inset-0 pointer-events-none z-10 overflow-hidden">
-    <div class="bouncing-emoji animate-float-chaotic-1 top-[5%] left-[5%]">💀</div>
-    <div class="bouncing-emoji animate-float-chaotic-2 top-[55%] left-[85%]">🍄</div>
-    <div class="bouncing-emoji animate-float-chaotic-3 top-[25%] left-[35%] opacity-50">🏂</div>
-    <div class="bouncing-emoji animate-float-chaotic-4 top-[75%] left-[15%]">👾</div>
-    <div class="bouncing-emoji animate-float-chaotic-5 top-[45%] left-[65%]">🛹</div>
-    <div class="bouncing-emoji animate-float-chaotic-2 top-[15%] left-[75%]">🤖</div>
-    <div class="bouncing-emoji animate-float-chaotic-4 top-[85%] left-[45%] grayscale">👽</div>
-    <div class="bouncing-emoji animate-float-chaotic-3 top-[10%] left-[20%]">😎</div>
-    <div class="bouncing-emoji animate-float-chaotic-1 top-[30%] left-[80%]">🦞</div>
-    <div class="bouncing-emoji animate-float-chaotic-5 top-[60%] left-[40%]">🤙</div>
+  <div class="ghost-window bottom-[15%] left-[5%] w-72 h-32" style="--duration: 35s;">
+    for(let i=0; i&lt;INF; i++) {'{'}<br />
+    &nbsp;&nbsp;glitch.render(Math.random());<br />
+    &nbsp;&nbsp;system.shred();<br />
+    {'}'}<br />
+    // FIXME: stop reality leaking
   </div>
 
-  <div class="relative flex min-h-screen w-full lg:flex-row flex-col max-w-[1800px] mx-auto z-20">
+  <!-- Emoji Animation Layer -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+    <div class="floating-emoji text-6xl" style="top: 10%; left: 5%; --duration: 38s;">💀</div>
+    <div class="floating-emoji text-5xl" style="top: 70%; left: 15%; --duration: 12s;">🍄</div>
+    <div class="floating-emoji text-7xl" style="top: 40%; left: 80%; --duration: 45s;">🏂</div>
+    <div class="floating-emoji text-4xl" style="top: 20%; left: 60%; --duration: 15s;">🦞</div>
+    <div class="floating-emoji text-5xl" style="top: 85%; left: 45%; --duration: 10s;">🛹</div>
+    <div class="floating-emoji text-6xl" style="top: 50%; left: 30%; --duration: 32s;">🤙</div>
+    <div class="floating-emoji text-4xl" style="top: 5%; left: 90%; --duration: 42s;">🍄</div>
+    <div class="floating-emoji text-6xl" style="top: 60%; left: 70%; --duration: 18s;">💀</div>
+    <div class="floating-emoji text-6xl" style="top: 30%; left: 85%; --duration: 25s;">👽</div>
+    <div class="floating-emoji text-5xl" style="top: 15%; left: 25%; --duration: 28s;">🦞</div>
+    <div class="floating-emoji text-7xl" style="top: 75%; left: 85%; --duration: 33s;">🤙</div>
+  </div>
 
-    <!-- Navigation Sidebar (Melting Terminal) -->
-    <aside class="w-full lg:w-[360px] lg:fixed lg:h-screen p-8 flex flex-col gap-10 z-50 bg-background-dark/90 backdrop-blur-md lg:bg-transparent lg:backdrop-blur-none border-b-8 lg:border-b-0 border-primary">
+  <!-- Glitch Tile Background -->
+  <div class="ascii-bg">
+    01001101 01000001 01001110 01001001 01000110 01000101 01010011 01010100 01001111 %#@!&amp; SYSTEM FAILURE %#@!&amp; KICKFLIP THE MAINFRAME 01010011 01011001 01010011 01010100 01000101 01001101 ERROR ERROR ERROR %#@!&amp; 🍄🛹💀 AI_HALLUCINATION %#@!&amp; 🦞🤙💀
+  </div>
 
-      <div class="border-4 border-primary bg-black/80 relative overflow-hidden transform -rotate-1">
-        <div class="absolute inset-0 bg-primary/10 animate-pulse pointer-events-none"></div>
-
-        <!-- Terminal Title Bar -->
-        <div class="bg-primary px-4 py-2 flex items-center justify-between">
-          <h1 class="text-black text-xs font-black uppercase tracking-[0.3em] typewriter-text" style="animation: typewriter 3s steps(40, end), blink 0.75s step-end infinite;">KERNEL_PANIC:shred</h1>
-          <div class="flex gap-2">
-            <div class="w-3 h-3 bg-black"></div>
-            <div class="w-3 h-3 bg-accent-red animate-ping"></div>
+  <!-- SideNavBar -->
+  <div class="w-[250px] sticky top-0 h-screen flex-shrink-0 border-r-4 border-primary/40 bg-[#050505] z-30 shadow-[4px_0_15px_rgba(6,249,249,0.1)]">
+    <div class="flex h-full flex-col justify-between p-4 bg-[#111111]/80 backdrop-blur-sm">
+      <div class="flex flex-col gap-6 mt-4">
+        <div class="flex gap-3 items-center">
+          <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-none border-2 border-primary size-12" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBEU3Kv5k_jC3kl1ujtbmnQmwNSyTORLrqZdzLXzzYl4PqWo-K9JVrKdn8HCPLSqo8C6waHpDi84qXpc9zB-ZgOioKfr0p9Aemd1pnK3E19PvyFFaSUVa80NBW8zLny8_lkxL0eoWR5hQe4okxxyKbDxXNppJCeulc4dEdYI2oFgMXUmuoKwV_aE8wGrzi1nFqNiZdoK_hrCg6sZSAPEXRQ8_Gx9cCkEE9-6lchNlNh3GfD_XTd1e6jwJz8AAZNJxYWvsi1RirHWTRz");'></div>
+          <div class="flex flex-col">
+            <h1 class="text-white text-lg font-bold leading-normal glitch-text uppercase tracking-widest">SYSTEM_SYS</h1>
+            <p class="text-primary text-xs font-mono leading-normal">V. 9.0.1</p>
           </div>
         </div>
 
-        <!-- Nav Links -->
-        <div class="p-6 flex flex-col gap-4 font-mono text-xl">
-          <a class:list={["flex items-center gap-4 px-3 py-2 hover:bg-primary/30 group relative", currentPath === "/" && "bg-primary/20"]} href="/">
-            <span class="text-primary group-hover:animate-bounce typewriter-text" style="animation: typewriter 1s steps(40, end), blink 0.75s step-end infinite;">ERR:</span>
-            <span class="text-white font-black uppercase tracking-tighter chromatic-text melting-text" data-text="HOME">HOME</span>
-            <div class="absolute bottom-0 left-0 w-full h-[2px] bg-accent-red scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+        <div class="flex flex-col gap-2 mt-8">
+          <a class:list={[
+            "flex items-center gap-3 px-3 py-3 cursor-pointer transition-colors border border-transparent group",
+            activeNav === "home" ? "bg-primary/20 border-2 !border-primary relative overflow-hidden" : "hover:bg-[#FF003C]/20 hover:border-[#FF003C]"
+          ]} href="/">
+            {activeNav === "home" && <div class="absolute inset-0 bg-primary/10 glitch-bg"></div>}
+            <div class:list={["transition-colors relative z-10", activeNav === "home" ? "text-primary" : "text-primary group-hover:text-[#FF003C]"]}>
+              <span class="material-symbols-outlined">terminal</span>
+            </div>
+            <p class:list={["text-sm font-bold tracking-wider relative z-10", activeNav === "home" ? "text-primary glitch-text" : "text-white group-hover:text-[#FF003C] group-hover:glitch-text transition-all"]}>[&gt; HOME]</p>
           </a>
 
-          <a class:list={["flex items-center gap-4 px-3 py-2 hover:bg-accent-magenta/30 group relative", currentPath === "/manifesto/" && "bg-accent-magenta/20"]} href="/manifesto/">
-            <span class="text-muted group-hover:text-accent-magenta typewriter-text" style="animation: typewriter 1.5s steps(40, end) 0.5s, blink 0.75s step-end infinite;">ERR:</span>
-            <span class="text-gray-400 font-black uppercase tracking-tighter chromatic-text melting-text" data-text="MANIFESTO">MANIFESTO</span>
+          <a class:list={[
+            "flex items-center gap-3 px-3 py-3 cursor-pointer transition-colors border border-transparent group",
+            activeNav === "manifesto" ? "bg-primary/20 border-2 !border-primary relative overflow-hidden" : "hover:bg-[#FF003C]/20 hover:border-[#FF003C]"
+          ]} href="/manifesto">
+            {activeNav === "manifesto" && <div class="absolute inset-0 bg-primary/10 glitch-bg"></div>}
+            <div class:list={["transition-colors relative z-10", activeNav === "manifesto" ? "text-primary" : "text-primary group-hover:text-[#FF003C]"]}>
+              <span class="material-symbols-outlined" style={activeNav === "manifesto" ? "font-variation-settings: 'FILL' 1;" : ""}>code</span>
+            </div>
+            <p class:list={["text-sm font-bold tracking-wider relative z-10", activeNav === "manifesto" ? "text-primary glitch-text" : "text-white group-hover:text-[#FF003C] group-hover:glitch-text transition-all"]}>[&gt; MANIFESTO]</p>
           </a>
 
-          <a class:list={["flex items-center gap-4 px-3 py-2 hover:bg-accent-red/30 group relative", currentPath === "/blog/" && "bg-accent-red/20"]} href="/blog/">
-            <span class="text-muted group-hover:text-accent-red typewriter-text" style="animation: typewriter 2s steps(40, end) 1s, blink 0.75s step-end infinite;">ERR:</span>
-            <span class="text-gray-400 font-black uppercase tracking-tighter chromatic-text melting-text" data-text="DATABLOCKS">DATABLOCKS</span>
+          <a class:list={[
+            "flex items-center gap-3 px-3 py-3 cursor-pointer transition-colors border border-transparent group",
+            activeNav === "fragments" ? "bg-primary/20 border-2 !border-primary relative overflow-hidden" : "hover:bg-[#FF003C]/20 hover:border-[#FF003C]"
+          ]} href="/fragments">
+            {activeNav === "fragments" && <div class="absolute inset-0 bg-primary/10 glitch-bg"></div>}
+            <div class:list={["transition-colors relative z-10", activeNav === "fragments" ? "text-primary" : "text-primary group-hover:text-[#FF003C]"]}>
+              <span class="material-symbols-outlined">hive</span>
+            </div>
+            <p class:list={["text-sm font-bold tracking-wider relative z-10", activeNav === "fragments" ? "text-primary glitch-text" : "text-white group-hover:text-[#FF003C] group-hover:glitch-text transition-all"]}>[&gt; FRAGMENTS]</p>
           </a>
 
-          <a class:list={["flex items-center gap-4 px-3 py-2 hover:bg-primary/30 group relative", currentPath === "/projects/" && "bg-primary/20"]} href="/projects/">
-            <span class="text-muted group-hover:text-primary typewriter-text" style="animation: typewriter 2s steps(40, end) 1.5s, blink 0.75s step-end infinite;">ERR:</span>
-            <span class="text-gray-400 font-black uppercase tracking-tighter chromatic-text melting-text" data-text="PROJECTS">PROJECTS</span>
-          </a>
-
-          <a class:list={["flex items-center gap-4 px-3 py-2 hover:bg-accent-magenta/30 group relative", currentPath === "/fragments/" && "bg-accent-magenta/20"]} href="/fragments/">
-            <span class="text-muted group-hover:text-accent-magenta typewriter-text" style="animation: typewriter 2.5s steps(40, end) 2s, blink 0.75s step-end infinite;">ERR:</span>
-            <span class="text-gray-400 font-black uppercase tracking-tighter chromatic-text melting-text" data-text="FRAGMENTS">FRAGMENTS</span>
+          <a class:list={[
+            "flex items-center gap-3 px-3 py-3 cursor-pointer transition-colors border border-transparent mt-12 group",
+            activeNav === "fatal_error" ? "bg-[#FF003C]/20 border-2 !border-[#FF003C]" : "hover:bg-[#FF003C]/20 hover:border-[#FF003C]"
+          ]} href="/404">
+            <div class="text-[#FF003C]">
+              <span class="material-symbols-outlined">warning</span>
+            </div>
+            <p class="text-[#FF003C] text-sm font-bold tracking-wider glitch-text group-hover:scale-105 transition-transform">[&gt; FATAL_ERROR]</p>
           </a>
         </div>
       </div>
 
-      <!-- System Status (Desktop only) -->
-      <div class="hidden lg:block mt-auto pb-12">
-        <div class="text-primary font-mono text-[10px] leading-none space-y-1 p-4 border-l-4 border-accent-magenta bg-black/40 animate-data-bleed">
-          <p class="typewriter-text" style="animation: typewriter 2s steps(40, end), blink 0.75s step-end infinite;">MEMORY_ADDR: 0xDEADBEEF</p>
-          <p class="typewriter-text" style="animation: typewriter 2.5s steps(40, end), blink 0.75s step-end infinite;">BUFFER_OVERFLOW: DETECTED</p>
-          <p class="typewriter-text" style="animation: typewriter 3s steps(40, end), blink 0.75s step-end infinite;">REALITY_SYNC: DISCONNECTED</p>
-          <p class="text-white bg-accent-red inline-block px-1 typewriter-text" style="animation: typewriter 1.5s steps(40, end), blink 0.75s step-end infinite;">SYSTEM_SHREDDING...</p>
-        </div>
-      </div>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="flex-1 lg:ml-[360px] p-6 lg:p-16 xl:p-24 relative overflow-hidden">
-      <slot />
-    </main>
+      <button id="toggle-mode" class="mt-auto p-3 border-2 border-primary/40 text-primary hover:border-primary transition-all font-bold text-xs uppercase tracking-tighter cursor-pointer">
+        [ TOGGLE_MODE ]
+      </button>
+    </div>
   </div>
 
+  <!-- Main Content -->
+  <main class="flex-1 flex flex-col items-center gap-24 p-4 md:p-8 relative z-10">
+    <slot />
+  </main>
+
   <script>
-    // Mode toggle
-    document.getElementById('mode-toggle')?.addEventListener('click', () => {
+    // Dark mode toggle
+    document.getElementById('toggle-mode')?.addEventListener('click', () => {
       document.documentElement.classList.toggle('dark');
       document.documentElement.classList.toggle('light');
     });
 
-    // Intersection Observer for scroll-triggered reveals
-    const observerOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+    // Intersection Observer for scroll-triggered "hallucinations"
+    const observerOptions = {
+      threshold: 0.15,
+      rootMargin: "0px 0px -50px 0px"
+    };
+
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('active');
+          entry.target.classList.add('hallucinate-entry');
+          setTimeout(() => {
+            entry.target.classList.remove('hallucinate-entry');
+          }, 800);
         }
       });
     }, observerOptions);
-    document.querySelectorAll('.reveal-element').forEach(el => revealObserver.observe(el));
+
+    document.querySelectorAll('.reveal-element').forEach(el => {
+      revealObserver.observe(el);
+    });
+
+    // Simple scroll parallax for background characters
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const asciiBg = document.querySelector('.ascii-bg');
+      if (asciiBg) {
+        (asciiBg as HTMLElement).style.transform = `translateY(${scrolled * 0.25}px)`;
+      }
+
+      // Morph floating elements slightly on scroll
+      document.querySelectorAll('.floating-emoji').forEach(emoji => {
+        const el = emoji as HTMLElement;
+        const speed = parseInt(el.style.getPropertyValue('--duration')) || 20;
+        el.style.filter = `blur(${1 + (scrolled/500)}px) hue-rotate(${scrolled/10}deg)`;
+      });
+    });
   </script>
 </body>
 </html>
