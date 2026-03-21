@@ -4,11 +4,38 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout title="💀 CyperX.dev" activeNav="home">
 
-  <!-- Chaos sticker (tablet+ only) -->
-  <div class="chaos-sticker sticker-filled hidden sm:block" style="position: absolute; top: 2%; left: 3%; z-index: 40;">NULL_REF</div>
+  <!-- ============================================
+       FRACTAL CHAOS A — PSYCHEDELIC SKULL COLLAGE
+       Dense, overlapping, maximum visual overload
+  ============================================ -->
 
-  <!-- ===== TERMINAL HEADER ===== -->
-  <div class="w-full max-w-4xl fractal-card p-3 sm:p-4 font-mono mb-4 sm:mb-8 lg:mb-12 chaos-rotate-n1 relative z-30 collage-pull-up">
+  <!-- Psychedelic Skull Collage BG — covers everything -->
+  <div class="skull-collage-bg"></div>
+
+  <!-- Scattered decorative skulls (absolute positioned, behind cards) -->
+  <div class="hidden sm:block absolute top-[2%] left-[-5%] text-[120px] lg:text-[180px] opacity-60 pointer-events-none z-[5] rotate-[-15deg] saturate-200 hue-rotate-[280deg] mix-blend-screen animate-float-slow select-none" aria-hidden="true">💀</div>
+  <div class="hidden md:block absolute top-[8%] right-[-2%] text-[100px] lg:text-[150px] opacity-50 pointer-events-none z-[5] rotate-[20deg] saturate-200 hue-rotate-[60deg] mix-blend-screen animate-float-medium select-none" aria-hidden="true">💀</div>
+  <div class="hidden lg:block absolute top-[25%] left-[-8%] text-[140px] opacity-40 pointer-events-none z-[5] rotate-[35deg] saturate-200 hue-rotate-[120deg] mix-blend-screen animate-float-fast select-none" aria-hidden="true">💀</div>
+  <div class="hidden sm:block absolute top-[40%] right-[-6%] text-[110px] lg:text-[160px] opacity-55 pointer-events-none z-[5] rotate-[-25deg] saturate-200 hue-rotate-[200deg] mix-blend-screen animate-float-slow select-none" aria-hidden="true">💀</div>
+  <div class="hidden md:block absolute top-[55%] left-[-3%] text-[90px] lg:text-[130px] opacity-45 pointer-events-none z-[5] rotate-[10deg] saturate-200 hue-rotate-[330deg] mix-blend-screen animate-float-medium select-none" aria-hidden="true">💀</div>
+  <div class="hidden lg:block absolute top-[70%] right-[-5%] text-[120px] opacity-50 pointer-events-none z-[5] rotate-[-40deg] saturate-200 hue-rotate-[90deg] mix-blend-screen animate-float-fast select-none" aria-hidden="true">💀</div>
+  <div class="hidden sm:block absolute top-[85%] left-[10%] text-[100px] lg:text-[140px] opacity-40 pointer-events-none z-[5] rotate-[50deg] saturate-200 hue-rotate-[160deg] mix-blend-screen animate-float-slow select-none" aria-hidden="true">💀</div>
+
+  <!-- Scattered mushrooms + emojis -->
+  <div class="hidden sm:block absolute top-[15%] left-[5%] text-[60px] lg:text-[80px] opacity-70 pointer-events-none z-[6] rotate-[-10deg] mix-blend-screen animate-float-fast select-none" aria-hidden="true">🍄</div>
+  <div class="hidden md:block absolute top-[35%] right-[3%] text-[50px] lg:text-[70px] opacity-60 pointer-events-none z-[6] rotate-[15deg] mix-blend-screen animate-float-medium select-none" aria-hidden="true">🛹</div>
+  <div class="hidden lg:block absolute top-[50%] left-[2%] text-[55px] opacity-65 pointer-events-none z-[6] rotate-[-20deg] mix-blend-screen animate-float-slow select-none" aria-hidden="true">🤙</div>
+  <div class="hidden sm:block absolute top-[65%] right-[8%] text-[45px] lg:text-[65px] opacity-55 pointer-events-none z-[6] rotate-[30deg] mix-blend-screen animate-float-fast select-none" aria-hidden="true">🦞</div>
+  <div class="hidden md:block absolute top-[80%] left-[8%] text-[50px] lg:text-[70px] opacity-60 pointer-events-none z-[6] rotate-[-5deg] mix-blend-screen animate-float-medium select-none" aria-hidden="true">🏂</div>
+  <div class="hidden lg:block absolute top-[5%] left-[40%] text-[40px] opacity-50 pointer-events-none z-[6] rotate-[45deg] mix-blend-screen animate-float-slow select-none" aria-hidden="true">🍄</div>
+
+  <!-- Top sticker -->
+  <div class="chaos-sticker sticker-red hidden sm:block" style="position: absolute; top: 1%; right: 2%; z-index: 50; transform: rotate(5deg);">LOADING:_BRAIN.EXE</div>
+
+  <!-- ===== TERMINAL HEADER — tilted, overlapping ===== -->
+  <div class="w-[95%] sm:w-[85%] max-w-3xl fractal-card p-3 sm:p-4 font-mono mb-0 sm:mb-[-2rem] relative z-30
+              transform rotate-[-2deg] sm:rotate-[-3deg] sm:translate-x-[-5%]
+              shadow-[8px_8px_0_#FF003C,-4px_-4px_0_#00FFFF]">
     <div class="flex items-center gap-2 mb-3 sm:mb-4 border-b border-muted pb-2">
       <div class="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-accent-red flex-shrink-0"></div>
       <div class="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-primary flex-shrink-0"></div>
@@ -28,21 +55,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
   </div>
 
-  <!-- ASCII Block decoration -->
-  <div class="ascii-block w-full max-w-4xl text-[10px] sm:text-sm overflow-hidden">
-    ░▒▓█ FRACTAL CHAOS — INITIALIZING... █▓▒░
-    ▓▒░ SYS:CORRUPT — AESTHETIC:MAXIMUM — VOID:OPEN ░▒▓
+  <!-- Dripping divider -->
+  <div class="w-full max-w-4xl h-6 sm:h-10 relative z-20 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-[#FF003C]/30 via-transparent to-transparent"></div>
+    <div class="drip-effect"></div>
   </div>
 
-  <!-- Glitch bar divider -->
-  <div class="glitch-bar-static w-full max-w-4xl"></div>
-
-  <!-- ===== POST 1 ===== -->
-  <article class="fractal-card p-1 w-full max-w-4xl cursor-crosshair group chaos-rotate-n2 collage-pull-up relative z-30
-                  sm:lg:-ml-20 sm:lg:translate-x-10">
+  <!-- ===== POST 1 — NEURAL / GHOST_IN_THE_CODE ===== -->
+  <article class="fractal-card punk-border p-1 w-[95%] sm:w-[90%] max-w-4xl cursor-crosshair group relative z-30
+                  transform rotate-[1deg] sm:rotate-[2deg] sm:translate-x-[3%]
+                  shadow-[12px_12px_0_#FF00FF,-6px_-6px_0_#00FFFF] mb-[-1rem] sm:mb-[-3rem]">
     <div class="chaos-sticker sticker-magenta hidden sm:block" style="position: absolute; top: -1rem; right: -1rem; z-index: 50;">CORRUPTION_LOG_01</div>
 
-    <div class="dark:bg-surface bg-surface-light p-4 sm:p-6 lg:p-10 h-full w-full relative overflow-hidden">
+    <div class="dark:bg-surface/90 bg-surface-light/90 p-4 sm:p-6 lg:p-10 h-full w-full relative overflow-hidden backdrop-blur-sm">
       <div class="absolute inset-0 bg-[repeating-linear-gradient(45deg,transparent,transparent_2px,rgba(255,0,0,0.05)_2px,rgba(255,0,0,0.05)_4px)] pointer-events-none"></div>
       <div class="flex flex-col gap-4 sm:gap-6">
         <div class="flex items-center gap-2 sm:gap-4 justify-between border-b-2 border-primary pb-2 flex-wrap">
@@ -69,18 +94,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
   </article>
 
-  <!-- Chaos divider -->
-  <div class="chaos-divider w-full max-w-4xl"></div>
-
-  <!-- Data dump decoration (hidden on mobile, too wide) -->
-  <div class="data-dump w-full max-w-4xl hidden sm:block overflow-hidden text-[10px] sm:text-sm">
-    SYS: 0xDEAD | MEM: OVERFLOW | PTR: NULL | STACK: CORRUPT | HEAP: SHREDDED | REALITY: OPTIONAL
+  <!-- Chaos scatter zone — skulls + data between cards -->
+  <div class="relative w-full max-w-4xl h-8 sm:h-16 z-20 overflow-visible">
+    <div class="data-dump absolute left-0 right-0 text-center overflow-hidden text-[8px] sm:text-[10px]">
+      SYS: 0xDEAD | MEM: OVERFLOW | PTR: NULL | STACK: CORRUPT | HEAP: SHREDDED | REALITY: OPTIONAL
+    </div>
+    <div class="hidden sm:block absolute left-[-3%] top-[-50%] text-6xl lg:text-8xl opacity-70 rotate-[-15deg] pointer-events-none z-[15] mix-blend-screen select-none">💀</div>
+    <div class="hidden md:block absolute right-[-2%] top-[-30%] text-5xl lg:text-7xl opacity-60 rotate-[20deg] pointer-events-none z-[15] mix-blend-screen select-none">🍄</div>
   </div>
 
-  <!-- ===== POST 2 ===== -->
-  <article class="fractal-card p-1 w-full max-w-4xl group chaos-rotate-2 torn-top relative z-30
-                  sm:lg:self-end sm:lg:-translate-x-20">
-    <div class="dark:bg-surface bg-surface-light p-4 sm:p-6 lg:p-10 h-full w-full relative overflow-hidden">
+  <!-- ===== POST 2 — PSILOCYBIN_SHELL ===== -->
+  <article class="fractal-card torn-top p-1 w-[95%] sm:w-[88%] max-w-4xl group relative z-30
+                  transform rotate-[-1deg] sm:rotate-[-3deg] sm:translate-x-[-4%]
+                  shadow-[10px_10px_0_#00FFFF,-8px_-8px_0_#FF003C] mb-[-1rem] sm:mb-[-2rem]">
+    <div class="chaos-sticker sticker-cyan hidden sm:block" style="position: absolute; top: -1rem; left: 1rem; z-index: 50;">MYCELIUM_NET</div>
+    <div class="dark:bg-surface/90 bg-surface-light/90 p-4 sm:p-6 lg:p-10 h-full w-full relative overflow-hidden backdrop-blur-sm">
       <div class="flex flex-col gap-4 sm:gap-6">
         <div class="flex items-center gap-2 sm:gap-4 justify-between border-b-2 border-accent-magenta pb-2 flex-wrap">
           <p class="text-primary font-mono text-[10px] sm:text-xs tracking-wider typewriter-text">ERROR_LOG_NULL [SYS_TIME]</p>
@@ -107,22 +135,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
   </article>
 
-  <!-- Corrupt block divider -->
-  <div class="corrupt-block w-full max-w-4xl"></div>
-
-  <!-- ASCII Block -->
-  <div class="ascii-block w-full max-w-4xl chaos-rotate-n1 text-[10px] sm:text-sm overflow-hidden">
-    ╔══════════════════════════════╗
-    ║  REALITY_SYNC: FAILED        ║
-    ║  FRACTAL_DEPTH: ∞  SYS: ERR  ║
-    ╚══════════════════════════════╝
+  <!-- More chaos scatter -->
+  <div class="relative w-full max-w-4xl h-6 sm:h-12 z-20 overflow-visible">
+    <div class="hidden sm:block absolute right-[5%] top-[-40%] text-5xl lg:text-7xl opacity-65 rotate-[25deg] pointer-events-none z-[15] mix-blend-screen select-none">💀</div>
+    <div class="hidden md:block absolute left-[10%] top-[-20%] text-4xl lg:text-6xl opacity-55 rotate-[-30deg] pointer-events-none z-[15] mix-blend-screen select-none">🤙</div>
   </div>
 
   <!-- ===== POST 3 — VOID CARD ===== -->
-  <article class="fractal-card p-1 w-full max-w-4xl group chaos-rotate-n3 collage-pull-up relative z-30
-                  sm:lg:translate-x-32">
+  <article class="fractal-card p-1 w-[90%] sm:w-[75%] max-w-3xl group relative z-30
+                  transform rotate-[2deg] sm:rotate-[4deg] sm:translate-x-[8%]
+                  shadow-[15px_15px_0_#FF003C,-10px_-10px_0_#FF00FF] mb-4">
     <div class="chaos-sticker sticker-acid hidden sm:block" style="position: absolute; bottom: -1rem; left: 2rem; z-index: 50;">ENTROPY_MAX</div>
-    <div class="dark:bg-surface bg-surface-light p-8 sm:p-12 h-full w-full flex flex-col items-center justify-center min-h-[200px] sm:min-h-[400px]">
+    <div class="dark:bg-surface/90 bg-surface-light/90 p-8 sm:p-12 h-full w-full flex flex-col items-center justify-center min-h-[200px] sm:min-h-[400px] relative overflow-hidden backdrop-blur-sm">
+      <!-- Drip overlay inside void card -->
+      <div class="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-[#FF00FF]/20 to-transparent pointer-events-none"></div>
       <h2 class="text-4xl sm:text-chaos-2xl glitch-intense text-transparent bg-clip-text bg-gradient-to-br from-primary via-accent-magenta to-accent-red animate-glitch-rotate italic typewriter-text melting-text">
         VOID
       </h2>
@@ -130,11 +156,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
   </article>
 
-  <!-- Final chaos divider -->
-  <div class="chaos-divider w-full max-w-4xl"></div>
+  <!-- Bottom scatter -->
+  <div class="relative w-full max-w-4xl h-8 z-20 overflow-visible">
+    <div class="hidden sm:block absolute left-[20%] top-[-60%] text-6xl lg:text-8xl opacity-50 rotate-[40deg] pointer-events-none z-[15] mix-blend-screen select-none">💀</div>
+    <div class="hidden md:block absolute right-[15%] top-[-40%] text-4xl lg:text-6xl opacity-55 rotate-[-15deg] pointer-events-none z-[15] mix-blend-screen select-none">🍄</div>
+  </div>
 
   <!-- Footer Overload -->
-  <div class="w-full max-w-3xl text-center mt-8 sm:mt-20 relative px-4">
+  <div class="w-full max-w-3xl text-center mt-4 sm:mt-12 relative px-4 z-30">
     <div class="absolute inset-0 blur-3xl bg-primary/20 animate-pulse -z-10"></div>
     <p class="text-2xl sm:text-chaos-2xl glitch-intense text-accent-red font-black tracking-tighter animate-data-bleed mb-4 sm:mb-8 typewriter-text melting-text break-words">
       [END_OF_SIMULATION]
