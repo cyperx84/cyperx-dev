@@ -1,73 +1,50 @@
 ---
-import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html class="dark" lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>404 - BAD_TRIP / SECTOR CORRUPT</title>
-  <link href="https://fonts.googleapis.com" rel="preconnect" />
-  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Rubik+Glitch&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=VT323&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-</head>
-<body class="font-display flex h-screen w-full flex-col items-center justify-center relative">
+<BaseLayout title="💀 404 — BAD_TRIP" activeNav="">
 
-  <!-- Fractal Chaos Overlays -->
-  <div class="fractal-sierpinski"></div>
-  <div class="fractal-grid"></div>
-  <div class="noise-grain"></div>
-  <div class="scanlines-crt"></div>
-  <div class="color-noise-wash"></div>
+  <!-- Chaos sticker badges (sm+) -->
+  <div class="chaos-sticker sticker-red hidden sm:block" style="position: absolute; top: 5%; right: 5%; z-index: 40; pointer-events: none;">SECTOR_CORRUPT</div>
+  <div class="chaos-sticker sticker-magenta hidden sm:block" style="position: absolute; bottom: 10%; left: 3%; z-index: 40; pointer-events: none;">BAD_TRIP_404</div>
+  <div class="chaos-sticker sticker-acid hidden md:block" style="position: absolute; top: 45%; right: 2%; z-index: 40; pointer-events: none; transform: rotate(-6deg);">VOID_404</div>
 
-  <!-- Glitch bars -->
-  <div class="glitch-bar" style="top: 15%"></div>
-  <div class="glitch-bar" style="top: 50%"></div>
-  <div class="glitch-bar" style="top: 80%"></div>
+  <!-- Emoji clusters -->
+  <span class="absolute top-10 left-3 sm:left-10 text-2xl sm:text-4xl opacity-50 z-0 drop-shadow-[0_0_10px_#FF00FF] animate-float-medium">💀🍄😎</span>
+  <span class="absolute bottom-24 right-4 sm:right-20 text-3xl sm:text-5xl opacity-30 z-0 drop-shadow-[0_0_15px_#06f9f9] transform rotate-45 animate-float-slow hidden sm:block">🛹👾👽</span>
+  <span class="absolute top-1/4 right-1/4 text-2xl sm:text-3xl opacity-40 z-0 drop-shadow-[0_0_5px_#FF003C] -rotate-12 animate-float-fast hidden md:block">🤖💥👾</span>
 
-  <!-- Chaos sticker badges -->
-  <div class="chaos-sticker sticker-red" style="position: fixed; top: 5%; right: 5%; z-index: 200; pointer-events: none;">SECTOR_CORRUPT</div>
-  <div class="chaos-sticker sticker-magenta" style="position: fixed; bottom: 10%; left: 3%; z-index: 200; pointer-events: none;">BAD_TRIP_404</div>
-  <div class="chaos-sticker sticker-acid" style="position: fixed; top: 45%; right: 2%; z-index: 200; pointer-events: none; transform: rotate(-6deg);">VOID_404</div>
-
-  <!-- Dense Emoji Cluster - Background Elements -->
-  <span class="absolute top-10 left-10 text-4xl opacity-50 z-0 drop-shadow-[0_0_10px_#FF00FF] animate-float-medium">💀🍄😎</span>
-  <span class="absolute bottom-20 right-20 text-5xl opacity-30 z-0 drop-shadow-[0_0_15px_#06f9f9] transform rotate-45 animate-float-slow">🛹👾👽</span>
-  <span class="absolute top-1/4 right-1/4 text-3xl opacity-40 z-0 drop-shadow-[0_0_5px_#FF003C] -rotate-12 animate-float-fast">🤖💥👾</span>
-
-  <div class="z-10 flex flex-col items-center gap-12 max-w-5xl px-6 w-full relative">
+  <div class="z-10 flex flex-col items-center gap-6 sm:gap-12 w-full max-w-5xl px-3 sm:px-6 text-center">
     <!-- Glitch Header -->
-    <h1 class="text-5xl md:text-7xl lg:text-8xl text-center leading-none w-full break-words glitch-text-404">
+    <h1 class="text-5xl sm:text-7xl lg:text-8xl text-center leading-none w-full break-words" style="position: relative; display: inline-block; animation: pulseGlitch 0.5s infinite; font-weight: 900; text-transform: uppercase; letter-spacing: -2px;">
       <span class="block text-chaos-2xl glitch-intense">404</span>
-      <span class="block text-chaos-xl mt-4">BAD_TRIP /</span>
-      <span class="block text-chaos-xl text-accent-red">SECTOR CORRUPT</span>
+      <span class="block text-2xl sm:text-chaos-xl mt-2 sm:mt-4">BAD_TRIP /</span>
+      <span class="block text-2xl sm:text-chaos-xl text-accent-red">SECTOR CORRUPT</span>
     </h1>
 
-    <!-- ASCII Block decoration -->
-    <div class="ascii-block w-full max-w-lg chaos-rotate-n2">
+    <!-- ASCII Block -->
+    <div class="ascii-block w-full max-w-xs sm:max-w-lg chaos-rotate-n2 text-[9px] sm:text-sm overflow-hidden">
       ▓▓▓ NAVIGATION_FAILED :: SECTOR_CORRUPT ▓▓▓
       ░░░ REALITY_PTR: NULL :: RETURN: UNDEFINED ░░░
       ███ 0x404 NOT_FOUND :: VOID_STATE: ACTIVE ███
     </div>
 
-    <!-- Corrupt block divider -->
-    <div class="corrupt-block w-full max-w-lg"></div>
+    <!-- Corrupt block -->
+    <div class="corrupt-block w-full max-w-xs sm:max-w-lg"></div>
 
-    <!-- Return Button (Placed before ASCII for CSS sibling selector hover effect) -->
-    <a class="paddle-btn group relative cursor-pointer fractal-card px-8 py-4 z-20 hover:bg-accent-red hover:border-accent-red hover:text-background-dark transition-colors duration-0" href="/">
-      <span class="font-mono text-xl md:text-2xl font-bold uppercase tracking-widest block relative z-10 group-hover:animate-none text-primary group-hover:text-background-dark">
-        <span class="text-accent-red group-hover:text-background-dark animate-pulse-glitch inline-block mr-2">[&gt;</span>
+    <!-- Return Button -->
+    <a class="group relative cursor-pointer fractal-card px-6 sm:px-8 py-3 sm:py-4 z-20 hover:bg-accent-red hover:border-accent-red hover:text-background-dark transition-colors duration-0" href="/">
+      <span class="font-mono text-base sm:text-xl md:text-2xl font-bold uppercase tracking-widest block relative z-10 group-hover:animate-none text-primary group-hover:text-background-dark">
+        <span class="text-accent-red group-hover:text-background-dark animate-pulse-glitch inline-block mr-1 sm:mr-2">[&gt;</span>
         PADDLE BACK OUT
-        <span class="text-accent-red group-hover:text-background-dark animate-pulse-glitch inline-block ml-2">&lt;]</span>
+        <span class="text-accent-red group-hover:text-background-dark animate-pulse-glitch inline-block ml-1 sm:ml-2">&lt;]</span>
       </span>
-      <!-- Button glitch shadow -->
       <div class="absolute inset-0 border-2 border-accent-red transform translate-x-2 translate-y-2 mix-blend-screen opacity-50 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform"></div>
     </a>
 
-    <!-- Giant ASCII Art -->
-    <div class="ascii-container w-full flex justify-center relative z-10 overflow-hidden">
-      <pre class="ascii-art">        .-.
+    <!-- ASCII Art -->
+    <div class="w-full flex justify-center overflow-hidden">
+      <pre class="font-mono text-center" style="font-size: clamp(0.4rem, 1.5vw, 0.9rem); line-height: 1.1; color: #00FFFF; text-shadow: 2px 0 #FF003C, -2px 0 #00FFFF; white-space: pre;">        .-.
        (o.o)
         |=|
        __|__
@@ -84,71 +61,4 @@ import '../styles/global.css';
     </div>
   </div>
 
-  <style>
-    body {
-      background-color: #050505;
-      color: #F8F8F8;
-      overflow: hidden;
-      position: relative;
-    }
-
-    /* Subtle Background Noise */
-    body::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
-      opacity: 0.05;
-      pointer-events: none;
-      z-index: 0;
-      mix-blend-mode: overlay;
-    }
-
-    .glitch-text-404 {
-      position: relative;
-      display: inline-block;
-      animation: pulseGlitch 0.5s infinite;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: -2px;
-    }
-
-    .ascii-art {
-      font-family: monospace;
-      white-space: pre;
-      text-align: center;
-      line-height: 1.1;
-      font-size: clamp(0.5rem, 1.5vw, 1rem);
-      color: #00FFFF;
-      text-shadow: 2px 0 #FF003C, -2px 0 #00FFFF;
-      transition: all 0.1s;
-    }
-
-    .paddle-btn:hover ~ .ascii-container .ascii-art {
-      color: #FF003C;
-      text-shadow: 4px 4px 0 #00FFFF, -4px -4px 0 #FF00FF;
-      transform: scale(1.05) skewX(5deg);
-      filter: blur(1px);
-    }
-
-    /* Scramble effect on hover */
-    .paddle-btn:hover ~ .ascii-container .ascii-art::before {
-      content: "01010101 \A 10101010 \A ERR_CORRUPT \A 01010101 \A 10101010 \A FATAL_ERR \A 01010101 \A 10101010 \A BAD_TRIP \A 01010101 \A 10101010 \A SHRED_SYS \A 01010101";
-      white-space: pre-wrap;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #050505;
-      color: #F8F8F8;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      animation: pulseGlitch 0.2s infinite;
-    }
-  </style>
-</body>
-</html>
+</BaseLayout>

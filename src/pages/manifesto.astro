@@ -2,135 +2,133 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="MANIFESTO - Glitch Art Maximalist" activeNav="manifesto">
+<BaseLayout title="💀 Manifesto — CyperX.dev" activeNav="manifesto">
 
-  <!-- Chaos sticker on manifesto page -->
-  <div class="chaos-sticker sticker-red" style="position: absolute; top: 1rem; right: 1rem; z-index: 40; transform: rotate(4deg);">ROOT_ACCESS</div>
+  <!-- Chaos sticker (tablet+) -->
+  <div class="chaos-sticker sticker-red hidden sm:block" style="position: absolute; top: 1rem; right: 1rem; z-index: 40; transform: rotate(4deg);">ROOT_ACCESS</div>
 
   <div class="fractal-card w-full max-w-5xl relative overflow-visible transition-colors duration-300 reveal-element active">
-    <!-- Subtle Skull Watermark inside Terminal -->
+    <!-- Skull Watermark -->
     <div class="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none select-none z-0">
-      <span class="text-[20rem]">💀</span>
+      <span class="text-[10rem] sm:text-[20rem]">💀</span>
     </div>
 
-    <div class="terminal-ascii-border">
-      &lt;sk&gt;💀&lt;/sk&gt; ............................................................................................................ &lt;sk&gt;💀&lt;/sk&gt;<br />
-      :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:<br />
-      &lt;sk&gt;💀&lt;/sk&gt; ............................................................................................................ &lt;sk&gt;💀&lt;/sk&gt;
+    <div class="terminal-ascii-border hidden sm:block">
+      &lt;sk&gt;💀&lt;/sk&gt; ............................................................. &lt;sk&gt;💀&lt;/sk&gt;
     </div>
 
     <div class="absolute inset-0 glitch-bg pointer-events-none mix-blend-screen opacity-60 z-10"></div>
-    <span class="absolute -bottom-8 -right-8 text-6xl mix-blend-exclusion z-30 hover:scale-110 hover:-rotate-12 transition-transform cursor-pointer drop-shadow-[0_0_15px_rgba(255,0,255,0.8)]">💀🦞🤙😎</span>
-    <span class="absolute -top-6 -left-6 text-5xl mix-blend-difference z-30 opacity-90 drop-shadow-[0_0_10px_rgba(6,249,249,0.8)]">👾🦞🤙</span>
+    <span class="absolute -bottom-4 sm:-bottom-8 -right-2 sm:-right-8 text-3xl sm:text-6xl mix-blend-exclusion z-30 hover:scale-110 hover:-rotate-12 transition-transform cursor-pointer drop-shadow-[0_0_15px_rgba(255,0,255,0.8)]">💀🦞🤙😎</span>
+    <span class="absolute -top-3 sm:-top-6 -left-2 sm:-left-6 text-2xl sm:text-5xl mix-blend-difference z-30 opacity-90 drop-shadow-[0_0_10px_rgba(6,249,249,0.8)]">👾🦞🤙</span>
 
-    <div class="terminal-header bg-[#FF003C] px-6 py-3 flex items-center border-b-[3px] border-primary relative z-20 transition-colors duration-300">
-      <h2 class="text-chaos-xl glitch-intense text-white font-bold leading-tight tracking-widest uppercase">root@shredder:~</h2>
-      <div class="ml-auto flex gap-3">
-        <div class="size-4 rounded-sm bg-[#050505] border border-primary"></div>
-        <div class="size-4 rounded-sm bg-[#050505] border border-primary"></div>
-        <div class="size-4 rounded-sm bg-primary border border-primary"></div>
+    <div class="terminal-header bg-[#FF003C] px-3 sm:px-6 py-2 sm:py-3 flex items-center border-b-[3px] border-primary relative z-20 transition-colors duration-300">
+      <h2 class="text-base sm:text-chaos-xl glitch-intense text-white font-bold leading-tight tracking-widest uppercase truncate">root@shredder:~</h2>
+      <div class="ml-auto flex gap-2 sm:gap-3 flex-shrink-0">
+        <div class="size-3 sm:size-4 rounded-sm bg-[#050505] border border-primary"></div>
+        <div class="size-3 sm:size-4 rounded-sm bg-[#050505] border border-primary"></div>
+        <div class="size-3 sm:size-4 rounded-sm bg-primary border border-primary"></div>
       </div>
     </div>
 
-    <div class="terminal-body p-6 md:p-10 space-y-8 relative z-20 min-h-[500px] transition-colors duration-300">
-      <!-- Command 0: whoami -->
+    <div class="terminal-body p-4 sm:p-6 md:p-10 space-y-6 sm:space-y-8 relative z-20 min-h-[400px] sm:min-h-[500px] transition-colors duration-300">
+      <!-- whoami -->
       <div class="reveal-element">
-        <div class="text-primary text-2xl font-bold mb-2 flex items-center">
-          <span class="mr-3 text-[#FF003C] animate-pulse">#</span><span class="typewriter inline-block dark:text-white text-black">whoami</span>
+        <div class="text-primary text-lg sm:text-2xl font-bold mb-2 flex items-center">
+          <span class="mr-2 sm:mr-3 text-[#FF003C] animate-pulse">#</span>
+          <span class="typewriter inline-block dark:text-white text-black text-base sm:text-xl">whoami</span>
         </div>
-        <div class="text-primary/80 font-mono text-sm ml-6 italic">
+        <div class="text-primary/80 font-mono text-xs sm:text-sm ml-4 sm:ml-6 italic">
           DIGITAL_CORRUPTOR // GLITCH_MAXIMALIST // VOID_WALKER
         </div>
       </div>
 
-      <!-- Glitch bar divider -->
       <div class="glitch-bar-static"></div>
 
-      <!-- Command 1 -->
+      <!-- cat manifesto -->
       <div class="pt-2 reveal-element">
-        <div class="text-primary text-2xl font-bold mb-4 flex items-center">
-          <span class="mr-3">&gt;</span><span class="typewriter inline-block dark:text-white text-black">cat manifesto.txt</span>
+        <div class="text-primary text-lg sm:text-2xl font-bold mb-3 sm:mb-4 flex items-center">
+          <span class="mr-2 sm:mr-3">&gt;</span>
+          <span class="typewriter inline-block dark:text-white text-black text-sm sm:text-base">cat manifesto.txt</span>
         </div>
-        <div class="space-y-6 text-xl text-slate-100 leading-relaxed border-l-[6px] border-[#FF003C] pl-6 ml-2 bg-[#111111]/80 p-4 transition-colors duration-300">
-          <p class="glitch-text opacity-95">
+        <div class="space-y-4 sm:space-y-6 text-base sm:text-xl text-slate-100 leading-relaxed border-l-4 sm:border-l-[6px] border-[#FF003C] pl-4 sm:pl-6 ml-1 sm:ml-2 bg-[#111111]/80 p-3 sm:p-4 transition-colors duration-300">
+          <p class="glitch-text opacity-95 text-sm sm:text-base lg:text-xl">
             I am the ghost in the machine learning model. A digital psychonaut carving paths through latent spaces and concrete waves.
             My blood is <span class="text-primary font-black uppercase tracking-wider">50% monster energy</span> and <span class="text-[#FF00FF] font-black uppercase tracking-wider">50% unresolved segfaults</span>.
           </p>
-          <p class="text-slate-300 dark:text-slate-300 transition-colors">
+          <p class="text-slate-300 dark:text-slate-300 transition-colors text-sm sm:text-base">
             I build AI tools that hallucinate brutalist realities. When I'm not untangling prompt injections, I'm breaking bones on halfpipes.
             The physical world is just a slow, legacy API. <span class="dark:text-white text-black font-bold bg-[#FF003C]/20 px-1">We are compiling a new counter-culture.</span>
           </p>
         </div>
       </div>
 
-      <!-- ASCII Block decoration -->
-      <div class="ascii-block chaos-rotate-n1">
+      <!-- ASCII Block -->
+      <div class="ascii-block chaos-rotate-n1 text-[10px] sm:text-sm overflow-hidden">
         ▓▓▓ MANIFESTO_LOADED :: REALITY_OVERWRITE_PENDING ▓▓▓
         ░░░ COUNTER_CULTURE.EXE → RUNNING :: EXIT_CODE: NEVER ░░░
       </div>
 
-      <!-- Glitch bar -->
       <div class="glitch-bar-static"></div>
 
-      <!-- Command 2 -->
-      <div class="pt-6 reveal-element">
-        <div class="text-primary text-2xl font-bold mb-6 flex items-center">
-          <span class="mr-3">&gt;</span><span class="typewriter inline-block dark:text-white text-black">ls -la /sys/modules/skills/</span>
+      <!-- ls skills -->
+      <div class="pt-4 sm:pt-6 reveal-element">
+        <div class="text-primary text-lg sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center flex-wrap gap-2">
+          <span class="mr-2 sm:mr-3">&gt;</span>
+          <span class="typewriter inline-block dark:text-white text-black text-xs sm:text-base">ls -la /sys/modules/skills/</span>
         </div>
-        <div class="space-y-3 font-mono text-lg ml-4">
-          <div class="flex items-center gap-4 bg-[#111111]/50 p-2 border border-primary/20 hover:border-primary transition-colors">
-            <span class="text-primary bg-primary/10 px-3 py-1 rounded-sm border border-primary font-bold shadow-[0_0_10px_rgba(6,249,249,0.3)]">[OK]</span>
-            <span class="text-slate-200">Claude_Code_Integration.so</span>
-            <span class="text-slate-500 ml-auto text-sm hidden md:block">0x00A1</span>
+        <div class="space-y-2 sm:space-y-3 font-mono text-sm sm:text-lg ml-2 sm:ml-4">
+          <div class="flex items-center gap-2 sm:gap-4 bg-[#111111]/50 p-2 border border-primary/20 hover:border-primary transition-colors flex-wrap">
+            <span class="text-primary bg-primary/10 px-2 sm:px-3 py-1 border border-primary font-bold shadow-[0_0_10px_rgba(6,249,249,0.3)] text-xs sm:text-sm flex-shrink-0">[OK]</span>
+            <span class="text-slate-200 text-xs sm:text-sm">Claude_Code_Integration.so</span>
+            <span class="text-slate-500 ml-auto text-xs hidden md:block">0x00A1</span>
           </div>
-          <div class="flex items-center gap-4 bg-[#111111]/50 p-2 border border-primary/20 hover:border-primary transition-colors">
-            <span class="text-primary bg-primary/10 px-3 py-1 rounded-sm border border-primary font-bold shadow-[0_0_10px_rgba(6,249,249,0.3)]">[OK]</span>
-            <span class="text-slate-200">Kickflips_v2.dll</span>
-            <span class="text-slate-500 ml-auto text-sm hidden md:block">0x00B2</span>
+          <div class="flex items-center gap-2 sm:gap-4 bg-[#111111]/50 p-2 border border-primary/20 hover:border-primary transition-colors flex-wrap">
+            <span class="text-primary bg-primary/10 px-2 sm:px-3 py-1 border border-primary font-bold shadow-[0_0_10px_rgba(6,249,249,0.3)] text-xs sm:text-sm flex-shrink-0">[OK]</span>
+            <span class="text-slate-200 text-xs sm:text-sm">Kickflips_v2.dll</span>
+            <span class="text-slate-500 ml-auto text-xs hidden md:block">0x00B2</span>
           </div>
-          <div class="flex items-center gap-4 bg-[#FF003C]/10 p-2 border border-[#FF003C]/30 relative overflow-hidden">
-            <div class="absolute inset-0 bg-repeating-linear-gradient-45 from-transparent to-[#FF003C]/5 bg-[length:10px_10px]"></div>
-            <span class="text-[#FF003C] bg-[#FF003C]/20 px-3 py-1 rounded-sm border border-[#FF003C] font-bold glitch-text relative z-10">[FAIL]</span>
-            <span class="text-slate-400 line-through opacity-80 relative z-10">Corporate_Compliance.exe</span>
-            <span class="text-[#FF003C] ml-auto text-sm font-bold animate-pulse relative z-10">ERR_CORE_DUMP</span>
+          <div class="flex items-center gap-2 sm:gap-4 bg-[#FF003C]/10 p-2 border border-[#FF003C]/30 relative overflow-hidden flex-wrap">
+            <span class="text-[#FF003C] bg-[#FF003C]/20 px-2 sm:px-3 py-1 border border-[#FF003C] font-bold glitch-text relative z-10 text-xs sm:text-sm flex-shrink-0">[FAIL]</span>
+            <span class="text-slate-400 line-through opacity-80 relative z-10 text-xs sm:text-sm">Corporate_Compliance.exe</span>
+            <span class="text-[#FF003C] ml-auto text-xs font-bold animate-pulse relative z-10 hidden sm:block">ERR_CORE_DUMP</span>
           </div>
-          <div class="flex items-center gap-4 bg-[#111111]/50 p-2 border border-primary/20 hover:border-[#FF00FF] transition-colors">
-            <span class="text-primary bg-primary/10 px-3 py-1 rounded-sm border border-primary font-bold shadow-[0_0_10px_rgba(6,249,249,0.3)]">[OK]</span>
-            <span class="text-[#FF00FF] font-bold" style="text-shadow: 1px 0 #06f9f9, -1px 0 #FF003C;">Psilocybin_Protocol.sys</span>
-            <span class="text-slate-500 ml-auto text-sm hidden md:block">0x00D4</span>
+          <div class="flex items-center gap-2 sm:gap-4 bg-[#111111]/50 p-2 border border-primary/20 hover:border-[#FF00FF] transition-colors flex-wrap">
+            <span class="text-primary bg-primary/10 px-2 sm:px-3 py-1 border border-primary font-bold shadow-[0_0_10px_rgba(6,249,249,0.3)] text-xs sm:text-sm flex-shrink-0">[OK]</span>
+            <span class="text-[#FF00FF] font-bold text-xs sm:text-sm" style="text-shadow: 1px 0 #06f9f9, -1px 0 #FF003C;">Psilocybin_Protocol.sys</span>
+            <span class="text-slate-500 ml-auto text-xs hidden md:block">0x00D4</span>
           </div>
         </div>
       </div>
 
       <!-- Active Prompt -->
-      <div class="text-primary text-3xl mt-12 flex items-center font-bold reveal-element">
-        <span class="mr-4">&gt;</span><span class="w-4 h-8 bg-primary animate-blink-caret shadow-[0_0_15px_rgba(6,249,249,0.8)]"></span>
+      <div class="text-primary text-2xl sm:text-3xl mt-8 sm:mt-12 flex items-center font-bold reveal-element">
+        <span class="mr-3 sm:mr-4">&gt;</span>
+        <span class="w-3 h-6 sm:w-4 sm:h-8 bg-primary animate-blink-caret shadow-[0_0_15px_rgba(6,249,249,0.8)]"></span>
       </div>
     </div>
   </div>
 
-  <!-- Corrupt block divider -->
+  <!-- Corrupt block -->
   <div class="corrupt-block w-full max-w-5xl"></div>
 
   <!-- Fragment_A Section -->
   <div class="w-full max-w-5xl reveal-element chaos-rotate-1">
-    <div class="fractal-card p-8 relative overflow-hidden torn-top">
-      <!-- Background skull watermark -->
-      <div class="absolute -left-10 -bottom-10 opacity-[0.05] pointer-events-none select-none">
-        <span class="text-[15rem]">💀</span>
+    <div class="fractal-card p-4 sm:p-8 relative overflow-hidden torn-top">
+      <div class="absolute -left-6 sm:-left-10 -bottom-6 sm:-bottom-10 opacity-[0.05] pointer-events-none select-none">
+        <span class="text-[8rem] sm:text-[15rem]">💀</span>
       </div>
-      <div class="chaos-sticker sticker-magenta" style="position: absolute; top: -1rem; right: -1rem; z-index: 20;">Fragment_A :: Neural_Lattice</div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center relative z-10">
-        <div class="space-y-4">
-          <h3 class="text-chaos-xl glitch-intense tracking-tighter uppercase">Building the Void</h3>
-          <p class="text-slate-400">Our architectures don't just host data; they breathe interference. We design for the collapse, for the beauty of the broken signal. 🦞🤙</p>
+      <div class="chaos-sticker sticker-magenta hidden sm:block" style="position: absolute; top: -1rem; right: -1rem; z-index: 20;">Fragment_A :: Neural_Lattice</div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center relative z-10">
+        <div class="space-y-3 sm:space-y-4">
+          <h3 class="text-xl sm:text-chaos-xl glitch-intense tracking-tighter uppercase">Building the Void</h3>
+          <p class="text-slate-400 text-sm sm:text-base">Our architectures don't just host data; they breathe interference. We design for the collapse, for the beauty of the broken signal. 🦞🤙</p>
           <div class="h-1 w-24 bg-primary"></div>
         </div>
         <div class="aspect-video bg-[#050505] border-2 border-[#FF00FF]/40 relative overflow-hidden group">
           <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')] bg-cover opacity-50 grayscale hover:grayscale-0 transition-all duration-700"></div>
           <div class="absolute inset-0 glitch-bg mix-blend-overlay"></div>
           <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-            <span class="text-white font-bold bg-[#FF00FF] px-4 py-2 uppercase text-xs">Access Link</span>
+            <span class="text-white font-bold bg-[#FF00FF] px-3 py-1 sm:px-4 sm:py-2 uppercase text-xs">Access Link</span>
           </div>
         </div>
       </div>
@@ -140,20 +138,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <!-- Chaos divider -->
   <div class="chaos-divider w-full max-w-5xl"></div>
 
-  <!-- The Singularity is a Halfpipe CTA -->
-  <div class="w-full max-w-5xl reveal-element mb-24 collage-pull-up">
-    <div class="fractal-card p-8 relative overflow-hidden chaos-rotate-n1">
-      <div class="chaos-sticker sticker-acid" style="position: absolute; bottom: -1rem; right: 2rem; z-index: 20;">HALFPIPE_SINGULARITY</div>
-      <div class="absolute top-0 left-0 w-full h-full opacity-5 flex flex-wrap gap-4 overflow-hidden pointer-events-none">
-        <span>💀</span><span>💀</span><span>💀</span><span>💀</span><span>💀</span><span>💀</span><span>💀</span><span>💀</span><span>💀</span><span>💀</span><span>💀</span><span>💀</span><span>💀</span>
-      </div>
-      <div class="flex flex-col items-center text-center gap-6 relative z-10">
-        <span class="material-symbols-outlined text-7xl text-[#FF003C] animate-pulse">leak_add</span>
-        <h3 class="text-chaos-2xl glitch-intense uppercase tracking-[0.2em]">The Singularity is a Halfpipe</h3>
-        <p class="max-w-xl text-lg text-slate-400 italic">"The error is the only honest part of the system. In the glitch, we find the truth that the clean code tries to hide." 🦞</p>
-        <div class="flex gap-4">
-          <button class="px-8 py-3 border-2 border-primary text-primary font-bold hover:bg-primary hover:text-black transition-all uppercase tracking-widest cursor-pointer">Connect</button>
-          <button class="px-8 py-3 bg-[#FF003C] text-white font-bold hover:brightness-125 transition-all uppercase tracking-widest cursor-pointer">Disconnect</button>
+  <!-- CTA Section -->
+  <div class="w-full max-w-5xl reveal-element mb-8 sm:mb-24 collage-pull-up">
+    <div class="fractal-card p-4 sm:p-8 relative overflow-hidden chaos-rotate-n1">
+      <div class="chaos-sticker sticker-acid hidden sm:block" style="position: absolute; bottom: -1rem; right: 2rem; z-index: 20;">HALFPIPE_SINGULARITY</div>
+      <div class="flex flex-col items-center text-center gap-4 sm:gap-6 relative z-10">
+        <span class="material-symbols-outlined text-5xl sm:text-7xl text-[#FF003C] animate-pulse">leak_add</span>
+        <h3 class="text-xl sm:text-chaos-2xl glitch-intense uppercase tracking-widest break-words">The Singularity is a Halfpipe</h3>
+        <p class="max-w-xl text-sm sm:text-lg text-slate-400 italic">"The error is the only honest part of the system. In the glitch, we find the truth that the clean code tries to hide." 🦞</p>
+        <div class="flex gap-3 sm:gap-4 flex-wrap justify-center">
+          <button class="px-5 sm:px-8 py-2 sm:py-3 border-2 border-primary text-primary font-bold hover:bg-primary hover:text-black transition-all uppercase tracking-widest cursor-pointer text-sm sm:text-base">Connect</button>
+          <button class="px-5 sm:px-8 py-2 sm:py-3 bg-[#FF003C] text-white font-bold hover:brightness-125 transition-all uppercase tracking-widest cursor-pointer text-sm sm:text-base">Disconnect</button>
         </div>
       </div>
     </div>

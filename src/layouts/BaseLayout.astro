@@ -7,6 +7,12 @@ interface Props {
 }
 
 const { title, activeNav = "" } = Astro.props;
+
+const navItems = [
+  { id: "home",     label: "HOME",     href: "/" },
+  { id: "blog",     label: "BLOG",     href: "/blog" },
+  { id: "projects", label: "PROJECTS", href: "/projects" },
+];
 ---
 
 <html class="dark" lang="en">
@@ -14,42 +20,44 @@ const { title, activeNav = "" } = Astro.props;
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>{title}</title>
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect" />
   <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Rubik+Glitch&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=VT323&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 </head>
-<body class="bg-background-light dark:bg-background-dark font-display text-slate-100 dark:text-slate-100 min-h-[200vh] flex overflow-x-hidden transition-colors duration-300">
+<body class="bg-background-dark font-display text-slate-100 min-h-screen overflow-x-hidden">
 
-  <!-- Fractal Chaos Overlay Layers -->
-  <div class="fractal-sierpinski"></div>
+  <!-- ============================================
+       CHAOS OVERLAY LAYERS
+       Heavy effects hidden on mobile for perf
+  ============================================ -->
+  <div class="fractal-sierpinski hidden sm:block"></div>
   <div class="fractal-grid"></div>
   <div class="noise-grain"></div>
-  <div class="scanlines-crt"></div>
-  <div class="color-noise-wash"></div>
+  <div class="scanlines-crt hidden sm:block"></div>
+  <div class="color-noise-wash hidden sm:block"></div>
 
-  <!-- Glitch Bars at various positions -->
-  <div class="glitch-bar" style="top: 12%"></div>
-  <div class="glitch-bar" style="top: 34%"></div>
+  <!-- Glitch Bars (reduced on mobile) -->
+  <div class="glitch-bar hidden sm:block" style="top: 12%"></div>
+  <div class="glitch-bar hidden sm:block" style="top: 34%"></div>
   <div class="glitch-bar" style="top: 57%"></div>
-  <div class="glitch-bar" style="top: 82%"></div>
+  <div class="glitch-bar hidden sm:block" style="top: 82%"></div>
 
-  <!-- Chaos Sticker Badges (floating) -->
-  <div class="chaos-sticker sticker-red" style="position: fixed; top: 8%; right: 2%; z-index: 50; transform: rotate(3deg);">SYSTEM_BREACH</div>
-  <div class="chaos-sticker sticker-cyan" style="position: fixed; top: 45%; right: 1%; z-index: 50; transform: rotate(-5deg);">VOID_PTR</div>
-  <div class="chaos-sticker sticker-magenta" style="position: fixed; bottom: 25%; right: 3%; z-index: 50; transform: rotate(7deg);">0xDEAD</div>
-  <div class="chaos-sticker sticker-acid" style="position: fixed; bottom: 8%; left: 2%; z-index: 50; transform: rotate(-4deg);">FRACTAL_MODE</div>
+  <!-- Chaos Sticker Badges — desktop only, would cause overflow on mobile -->
+  <div class="chaos-sticker sticker-red hidden xl:block" style="position: fixed; top: 8%; right: 2%; z-index: 50; transform: rotate(3deg);">SYSTEM_BREACH</div>
+  <div class="chaos-sticker sticker-cyan hidden xl:block" style="position: fixed; top: 45%; right: 1%; z-index: 50; transform: rotate(-5deg);">VOID_PTR</div>
+  <div class="chaos-sticker sticker-magenta hidden xl:block" style="position: fixed; bottom: 25%; right: 3%; z-index: 50; transform: rotate(7deg);">0xDEAD</div>
+  <div class="chaos-sticker sticker-acid hidden xl:block" style="position: fixed; bottom: 8%; left: 2%; z-index: 50; transform: rotate(-4deg);">FRACTAL_MODE</div>
 
-  <!-- Ghost Terminals (Chaos Layer) -->
-  <div class="ghost-window top-[10%] left-[60%] w-64 h-40" style="--duration: 40s;">
+  <!-- Ghost Terminals — desktop only -->
+  <div class="ghost-window hidden lg:block top-[10%] left-[60%] w-48 h-36 xl:w-64 xl:h-40" style="--duration: 40s;">
     &gt; exec hallucinate.sh<br />
     [DEBUG] Latent space overflow<br />
     [WARN] Reality buffer low...<br />
     0x00FF82: SIGKILL received<br />
     &gt; _
   </div>
-  <div class="ghost-window bottom-[15%] left-[5%] w-72 h-32" style="--duration: 35s;">
+  <div class="ghost-window hidden lg:block bottom-[15%] left-[5%] w-56 h-28 xl:w-72 xl:h-32" style="--duration: 35s;">
     for(let i=0; i&lt;INF; i++) {'{'}<br />
     &nbsp;&nbsp;glitch.render(Math.random());<br />
     &nbsp;&nbsp;system.shred();<br />
@@ -57,112 +65,121 @@ const { title, activeNav = "" } = Astro.props;
     // FIXME: stop reality leaking
   </div>
 
-  <!-- Emoji Animation Layer -->
-  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
-    <div class="floating-emoji text-6xl" style="top: 10%; left: 5%; --duration: 38s;">💀</div>
-    <div class="floating-emoji text-5xl" style="top: 70%; left: 15%; --duration: 12s;">🍄</div>
-    <div class="floating-emoji text-7xl" style="top: 40%; left: 80%; --duration: 45s;">🏂</div>
-    <div class="floating-emoji text-4xl" style="top: 20%; left: 60%; --duration: 15s;">🦞</div>
-    <div class="floating-emoji text-5xl" style="top: 85%; left: 45%; --duration: 10s;">🛹</div>
-    <div class="floating-emoji text-6xl" style="top: 50%; left: 30%; --duration: 32s;">🤙</div>
-    <div class="floating-emoji text-4xl" style="top: 5%; left: 90%; --duration: 42s;">🍄</div>
-    <div class="floating-emoji text-6xl" style="top: 60%; left: 70%; --duration: 18s;">💀</div>
-    <div class="floating-emoji text-6xl" style="top: 30%; left: 85%; --duration: 25s;">👽</div>
-    <div class="floating-emoji text-5xl" style="top: 15%; left: 25%; --duration: 28s;">🦞</div>
-    <div class="floating-emoji text-7xl" style="top: 75%; left: 85%; --duration: 33s;">🤙</div>
+  <!-- Floating Emoji Layer — fewer on small screens -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+    <div class="floating-emoji text-4xl sm:text-6xl" style="top: 10%; left: 5%; --duration: 38s;">💀</div>
+    <div class="floating-emoji text-3xl sm:text-5xl hidden sm:block" style="top: 70%; left: 15%; --duration: 12s;">🍄</div>
+    <div class="floating-emoji text-5xl sm:text-7xl hidden md:block" style="top: 40%; left: 80%; --duration: 45s;">🏂</div>
+    <div class="floating-emoji text-3xl sm:text-4xl hidden md:block" style="top: 20%; left: 60%; --duration: 15s;">🦞</div>
+    <div class="floating-emoji text-4xl sm:text-5xl" style="top: 85%; left: 45%; --duration: 10s;">🛹</div>
+    <div class="floating-emoji text-4xl sm:text-6xl hidden sm:block" style="top: 50%; left: 30%; --duration: 32s;">🤙</div>
+    <div class="floating-emoji text-4xl sm:text-6xl hidden md:block" style="top: 60%; left: 70%; --duration: 18s;">💀</div>
+    <div class="floating-emoji text-4xl sm:text-6xl hidden lg:block" style="top: 30%; left: 85%; --duration: 25s;">👽</div>
+    <div class="floating-emoji text-3xl sm:text-5xl hidden lg:block" style="top: 15%; left: 25%; --duration: 28s;">🦞</div>
   </div>
 
-  <!-- Glitch Tile Background -->
-  <div class="ascii-bg">
+  <!-- ASCII BG (hidden mobile for perf) -->
+  <div class="ascii-bg hidden sm:block" aria-hidden="true">
     01001101 01000001 01001110 01001001 01000110 01000101 01010011 01010100 01001111 %#@!&amp; SYSTEM FAILURE %#@!&amp; KICKFLIP THE MAINFRAME 01010011 01011001 01010011 01010100 01000101 01001101 ERROR ERROR ERROR %#@!&amp; 🍄🛹💀 AI_HALLUCINATION %#@!&amp; 🦞🤙💀
   </div>
 
-  <!-- SideNavBar -->
-  <div class="w-[250px] sticky top-0 h-screen flex-shrink-0 border-r-4 border-primary/40 bg-[#050505] z-30 shadow-[4px_0_15px_rgba(6,249,249,0.1)]">
-    <div class="flex h-full flex-col justify-between p-4 bg-[#111111]/80 backdrop-blur-sm">
-      <div class="flex flex-col gap-6 mt-4">
-        <div class="flex gap-3 items-center">
-          <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-none border-2 border-primary size-12" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBEU3Kv5k_jC3kl1ujtbmnQmwNSyTORLrqZdzLXzzYl4PqWo-K9JVrKdn8HCPLSqo8C6waHpDi84qXpc9zB-ZgOioKfr0p9Aemd1pnK3E19PvyFFaSUVa80NBW8zLny8_lkxL0eoWR5hQe4okxxyKbDxXNppJCeulc4dEdYI2oFgMXUmuoKwV_aE8wGrzi1nFqNiZdoK_hrCg6sZSAPEXRQ8_Gx9cCkEE9-6lchNlNh3GfD_XTd1e6jwJz8AAZNJxYWvsi1RirHWTRz");'></div>
-          <div class="flex flex-col">
-            <h1 class="text-white text-lg font-bold leading-normal glitch-text uppercase tracking-widest">SYSTEM_SYS</h1>
-            <p class="text-primary text-xs font-mono leading-normal">V. 9.0.1</p>
+  <!-- ============================================
+       LAYOUT WRAPPER
+  ============================================ -->
+  <div class="flex min-h-screen w-full max-w-full">
+
+    <!-- ===== DESKTOP SIDEBAR (lg+) ===== -->
+    <aside class="hidden lg:flex w-[220px] xl:w-[250px] flex-shrink-0 sticky top-0 h-screen border-r-4 border-primary/40 bg-[#050505] z-30 shadow-[4px_0_15px_rgba(6,249,249,0.1)]">
+      <div class="flex h-full w-full flex-col justify-between p-3 xl:p-4 bg-[#111111]/80 backdrop-blur-sm overflow-y-auto">
+        <!-- Identity -->
+        <div class="flex flex-col gap-4 xl:gap-6 mt-2 xl:mt-4">
+          <div class="flex gap-2 xl:gap-3 items-center">
+            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-none border-2 border-primary size-10 xl:size-12 flex-shrink-0"
+                 style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBEU3Kv5k_jC3kl1ujtbmnQmwNSyTORLrqZdzLXzzYl4PqWo-K9JVrKdn8HCPLSqo8C6waHpDi84qXpc9zB-ZgOioKfr0p9Aemd1pnK3E19PvyFFaSUVa80NBW8zLny8_lkxL0eoWR5hQe4okxxyKbDxXNppJCeulc4dEdYI2oFgMXUmuoKwV_aE8wGrzi1nFqNiZdoK_hrCg6sZSAPEXRQ8_Gx9cCkEE9-6lchNlNh3GfD_XTd1e6jwJz8AAZNJxYWvsi1RirHWTRz");'>
+            </div>
+            <div class="flex flex-col min-w-0">
+              <h1 class="text-white text-base xl:text-lg font-bold leading-tight glitch-text uppercase tracking-widest truncate">CYPERX</h1>
+              <p class="text-primary text-xs font-mono leading-normal">V. 9.0.1</p>
+            </div>
+          </div>
+
+          <!-- Nav Items -->
+          <div class="flex flex-col gap-1 xl:gap-2 mt-4 xl:mt-8">
+            <div class="glitch-bar-static"></div>
+            {navItems.map((item) => (
+              <div>
+                <a
+                  class:list={[
+                    "flex items-center gap-2 xl:gap-3 px-2 xl:px-3 py-2 xl:py-3 cursor-pointer transition-colors border border-transparent group relative overflow-hidden",
+                    activeNav === item.id
+                      ? "bg-primary/20 border-2 !border-primary"
+                      : "hover:bg-[#FF003C]/20 hover:border-[#FF003C]"
+                  ]}
+                  href={item.href}
+                >
+                  {activeNav === item.id && <div class="absolute inset-0 bg-primary/10 glitch-bg"></div>}
+                  <p class:list={[
+                    "text-xs xl:text-sm font-bold tracking-wider relative z-10",
+                    activeNav === item.id
+                      ? "text-primary glitch-text"
+                      : "text-white group-hover:text-[#FF003C] group-hover:glitch-text transition-all"
+                  ]}>
+                    💀 {item.label}
+                  </p>
+                </a>
+                <div class="glitch-bar-static"></div>
+              </div>
+            ))}
           </div>
         </div>
 
-        <div class="flex flex-col gap-2 mt-8">
-          <!-- Nav divider top -->
-          <div class="glitch-bar-static"></div>
-
-          <a class:list={[
-            "flex items-center gap-3 px-3 py-3 cursor-pointer transition-colors border border-transparent group",
-            activeNav === "home" ? "bg-primary/20 border-2 !border-primary relative overflow-hidden" : "hover:bg-[#FF003C]/20 hover:border-[#FF003C]"
-          ]} href="/">
-            {activeNav === "home" && <div class="absolute inset-0 bg-primary/10 glitch-bg"></div>}
-            <div class:list={["transition-colors relative z-10", activeNav === "home" ? "text-primary" : "text-primary group-hover:text-[#FF003C]"]}>
-              <span class="material-symbols-outlined">terminal</span>
-            </div>
-            <p class:list={["text-sm font-bold tracking-wider relative z-10", activeNav === "home" ? "text-primary glitch-text" : "text-white group-hover:text-[#FF003C] group-hover:glitch-text transition-all"]}>[&gt; HOME]</p>
-          </a>
-
-          <!-- Nav divider -->
-          <div class="glitch-bar-static"></div>
-
-          <a class:list={[
-            "flex items-center gap-3 px-3 py-3 cursor-pointer transition-colors border border-transparent group",
-            activeNav === "manifesto" ? "bg-primary/20 border-2 !border-primary relative overflow-hidden" : "hover:bg-[#FF003C]/20 hover:border-[#FF003C]"
-          ]} href="/manifesto">
-            {activeNav === "manifesto" && <div class="absolute inset-0 bg-primary/10 glitch-bg"></div>}
-            <div class:list={["transition-colors relative z-10", activeNav === "manifesto" ? "text-primary" : "text-primary group-hover:text-[#FF003C]"]}>
-              <span class="material-symbols-outlined" style={activeNav === "manifesto" ? "font-variation-settings: 'FILL' 1;" : ""}>code</span>
-            </div>
-            <p class:list={["text-sm font-bold tracking-wider relative z-10", activeNav === "manifesto" ? "text-primary glitch-text" : "text-white group-hover:text-[#FF003C] group-hover:glitch-text transition-all"]}>[&gt; MANIFESTO]</p>
-          </a>
-
-          <!-- Nav divider -->
-          <div class="glitch-bar-static"></div>
-
-          <a class:list={[
-            "flex items-center gap-3 px-3 py-3 cursor-pointer transition-colors border border-transparent group",
-            activeNav === "fragments" ? "bg-primary/20 border-2 !border-primary relative overflow-hidden" : "hover:bg-[#FF003C]/20 hover:border-[#FF003C]"
-          ]} href="/fragments">
-            {activeNav === "fragments" && <div class="absolute inset-0 bg-primary/10 glitch-bg"></div>}
-            <div class:list={["transition-colors relative z-10", activeNav === "fragments" ? "text-primary" : "text-primary group-hover:text-[#FF003C]"]}>
-              <span class="material-symbols-outlined">hive</span>
-            </div>
-            <p class:list={["text-sm font-bold tracking-wider relative z-10", activeNav === "fragments" ? "text-primary glitch-text" : "text-white group-hover:text-[#FF003C] group-hover:glitch-text transition-all"]}>[&gt; FRAGMENTS]</p>
-          </a>
-
-          <!-- Nav divider -->
-          <div class="glitch-bar-static"></div>
-
-          <a class:list={[
-            "flex items-center gap-3 px-3 py-3 cursor-pointer transition-colors border border-transparent mt-12 group",
-            activeNav === "fatal_error" ? "bg-[#FF003C]/20 border-2 !border-[#FF003C]" : "hover:bg-[#FF003C]/20 hover:border-[#FF003C]"
-          ]} href="/404">
-            <div class="text-[#FF003C]">
-              <span class="material-symbols-outlined">warning</span>
-            </div>
-            <p class="text-[#FF003C] text-sm font-bold tracking-wider glitch-text group-hover:scale-105 transition-transform">[&gt; FATAL_ERROR]</p>
-          </a>
-
-          <!-- Nav divider bottom -->
-          <div class="glitch-bar-static"></div>
-        </div>
+        <button id="toggle-mode" class="mt-auto p-2 xl:p-3 border-2 border-primary/40 text-primary hover:border-primary transition-all font-bold text-[10px] xl:text-xs uppercase tracking-tighter cursor-pointer">
+          [ TOGGLE_MODE ]
+        </button>
       </div>
+    </aside>
 
-      <button id="toggle-mode" class="mt-auto p-3 border-2 border-primary/40 text-primary hover:border-primary transition-all font-bold text-xs uppercase tracking-tighter cursor-pointer">
-        [ TOGGLE_MODE ]
-      </button>
-    </div>
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="flex-1 flex flex-col items-center gap-8 sm:gap-12 lg:gap-24 p-3 sm:p-4 md:p-6 lg:p-8 relative z-10
+                 pb-24 lg:pb-8
+                 min-w-0 max-w-full overflow-x-hidden">
+      <slot />
+
+      <!-- Corrupt block above footer -->
+      <div class="corrupt-block w-full max-w-5xl"></div>
+    </main>
   </div>
 
-  <!-- Main Content -->
-  <main class="flex-1 flex flex-col items-center gap-24 p-4 md:p-8 relative z-10">
-    <slot />
-
-    <!-- Corrupt block above footer -->
-    <div class="corrupt-block w-full max-w-5xl"></div>
-  </main>
+  <!-- ===== MOBILE/TABLET BOTTOM NAV (< lg) ===== -->
+  <nav class="lg:hidden fixed bottom-0 left-0 right-0 z-50
+              bg-[#050505]/95 backdrop-blur-md
+              border-t-4 border-primary/60
+              shadow-[0_-4px_20px_rgba(6,249,249,0.2)]">
+    <div class="flex items-stretch justify-around h-16 sm:h-18">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            "flex flex-col items-center justify-center flex-1 gap-0.5 sm:gap-1 transition-colors relative overflow-hidden group",
+            activeNav === item.id
+              ? "bg-primary/20 border-t-4 border-primary text-primary"
+              : "text-slate-400 hover:text-white hover:bg-white/5"
+          ]}
+        >
+          {activeNav === item.id && <div class="absolute inset-0 bg-primary/5 glitch-bg pointer-events-none"></div>}
+          <span class="text-base sm:text-lg leading-none relative z-10">💀</span>
+          <span class:list={[
+            "text-[9px] sm:text-[10px] font-bold font-mono uppercase tracking-wider relative z-10",
+            activeNav === item.id ? "text-primary glitch-text" : "group-hover:text-white"
+          ]}>
+            {item.label}
+          </span>
+        </a>
+      ))}
+    </div>
+    <!-- Chaos pixel line at very bottom -->
+    <div class="h-1 w-full bg-gradient-to-r from-[#FF003C] via-primary to-[#FF00FF] opacity-60"></div>
+  </nav>
 
   <script>
     // Dark mode toggle
@@ -171,10 +188,10 @@ const { title, activeNav = "" } = Astro.props;
       document.documentElement.classList.toggle('light');
     });
 
-    // Intersection Observer for scroll-triggered "hallucinations"
+    // Intersection Observer for scroll-triggered reveals
     const observerOptions = {
-      threshold: 0.15,
-      rootMargin: "0px 0px -50px 0px"
+      threshold: 0.1,
+      rootMargin: "0px 0px -40px 0px"
     };
 
     const revealObserver = new IntersectionObserver((entries) => {
@@ -193,21 +210,20 @@ const { title, activeNav = "" } = Astro.props;
       revealObserver.observe(el);
     });
 
-    // Simple scroll parallax for background characters
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const asciiBg = document.querySelector('.ascii-bg');
-      if (asciiBg) {
-        (asciiBg as HTMLElement).style.transform = `translateY(${scrolled * 0.25}px)`;
-      }
-
-      // Morph floating elements slightly on scroll
-      document.querySelectorAll('.floating-emoji').forEach(emoji => {
-        const el = emoji as HTMLElement;
-        const speed = parseInt(el.style.getPropertyValue('--duration')) || 20;
-        el.style.filter = `blur(${1 + (scrolled/500)}px) hue-rotate(${scrolled/10}deg)`;
+    // Scroll parallax — only on desktop to avoid jank on mobile
+    if (window.innerWidth >= 1024) {
+      window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const asciiBg = document.querySelector('.ascii-bg') as HTMLElement | null;
+        if (asciiBg) {
+          asciiBg.style.transform = `translateY(${scrolled * 0.25}px)`;
+        }
+        document.querySelectorAll('.floating-emoji').forEach(emoji => {
+          const el = emoji as HTMLElement;
+          el.style.filter = `blur(${1 + (scrolled / 500)}px) hue-rotate(${scrolled / 10}deg)`;
+        });
       });
-    });
+    }
   </script>
 </body>
 </html>

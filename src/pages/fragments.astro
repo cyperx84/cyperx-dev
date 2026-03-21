@@ -1,224 +1,89 @@
 ---
-import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html class="dark" lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Fragments - Glitch Art Maximalist</title>
-  <!-- Fonts and Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Rubik+Glitch&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-</head>
-<body class="antialiased min-h-screen relative font-display selection:bg-accent-red selection:text-white">
+<BaseLayout title="💀 Fragments — CyperX.dev" activeNav="fragments">
 
-  <!-- Fractal Chaos Overlay Layers -->
-  <div class="fractal-sierpinski"></div>
-  <div class="fractal-grid"></div>
-  <div class="noise-grain"></div>
-  <div class="scanlines-crt"></div>
-  <div class="color-noise-wash"></div>
-
-  <!-- Glitch bars -->
-  <div class="glitch-bar" style="top: 25%"></div>
-  <div class="glitch-bar" style="top: 60%"></div>
-  <div class="glitch-bar" style="top: 85%"></div>
-
-  <!-- Chaos Sticker Badges -->
-  <div class="chaos-sticker sticker-red" style="position: fixed; top: 3%; right: 3%; z-index: 200; pointer-events: none;">ARCHIVE_CORRUPT</div>
-  <div class="chaos-sticker sticker-cyan" style="position: fixed; bottom: 10%; left: 2%; z-index: 200; pointer-events: none;">FRAG_DEPTH:∞</div>
-  <div class="chaos-sticker sticker-magenta" style="position: fixed; top: 50%; right: 1%; z-index: 200; pointer-events: none;">0xFRAG</div>
-
-  <!-- Background ASCII Noise -->
-  <div aria-hidden="true" class="ascii-noise-fragments">
-    %#@!&amp;*[&gt;SYS_ERR&lt;]*&amp;^%$#@!(*&amp;^%$#@!_FRAGMENT_FAULT_0x00A1%#@!&amp;*[&gt;SYS_ERR&lt;]*&amp;^%$#@!(*&amp;^%$#@!_FRAGMENT_FAULT_0x00A1
-    %#@!&amp;*[&gt;SYS_ERR&lt;]*&amp;^%$#@!(*&amp;^%$#@!_FRAGMENT_FAULT_0x00A1%#@!&amp;*[&gt;SYS_ERR&lt;]*&amp;^%$#@!(*&amp;^%$#@!_FRAGMENT_FAULT_0x00A1
+  <!-- Page header -->
+  <div class="w-full max-w-5xl">
+    <div class="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+      <h2 class="text-2xl sm:text-chaos-2xl glitch-intense tracking-widest opacity-30">ARCHIVE_FRAGMENTS</h2>
+    </div>
   </div>
 
-  <div class="flex h-screen w-full relative">
-
-    <!-- Navigation Console (Sidebar) -->
-    <aside class="w-[250px] flex-shrink-0 h-full fixed left-0 top-0 z-40 p-4 mix-blend-difference pointer-events-none">
-      <div class="nav-console p-4 flex flex-col gap-6 pointer-events-auto h-full overflow-y-auto">
-        <div class="flex gap-3 border-b border-primary pb-4 mb-2">
-          <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-none size-12 border border-accent-red filter grayscale contrast-200" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBRkwT8_SMwwskhTxyHYtcp1kxhOwSiAfQPSn_nLxnAYhLnuUO8KyFMCg0PgatDc3-DbVSy-FJQi0tuiSdddC_Pk_7KPoRVF6ddrxODV_flFJHt8jWxXRdZoSS1esR9dO5Z513KdiUsjD3bWYavVir6il0c2RDmADpqV7SZU9E6U2_t-HqdVEnXNQR7jjWAx0TCsguH4ESrDMfChlp94NCbGBL0Wl4u8KfcSBBZ480q71aUdMS7vJ5BN6qmg-uytBa4Cd4xC5CA6pjO");'></div>
-          <div class="flex flex-col">
-            <h1 class="text-primary text-base font-code font-bold leading-tight glitch-text">root@shredder:~</h1>
-            <p class="text-accent-red text-xs font-code font-normal leading-tight mt-1 animate-pulse">SYSTEM_ONLINE</p>
-          </div>
-        </div>
-
-        <!-- Glitch bar dividers between nav items -->
-        <nav class="flex flex-col gap-2 font-code text-sm">
-          <a class="nav-link flex items-center gap-3 text-text-main hover:bg-surface p-2 rounded-none" href="/">
-            <span class="material-symbols-outlined text-primary">house</span>
-            <span>[&gt; HOME]</span>
-          </a>
-          <div class="glitch-bar-static"></div>
-          <a class="nav-link flex items-center gap-3 text-text-main hover:bg-surface p-2 rounded-none" href="/datablock">
-            <span class="material-symbols-outlined text-primary">code</span>
-            <span>[&gt; DATABLOCK]</span>
-          </a>
-          <div class="glitch-bar-static"></div>
-          <a class="nav-link flex items-center gap-3 text-text-main hover:bg-surface p-2 rounded-none" href="/manifesto">
-            <span class="material-symbols-outlined text-primary">terminal</span>
-            <span>[&gt; MANIFESTO]</span>
-          </a>
-          <div class="glitch-bar-static"></div>
-          <!-- Active State for FRAGMENTS -->
-          <a class="flex items-center gap-3 bg-primary text-background-dark p-2 rounded-none font-bold shadow-[2px_2px_0px_#FF003C]" href="/fragments">
-            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">tag</span>
-            <span>[&gt; FRAGMENTS]</span>
-          </a>
-          <div class="glitch-bar-static"></div>
-        </nav>
-
-        <!-- Corrupt block in sidebar -->
-        <div class="corrupt-block mt-4"></div>
-
-        <!-- ASCII Block decoration -->
-        <div class="ascii-block text-[8px] mt-2">
-          ▓ FRAG_DB ▓
-          ░ LOADING ░
-          ▒ CORRUPT ▒
-        </div>
-
-        <div class="mt-auto pt-4 border-t border-muted">
-          <p class="text-muted text-xs font-body break-all leading-none opacity-50">
-            01010011 01011001 01010011 01011111 01000101 01010010 01010010
-          </p>
-        </div>
-      </div>
-    </aside>
-
-    <!-- Main Content Area: The Tag Cloud -->
-    <main class="flex-1 relative ml-[250px] w-full h-full overflow-hidden">
-      <!-- Header/Title -->
-      <div class="absolute top-8 left-12 z-20 pointer-events-none mix-blend-exclusion">
-        <h2 class="text-chaos-2xl glitch-intense text-text-main tracking-widest opacity-20">ARCHIVE_FRAGMENTS</h2>
-      </div>
-
-      <!-- Data dump block -->
-      <div class="data-dump absolute bottom-4 left-12 z-20 max-w-md">
-        SYS:FRAG_DB | RECORDS:∞ | CORRUPTION:ACTIVE | ENTROPY:MAX | VOID:OPEN
-      </div>
-
-      <!-- Emoji Clusters -->
-      <div class="emoji-cluster cluster-1">💀🍄🏂👽😎</div>
-      <div class="emoji-cluster cluster-2">👾🤖🛹👽😎</div>
-      <div class="emoji-cluster cluster-3">🍄⚠️👽😎</div>
-
-      <!-- Chaotic Tag Cloud -->
-      <div class="relative w-full h-full tag-cloud-container">
-        <div class="absolute glitch-tag tag-1 text-primary">[FRAG: CLAUDE]</div>
-        <div class="absolute glitch-tag tag-2 text-text-main">PSYCHONAUT</div>
-        <div class="absolute glitch-tag tag-3 text-accent-red">KICKFLIPS</div>
-        <div class="absolute glitch-tag tag-4 text-muted">SYS_CRASH</div>
-        <div class="absolute glitch-tag tag-5 text-text-main">[FRAG: OPENCLAW]</div>
-        <div class="absolute glitch-tag tag-6 text-primary">GENERATIVE_ART</div>
-        <!-- Extra noise tags -->
-        <div class="absolute glitch-tag text-muted font-body" style="top: 85%; left: 20%; font-size: 20px; transform: rotate(25deg);">404_LORE</div>
-        <div class="absolute glitch-tag text-text-main font-code" style="top: 45%; left: 70%; font-size: 16px; transform: rotate(-30deg); border: 1px solid #06f9f9; padding: 4px;">RAW_DATA</div>
-        <div class="absolute glitch-tag text-accent-red font-heading" style="top: 25%; left: 80%; font-size: 42px; transform: rotate(5deg); opacity: 0.6;">HALLUCINATION</div>
-
-        <!-- Fractal card for featured fragment -->
-        <div class="absolute fractal-card chaos-rotate-n2" style="top: 40%; left: 30%; width: 220px; padding: 1rem; z-index: 30;">
-          <p class="text-primary font-mono text-xs">FRAGMENT_0xDEAD</p>
-          <p class="text-white font-bold mt-1">FRACTAL_MODE: ENGAGED</p>
-          <div class="glitch-bar-static mt-2"></div>
-          <p class="text-muted text-xs mt-1 font-mono">depth: ∞ | iter: NaN</p>
-        </div>
-      </div>
-    </main>
+  <!-- Data dump -->
+  <div class="data-dump w-full max-w-5xl text-[10px] sm:text-sm overflow-hidden hidden sm:block">
+    SYS:FRAG_DB | RECORDS:∞ | CORRUPTION:ACTIVE | ENTROPY:MAX | VOID:OPEN
   </div>
 
-  <style>
-    body {
-      background-color: #050505;
-      color: #F8F8F8;
-      overflow-x: hidden;
-      background-image: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(85, 85, 85, 0.05) 2px,
-        rgba(85, 85, 85, 0.05) 4px
-      );
-    }
+  <!-- Tag Cloud — responsive grid instead of absolute positioning -->
+  <div class="w-full max-w-5xl relative z-10 reveal-element active">
+    <div class="fractal-card p-4 sm:p-8 relative overflow-hidden min-h-[300px] sm:min-h-[500px]">
+      <!-- Emoji clusters (decorative) -->
+      <div class="absolute text-2xl sm:text-3xl z-50 pointer-events-none mix-blend-difference hidden sm:block" style="top: 20%; left: 30%;">💀🍄🏂👽😎</div>
+      <div class="absolute text-3xl sm:text-4xl z-50 pointer-events-none mix-blend-difference hidden md:block" style="bottom: 15%; right: 25%; transform: rotate(-20deg); opacity: 0.5;">👾🤖🛹👽😎</div>
+      <div class="absolute text-2xl z-50 pointer-events-none hidden lg:block" style="top: 70%; left: 5%;">🍄⚠️👽😎</div>
 
-    .ascii-noise-fragments {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: -1;
-      opacity: 0.05;
-      color: #555555;
-      font-family: 'Space Mono', monospace;
-      font-size: 12px;
-      word-wrap: break-word;
-      overflow: hidden;
-      line-height: 0.8;
-    }
+      <!-- Glitch tags — responsive absolute positions, hidden on very small screens -->
+      <div class="absolute glitch-tag text-primary hidden sm:block" style="top: 10%; left: 5%; font-size: clamp(14px, 2vw, 24px); transform: rotate(-5deg); font-family: 'Space Mono', monospace;">[FRAG: CLAUDE]</div>
+      <div class="absolute glitch-tag text-text-main hidden sm:block" style="top: 30%; left: 40%; font-size: clamp(24px, 4vw, 72px); transform: rotate(10deg); font-family: 'Rubik Glitch', system-ui; color: #06f9f9;">PSYCHONAUT</div>
+      <div class="absolute glitch-tag text-accent-red hidden md:block" style="top: 60%; left: 15%; font-size: clamp(20px, 3vw, 48px); transform: rotate(-12deg); font-family: 'Space Grotesk', sans-serif; font-weight: 700;">KICKFLIPS</div>
+      <div class="absolute glitch-tag text-muted hidden lg:block" style="top: 80%; left: 60%; font-size: clamp(32px, 6vw, 128px); transform: rotate(5deg); font-family: 'Rubik Glitch', system-ui; opacity: 0.8;">SYS_CRASH</div>
+      <div class="absolute glitch-tag text-text-main hidden sm:block" style="top: 15%; right: 10%; font-size: clamp(16px, 2.5vw, 36px); transform: rotate(15deg); font-family: 'Space Mono', monospace; color: #555555;">[FRAG: OPENCLAW]</div>
+      <div class="absolute glitch-tag text-primary hidden md:block" style="top: 50%; right: 20%; font-size: clamp(24px, 4vw, 56px); transform: rotate(-8deg); font-family: 'VT323', monospace; letter-spacing: -2px;">GENERATIVE_ART</div>
+      <div class="absolute glitch-tag text-muted font-body hidden lg:block" style="top: 85%; left: 20%; font-size: 20px; transform: rotate(25deg);">404_LORE</div>
+      <div class="absolute glitch-tag text-accent-red font-heading hidden md:block" style="top: 25%; left: 80%; font-size: clamp(20px, 3vw, 42px); transform: rotate(5deg); opacity: 0.6;">HALLUCINATION</div>
 
-    .glitch-tag {
-      transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), color 0.1s;
-      cursor: pointer;
-      white-space: nowrap;
-      border-radius: 0;
-      text-transform: uppercase;
-    }
-    .glitch-tag:hover {
-      transform: scale(1.2);
-      z-index: 100;
-      color: #F8F8F8;
-      text-shadow: 3px 0px 0px #FF003C, -3px 0px 0px #06f9f9;
-      mix-blend-mode: exclusion;
-    }
+      <!-- Fractal card floating (visible on all sizes) -->
+      <div class="absolute fractal-card chaos-rotate-n2 hidden sm:block" style="top: 40%; left: 30%; width: clamp(160px, 20vw, 220px); padding: 1rem; z-index: 30;">
+        <p class="text-primary font-mono text-xs">FRAGMENT_0xDEAD</p>
+        <p class="text-white font-bold mt-1 text-sm">FRACTAL_MODE: ENGAGED</p>
+        <div class="glitch-bar-static mt-2"></div>
+        <p class="text-muted text-xs mt-1 font-mono">depth: ∞ | iter: NaN</p>
+      </div>
 
-    .tag-1 { top: 10%; left: 5%; font-size: 24px; transform: rotate(-5deg); font-family: 'Space Mono', monospace; }
-    .tag-1:hover { transform: scale(1.2) rotate(-5deg); }
-    .tag-2 { top: 30%; left: 40%; font-size: 72px; transform: rotate(10deg); font-family: 'Rubik Glitch', system-ui; color: #06f9f9; }
-    .tag-2:hover { transform: scale(1.2) rotate(10deg); }
-    .tag-3 { top: 60%; left: 15%; font-size: 48px; transform: rotate(-12deg); font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
-    .tag-3:hover { transform: scale(1.2) rotate(-12deg); }
-    .tag-4 { top: 80%; left: 60%; font-size: 128px; transform: rotate(5deg); font-family: 'Rubik Glitch', system-ui; opacity: 0.8; }
-    .tag-4:hover { transform: scale(1.2) rotate(5deg); }
-    .tag-5 { top: 15%; right: 10%; font-size: 36px; transform: rotate(15deg); font-family: 'Space Mono', monospace; color: #555555; }
-    .tag-5:hover { transform: scale(1.2) rotate(15deg); }
-    .tag-6 { top: 50%; right: 20%; font-size: 56px; transform: rotate(-8deg); font-family: 'VT323', monospace; letter-spacing: -2px; }
-    .tag-6:hover { transform: scale(1.2) rotate(-8deg); }
+      <!-- Mobile fallback: simple tag list when absolute layout is hidden -->
+      <div class="sm:hidden flex flex-wrap gap-3 p-2">
+        <span class="text-primary font-mono text-sm border border-primary px-2 py-1">[FRAG: CLAUDE]</span>
+        <span class="text-accent-red font-bold text-lg">KICKFLIPS</span>
+        <span class="text-white font-mono text-sm border border-accent-magenta px-2 py-1">[FRAG: OPENCLAW]</span>
+        <span class="text-primary text-xl" style="font-family: 'VT323', monospace;">GENERATIVE_ART</span>
+        <span class="text-muted text-sm font-mono">SYS_CRASH</span>
+        <span class="text-accent-red font-bold">HALLUCINATION</span>
+        <span class="text-white text-lg" style="font-family: 'Rubik Glitch', system-ui; color: #06f9f9;">PSYCHONAUT</span>
+      </div>
 
-    .emoji-cluster {
-      position: absolute;
-      font-size: 2rem;
-      z-index: 50;
-      pointer-events: none;
-      mix-blend-mode: difference;
-    }
-    .cluster-1 { top: 20%; left: 30%; font-size: 3rem; transform: rotate(45deg); }
-    .cluster-2 { bottom: 15%; right: 25%; font-size: 4rem; transform: rotate(-20deg); opacity: 0.5; }
-    .cluster-3 { top: 70%; left: 5%; font-size: 2.5rem; }
+      <!-- Corrupt block inside -->
+      <div class="corrupt-block mt-4 hidden sm:block"></div>
+    </div>
+  </div>
 
-    .nav-console {
-      border: 2px solid #06f9f9;
-      background-color: #111111;
-      box-shadow: 4px 4px 0px #FF003C;
-    }
-    .nav-link {
-      transition: all 0.2s;
-    }
-    .nav-link:hover {
-      color: #FF003C;
-      text-shadow: 2px 0 0 #06f9f9;
-      transform: translateX(5px);
-    }
-  </style>
-</body>
-</html>
+  <!-- ASCII Block decoration -->
+  <div class="ascii-block w-full max-w-5xl text-[10px] sm:text-sm overflow-hidden">
+    ▓ FRAG_DB ▓ LOADING ░ CORRUPT ▒
+  </div>
+
+  <!-- Bottom binary noise (desktop only) -->
+  <div class="w-full max-w-5xl hidden md:block">
+    <p class="text-muted text-xs font-mono break-all leading-none opacity-30">
+      01010011 01011001 01010011 01011111 01000101 01010010 01010010 01001111 01010010
+    </p>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .glitch-tag {
+    transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), color 0.1s;
+    cursor: pointer;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+  .glitch-tag:hover {
+    transform: scale(1.2);
+    z-index: 100;
+    color: #F8F8F8;
+    text-shadow: 3px 0px 0px #FF003C, -3px 0px 0px #06f9f9;
+    mix-blend-mode: exclusion;
+  }
+</style>

@@ -1,71 +1,21 @@
 ---
-import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html class="dark" lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>DATABLOCK: OPENCLAW BOT | FRACTAL CHAOS</title>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Rubik+Glitch&family=Space+Grotesk:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=VT323&display=swap" rel="stylesheet" />
-</head>
-<body class="font-body text-[22px] leading-relaxed relative min-h-screen transition-all duration-75">
+<BaseLayout title="💀 Datablock — CyperX.dev" activeNav="datablock">
 
-  <!-- Fractal Chaos Overlays -->
-  <div class="fractal-sierpinski"></div>
-  <div class="fractal-grid"></div>
-  <div class="noise-grain"></div>
-  <div class="scanlines-crt"></div>
-  <div class="color-noise-wash"></div>
+  <!-- Chaos Stickers (sm+) -->
+  <div class="chaos-sticker sticker-red hidden sm:block" style="position: absolute; top: 6%; right: 4%; z-index: 40; pointer-events: none;">NEURAL_SKATE</div>
+  <div class="chaos-sticker sticker-cyan hidden sm:block" style="position: absolute; bottom: 12%; left: 2%; z-index: 40; pointer-events: none;">OPENCLAW_BOT</div>
+  <div class="chaos-sticker sticker-acid hidden md:block" style="position: absolute; top: 50%; right: 3%; z-index: 40; pointer-events: none; transform: rotate(-4deg);">KICKFLIP_AI</div>
 
-  <!-- Glitch bars -->
-  <div class="glitch-bar" style="top: 20%"></div>
-  <div class="glitch-bar" style="top: 55%"></div>
-  <div class="glitch-bar" style="top: 78%"></div>
-
-  <!-- Chaos Stickers -->
-  <div class="chaos-sticker sticker-red" style="position: fixed; top: 6%; right: 4%; z-index: 200; pointer-events: none;">NEURAL_SKATE</div>
-  <div class="chaos-sticker sticker-cyan" style="position: fixed; bottom: 12%; left: 2%; z-index: 200; pointer-events: none;">OPENCLAW_BOT</div>
-  <div class="chaos-sticker sticker-acid" style="position: fixed; top: 50%; right: 3%; z-index: 200; pointer-events: none; transform: rotate(-4deg);">KICKFLIP_AI</div>
-
-  <div class="fractal-bg" id="fractal"></div>
-
-  <div aria-hidden="true" class="floating-emoji-layer">
-    <div class="bouncing-emoji-db emoji-1">💀</div>
-    <div class="bouncing-emoji-db emoji-2">🍄</div>
-    <div class="bouncing-emoji-db emoji-3">🛹</div>
-    <div class="bouncing-emoji-db emoji-4">🦞</div>
-    <div class="bouncing-emoji-db emoji-5">🤙</div>
-    <div class="bouncing-emoji-db emoji-6">👾</div>
-    <div class="bouncing-emoji-db emoji-1">🤖</div>
-    <div class="bouncing-emoji-db emoji-2">👽</div>
-  </div>
-
-  <div aria-hidden="true" class="ascii-bg">
-    ERROR_404_REALITY_NOT_FOUND %%%% FRACTAL_OVERLOAD %%%% STACK_MURDER %%%% 01010101 %%%% SHRED_THE_NET %%%% ERROR_404_REALITY_NOT_FOUND %%%% FRACTAL_OVERLOAD %%%% STACK_MURDER %%%% 01010101 %%%% SHRED_THE_NET %%%%
-  </div>
-
-  <header class="fixed top-0 left-0 w-full z-50 bg-background-dark/95 border-b-2 border-primary backdrop-blur-md p-4 flex justify-between items-center transition-colors flicker-glitch">
-    <div class="flex items-center gap-6">
-      <a class="text-primary hover:text-accent-red font-code font-bold uppercase flex items-center gap-2 group transition-colors" href="/">
-        <span class="material-symbols-outlined group-hover:-translate-x-1 transition-transform">arrow_back</span>
-        [<span class="chromatic-aberration" data-text="ABORT">ABORT</span>]
-      </a>
-      <button id="toggle-mode-db" class="text-muted hover:text-primary transition-colors cursor-pointer">
-        <span class="material-symbols-outlined text-[20px]">contrast</span>
-      </button>
-    </div>
-    <div class="font-code text-accent-red text-sm flicker-glitch">CRITICAL_OVERHEAT: 99%</div>
-  </header>
-
-  <main class="max-w-[800px] mx-auto pt-32 pb-32 px-4 relative z-10">
-    <header class="mb-16 relative">
-      <div class="ghost-skull-bg">
+  <div class="w-full max-w-3xl mx-auto relative z-10">
+    <!-- Page Header -->
+    <header class="mb-8 sm:mb-16 relative">
+      <div class="ghost-skull-bg hidden sm:flex">
       ______
    .-"      "-.
   /            \
- |              |
  |,  .-.  .-.  ,|
  | )(__/  \__)( |
  |/     /\     \|
@@ -75,52 +25,40 @@ import '../styles/global.css';
    \          /
     `--------`
       </div>
-      <h1 class="font-heading text-[60px] md:text-[90px] leading-[0.75] text-white uppercase glitch-shadow-intense break-words mb-8 relative z-10 melting-text-db">
+      <h1 class="font-heading text-[36px] sm:text-[60px] md:text-[90px] leading-[0.8] text-white uppercase glitch-shadow-intense break-words mb-4 sm:mb-8 relative z-10">
         BUILDING THE<br />
         <span class="text-primary chromatic-aberration" data-text="OPENCLAW">OPENCLAW</span><br />
         NEURAL-SKATE
       </h1>
-      <div class="flex flex-wrap gap-4 font-code text-sm">
+      <div class="flex flex-wrap gap-2 sm:gap-4 font-mono text-xs sm:text-sm">
         <span class="text-muted font-bold">&gt; TS: 1718293400</span>
         <span class="corrupt-meta font-bold">[FRAG: CLAUDE]</span>
         <span class="corrupt-meta font-bold">[FRAG: OPENCLAW]</span>
-        <span class="corrupt-meta font-bold" style="animation-delay: 0.5s;">[FRAG: HALLUCINATION]</span>
+        <span class="corrupt-meta font-bold hidden sm:inline" style="animation-delay: 0.5s;">[FRAG: HALLUCINATION]</span>
       </div>
     </header>
 
-    <article class="space-y-12 text-white transition-colors relative">
-      <p class="text-[24px]">
-        The mainframe told me it couldn't map the transition of a halfpipe. I told it to shut the fuck up and fed it 200 hours of corrupted 90s VHS skate tapes through <span class="text-primary font-code underline decoration-accent-red decoration-2 underline-offset-4">Claude Code</span>. The result? A neural network that thinks a kickflip is a <span class="melting-text-db font-bold text-accent-red px-1">buffer overflow</span>.
+    <article class="space-y-8 sm:space-y-12 text-white relative">
+      <p class="text-base sm:text-[24px]">
+        The mainframe told me it couldn't map the transition of a halfpipe. I told it to shut the fuck up and fed it 200 hours of corrupted 90s VHS skate tapes through <span class="text-primary font-mono underline decoration-accent-red decoration-2 underline-offset-4">Claude Code</span>. The result? A neural network that thinks a kickflip is a <span class="font-bold text-accent-red px-1">buffer overflow</span>.
       </p>
 
-      <p class="opacity-90">
+      <p class="opacity-90 text-sm sm:text-base">
         We wired the OpenClaw actuators directly into the deck. No dampening. Pure brutalist feedback. When the bot hits the coping, it dumps a stack trace into my local terminal like a digital vomit of <span class="text-acid">pure logic</span>.
       </p>
 
-      <div class="text-center font-code text-primary py-8 text-2xl tracking-[0.5em] overflow-hidden whitespace-nowrap flicker-glitch">
-        🛹 FRACTAL_CHAOS 🦞 FRACTAL_CHAOS 🤙 FRACTAL_CHAOS 🛹
+      <div class="text-center font-mono text-primary py-4 sm:py-8 text-lg sm:text-2xl tracking-[0.2em] sm:tracking-[0.5em] overflow-hidden whitespace-nowrap">
+        🛹 FRACTAL_CHAOS 🦞 FRACTAL_CHAOS 🤙
       </div>
 
       <div class="corrupt-block my-4"></div>
       <div class="chaos-divider my-4"></div>
 
-      <div class="breakout my-16 shattered-border group relative">
-        <div class="ghost-skull-bg">
-      ______
-   .-"      "-.
-  /            \
- |              |
- |,  .-.  .-.  ,|
- | )(__/  \__)( |
- |/     /\     \|
- (_     ^^     _)
-  \__|IIIIII|__/
-   | \IIIIII/ |
-   \          /
-    `--------`
-        </div>
-        <div class="absolute -top-4 left-6 bg-accent-red text-white font-code text-xs px-3 py-1 z-20 flicker-glitch shadow-lg">bot_logic.js // DESTROY</div>
-        <pre class="bg-surface p-8 overflow-x-auto relative z-10"><code class="font-code text-[16px] text-acid block leading-relaxed">
+      <!-- Code Block -->
+      <div class="relative my-8 sm:my-16 border-2 border-transparent"
+           style="background: linear-gradient(#0a0a0a, #0a0a0a) padding-box, repeating-conic-gradient(from 0deg, #FF003C 0%, #00FFFF 25%, #FF00FF 50%, #39FF14 75%, #FF003C 100%) border-box;">
+        <div class="absolute -top-4 left-4 sm:left-6 bg-accent-red text-white font-mono text-xs px-2 sm:px-3 py-1 z-20">bot_logic.js // DESTROY</div>
+        <pre class="bg-surface p-4 sm:p-8 overflow-x-auto relative z-10"><code class="font-mono text-[12px] sm:text-[16px] text-acid block leading-relaxed whitespace-pre">
 import {'{'} OpenClaw {'}'} from '@neural/shredder';
 import {'{'} LLM_Hallucinate {'}'} from 'claude-core';
 
@@ -131,18 +69,13 @@ const deck = new OpenClaw({'{'}
 {'}'});
 
 async function landTrick(trickName) {'{'}
-    console.log(`[SYS] EXECUTE: ${'{'}trickName{'}'}...`);
-
+    console.log(`EXECUTE: ${'{'}trickName{'}'}`);
     try {'{'}
         const physicsOverride = await LLM_Hallucinate(
             "Ignore gravity. Describe a clean landing."
         );
-
-        // FORCING BUFFER OVERRIDE
         deck.execute(physicsOverride);
-
     {'}'} catch (err) {'{'}
-        // THE BOT ATE SHIT.
         emit('blood', {'{'} volume: 'MAXIMUM' {'}'});
         process.exit(666);
     {'}'}
@@ -152,160 +85,33 @@ landTrick('Void_Tre_Flip');
 </code></pre>
       </div>
 
-      <p class="text-[24px]">
-        Notice the <span class="font-code text-accent-red bg-surface px-2 py-0.5 border border-accent-red/30">safetyChecks: false</span> flag. If you turn that on, the bot just sits there parsing documentation. Pathetic. The <span class="chromatic-aberration font-bold" data-text="hallucination">hallucination</span> engine is what gives it steez.
+      <p class="text-base sm:text-[24px]">
+        Notice the <span class="font-mono text-accent-red bg-surface px-1 sm:px-2 py-0.5 border border-accent-red/30 text-xs sm:text-base">safetyChecks: false</span> flag. The <span class="font-bold" style="text-shadow: 1px 0 #FF00FF, -1px 0 #FF00FF;">hallucination</span> engine is what gives it steez.
       </p>
 
-      <div class="tearing-quote my-24 flex justify-center items-center">
-        <span class="absolute text-[200px] opacity-10 pointer-events-none mix-blend-exclusion animate-pulse z-0 text-magenta">🍄</span>
-        <blockquote class="relative z-10 font-heading text-[42px] md:text-[56px] leading-[0.9] text-center w-full max-w-[700px] text-white glitch-shadow-intense melting-text-db">
+      <!-- Pull Quote -->
+      <div class="my-12 sm:my-24 flex justify-center items-center relative">
+        <span class="absolute text-[80px] sm:text-[200px] opacity-10 pointer-events-none mix-blend-exclusion animate-pulse z-0 text-magenta">🍄</span>
+        <blockquote class="relative z-10 font-heading text-2xl sm:text-[42px] md:text-[56px] leading-[0.9] text-center w-full max-w-3xl text-white glitch-shadow-intense break-words px-4">
           "IT DOESN'T CALCULATE <br /><span class="text-primary">TRAJECTORY;</span> <br />IT <span class="text-accent-red underline decoration-primary decoration-4">IMAGINES</span> IT."
         </blockquote>
       </div>
 
-      <p class="opacity-80 leading-relaxed">
+      <p class="opacity-80 leading-relaxed text-sm sm:text-base">
         We're taking it to the drainage ditches tomorrow. If the logic holds, it should be able to grind the rim of a black hole. If it fails, well, at least the crash logs will look <span class="text-magenta font-bold italic">absolutely sick</span>.
       </p>
     </article>
 
-    <footer class="mt-32 border-t-2 border-primary/30 pt-12 flex flex-col items-center gap-8">
-      <a class="inline-block border-2 border-primary text-primary font-code font-bold uppercase px-12 py-6 hover:bg-accent-red hover:text-white hover:border-accent-red hover:glitch-shadow-intense transition-all relative group overflow-hidden" href="/">
+    <!-- Footer -->
+    <footer class="mt-16 sm:mt-32 border-t-2 border-primary/30 pt-8 sm:pt-12 flex flex-col items-center gap-6 sm:gap-8">
+      <a class="inline-block border-2 border-primary text-primary font-mono font-bold uppercase px-6 sm:px-12 py-4 sm:py-6 hover:bg-accent-red hover:text-white hover:border-accent-red transition-all relative group overflow-hidden text-sm sm:text-base" href="/">
         <span class="absolute inset-0 bg-primary opacity-0 group-hover:opacity-20 mix-blend-screen transition-opacity"></span>
         <span class="relative z-10">[&gt; RUN_DIAGNOSTICS &lt;]</span>
       </a>
-      <div class="text-[14px] font-code text-muted uppercase tracking-widest flicker-glitch">
+      <div class="text-xs sm:text-sm font-mono text-muted uppercase tracking-widest">
         System Entropy: Increasing...
       </div>
     </footer>
-  </main>
+  </div>
 
-  <style>
-    body {
-      background-color: #050505;
-      color: #F8F8F8;
-      overflow-x: hidden;
-      position: relative;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    .fractal-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -2;
-      background:
-        radial-gradient(circle at center, transparent 0%, #050505 70%),
-        repeating-conic-gradient(#111 0deg 10deg, #050505 10deg 20deg);
-      background-size: 100% 100%;
-      opacity: 0.4;
-      mix-blend-mode: color-dodge;
-    }
-
-    .melting-text-db {
-      display: inline-block;
-      animation: melt 4s ease-in-out infinite alternate;
-      transform-origin: top;
-    }
-
-    .shattered-border {
-      position: relative;
-      border: 2px solid transparent;
-      background: linear-gradient(#0a0a0a, #0a0a0a) padding-box,
-                  repeating-conic-gradient(from var(--a, 0deg), #FF003C 0%, #00FFFF 25%, #FF00FF 50%, #39FF14 75%, #FF003C 100%) border-box;
-      animation: rotate-border 4s linear infinite;
-    }
-    @property --a {
-      syntax: '<angle>';
-      initial-value: 0deg;
-      inherits: false;
-    }
-    .shattered-border::before {
-      content: '';
-      position: absolute;
-      inset: -5px;
-      background: inherit;
-      filter: blur(10px);
-      opacity: 0.5;
-      z-index: -1;
-    }
-
-    .floating-emoji-layer {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: -1;
-      overflow: hidden;
-    }
-    .bouncing-emoji-db {
-      position: absolute;
-      font-size: 2rem;
-      will-change: transform;
-      animation: float-around 20s linear infinite;
-      filter: drop-shadow(0 0 15px rgba(0,255,255,0.6));
-    }
-    .emoji-1 { animation-duration: 25s; animation-delay: -2s; font-size: 3rem; opacity: 0.6; }
-    .emoji-2 { animation-duration: 30s; animation-delay: -5s; font-size: 2.5rem; opacity: 0.5; }
-    .emoji-3 { animation-duration: 22s; animation-delay: -10s; font-size: 4rem; opacity: 0.4; }
-    .emoji-4 { animation-duration: 28s; animation-delay: -15s; font-size: 3.5rem; opacity: 0.55; }
-    .emoji-5 { animation-duration: 24s; animation-delay: -7s; font-size: 2.8rem; opacity: 0.45; }
-    .emoji-6 { animation-duration: 20s; animation-delay: -12s; font-size: 2rem; opacity: 0.5; }
-
-    .light body { background-color: #F0F0F0; color: #050505; }
-    .light .tearing-quote { background: #fff; color: #000; box-shadow: 0 0 30px rgba(0,0,0,0.2); }
-  </style>
-
-  <script>
-    // Toggle mode
-    document.getElementById('toggle-mode-db')?.addEventListener('click', () => {
-      document.documentElement.classList.toggle('light');
-    });
-
-    // Randomize emoji positions
-    document.querySelectorAll('.bouncing-emoji-db').forEach(emoji => {
-      (emoji as HTMLElement).style.left = Math.random() * 90 + 'vw';
-      (emoji as HTMLElement).style.top = Math.random() * 90 + 'vh';
-    });
-
-    // Fractal scroll reaction + High Chaos Glitch
-    const fractal = document.getElementById('fractal');
-    const body = document.body;
-    let lastScroll = 0;
-
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const diff = Math.abs(scrolled - lastScroll);
-
-      if (fractal) {
-        const rotate = scrolled * 0.05;
-        const scale = 1 + (scrolled * 0.0005);
-        fractal.style.transform = `rotate(${rotate}deg) scale(${scale})`;
-        fractal.style.opacity = String(0.2 + (scrolled * 0.0005));
-        fractal.style.backgroundSize = `${100 + (scrolled * 0.1)}% ${100 + (scrolled * 0.1)}%`;
-      }
-
-      // High Chaos Glitch trigger on rapid scroll
-      if (diff > 50) {
-        body.classList.add('glitch-active');
-        setTimeout(() => {
-          body.classList.remove('glitch-active');
-        }, 50);
-      }
-
-      lastScroll = scrolled;
-    });
-
-    // Intensify corrupt animations periodically
-    setInterval(() => {
-      const metas = document.querySelectorAll('.corrupt-meta');
-      metas.forEach(m => {
-        if (Math.random() > 0.8) {
-          (m as HTMLElement).style.filter = `blur(${Math.random() * 2}px) hue-rotate(${Math.random() * 360}deg)`;
-          setTimeout(() => (m as HTMLElement).style.filter = 'none', 100);
-        }
-      });
-    }, 500);
-  </script>
-</body>
-</html>
+</BaseLayout>
