@@ -166,6 +166,70 @@
   100% { transform: translate(20px, 20px) rotate(1deg); }
 }
 
+/* Emoji wander — wide, organic, more movement */
+@keyframes emojiWander {
+  0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  10% { transform: translate(12vw, -8vh) rotate(25deg) scale(1.1); }
+  20% { transform: translate(-6vw, 18vh) rotate(-40deg) scale(0.85); }
+  30% { transform: translate(20vw, 5vh) rotate(80deg) scale(1.2); }
+  40% { transform: translate(-15vw, -12vh) rotate(-60deg) scale(0.9); }
+  50% { transform: translate(8vw, 25vh) rotate(150deg) scale(1.3); }
+  60% { transform: translate(-20vw, -5vh) rotate(-120deg) scale(0.75); }
+  70% { transform: translate(15vw, 15vh) rotate(200deg) scale(1.15); }
+  80% { transform: translate(-10vw, -20vh) rotate(-180deg) scale(0.95); }
+  90% { transform: translate(5vw, 10vh) rotate(300deg) scale(1.05); }
+  100% { transform: translate(0, 0) rotate(360deg) scale(1); }
+}
+
+/* Trailing ghost copies with offset + fade */
+@keyframes emojiTrail1 {
+  0% { transform: translate(0, 0) scale(0.9); opacity: 0.3; }
+  25% { transform: translate(-10px, -6px) scale(0.85); opacity: 0.35; }
+  50% { transform: translate(-18px, -12px) scale(0.8); opacity: 0.25; }
+  75% { transform: translate(-8px, -15px) scale(0.85); opacity: 0.3; }
+  100% { transform: translate(-12px, -8px) scale(0.9); opacity: 0.3; }
+}
+
+@keyframes emojiTrail2 {
+  0% { transform: translate(0, 0) scale(0.8); opacity: 0.15; }
+  25% { transform: translate(-20px, -10px) scale(0.75); opacity: 0.2; }
+  50% { transform: translate(-30px, -22px) scale(0.7); opacity: 0.12; }
+  75% { transform: translate(-15px, -28px) scale(0.75); opacity: 0.18; }
+  100% { transform: translate(-24px, -16px) scale(0.8); opacity: 0.15; }
+}
+
+/* Box morph — subtle geometry shifts */
+@keyframes boxMorph {
+  0%, 100% {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    transform: rotate(0deg) scale(1);
+  }
+  15% {
+    clip-path: polygon(1% 2%, 99% 0%, 100% 98%, 0% 100%);
+    transform: rotate(-0.3deg) scale(1.002);
+  }
+  30% {
+    clip-path: polygon(0% 0%, 100% 1%, 99% 100%, 1% 99%);
+    transform: rotate(0.5deg) scale(0.998);
+  }
+  45% {
+    clip-path: polygon(2% 1%, 98% 0%, 100% 99%, 0% 98%);
+    transform: rotate(-0.2deg) scale(1.003);
+  }
+  60% {
+    clip-path: polygon(0% 1%, 100% 0%, 99% 100%, 1% 100%);
+    transform: rotate(0.4deg) scale(0.999);
+  }
+  75% {
+    clip-path: polygon(1% 0%, 99% 2%, 100% 99%, 0% 100%);
+    transform: rotate(-0.5deg) scale(1.001);
+  }
+  90% {
+    clip-path: polygon(0% 0%, 100% 1%, 98% 100%, 2% 99%);
+    transform: rotate(0.3deg) scale(1.002);
+  }
+}
+
 @keyframes float-bounce {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
   25% { transform: translate(10vw, 15vh) rotate(90deg); }
@@ -407,7 +471,7 @@ body {
   transition: all 0.05s steps(2);
   position: relative;
   z-index: 20;
-  clip-path: polygon(0% 2%, 100% 0%, 98% 98%, 2% 100%);
+  animation: boxMorph 18s ease-in-out infinite;
 }
 .light .post-card {
   background-color: #fff;
@@ -429,14 +493,35 @@ body {
   mix-blend-mode: screen;
 }
 
-/* Floating Emoji (MANIFESTO style) */
+/* Floating Emoji (MANIFESTO style) — trippy trails */
 .floating-emoji {
   position: fixed;
   pointer-events: none;
   z-index: 0;
-  filter: blur(1px);
-  opacity: 0.4;
-  animation: float-bounce var(--duration, 20s) infinite linear alternate;
+  filter: blur(0.5px);
+  opacity: 0.5;
+  animation: emojiWander var(--duration, 20s) infinite ease-in-out alternate;
+}
+.floating-emoji::before,
+.floating-emoji::after {
+  content: attr(data-emoji);
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+.floating-emoji::before {
+  animation: emojiTrail1 var(--duration, 20s) infinite ease-in-out alternate;
+  filter: blur(4px) hue-rotate(90deg);
+  opacity: 0.35;
+  transform: translate(-12px, -8px) scale(0.9);
+}
+.floating-emoji::after {
+  animation: emojiTrail2 var(--duration, 20s) infinite ease-in-out alternate;
+  filter: blur(8px) hue-rotate(180deg) saturate(2);
+  opacity: 0.2;
+  transform: translate(-24px, -16px) scale(0.8);
 }
 
 /* Typewriter Text (INDEX - border cursor style) */
@@ -856,6 +941,11 @@ body {
   user-select: none;
 }
 
+/* Box Morph — subtle shifting geometry */
+.box-morph {
+  animation: boxMorph 12s ease-in-out infinite;
+}
+
 /* Fractal Card */
 .fractal-card {
   position: relative;
@@ -863,7 +953,7 @@ body {
   background: #0a0a0a;
   overflow: hidden;
   transition: all 0.05s steps(2);
-  animation: borderGlitch 8s steps(1) infinite;
+  animation: borderGlitch 8s steps(1) infinite, boxMorph 15s ease-in-out infinite;
   --border-color: #00FFFF;
 }
 .fractal-card::before {
