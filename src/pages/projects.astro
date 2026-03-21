@@ -1,24 +1,54 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
+
 <BaseLayout title="💀 Projects — CyperX.dev" activeNav="projects">
-  <div class="w-full max-w-4xl py-8 sm:py-16">
-    <div class="fractal-card p-6 sm:p-10 relative">
-      <div class="chaos-sticker sticker-magenta absolute -top-4 -right-4 -rotate-2 hidden sm:block">ACTIVE_BUILDS</div>
-      <h1 class="font-black uppercase tracking-tighter text-4xl sm:text-6xl lg:text-8xl text-primary mb-4 sm:mb-6" style="font-family: 'Rubik Glitch', cursive;">
-        PROJECTS
-      </h1>
-      <div class="glitch-bar-static mb-6 sm:mb-8"></div>
-      <div class="font-mono text-sm sm:text-base space-y-3 text-gray-400">
-        <p><span class="text-primary">root@cyperx:~#</span> ps aux | grep builds</p>
-        <p class="pl-4 text-[#00FFFF]">🔧 &nbsp;OpenClaw &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;— agent fleet, always running</p>
-        <p class="pl-4 text-[#FF003C]">💀 &nbsp;cyperx.dev &nbsp;&nbsp;— this glitch right here</p>
-        <p class="pl-4 text-[#FF00FF]">🍄 &nbsp;deep-research — autonomous research engine</p>
-        <p class="pl-4 text-yellow-400">⚡ &nbsp;more_builds &nbsp;— [REDACTED]</p>
-        <p><span class="text-primary">root@cyperx:~#</span> <span class="animate-pulse text-white">_</span></p>
+
+  <div class="w-full max-w-4xl">
+    <!-- Terminal Header -->
+    <div class="fractal-card p-3 sm:p-4 font-mono mb-6 sm:mb-10 relative z-30">
+      <div class="flex items-center gap-2 mb-3 border-b border-muted pb-2">
+        <div class="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-accent-red flex-shrink-0"></div>
+        <div class="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-primary flex-shrink-0"></div>
+        <div class="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-accent-magenta flex-shrink-0"></div>
+        <span class="ml-auto text-[9px] sm:text-[10px] text-muted">tty1 - projects.sys</span>
       </div>
-      <div class="corrupt-block mt-8 sm:mt-12"></div>
-      <p class="font-mono text-xs text-muted mt-4 tracking-widest animate-pulse">MORE_PROJECTS_INCOMING :: STANDBY</p>
+      <p class="text-primary text-xs sm:text-sm"><span class="typewriter-text">root@shredder:~# ls -la /projects/</span></p>
     </div>
+
+    <h1 class="text-4xl sm:text-chaos-xl lg:text-chaos-2xl glitch-intense mb-4 sm:mb-8 break-words">PROJECTS</h1>
+
+    <div class="glitch-bar-static w-full mb-6 sm:mb-8"></div>
+
+    <!-- Coming soon block -->
+    <div class="fractal-card p-6 sm:p-10 relative overflow-hidden chaos-rotate-1">
+      <div class="absolute inset-0 glitch-bg pointer-events-none opacity-30"></div>
+      <div class="relative z-10 flex flex-col items-center gap-4 sm:gap-6 text-center">
+        <span class="text-4xl sm:text-6xl">🛹</span>
+        <p class="font-mono text-primary text-lg sm:text-2xl glitch-text">COMPILING_PROJECTS...</p>
+        <div class="ascii-block w-full max-w-sm text-[10px] sm:text-sm overflow-hidden">
+          ░░░ REPO_SCAN: RUNNING :: FILES: ∞ ░░░
+          ▓▓▓ BUILD_STATUS: UNKNOWN :: DEPLOY: SOON ▓▓▓
+        </div>
+        <div class="space-y-2 font-mono text-xs sm:text-sm text-left w-full max-w-sm">
+          <div class="flex items-center gap-2 sm:gap-3 bg-[#111111]/50 p-2 border border-primary/20">
+            <span class="text-primary text-xs">[PENDING]</span>
+            <span class="text-slate-400">openclaw_neural_skate.repo</span>
+          </div>
+          <div class="flex items-center gap-2 sm:gap-3 bg-[#111111]/50 p-2 border border-primary/20">
+            <span class="text-primary text-xs">[PENDING]</span>
+            <span class="text-slate-400">fractal_chaos_engine.dll</span>
+          </div>
+          <div class="flex items-center gap-2 sm:gap-3 bg-[#FF003C]/10 p-2 border border-[#FF003C]/30">
+            <span class="text-[#FF003C] text-xs glitch-text">[LOADING]</span>
+            <span class="text-slate-400">void_project_0xDEAD.sys</span>
+          </div>
+        </div>
+        <div class="w-4 h-8 bg-primary animate-blink-caret shadow-[0_0_15px_rgba(6,249,249,0.8)] mx-auto"></div>
+      </div>
+    </div>
+
+    <div class="corrupt-block w-full mt-8 sm:mt-12"></div>
   </div>
+
 </BaseLayout>
