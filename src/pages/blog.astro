@@ -1,24 +1,44 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
+
 <BaseLayout title="💀 Blog — CyperX.dev" activeNav="blog">
-  <div class="w-full max-w-4xl py-8 sm:py-16">
-    <div class="fractal-card p-6 sm:p-10 relative">
-      <div class="chaos-sticker sticker-cyan absolute -top-4 -right-4 rotate-3 hidden sm:block">LOADING_POSTS</div>
-      <h1 class="font-black uppercase tracking-tighter text-4xl sm:text-6xl lg:text-8xl text-primary mb-4 sm:mb-6" style="font-family: 'Rubik Glitch', cursive;">
-        BLOG
-      </h1>
-      <div class="glitch-bar-static mb-6 sm:mb-8"></div>
-      <div class="font-mono text-sm sm:text-base space-y-3 text-gray-400">
-        <p><span class="text-primary">root@cyperx:~#</span> ls -la posts/</p>
-        <p class="pl-4">total 0</p>
-        <p class="pl-4 text-yellow-400">drwxr-xr-x  &nbsp;coming_soon</p>
-        <p class="pl-4 text-yellow-400">drwxr-xr-x  &nbsp;brain_dumps</p>
-        <p class="pl-4 text-yellow-400">drwxr-xr-x  &nbsp;build_logs</p>
-        <p><span class="text-primary">root@cyperx:~#</span> <span class="animate-pulse text-white">_</span></p>
+
+  <div class="w-full max-w-4xl">
+    <!-- Terminal Header -->
+    <div class="fractal-card p-3 sm:p-4 font-mono mb-6 sm:mb-10 relative z-30">
+      <div class="flex items-center gap-2 mb-3 border-b border-muted pb-2">
+        <div class="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-accent-red flex-shrink-0"></div>
+        <div class="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-primary flex-shrink-0"></div>
+        <div class="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-accent-magenta flex-shrink-0"></div>
+        <span class="ml-auto text-[9px] sm:text-[10px] text-muted">tty1 - blog.sys</span>
       </div>
-      <div class="corrupt-block mt-8 sm:mt-12"></div>
-      <p class="font-mono text-xs text-muted mt-4 tracking-widest animate-pulse">POSTS_INCOMING :: STANDBY</p>
+      <p class="text-primary text-xs sm:text-sm"><span class="typewriter-text">root@shredder:~# cat blog/index.md</span></p>
     </div>
+
+    <h1 class="text-4xl sm:text-chaos-xl lg:text-chaos-2xl glitch-intense mb-4 sm:mb-8 break-words">BLOG</h1>
+
+    <div class="glitch-bar-static w-full mb-6 sm:mb-8"></div>
+
+    <!-- Coming soon block -->
+    <div class="fractal-card p-6 sm:p-10 relative overflow-hidden chaos-rotate-n1">
+      <div class="absolute inset-0 glitch-bg pointer-events-none opacity-30"></div>
+      <div class="relative z-10 flex flex-col items-center gap-4 sm:gap-6 text-center">
+        <span class="text-4xl sm:text-6xl">💀</span>
+        <p class="font-mono text-primary text-lg sm:text-2xl glitch-text">LOADING_POSTS...</p>
+        <div class="ascii-block w-full max-w-sm text-[10px] sm:text-sm overflow-hidden">
+          ░░░ SECTOR_EMPTY :: CONTENT_PENDING ░░░
+          ▓▓▓ VOID_STATE: ACTIVE :: ETA: SOON ▓▓▓
+        </div>
+        <p class="font-mono text-muted text-xs sm:text-sm tracking-widest">
+          [SYS] Posts loading from the void...<br />
+          [WARN] ETA: undefined
+        </p>
+        <div class="w-4 h-8 bg-primary animate-blink-caret shadow-[0_0_15px_rgba(6,249,249,0.8)] mx-auto"></div>
+      </div>
+    </div>
+
+    <div class="corrupt-block w-full mt-8 sm:mt-12"></div>
   </div>
+
 </BaseLayout>
