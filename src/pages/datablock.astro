@@ -12,6 +12,23 @@ import '../styles/global.css';
 </head>
 <body class="font-body text-[22px] leading-relaxed relative min-h-screen transition-all duration-75">
 
+  <!-- Fractal Chaos Overlays -->
+  <div class="fractal-sierpinski"></div>
+  <div class="fractal-grid"></div>
+  <div class="noise-grain"></div>
+  <div class="scanlines-crt"></div>
+  <div class="color-noise-wash"></div>
+
+  <!-- Glitch bars -->
+  <div class="glitch-bar" style="top: 20%"></div>
+  <div class="glitch-bar" style="top: 55%"></div>
+  <div class="glitch-bar" style="top: 78%"></div>
+
+  <!-- Chaos Stickers -->
+  <div class="chaos-sticker sticker-red" style="position: fixed; top: 6%; right: 4%; z-index: 200; pointer-events: none;">NEURAL_SKATE</div>
+  <div class="chaos-sticker sticker-cyan" style="position: fixed; bottom: 12%; left: 2%; z-index: 200; pointer-events: none;">OPENCLAW_BOT</div>
+  <div class="chaos-sticker sticker-acid" style="position: fixed; top: 50%; right: 3%; z-index: 200; pointer-events: none; transform: rotate(-4deg);">KICKFLIP_AI</div>
+
   <div class="fractal-bg" id="fractal"></div>
 
   <div aria-hidden="true" class="floating-emoji-layer">
@@ -83,6 +100,9 @@ import '../styles/global.css';
       <div class="text-center font-code text-primary py-8 text-2xl tracking-[0.5em] overflow-hidden whitespace-nowrap flicker-glitch">
         🛹 FRACTAL_CHAOS 🦞 FRACTAL_CHAOS 🤙 FRACTAL_CHAOS 🛹
       </div>
+
+      <div class="corrupt-block my-4"></div>
+      <div class="chaos-divider my-4"></div>
 
       <div class="breakout my-16 shattered-border group relative">
         <div class="ghost-skull-bg">

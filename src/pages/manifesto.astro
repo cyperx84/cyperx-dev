@@ -4,7 +4,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout title="MANIFESTO - Glitch Art Maximalist" activeNav="manifesto">
 
-  <div class="terminal-container w-full max-w-5xl border-[3px] border-primary bg-[#050505] shadow-[0_0_30px_rgba(6,249,249,0.15)] relative rounded-sm overflow-visible transition-colors duration-300 reveal-element active">
+  <!-- Chaos sticker on manifesto page -->
+  <div class="chaos-sticker sticker-red" style="position: absolute; top: 1rem; right: 1rem; z-index: 40; transform: rotate(4deg);">ROOT_ACCESS</div>
+
+  <div class="fractal-card w-full max-w-5xl relative overflow-visible transition-colors duration-300 reveal-element active">
     <!-- Subtle Skull Watermark inside Terminal -->
     <div class="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none select-none z-0">
       <span class="text-[20rem]">💀</span>
@@ -12,7 +15,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     <div class="terminal-ascii-border">
       &lt;sk&gt;💀&lt;/sk&gt; ............................................................................................................ &lt;sk&gt;💀&lt;/sk&gt;<br />
-      :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:<br />
       :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:<br />
       &lt;sk&gt;💀&lt;/sk&gt; ............................................................................................................ &lt;sk&gt;💀&lt;/sk&gt;
     </div>
@@ -22,7 +24,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <span class="absolute -top-6 -left-6 text-5xl mix-blend-difference z-30 opacity-90 drop-shadow-[0_0_10px_rgba(6,249,249,0.8)]">👾🦞🤙</span>
 
     <div class="terminal-header bg-[#FF003C] px-6 py-3 flex items-center border-b-[3px] border-primary relative z-20 transition-colors duration-300">
-      <h2 class="text-white text-xl font-bold leading-tight tracking-widest uppercase">root@shredder:~</h2>
+      <h2 class="text-chaos-xl glitch-intense text-white font-bold leading-tight tracking-widest uppercase">root@shredder:~</h2>
       <div class="ml-auto flex gap-3">
         <div class="size-4 rounded-sm bg-[#050505] border border-primary"></div>
         <div class="size-4 rounded-sm bg-[#050505] border border-primary"></div>
@@ -41,6 +43,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
       </div>
 
+      <!-- Glitch bar divider -->
+      <div class="glitch-bar-static"></div>
+
       <!-- Command 1 -->
       <div class="pt-2 reveal-element">
         <div class="text-primary text-2xl font-bold mb-4 flex items-center">
@@ -57,6 +62,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </p>
         </div>
       </div>
+
+      <!-- ASCII Block decoration -->
+      <div class="ascii-block chaos-rotate-n1">
+        ▓▓▓ MANIFESTO_LOADED :: REALITY_OVERWRITE_PENDING ▓▓▓
+        ░░░ COUNTER_CULTURE.EXE → RUNNING :: EXIT_CODE: NEVER ░░░
+      </div>
+
+      <!-- Glitch bar -->
+      <div class="glitch-bar-static"></div>
 
       <!-- Command 2 -->
       <div class="pt-6 reveal-element">
@@ -95,19 +109,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
   </div>
 
+  <!-- Corrupt block divider -->
+  <div class="corrupt-block w-full max-w-5xl"></div>
+
   <!-- Fragment_A Section -->
-  <div class="w-full max-w-5xl reveal-element">
-    <div class="border-[3px] border-[#FF00FF] bg-black/40 backdrop-blur-md p-8 relative overflow-hidden">
+  <div class="w-full max-w-5xl reveal-element chaos-rotate-1">
+    <div class="fractal-card p-8 relative overflow-hidden torn-top">
       <!-- Background skull watermark -->
       <div class="absolute -left-10 -bottom-10 opacity-[0.05] pointer-events-none select-none">
         <span class="text-[15rem]">💀</span>
       </div>
-      <div class="absolute -top-4 -right-4 bg-[#FF00FF] text-black font-bold px-4 py-1 text-sm skew-x-12 uppercase tracking-widest z-20">
-        Fragment_A // Neural_Lattice
-      </div>
+      <div class="chaos-sticker sticker-magenta" style="position: absolute; top: -1rem; right: -1rem; z-index: 20;">Fragment_A :: Neural_Lattice</div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center relative z-10">
         <div class="space-y-4">
-          <h3 class="text-3xl font-black italic glitch-text tracking-tighter uppercase">Building the Void</h3>
+          <h3 class="text-chaos-xl glitch-intense tracking-tighter uppercase">Building the Void</h3>
           <p class="text-slate-400">Our architectures don't just host data; they breathe interference. We design for the collapse, for the beauty of the broken signal. 🦞🤙</p>
           <div class="h-1 w-24 bg-primary"></div>
         </div>
@@ -122,15 +137,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
   </div>
 
+  <!-- Chaos divider -->
+  <div class="chaos-divider w-full max-w-5xl"></div>
+
   <!-- The Singularity is a Halfpipe CTA -->
-  <div class="w-full max-w-5xl reveal-element mb-24">
-    <div class="border-[3px] border-primary/40 bg-black/40 backdrop-blur-md p-8 relative overflow-hidden">
+  <div class="w-full max-w-5xl reveal-element mb-24 collage-pull-up">
+    <div class="fractal-card p-8 relative overflow-hidden chaos-rotate-n1">
+      <div class="chaos-sticker sticker-acid" style="position: absolute; bottom: -1rem; right: 2rem; z-index: 20;">HALFPIPE_SINGULARITY</div>
       <div class="absolute top-0 left-0 w-full h-full opacity-5 flex flex-wrap gap-4 overflow-hidden pointer-events-none">
         <span>💀</span><span>💀</span><span>💀</span><span>💀</span><span>💀</span><span>💀</span><span>💀</span><span>💀</span><span>💀</span><span>💀</span><span>💀</span><span>💀</span><span>💀</span>
       </div>
       <div class="flex flex-col items-center text-center gap-6 relative z-10">
         <span class="material-symbols-outlined text-7xl text-[#FF003C] animate-pulse">leak_add</span>
-        <h3 class="text-4xl font-black uppercase tracking-[0.2em] glitch-text">The Singularity is a Halfpipe</h3>
+        <h3 class="text-chaos-2xl glitch-intense uppercase tracking-[0.2em]">The Singularity is a Halfpipe</h3>
         <p class="max-w-xl text-lg text-slate-400 italic">"The error is the only honest part of the system. In the glitch, we find the truth that the clean code tries to hide." 🦞</p>
         <div class="flex gap-4">
           <button class="px-8 py-3 border-2 border-primary text-primary font-bold hover:bg-primary hover:text-black transition-all uppercase tracking-widest cursor-pointer">Connect</button>

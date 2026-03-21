@@ -16,10 +16,25 @@ import '../styles/global.css';
 </head>
 <body class="antialiased min-h-screen relative font-display selection:bg-accent-red selection:text-white">
 
+  <!-- Fractal Chaos Overlay Layers -->
+  <div class="fractal-sierpinski"></div>
+  <div class="fractal-grid"></div>
+  <div class="noise-grain"></div>
+  <div class="scanlines-crt"></div>
+  <div class="color-noise-wash"></div>
+
+  <!-- Glitch bars -->
+  <div class="glitch-bar" style="top: 25%"></div>
+  <div class="glitch-bar" style="top: 60%"></div>
+  <div class="glitch-bar" style="top: 85%"></div>
+
+  <!-- Chaos Sticker Badges -->
+  <div class="chaos-sticker sticker-red" style="position: fixed; top: 3%; right: 3%; z-index: 200; pointer-events: none;">ARCHIVE_CORRUPT</div>
+  <div class="chaos-sticker sticker-cyan" style="position: fixed; bottom: 10%; left: 2%; z-index: 200; pointer-events: none;">FRAG_DEPTH:∞</div>
+  <div class="chaos-sticker sticker-magenta" style="position: fixed; top: 50%; right: 1%; z-index: 200; pointer-events: none;">0xFRAG</div>
+
   <!-- Background ASCII Noise -->
   <div aria-hidden="true" class="ascii-noise-fragments">
-    %#@!&amp;*[&gt;SYS_ERR&lt;]*&amp;^%$#@!(*&amp;^%$#@!_FRAGMENT_FAULT_0x00A1%#@!&amp;*[&gt;SYS_ERR&lt;]*&amp;^%$#@!(*&amp;^%$#@!_FRAGMENT_FAULT_0x00A1
-    %#@!&amp;*[&gt;SYS_ERR&lt;]*&amp;^%$#@!(*&amp;^%$#@!_FRAGMENT_FAULT_0x00A1%#@!&amp;*[&gt;SYS_ERR&lt;]*&amp;^%$#@!(*&amp;^%$#@!_FRAGMENT_FAULT_0x00A1
     %#@!&amp;*[&gt;SYS_ERR&lt;]*&amp;^%$#@!(*&amp;^%$#@!_FRAGMENT_FAULT_0x00A1%#@!&amp;*[&gt;SYS_ERR&lt;]*&amp;^%$#@!(*&amp;^%$#@!_FRAGMENT_FAULT_0x00A1
     %#@!&amp;*[&gt;SYS_ERR&lt;]*&amp;^%$#@!(*&amp;^%$#@!_FRAGMENT_FAULT_0x00A1%#@!&amp;*[&gt;SYS_ERR&lt;]*&amp;^%$#@!(*&amp;^%$#@!_FRAGMENT_FAULT_0x00A1
   </div>
@@ -32,30 +47,45 @@ import '../styles/global.css';
         <div class="flex gap-3 border-b border-primary pb-4 mb-2">
           <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-none size-12 border border-accent-red filter grayscale contrast-200" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBRkwT8_SMwwskhTxyHYtcp1kxhOwSiAfQPSn_nLxnAYhLnuUO8KyFMCg0PgatDc3-DbVSy-FJQi0tuiSdddC_Pk_7KPoRVF6ddrxODV_flFJHt8jWxXRdZoSS1esR9dO5Z513KdiUsjD3bWYavVir6il0c2RDmADpqV7SZU9E6U2_t-HqdVEnXNQR7jjWAx0TCsguH4ESrDMfChlp94NCbGBL0Wl4u8KfcSBBZ480q71aUdMS7vJ5BN6qmg-uytBa4Cd4xC5CA6pjO");'></div>
           <div class="flex flex-col">
-            <h1 class="text-primary text-base font-code font-bold leading-tight">root@shredder:~</h1>
+            <h1 class="text-primary text-base font-code font-bold leading-tight glitch-text">root@shredder:~</h1>
             <p class="text-accent-red text-xs font-code font-normal leading-tight mt-1 animate-pulse">SYSTEM_ONLINE</p>
           </div>
         </div>
 
-        <nav class="flex flex-col gap-4 font-code text-sm">
+        <!-- Glitch bar dividers between nav items -->
+        <nav class="flex flex-col gap-2 font-code text-sm">
           <a class="nav-link flex items-center gap-3 text-text-main hover:bg-surface p-2 rounded-none" href="/">
             <span class="material-symbols-outlined text-primary">house</span>
             <span>[&gt; HOME]</span>
           </a>
+          <div class="glitch-bar-static"></div>
           <a class="nav-link flex items-center gap-3 text-text-main hover:bg-surface p-2 rounded-none" href="/datablock">
             <span class="material-symbols-outlined text-primary">code</span>
             <span>[&gt; DATABLOCK]</span>
           </a>
+          <div class="glitch-bar-static"></div>
           <a class="nav-link flex items-center gap-3 text-text-main hover:bg-surface p-2 rounded-none" href="/manifesto">
             <span class="material-symbols-outlined text-primary">terminal</span>
             <span>[&gt; MANIFESTO]</span>
           </a>
+          <div class="glitch-bar-static"></div>
           <!-- Active State for FRAGMENTS -->
           <a class="flex items-center gap-3 bg-primary text-background-dark p-2 rounded-none font-bold shadow-[2px_2px_0px_#FF003C]" href="/fragments">
             <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">tag</span>
             <span>[&gt; FRAGMENTS]</span>
           </a>
+          <div class="glitch-bar-static"></div>
         </nav>
+
+        <!-- Corrupt block in sidebar -->
+        <div class="corrupt-block mt-4"></div>
+
+        <!-- ASCII Block decoration -->
+        <div class="ascii-block text-[8px] mt-2">
+          ▓ FRAG_DB ▓
+          ░ LOADING ░
+          ▒ CORRUPT ▒
+        </div>
 
         <div class="mt-auto pt-4 border-t border-muted">
           <p class="text-muted text-xs font-body break-all leading-none opacity-50">
@@ -69,7 +99,12 @@ import '../styles/global.css';
     <main class="flex-1 relative ml-[250px] w-full h-full overflow-hidden">
       <!-- Header/Title -->
       <div class="absolute top-8 left-12 z-20 pointer-events-none mix-blend-exclusion">
-        <h2 class="font-heading text-6xl text-text-main tracking-widest opacity-20" style="text-shadow: 4px 4px 0px #FF003C;">ARCHIVE_FRAGMENTS</h2>
+        <h2 class="text-chaos-2xl glitch-intense text-text-main tracking-widest opacity-20">ARCHIVE_FRAGMENTS</h2>
+      </div>
+
+      <!-- Data dump block -->
+      <div class="data-dump absolute bottom-4 left-12 z-20 max-w-md">
+        SYS:FRAG_DB | RECORDS:∞ | CORRUPTION:ACTIVE | ENTROPY:MAX | VOID:OPEN
       </div>
 
       <!-- Emoji Clusters -->
@@ -89,6 +124,14 @@ import '../styles/global.css';
         <div class="absolute glitch-tag text-muted font-body" style="top: 85%; left: 20%; font-size: 20px; transform: rotate(25deg);">404_LORE</div>
         <div class="absolute glitch-tag text-text-main font-code" style="top: 45%; left: 70%; font-size: 16px; transform: rotate(-30deg); border: 1px solid #06f9f9; padding: 4px;">RAW_DATA</div>
         <div class="absolute glitch-tag text-accent-red font-heading" style="top: 25%; left: 80%; font-size: 42px; transform: rotate(5deg); opacity: 0.6;">HALLUCINATION</div>
+
+        <!-- Fractal card for featured fragment -->
+        <div class="absolute fractal-card chaos-rotate-n2" style="top: 40%; left: 30%; width: 220px; padding: 1rem; z-index: 30;">
+          <p class="text-primary font-mono text-xs">FRAGMENT_0xDEAD</p>
+          <p class="text-white font-bold mt-1">FRACTAL_MODE: ENGAGED</p>
+          <div class="glitch-bar-static mt-2"></div>
+          <p class="text-muted text-xs mt-1 font-mono">depth: ∞ | iter: NaN</p>
+        </div>
       </div>
     </main>
   </div>

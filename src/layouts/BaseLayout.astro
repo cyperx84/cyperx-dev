@@ -22,6 +22,25 @@ const { title, activeNav = "" } = Astro.props;
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-100 dark:text-slate-100 min-h-[200vh] flex overflow-x-hidden transition-colors duration-300">
 
+  <!-- Fractal Chaos Overlay Layers -->
+  <div class="fractal-sierpinski"></div>
+  <div class="fractal-grid"></div>
+  <div class="noise-grain"></div>
+  <div class="scanlines-crt"></div>
+  <div class="color-noise-wash"></div>
+
+  <!-- Glitch Bars at various positions -->
+  <div class="glitch-bar" style="top: 12%"></div>
+  <div class="glitch-bar" style="top: 34%"></div>
+  <div class="glitch-bar" style="top: 57%"></div>
+  <div class="glitch-bar" style="top: 82%"></div>
+
+  <!-- Chaos Sticker Badges (floating) -->
+  <div class="chaos-sticker sticker-red" style="position: fixed; top: 8%; right: 2%; z-index: 50; transform: rotate(3deg);">SYSTEM_BREACH</div>
+  <div class="chaos-sticker sticker-cyan" style="position: fixed; top: 45%; right: 1%; z-index: 50; transform: rotate(-5deg);">VOID_PTR</div>
+  <div class="chaos-sticker sticker-magenta" style="position: fixed; bottom: 25%; right: 3%; z-index: 50; transform: rotate(7deg);">0xDEAD</div>
+  <div class="chaos-sticker sticker-acid" style="position: fixed; bottom: 8%; left: 2%; z-index: 50; transform: rotate(-4deg);">FRACTAL_MODE</div>
+
   <!-- Ghost Terminals (Chaos Layer) -->
   <div class="ghost-window top-[10%] left-[60%] w-64 h-40" style="--duration: 40s;">
     &gt; exec hallucinate.sh<br />
@@ -71,6 +90,9 @@ const { title, activeNav = "" } = Astro.props;
         </div>
 
         <div class="flex flex-col gap-2 mt-8">
+          <!-- Nav divider top -->
+          <div class="glitch-bar-static"></div>
+
           <a class:list={[
             "flex items-center gap-3 px-3 py-3 cursor-pointer transition-colors border border-transparent group",
             activeNav === "home" ? "bg-primary/20 border-2 !border-primary relative overflow-hidden" : "hover:bg-[#FF003C]/20 hover:border-[#FF003C]"
@@ -81,6 +103,9 @@ const { title, activeNav = "" } = Astro.props;
             </div>
             <p class:list={["text-sm font-bold tracking-wider relative z-10", activeNav === "home" ? "text-primary glitch-text" : "text-white group-hover:text-[#FF003C] group-hover:glitch-text transition-all"]}>[&gt; HOME]</p>
           </a>
+
+          <!-- Nav divider -->
+          <div class="glitch-bar-static"></div>
 
           <a class:list={[
             "flex items-center gap-3 px-3 py-3 cursor-pointer transition-colors border border-transparent group",
@@ -93,6 +118,9 @@ const { title, activeNav = "" } = Astro.props;
             <p class:list={["text-sm font-bold tracking-wider relative z-10", activeNav === "manifesto" ? "text-primary glitch-text" : "text-white group-hover:text-[#FF003C] group-hover:glitch-text transition-all"]}>[&gt; MANIFESTO]</p>
           </a>
 
+          <!-- Nav divider -->
+          <div class="glitch-bar-static"></div>
+
           <a class:list={[
             "flex items-center gap-3 px-3 py-3 cursor-pointer transition-colors border border-transparent group",
             activeNav === "fragments" ? "bg-primary/20 border-2 !border-primary relative overflow-hidden" : "hover:bg-[#FF003C]/20 hover:border-[#FF003C]"
@@ -104,6 +132,9 @@ const { title, activeNav = "" } = Astro.props;
             <p class:list={["text-sm font-bold tracking-wider relative z-10", activeNav === "fragments" ? "text-primary glitch-text" : "text-white group-hover:text-[#FF003C] group-hover:glitch-text transition-all"]}>[&gt; FRAGMENTS]</p>
           </a>
 
+          <!-- Nav divider -->
+          <div class="glitch-bar-static"></div>
+
           <a class:list={[
             "flex items-center gap-3 px-3 py-3 cursor-pointer transition-colors border border-transparent mt-12 group",
             activeNav === "fatal_error" ? "bg-[#FF003C]/20 border-2 !border-[#FF003C]" : "hover:bg-[#FF003C]/20 hover:border-[#FF003C]"
@@ -113,6 +144,9 @@ const { title, activeNav = "" } = Astro.props;
             </div>
             <p class="text-[#FF003C] text-sm font-bold tracking-wider glitch-text group-hover:scale-105 transition-transform">[&gt; FATAL_ERROR]</p>
           </a>
+
+          <!-- Nav divider bottom -->
+          <div class="glitch-bar-static"></div>
         </div>
       </div>
 
@@ -125,6 +159,9 @@ const { title, activeNav = "" } = Astro.props;
   <!-- Main Content -->
   <main class="flex-1 flex flex-col items-center gap-24 p-4 md:p-8 relative z-10">
     <slot />
+
+    <!-- Corrupt block above footer -->
+    <div class="corrupt-block w-full max-w-5xl"></div>
   </main>
 
   <script>

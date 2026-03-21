@@ -627,3 +627,354 @@ body {
   background: rgba(255,255,255,0.3);
 }
 .light .tearing-quote { background: #fff; color: #000; box-shadow: 0 0 30px rgba(0,0,0,0.2); }
+
+/* ========================================
+   FRACTAL CHAOS B — EXTENDED SYSTEM
+   Punk zine / corrupted terminal dump / hacker collage
+   ======================================== */
+
+/* ---- FRACTAL CHAOS KEYFRAMES ---- */
+
+@keyframes glitchBarSlide {
+  0%, 82%, 100% { transform: scaleX(0); opacity: 0; }
+  85% { transform: scaleX(1); opacity: 0.7; }
+  90% { transform: scaleX(0.6) translateX(40%); opacity: 0.4; }
+}
+
+@keyframes vhsTrack {
+  0%, 100% { transform: translateX(0) skewX(0deg); }
+  15% { transform: translateX(-3px) skewX(-0.3deg); }
+  30% { transform: translateX(2px) skewX(0.2deg); }
+  50% { transform: translateX(-1px) skewX(-0.1deg); }
+  70% { transform: translateX(4px) skewX(0.4deg); }
+}
+
+@keyframes fractalPulse {
+  0%, 100% { opacity: 0.035; }
+  50% { opacity: 0.07; }
+}
+
+@keyframes stickerBob {
+  0%, 100% { transform: var(--sticker-rotate, rotate(0deg)) translateY(0); }
+  50% { transform: var(--sticker-rotate, rotate(0deg)) translateY(-4px); }
+}
+
+@keyframes corruptJitter {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-1px, 1px); }
+  40% { transform: translate(2px, -1px); }
+  60% { transform: translate(-2px, 0px); }
+  80% { transform: translate(1px, 1px); }
+}
+
+@keyframes rgbSplit {
+  0%, 100% { text-shadow: -2px 0 #FF003C, 2px 0 #00FFFF; }
+  25% { text-shadow: 2px -1px #FF003C, -2px 1px #00FFFF, 0 2px #FF00FF; }
+  50% { text-shadow: -3px 1px #FF003C, 3px -1px #00FFFF, 1px -2px #FF00FF; }
+  75% { text-shadow: 1px 2px #FF003C, -1px -2px #00FFFF, -2px 0 #FF00FF; }
+}
+
+@keyframes borderGlitch {
+  0%, 90%, 100% { border-color: var(--border-color, #00FFFF); }
+  92% { border-color: #FF003C; }
+  94% { border-color: #FF00FF; }
+  96% { border-color: #39FF14; }
+  98% { border-color: #00FFFF; }
+}
+
+/* ---- FRACTAL CHAOS BACKGROUND OVERLAYS ---- */
+
+/* Sierpinski Triangle Fractal Pattern */
+.fractal-sierpinski {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='104'%3E%3Cpolygon points='60,2 118,102 2,102' fill='none' stroke='%2300FFFF' stroke-width='0.5' opacity='0.5'/%3E%3Cpolygon points='30,52 58,102 2,102' fill='none' stroke='%2300FFFF' stroke-width='0.5' opacity='0.35'/%3E%3Cpolygon points='90,52 118,102 62,102' fill='none' stroke='%2300FFFF' stroke-width='0.5' opacity='0.35'/%3E%3Cpolygon points='60,2 88,52 32,52' fill='none' stroke='%2300FFFF' stroke-width='0.5' opacity='0.35'/%3E%3Cpolygon points='15,77 29,102 2,102' fill='none' stroke='%23FF003C' stroke-width='0.3' opacity='0.25'/%3E%3Cpolygon points='45,77 58,102 31,102' fill='none' stroke='%23FF003C' stroke-width='0.3' opacity='0.25'/%3E%3Cpolygon points='30,52 44,77 16,77' fill='none' stroke='%23FF003C' stroke-width='0.3' opacity='0.25'/%3E%3Cpolygon points='75,77 88,102 62,102' fill='none' stroke='%23FF003C' stroke-width='0.3' opacity='0.25'/%3E%3Cpolygon points='105,77 118,102 92,102' fill='none' stroke='%23FF003C' stroke-width='0.3' opacity='0.25'/%3E%3Cpolygon points='90,52 104,77 76,77' fill='none' stroke='%23FF003C' stroke-width='0.3' opacity='0.25'/%3E%3Cpolygon points='45,27 58,52 32,52' fill='none' stroke='%23FF003C' stroke-width='0.3' opacity='0.25'/%3E%3Cpolygon points='75,27 88,52 62,52' fill='none' stroke='%23FF003C' stroke-width='0.3' opacity='0.25'/%3E%3Cpolygon points='60,2 74,27 46,27' fill='none' stroke='%23FF003C' stroke-width='0.3' opacity='0.25'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 120px 104px;
+  mix-blend-mode: screen;
+  animation: fractalPulse 8s ease-in-out infinite;
+}
+
+/* Dense Recursive Grid */
+.fractal-grid {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.04;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(0,255,255,0.1) 49px, rgba(0,255,255,0.1) 50px),
+    repeating-linear-gradient(90deg, transparent, transparent 49px, rgba(255,0,60,0.07) 49px, rgba(255,0,60,0.07) 50px),
+    repeating-linear-gradient(0deg, transparent, transparent 149px, rgba(255,0,255,0.06) 149px, rgba(255,0,255,0.06) 150px),
+    repeating-linear-gradient(90deg, transparent, transparent 149px, rgba(255,0,255,0.06) 149px, rgba(255,0,255,0.06) 150px);
+}
+
+/* Film Grain Noise */
+.noise-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.06;
+  background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23n)"/%3E%3C/svg%3E');
+  mix-blend-mode: overlay;
+}
+
+/* CRT Dense Scanlines */
+.scanlines-crt {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.08;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 1px,
+    rgba(0, 0, 0, 0.35) 1px,
+    rgba(0, 0, 0, 0.35) 2px
+  );
+}
+
+/* Color Noise Gradient Wash */
+.color-noise-wash {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.03;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(0,255,255,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(255,0,60,0.1) 0%, transparent 40%),
+    radial-gradient(ellipse at 60% 80%, rgba(255,0,255,0.12) 0%, transparent 45%),
+    radial-gradient(ellipse at 10% 90%, rgba(57,255,20,0.08) 0%, transparent 35%);
+}
+
+/* ---- CHAOS COMPONENTS ---- */
+
+/* Horizontal Glitch Bar */
+.glitch-bar {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, #00FFFF 15%, #FF003C 40%, #FF00FF 65%, #39FF14 85%, transparent 100%);
+  opacity: 0;
+  animation: glitchBarSlide 6s steps(3) infinite;
+  pointer-events: none;
+  z-index: 50;
+}
+.glitch-bar:nth-child(2) { animation-delay: -2s; top: 30%; height: 2px; }
+.glitch-bar:nth-child(3) { animation-delay: -4s; top: 65%; height: 4px; }
+
+/* Static Glitch Bar (always visible) */
+.glitch-bar-static {
+  width: 100%;
+  height: 3px;
+  background: repeating-linear-gradient(
+    90deg,
+    #FF003C 0px, #FF003C 4px,
+    transparent 4px, transparent 8px,
+    #00FFFF 8px, #00FFFF 12px,
+    transparent 12px, transparent 20px
+  );
+  opacity: 0.5;
+}
+
+/* Corrupt Data Block */
+.corrupt-block {
+  background: repeating-linear-gradient(
+    90deg,
+    #FF003C 0px, #FF003C 3px,
+    transparent 3px, transparent 7px,
+    #00FFFF 7px, #00FFFF 9px,
+    transparent 9px, transparent 15px,
+    #FF00FF 15px, #FF00FF 17px,
+    transparent 17px, transparent 24px
+  );
+  height: 4px;
+  width: 100%;
+  opacity: 0.4;
+}
+
+/* Sticker / Badge */
+.chaos-sticker {
+  display: inline-block;
+  padding: 3px 10px;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border: 2px solid;
+  z-index: 40;
+  pointer-events: none;
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.6);
+  animation: stickerBob 4s ease-in-out infinite;
+}
+.chaos-sticker.sticker-cyan {
+  border-color: #00FFFF;
+  color: #00FFFF;
+  background: rgba(0,255,255,0.08);
+  --sticker-rotate: rotate(-3deg);
+}
+.chaos-sticker.sticker-red {
+  border-color: #FF003C;
+  color: #FF003C;
+  background: rgba(255,0,60,0.08);
+  --sticker-rotate: rotate(2deg);
+}
+.chaos-sticker.sticker-magenta {
+  border-color: #FF00FF;
+  color: #FF00FF;
+  background: rgba(255,0,255,0.08);
+  --sticker-rotate: rotate(-5deg);
+}
+.chaos-sticker.sticker-acid {
+  border-color: #39FF14;
+  color: #39FF14;
+  background: rgba(57,255,20,0.08);
+  --sticker-rotate: rotate(4deg);
+}
+.chaos-sticker.sticker-filled {
+  background: #FF003C;
+  color: #000;
+  border-color: #FF003C;
+}
+
+/* ASCII Art Block */
+.ascii-block {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  line-height: 1;
+  color: rgba(0, 255, 255, 0.25);
+  white-space: pre;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Fractal Card */
+.fractal-card {
+  position: relative;
+  border: 3px solid #00FFFF;
+  background: #0a0a0a;
+  overflow: hidden;
+  transition: all 0.05s steps(2);
+  animation: borderGlitch 8s steps(1) infinite;
+  --border-color: #00FFFF;
+}
+.fractal-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(0,255,255,0.02) 3px, rgba(0,255,255,0.02) 4px),
+    repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(255,0,60,0.015) 5px, rgba(255,0,60,0.015) 6px);
+  pointer-events: none;
+  z-index: 1;
+}
+.fractal-card:hover {
+  border-color: #FF003C;
+  box-shadow: 8px 8px 0 #00FFFF, -4px -4px 0 #FF00FF;
+  transform: scale(1.01);
+}
+
+/* Punk Border (irregular) */
+.punk-border {
+  clip-path: polygon(0% 3%, 2% 0%, 98% 1%, 100% 4%, 99% 97%, 97% 100%, 3% 99%, 0% 96%);
+}
+
+/* VHS Tracking Error */
+.vhs-tracking {
+  animation: vhsTrack 0.4s steps(3) infinite;
+}
+
+/* Data Dump Text */
+.data-dump {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  line-height: 1.1;
+  color: rgba(68, 68, 68, 0.4);
+  word-break: break-all;
+  overflow: hidden;
+}
+
+/* ---- CHAOS TYPOGRAPHY ---- */
+
+/* Intense RGB Split Glitch */
+.glitch-intense {
+  animation: rgbSplit 3s steps(2) infinite;
+}
+
+/* Massive Display Text */
+.text-chaos-xl {
+  font-size: clamp(3rem, 10vw, 8rem);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.text-chaos-2xl {
+  font-size: clamp(4rem, 14vw, 12rem);
+  font-weight: 900;
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+/* ---- CHAOS LAYOUT UTILITIES ---- */
+
+/* Overlap previous element */
+.collage-pull-up { margin-top: -3rem; }
+.collage-pull-up-lg { margin-top: -6rem; }
+
+/* Random rotations */
+.chaos-rotate-n3 { transform: rotate(-3deg); }
+.chaos-rotate-n2 { transform: rotate(-2deg); }
+.chaos-rotate-n1 { transform: rotate(-1deg); }
+.chaos-rotate-1 { transform: rotate(1deg); }
+.chaos-rotate-2 { transform: rotate(2deg); }
+.chaos-rotate-3 { transform: rotate(3deg); }
+
+/* Jittering element */
+.chaos-jitter {
+  animation: corruptJitter 0.3s steps(2) infinite;
+}
+
+/* Torn edge effect */
+.torn-top {
+  clip-path: polygon(0% 4%, 5% 1%, 12% 3%, 20% 0%, 28% 2%, 35% 1%, 45% 3%, 52% 0%, 60% 2%, 68% 1%, 75% 3%, 82% 0%, 90% 2%, 95% 1%, 100% 3%, 100% 100%, 0% 100%);
+}
+
+/* Section divider - ASCII style */
+.chaos-divider {
+  width: 100%;
+  text-align: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: rgba(0, 255, 255, 0.3);
+  letter-spacing: 0.2em;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 1rem 0;
+}
+
+/* Dense overlay for sections */
+.section-noise::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,255,255,0.015) 2px,
+    rgba(0,255,255,0.015) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}

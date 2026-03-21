@@ -9,10 +9,27 @@ import '../styles/global.css';
   <title>404 - BAD_TRIP / SECTOR CORRUPT</title>
   <link href="https://fonts.googleapis.com" rel="preconnect" />
   <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Rubik+Glitch&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=VT323&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 </head>
 <body class="font-display flex h-screen w-full flex-col items-center justify-center relative">
+
+  <!-- Fractal Chaos Overlays -->
+  <div class="fractal-sierpinski"></div>
+  <div class="fractal-grid"></div>
+  <div class="noise-grain"></div>
+  <div class="scanlines-crt"></div>
+  <div class="color-noise-wash"></div>
+
+  <!-- Glitch bars -->
+  <div class="glitch-bar" style="top: 15%"></div>
+  <div class="glitch-bar" style="top: 50%"></div>
+  <div class="glitch-bar" style="top: 80%"></div>
+
+  <!-- Chaos sticker badges -->
+  <div class="chaos-sticker sticker-red" style="position: fixed; top: 5%; right: 5%; z-index: 200; pointer-events: none;">SECTOR_CORRUPT</div>
+  <div class="chaos-sticker sticker-magenta" style="position: fixed; bottom: 10%; left: 3%; z-index: 200; pointer-events: none;">BAD_TRIP_404</div>
+  <div class="chaos-sticker sticker-acid" style="position: fixed; top: 45%; right: 2%; z-index: 200; pointer-events: none; transform: rotate(-6deg);">VOID_404</div>
 
   <!-- Dense Emoji Cluster - Background Elements -->
   <span class="absolute top-10 left-10 text-4xl opacity-50 z-0 drop-shadow-[0_0_10px_#FF00FF] animate-float-medium">💀🍄😎</span>
@@ -22,13 +39,23 @@ import '../styles/global.css';
   <div class="z-10 flex flex-col items-center gap-12 max-w-5xl px-6 w-full relative">
     <!-- Glitch Header -->
     <h1 class="text-5xl md:text-7xl lg:text-8xl text-center leading-none w-full break-words glitch-text-404">
-      <span class="block text-text-main">404</span>
-      <span class="block text-3xl md:text-5xl lg:text-6xl mt-4">BAD_TRIP /</span>
-      <span class="block text-3xl md:text-5xl lg:text-6xl text-accent-red">SECTOR CORRUPT</span>
+      <span class="block text-chaos-2xl glitch-intense">404</span>
+      <span class="block text-chaos-xl mt-4">BAD_TRIP /</span>
+      <span class="block text-chaos-xl text-accent-red">SECTOR CORRUPT</span>
     </h1>
 
+    <!-- ASCII Block decoration -->
+    <div class="ascii-block w-full max-w-lg chaos-rotate-n2">
+      ▓▓▓ NAVIGATION_FAILED :: SECTOR_CORRUPT ▓▓▓
+      ░░░ REALITY_PTR: NULL :: RETURN: UNDEFINED ░░░
+      ███ 0x404 NOT_FOUND :: VOID_STATE: ACTIVE ███
+    </div>
+
+    <!-- Corrupt block divider -->
+    <div class="corrupt-block w-full max-w-lg"></div>
+
     <!-- Return Button (Placed before ASCII for CSS sibling selector hover effect) -->
-    <a class="paddle-btn group relative cursor-pointer border-2 border-primary bg-surface px-8 py-4 z-20 hover:bg-accent-red hover:border-accent-red hover:text-background-dark transition-colors duration-0" href="/">
+    <a class="paddle-btn group relative cursor-pointer fractal-card px-8 py-4 z-20 hover:bg-accent-red hover:border-accent-red hover:text-background-dark transition-colors duration-0" href="/">
       <span class="font-mono text-xl md:text-2xl font-bold uppercase tracking-widest block relative z-10 group-hover:animate-none text-primary group-hover:text-background-dark">
         <span class="text-accent-red group-hover:text-background-dark animate-pulse-glitch inline-block mr-2">[&gt;</span>
         PADDLE BACK OUT
