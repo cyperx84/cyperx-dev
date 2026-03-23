@@ -59,17 +59,17 @@ const { title = 'CYPERX.DEV', activeNav } = Astro.props;
   <slot />
 
   <!-- ── Unified Footer ── -->
-  <footer class="site-footer w-full py-10 sm:py-12 px-6 sm:px-10 flex flex-col md:flex-row justify-between items-end gap-4 bg-[#0e0e0e]">
+  <footer class="site-footer w-full py-10 sm:py-12 px-6 sm:px-10 flex flex-col md:flex-row justify-between items-end gap-4">
     <div class="flex flex-col gap-2">
       <a href="/" class="text-[#39FF14] font-bold text-xl font-['Space_Grotesk'] uppercase tracking-tighter italic no-underline">CYPERX.DEV</a>
-      <p class="text-[#AC89FF] font-mono text-[10px] uppercase tracking-widest">SYSTEM ENTROPY: 99.9% | STABLE BEYOND VOID</p>
+      <p class="footer-tagline font-mono text-[10px] uppercase tracking-widest">SYSTEM ENTROPY: 99.9% | STABLE BEYOND VOID</p>
     </div>
     <div class="flex gap-6 sm:gap-8 font-mono text-[10px] uppercase tracking-widest">
       {['TERMINAL','REACH_OUT','LEGAL_VOID'].map(l => (
-        <a class="text-[#e2e2e2]/60 hover:text-[#39FF14] hover:line-through hover:blur-[1px] transition-all" href="#">{l}</a>
+        <a class="footer-link hover:line-through hover:blur-[1px] transition-all" href="#">{l}</a>
       ))}
     </div>
-    <div class="font-mono text-[10px] text-[#e2e2e2]/30">© NO_RIGHTS_RESERVED</div>
+    <div class="footer-copy font-mono text-[10px]">© NO_RIGHTS_RESERVED</div>
   </footer>
 
   <!-- ── Mobile Bottom Nav ── -->
