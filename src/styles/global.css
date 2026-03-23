@@ -659,3 +659,192 @@ body {
   content: ""; position: absolute; inset: 0; background: inherit;
   animation: x-glitch-anim 0.3s infinite; z-index: 20; mix-blend-mode: hard-light; opacity: 0.8;
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   HOVER EFFECTS — 9 variants (3 themes × 3 pages)
+   Applied via [data-page] on <body> + theme class on <html>
+   Cards are targeted via: .hover-card, a[href], [data-card]
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Base transition for all cards ── */
+body [data-card],
+body .hover-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+}
+
+/* ─────────────── HOME PAGE ─────────────── */
+
+/* HOME / DARK — 3D tilt effect (JS-assisted via CSS custom props, CSS-only fallback) */
+.theme-dark body[data-page="home"] .hover-card,
+.theme-dark body[data-page="home"] [data-card] {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transform-style: preserve-3d;
+}
+.theme-dark body[data-page="home"] .hover-card:hover,
+.theme-dark body[data-page="home"] [data-card]:hover {
+  transform: perspective(600px) rotateX(4deg) rotateY(-4deg) scale(1.02);
+  box-shadow: 8px 8px 30px rgba(57,255,20,0.15), -4px -4px 20px rgba(255,81,250,0.1);
+}
+
+/* HOME / LIGHT — neon green underline expands from center */
+.theme-light body[data-page="home"] .hover-card,
+.theme-light body[data-page="home"] [data-card] {
+  position: relative;
+  overflow: hidden;
+}
+.theme-light body[data-page="home"] .hover-card::after,
+.theme-light body[data-page="home"] [data-card]::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  width: 0; height: 3px;
+  background: linear-gradient(90deg, #39FF14, #FF51FA);
+  transform: translateX(-50%);
+  transition: width 0.35s ease;
+}
+.theme-light body[data-page="home"] .hover-card:hover::after,
+.theme-light body[data-page="home"] [data-card]:hover::after {
+  width: 90%;
+}
+.theme-light body[data-page="home"] .hover-card:hover,
+.theme-light body[data-page="home"] [data-card]:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 25px rgba(57,255,20,0.12);
+}
+
+/* HOME / EXTREME — shatter fracture clip-path animation */
+@keyframes shatter-out {
+  0%   { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); transform: scale(1); }
+  20%  { clip-path: polygon(5% 2%, 95% 0, 90% 95%, 10% 100%); transform: scale(1.02) rotate(0.5deg); }
+  40%  { clip-path: polygon(0 5%, 98% 2%, 85% 90%, 15% 98%); transform: scale(1.03) rotate(-0.3deg); }
+  60%  { clip-path: polygon(8% 0, 92% 5%, 88% 88%, 5% 92%); transform: scale(1.02) rotate(0.2deg); }
+  80%  { clip-path: polygon(3% 3%, 97% 0, 92% 95%, 8% 97%); transform: scale(1.01); }
+  100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); transform: scale(1); }
+}
+.theme-extreme body[data-page="home"] .hover-card:hover,
+.theme-extreme body[data-page="home"] [data-card]:hover {
+  animation: shatter-out 0.5s ease forwards;
+  filter: drop-shadow(0 0 12px #8eff71) drop-shadow(0 0 25px #ff51fa);
+}
+
+/* ─────────────── BLOG PAGE ─────────────── */
+
+/* BLOG / DARK — scan line sweep gradient wipe */
+@keyframes scanline-sweep {
+  0%   { background-position: 0 -100%; }
+  100% { background-position: 0 200%; }
+}
+.theme-dark body[data-page="blog"] .hover-card,
+.theme-dark body[data-page="blog"] [data-card] {
+  position: relative;
+  overflow: hidden;
+}
+.theme-dark body[data-page="blog"] .hover-card::before,
+.theme-dark body[data-page="blog"] [data-card]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(57,255,20,0.06) 40%,
+    rgba(57,255,20,0.12) 50%,
+    rgba(57,255,20,0.06) 60%,
+    transparent 100%
+  );
+  background-size: 100% 300%;
+  background-position: 0 -100%;
+  transition: none;
+  pointer-events: none;
+  z-index: 2;
+}
+.theme-dark body[data-page="blog"] .hover-card:hover::before,
+.theme-dark body[data-page="blog"] [data-card]:hover::before {
+  animation: scanline-sweep 0.8s ease forwards;
+}
+
+/* BLOG / LIGHT — lift + colorful shadow */
+.theme-light body[data-page="blog"] .hover-card:hover,
+.theme-light body[data-page="blog"] [data-card]:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow:
+    0 12px 40px rgba(255,81,250,0.2),
+    0 6px 15px rgba(57,255,20,0.15),
+    0 2px 8px rgba(172,137,255,0.1);
+}
+
+/* BLOG / EXTREME — hue-rotate 180deg + flicker */
+@keyframes color-invert-flicker {
+  0%   { filter: hue-rotate(0deg) brightness(1); }
+  10%  { filter: hue-rotate(180deg) brightness(1.3); }
+  15%  { filter: hue-rotate(160deg) brightness(0.9); }
+  25%  { filter: hue-rotate(180deg) brightness(1.4); }
+  30%  { filter: hue-rotate(190deg) brightness(1.1); }
+  50%  { filter: hue-rotate(180deg) brightness(1.2); }
+  100% { filter: hue-rotate(180deg) brightness(1.2); }
+}
+.theme-extreme body[data-page="blog"] .hover-card:hover,
+.theme-extreme body[data-page="blog"] [data-card]:hover {
+  animation: color-invert-flicker 0.6s ease forwards;
+}
+
+/* ─────────────── PROJECTS PAGE ─────────────── */
+
+/* PROJECTS / DARK — glow from edges inward pulse */
+@keyframes edge-glow-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(57,255,20,0); }
+  50%  { box-shadow: 0 0 20px 4px rgba(57,255,20,0.3), inset 0 0 15px rgba(57,255,20,0.05); }
+  100% { box-shadow: 0 0 30px 8px rgba(57,255,20,0.2), 0 0 60px 16px rgba(255,81,250,0.1), inset 0 0 20px rgba(57,255,20,0.04); }
+}
+.theme-dark body[data-page="projects"] .hover-card:hover,
+.theme-dark body[data-page="projects"] [data-card]:hover {
+  animation: edge-glow-pulse 0.5s ease forwards;
+}
+
+/* PROJECTS / LIGHT — skew + reveal arrow */
+.theme-light body[data-page="projects"] .hover-card,
+.theme-light body[data-page="projects"] [data-card] {
+  position: relative;
+  overflow: hidden;
+}
+.theme-light body[data-page="projects"] .hover-card::after,
+.theme-light body[data-page="projects"] [data-card]::after {
+  content: '→';
+  position: absolute;
+  right: -2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #FF51FA;
+  transition: right 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+.theme-light body[data-page="projects"] .hover-card:hover,
+.theme-light body[data-page="projects"] [data-card]:hover {
+  transform: skewX(-1.5deg) translateX(4px);
+  box-shadow: -4px 4px 20px rgba(57,255,20,0.1);
+}
+.theme-light body[data-page="projects"] .hover-card:hover::after,
+.theme-light body[data-page="projects"] [data-card]:hover::after {
+  right: 1rem;
+  opacity: 1;
+}
+
+/* PROJECTS / EXTREME — melt downward (scaleY stretch + blur bottom) */
+@keyframes melt-down {
+  0%   { transform: scaleY(1) translateY(0); filter: blur(0); }
+  30%  { transform: scaleY(1.04) translateY(2px); filter: blur(0.5px); }
+  60%  { transform: scaleY(1.02) translateY(1px); filter: blur(0px); }
+  100% { transform: scaleY(1.03) translateY(1px); filter: blur(0.5px) drop-shadow(0 8px 4px rgba(142,255,113,0.3)); }
+}
+.theme-extreme body[data-page="projects"] .hover-card:hover,
+.theme-extreme body[data-page="projects"] [data-card]:hover {
+  animation: melt-down 0.5s ease forwards;
+  transform-origin: top center;
+}
+
+/* ── Ensure cards use the classes everywhere ── */
+/* Generic .card, article, and link-cards pick up hover effects */
+.card, article.card, a.card { }
+
