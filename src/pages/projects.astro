@@ -18,11 +18,11 @@ const rest = projects.slice(1);
           <span class="font-mono text-[#39FF14] text-xs sm:text-sm tracking-widest bg-[#353535] px-3 py-1">SYSTEM_STATUS: ACTIVE</span>
           <div class="h-[2px] flex-grow bg-gradient-to-r from-[#39FF14] to-transparent"></div>
         </div>
-        <h1 class="text-4xl sm:text-6xl lg:text-9xl font-black uppercase tracking-tighter italic leading-none mb-6 sm:mb-8">
+        <h1 class="text-4xl sm:text-6xl lg:text-9xl font-black uppercase tracking-tighter italic leading-none mb-6 sm:mb-8" data-reveal>
           Neural<br/>
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#39FF14] via-[#FF51FA] to-[#e5d7ff]">Experiments</span>
         </h1>
-        <p class="max-w-2xl text-base sm:text-xl text-[#baccb0] leading-relaxed">
+        <p class="max-w-2xl text-base sm:text-xl text-[#baccb0] leading-relaxed" data-reveal>
           Things I'm building. Some shipped, some in progress, some held together with duct tape and vibes. All real.
         </p>
       </header>
@@ -76,7 +76,7 @@ const rest = projects.slice(1);
           ];
           const icons = ["code", "language", "memory", "graphic_eq", "web"];
           return (
-            <a href={`/projects/${project.slug}`} class={`group relative flex flex-col items-start no-underline ${i % 2 === 1 ? 'lg:mt-32' : ''}`}>
+            <a href={`/projects/${project.slug}`} class={`group relative flex flex-col items-start no-underline ${i % 2 === 1 ? 'lg:mt-32' : ''}`} data-reveal>
               <div class={`absolute -top-12 ${i % 2 === 0 ? '-left-8' : '-right-8'} font-mono text-7xl sm:text-9xl text-[#353535] opacity-20 font-black z-0`}>{String(i + 1).padStart(2, '0')}</div>
               <div class={`relative w-full bg-[#0e0e0e] ${clips[i]} ${borders[i]} p-6 sm:p-8 z-10 h-full flex flex-col justify-between hover:bg-[#1f1f1f] transition-colors`}>
                 <div>
@@ -124,7 +124,7 @@ const rest = projects.slice(1);
         <div class="absolute -top-20 -left-20 w-96 h-96 bg-[#FF51FA]/10 blur-[120px] rounded-full"></div>
         <div class="relative z-10">
           <span class="font-mono text-xs tracking-[0.5em] text-[#353535] mb-4 block">STABLE_BRANCH // {projects.length} PROJECTS</span>
-          <h1 class="text-5xl sm:text-7xl lg:text-[10rem] font-black leading-none tracking-tighter text-[#FF51FA] glitch-text italic uppercase">
+          <h1 class="text-5xl sm:text-7xl lg:text-[10rem] font-black leading-none tracking-tighter text-[#FF51FA] glitch-text italic uppercase" data-reveal>
             BUILD_<br/>LOG
           </h1>
           <div class="mt-6 sm:mt-8 max-w-2xl text-base sm:text-xl font-bold uppercase italic text-[#353535] leading-tight">
@@ -171,7 +171,7 @@ const rest = projects.slice(1);
             "polygon(0 15%, 95% 0, 100% 85%, 5% 100%)",
           ];
           return (
-            <a href={`/projects/${project.slug}`} class={`${spans[i]} group no-underline`}>
+            <a href={`/projects/${project.slug}`} class={`${spans[i]} group no-underline`} data-reveal>
               <div class="p-1 transition-all duration-75 hover:skew-y-1" style={`background:${project.statusColor}; clip-path:${clipPaths[i]}`}>
                 <div class="bg-white p-6" style={`clip-path:${clipPaths[i]}`}>
                   <div class="mb-3 flex justify-between items-start">
@@ -271,7 +271,7 @@ const rest = projects.slice(1);
           const borderColors = ["#ff51fa", "#8eff71", "#ac89ff", "#ff51fa", "#8eff71"];
           const xShards = ["x-shard-sidebar", "x-shard-3", "x-shard-4", "x-shard-sidebar", "x-shard-3"];
           return (
-            <a href={`/projects/${project.slug}`} class={`${spans[i]} group no-underline`}>
+            <a href={`/projects/${project.slug}`} class={`${spans[i]} group no-underline`} data-reveal>
               <div class={`bg-[#111] p-6 sm:p-8 border-4 overflow-hidden relative ${xShards[i]} x-glitch-hover hover:scale-[1.02] transition-all duration-500`} style={`border-color:${borderColors[i]}50; box-shadow:0 0 40px ${borderColors[i]}33`}>
                 <div class="x-shard-inner-fractal"></div>
                 <div class="relative z-10">

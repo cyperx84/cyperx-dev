@@ -51,11 +51,11 @@ const timeline = [
           <div class="absolute inset-0 bg-gradient-to-br from-[#131313] via-[#1a0a2e] to-[#0a1a0a] opacity-80"></div>
           <div class="absolute inset-0 flex items-center justify-center p-6 sm:p-12">
             <div class="text-center z-10">
-              <p class="font-mono text-[#39FF14] text-xs sm:text-sm tracking-[0.5em] mb-4">{hero.tagline}</p>
-              <h1 class="text-4xl sm:text-6xl lg:text-9xl font-black italic tracking-tighter glitch-text leading-none mb-4">
+              <p class="font-mono text-[#39FF14] text-xs sm:text-sm tracking-[0.5em] mb-4" data-typewriter="40">{hero.tagline}</p>
+              <h1 class="text-4xl sm:text-6xl lg:text-9xl font-black italic tracking-tighter glitch-text leading-none mb-4" data-reveal>
                 {hero.title}<span class="text-[#e2e2e2] opacity-90">.</span>{hero.subtitle}
               </h1>
-              <p class="max-w-xl mx-auto text-[#baccb0] text-sm sm:text-base mb-6 sm:mb-8">{hero.description}</p>
+              <p class="max-w-xl mx-auto text-[#baccb0] text-sm sm:text-base mb-6 sm:mb-8" data-reveal>{hero.description}</p>
               <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
                 <a href="/projects" class="bg-[#39FF14] text-black px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-xl font-black italic shard-card-3 hover:scale-105 transition-transform">VIEW_PROJECTS</a>
                 <a href="/blog" class="border-2 border-[#FF51FA]/30 text-[#FF51FA] px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-xl font-black italic shard-card-1 hover:border-[#FF51FA] transition-all">READ_BLOG</a>
@@ -70,7 +70,7 @@ const timeline = [
       <!-- What I Build -->
       <section>
         <div class="mb-8 sm:mb-16 flex items-baseline gap-4 flex-wrap">
-          <h2 class="text-3xl sm:text-5xl font-black italic text-[#39FF14] tracking-tighter">WHAT_I_BUILD</h2>
+          <h2 class="text-3xl sm:text-5xl font-black italic text-[#39FF14] tracking-tighter" data-typewriter="30">WHAT_I_BUILD</h2>
           <div class="h-[2px] flex-grow bg-gradient-to-r from-[#39FF14]/50 to-transparent"></div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-0 relative">
@@ -80,7 +80,7 @@ const timeline = [
             const clips = ["shard-card-1", "shard-card-2", "shard-card-3"];
             const offsets = ["z-20 md:-mr-4", "z-30 md:mt-10", "z-10 md:-ml-4"];
             return (
-              <div class={`${clips[i]} ${bgs[i]} p-6 sm:p-8 group hover:bg-[#393939] transition-colors relative ${offsets[i]}`}>
+              <div class={`${clips[i]} ${bgs[i]} p-6 sm:p-8 group hover:bg-[#393939] transition-colors relative ${offsets[i]} hover-lift`} data-reveal>
                 <span class="material-symbols-outlined text-4xl sm:text-5xl mb-4 sm:mb-6 block" style={`color:${colors[i]}`}>{s.icon}</span>
                 <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 italic tracking-tight">{s.title.toUpperCase()}</h3>
                 <p class="text-sm opacity-70 font-mono leading-relaxed mb-4 sm:mb-6">{s.description}</p>
@@ -97,7 +97,7 @@ const timeline = [
       <!-- Timeline -->
       <section class="max-w-4xl mx-auto">
         <div class="mb-12 sm:mb-20 text-center">
-          <h2 class="text-3xl sm:text-5xl font-black italic text-[#FF51FA] tracking-tighter mb-2">RECENT_BUILDS</h2>
+          <h2 class="text-3xl sm:text-5xl font-black italic text-[#FF51FA] tracking-tighter mb-2" data-typewriter="30">RECENT_BUILDS</h2>
           <p class="font-mono text-xs opacity-40">LATEST FROM THE WORKSHOP</p>
         </div>
         <div class="space-y-16 sm:space-y-24 relative">
@@ -106,7 +106,7 @@ const timeline = [
             const colors = ["#39FF14", "#FF51FA", "#AC89FF"];
             const rev = i % 2 === 1;
             return (
-              <div class={`relative flex flex-col ${rev ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-8 sm:gap-12 group pl-12 md:pl-0`}>
+              <div class={`relative flex flex-col ${rev ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-8 sm:gap-12 group pl-12 md:pl-0`} data-reveal>
                 <div class={`w-full md:w-1/2 ${rev ? 'md:text-left' : 'md:text-right'}`}>
                   <h4 class="font-mono text-xs mb-2" style={`color:${colors[i]}`}>{item.date}</h4>
                   <h3 class="text-2xl sm:text-3xl font-black italic uppercase leading-none mb-3 sm:mb-4">{item.title}</h3>
@@ -138,9 +138,9 @@ const timeline = [
       <section class="relative px-4 sm:px-8 py-16 sm:py-20 flex flex-col items-center justify-center min-h-[500px] sm:min-h-[700px] bg-white overflow-hidden">
         <div class="absolute inset-0 opacity-5 bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')] bg-cover bg-center grayscale contrast-200"></div>
         <div class="relative z-10 text-center space-y-4 sm:space-y-6">
-          <p class="font-mono text-[#FF51FA] tracking-[0.5em] text-sm">{hero.tagline}</p>
-          <h1 class="text-5xl sm:text-7xl lg:text-9xl font-black italic tracking-tighter glitch-text leading-none">{hero.title}<span class="text-[#39FF14]">.</span>{hero.subtitle}</h1>
-          <p class="max-w-xl mx-auto text-[#131313]/80 text-base sm:text-lg">{hero.description}</p>
+          <p class="font-mono text-[#FF51FA] tracking-[0.5em] text-sm" data-typewriter="40">{hero.tagline}</p>
+          <h1 class="text-5xl sm:text-7xl lg:text-9xl font-black italic tracking-tighter glitch-text leading-none" data-reveal>{hero.title}<span class="text-[#39FF14]">.</span>{hero.subtitle}</h1>
+          <p class="max-w-xl mx-auto text-[#131313]/80 text-base sm:text-lg" data-reveal>{hero.description}</p>
           <div class="flex flex-wrap justify-center gap-4 mt-8 sm:mt-12">
             <a href="/projects" class="bg-[#39FF14] text-black px-8 sm:px-10 py-3 sm:py-4 text-lg sm:text-xl font-black hover:bg-[#FF51FA] hover:text-white transition-all" style="clip-path: polygon(0 0,100% 0,95% 100%,5% 95%)">VIEW_PROJECTS</a>
             <a href="/blog" class="border-2 border-[#FF51FA] text-[#FF51FA] px-8 sm:px-10 py-3 sm:py-4 text-lg sm:text-xl font-black hover:bg-[#FF51FA] hover:text-white transition-all" style="clip-path: polygon(2% 5%,100% 0,98% 95%,0 100%)">READ_BLOG</a>
@@ -151,7 +151,7 @@ const timeline = [
       <!-- What I Build -->
       <section class="px-4 sm:px-8 py-16 sm:py-24 space-y-8 sm:space-y-12 max-w-7xl mx-auto">
         <div class="flex justify-between items-end border-b-4 border-[#39FF14] pb-4 flex-wrap gap-4">
-          <h2 class="text-3xl sm:text-5xl font-black italic tracking-tighter text-[#131313]">WHAT_I_BUILD</h2>
+          <h2 class="text-3xl sm:text-5xl font-black italic tracking-tighter text-[#131313]" data-typewriter="30">WHAT_I_BUILD</h2>
           <span class="font-mono text-[#FF51FA] text-sm">[{sections.length}_ACTIVE_DOMAINS]</span>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8">
@@ -164,7 +164,7 @@ const timeline = [
             ];
             const borderColors = ["#39FF14", "#FF51FA", "#AC89FF"];
             return (
-              <div class={`${spans[i]} p-1 hover:scale-[1.01] transition-transform group`} style={`background:${borderColors[i]}; clip-path:${clipPaths[i]}`}>
+              <div class={`${spans[i]} p-1 hover:scale-[1.01] transition-transform group`} style={`background:${borderColors[i]}; clip-path:${clipPaths[i]}`} data-reveal>
                 <div class="bg-white h-full p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden" style={`clip-path:${clipPaths[i]}`}>
                   <div class="absolute top-0 right-0 p-4 font-mono opacity-10 text-5xl sm:text-6xl font-black select-none" style={`color:${borderColors[i]}`}>{String(i + 1).padStart(2, '0')}</div>
                   <div class="space-y-3 sm:space-y-4 relative z-10">
@@ -193,7 +193,7 @@ const timeline = [
           {timeline.map((item, i) => {
             const borderColors = ["#39FF14", "#FF51FA", "#AC89FF"];
             return (
-              <div class="border-l-4 pl-6 py-4 hover:bg-[#f8f8f8] transition-colors" style={`border-color:${borderColors[i]}`}>
+              <div class="border-l-4 pl-6 py-4 hover:bg-[#f8f8f8] transition-colors" style={`border-color:${borderColors[i]}`} data-reveal>
                 <span class="font-mono text-xs" style={`color:${borderColors[i]}`}>{item.date}</span>
                 <h3 class="text-xl sm:text-2xl font-black uppercase mt-1 mb-2">{item.title}</h3>
                 <p class="text-sm text-[#131313]/60">{item.description}</p>
@@ -232,7 +232,7 @@ const timeline = [
         <div class="absolute inset-0 w-full h-full opacity-40 pointer-events-none -z-10 bg-gradient-to-br from-[#8eff71] via-[#ff51fa] to-[#ac89ff]">
           <img alt="Fractal" class="w-full h-full object-cover melting-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwcbab-5YhH-iky9sU2ZHl12P86KeGKWIEHxmHrSlWPlvkj237y_G9mJ821eOet1Y3IOgz9lezVu1WxjCqiFBC3FC02XcGpM3FYpVj0wvdyoDGhX7K80NrLUbvckTvjxgYCCdxeRqt-3xvAwdPY1MirjpCUjxawgAjbZkT-St7S91UBNrDUs_Z2Dt1Zz79xi8lFAs708RyBPuP4WaWxpIKkjJY-ySDg8eQDee-S4DhLcdbu49VuDZ0Td0z4gDfSCBPhZRx6wzmlNg" loading="lazy" />
         </div>
-        <p class="font-mono text-[#8eff71] tracking-[0.5em] text-sm sm:text-lg mb-4 relative z-10">{hero.tagline}</p>
+        <p class="font-mono text-[#8eff71] tracking-[0.5em] text-sm sm:text-lg mb-4 relative z-10" data-typewriter="40">{hero.tagline}</p>
         <h1 class="text-5xl sm:text-7xl lg:text-[14rem] font-black tracking-tighter mb-6 glitch-text-extreme uppercase italic leading-[0.8] relative z-10 text-white">
           {hero.title}<br/><span class="text-[#8eff71]">{hero.subtitle}</span>
         </h1>
