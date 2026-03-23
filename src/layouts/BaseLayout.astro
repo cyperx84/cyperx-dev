@@ -17,35 +17,84 @@ const { title = 'CYPERX.DEV', activeNav } = Astro.props;
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-
 </head>
 <body class="overflow-x-hidden">
-  <slot />
 
-  <!-- ── Theme Toggle (fixed, always visible) ── -->
-  <div id="theme-toggle-wrap" class="fixed bottom-6 right-6 z-[500] flex flex-col items-end gap-2">
-    <div id="theme-label" class="font-mono text-[10px] uppercase tracking-widest text-[#39FF14] bg-black/80 px-2 py-1">THEME: DARK</div>
-    <button
-      id="theme-toggle"
-      class="bg-[#39FF14] text-black px-5 py-2 font-black uppercase tracking-widest text-xs hover:bg-[#FF51FA] hover:text-white transition-all"
-      style="clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);"
-      aria-label="Cycle theme"
-    >
-      SHIFT_REALITY
-    </button>
+  <!-- ── CRT / Scanline Overlay (theme-aware) ── -->
+  <div id="crt-layer" class="fixed inset-0 z-[100] pointer-events-none crt-theme-overlay"></div>
+
+  <!-- ── Background Ambient Effects (theme-aware) ── -->
+  <div class="bg-ambient-effects fixed inset-0 pointer-events-none -z-10">
+    <!-- Dark: subtle fractal blooms -->
+    <div class="bg-fx-dark">
+      <div class="absolute top-1/4 -left-20 w-96 h-96 fractal-bloom opacity-30"></div>
+      <div class="absolute bottom-1/4 -right-20 w-96 h-96 opacity-20" style="background:radial-gradient(circle at 50% 50%,rgba(255,81,250,0.1) 0%,transparent 70%);filter:blur(40px)"></div>
+    </div>
+    <!-- Extreme: fractal bg + vortex -->
+    <div class="bg-fx-extreme">
+      <div class="fractal-bg"></div>
+      <div class="black-hole-vortex"></div>
+    </div>
+    <!-- Extreme: noise overlay -->
+    <div class="bg-fx-extreme-noise noise-overlay"></div>
   </div>
 
+  <!-- ── Unified Header / Nav ── -->
+  <header class="site-header fixed top-0 w-full flex justify-between items-center px-4 sm:px-8 py-4 sm:py-6 backdrop-blur-xl z-50">
+    <a href="/" class="text-2xl sm:text-3xl font-black text-[#39FF14] [text-shadow:2px_0_#FF51FA,-2px_0_#AC89FF] animate-pulse font-['Space_Grotesk'] uppercase tracking-tighter italic no-underline">CYPERX.DEV</a>
+    <nav class="hidden md:flex gap-8 lg:gap-10 font-['Space_Grotesk'] uppercase tracking-tighter italic">
+      <a class={`nav-link hover:text-[#FF51FA] hover:skew-x-12 transition-all duration-75 ${activeNav === 'home' ? 'active' : ''}`} href="/">HOME</a>
+      <a class={`nav-link hover:text-[#FF51FA] hover:skew-x-12 transition-all duration-75 ${activeNav === 'blog' ? 'active' : ''}`} href="/blog">BLOG</a>
+      <a class={`nav-link hover:text-[#FF51FA] hover:skew-x-12 transition-all duration-75 ${activeNav === 'projects' ? 'active' : ''}`} href="/projects">PROJECTS</a>
+    </nav>
+    <button
+      id="theme-toggle"
+      class="bg-[#39FF14] text-black px-4 sm:px-6 py-2 font-black italic text-xs sm:text-sm hover:bg-[#FF51FA] hover:text-white transition-all"
+      style="clip-path: polygon(10% 0,100% 0,90% 100%,0 100%)"
+      aria-label="Cycle theme"
+    >TRIPP_MODE</button>
+  </header>
+
+  <!-- ── Page Content ── -->
+  <slot />
+
+  <!-- ── Unified Footer ── -->
+  <footer class="site-footer w-full py-10 sm:py-12 px-6 sm:px-10 flex flex-col md:flex-row justify-between items-end gap-4 bg-[#0e0e0e]">
+    <div class="flex flex-col gap-2">
+      <a href="/" class="text-[#39FF14] font-bold text-xl font-['Space_Grotesk'] uppercase tracking-tighter italic no-underline">CYPERX.DEV</a>
+      <p class="text-[#AC89FF] font-mono text-[10px] uppercase tracking-widest">SYSTEM ENTROPY: 99.9% | STABLE BEYOND VOID</p>
+    </div>
+    <div class="flex gap-6 sm:gap-8 font-mono text-[10px] uppercase tracking-widest">
+      {['TERMINAL','REACH_OUT','LEGAL_VOID'].map(l => (
+        <a class="text-[#e2e2e2]/60 hover:text-[#39FF14] hover:line-through hover:blur-[1px] transition-all" href="#">{l}</a>
+      ))}
+    </div>
+    <div class="font-mono text-[10px] text-[#e2e2e2]/30">© NO_RIGHTS_RESERVED</div>
+  </footer>
+
+  <!-- ── Mobile Bottom Nav ── -->
+  <div class="mobile-bottom-nav md:hidden fixed bottom-0 left-0 right-0 backdrop-blur-lg flex justify-around items-center py-3 z-50">
+    {[
+      ['home','HOME','/'],
+      ['terminal','BLOG','/blog'],
+      ['shield','PROJECTS','/projects']
+    ].map(([icon, label, href]) => (
+      <a href={href} class={`flex flex-col items-center mobile-nav-link ${activeNav === label.toLowerCase() ? 'active' : ''}`}>
+        <span class="material-symbols-outlined text-xl">{icon}</span>
+        <span class="text-[10px] font-mono mt-1 mobile-nav-label">{label}</span>
+      </a>
+    ))}
+  </div>
+
+  <!-- ── Theme Toggle Script ── -->
   <script is:inline>
     const THEMES = ['dark', 'light', 'extreme'];
-    const LABELS = { dark: 'THEME: DARK', light: 'THEME: LIGHT', extreme: 'THEME: EXTREME' };
 
     function applyTheme(theme) {
       const html = document.documentElement;
       THEMES.forEach(t => html.classList.remove('theme-' + t));
       html.classList.add('theme-' + theme);
       localStorage.setItem('cyperx-theme', theme);
-      const lbl = document.getElementById('theme-label');
-      if (lbl) lbl.textContent = LABELS[theme];
     }
 
     // Init on load
