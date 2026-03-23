@@ -22,10 +22,10 @@ const pageAttr = activeNav ?? 'home';
 <body class="overflow-x-hidden" data-page={pageAttr}>
 
   <!-- ── Scroll Progress Bar ── -->
-  <div id="scroll-progress" class="fixed top-0 left-0 h-[3px] w-0 z-[60] pointer-events-none" style="transition:width 0.05s linear"></div>
+  <div id="scroll-progress" class="fixed top-0 left-0 h-[3px] w-0 z-[190] pointer-events-none" style="transition:width 0.05s linear"></div>
 
-  <!-- ── Cursor Canvas (z-50, above everything except modals) ── -->
-  <canvas id="cursor-canvas" class="fixed inset-0 z-[50] pointer-events-none"></canvas>
+  <!-- ── Cursor Canvas (z-[200], above everything) ── -->
+  <canvas id="cursor-canvas" class="fixed inset-0 z-[200] pointer-events-none"></canvas>
 
   <!-- ── Three.js Background Canvas ── -->
   <canvas id="three-bg" class="fixed inset-0 pointer-events-none" style="z-index:-20"></canvas>
