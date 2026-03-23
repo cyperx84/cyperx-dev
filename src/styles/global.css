@@ -465,10 +465,7 @@ body {
 }
 
 /* ── Staggered Fade-In for Grid Items ── */
-[data-reveal] {
-  opacity: 0;
-  transform: translateY(30px);
-}
+/* Initial hidden state handled by JS; CSS fallback ensures content is visible if JS fails */
 
 /* ── Ambient Floating Dots (dark theme) ── */
 @keyframes float-particle {

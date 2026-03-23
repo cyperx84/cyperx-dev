@@ -261,23 +261,29 @@ const pageAttr = activeNav ?? 'home';
     function initScrollReveal() {
       const isExtreme = document.documentElement.classList.contains('theme-extreme');
 
-      document.querySelectorAll('[data-reveal]').forEach((el, idx) => {
+      // Only target data-reveal elements inside the VISIBLE variant
+      const allReveals = document.querySelectorAll('[data-reveal]');
+      
+      allReveals.forEach((el, idx) => {
         if (el.dataset.revealDone) return;
+        
+        // Skip elements inside hidden variants (display:none parents)
+        const parent = el.closest('.variant-dark, .variant-light, .variant-extreme');
+        if (parent && getComputedStyle(parent).display === 'none') return;
 
         const variant = el.dataset.reveal || 'slide-up';
 
-        // Initial state
+        // Set initial hidden state via inline styles
         el.style.opacity = '0';
-        el.style.transition = 'none';
 
-        if (variant === 'slide-up' || variant === '') {
-          el.style.transform = 'translateY(40px)';
-        } else if (variant === 'slide-left') {
+        if (variant === 'slide-left') {
           el.style.transform = 'translateX(-40px)';
         } else if (variant === 'slide-right') {
           el.style.transform = 'translateX(40px)';
         } else if (variant === 'scale') {
           el.style.transform = 'scale(0.85)';
+        } else {
+          el.style.transform = 'translateY(40px)';
         }
 
         // Stagger delay based on sibling index
@@ -285,27 +291,35 @@ const pageAttr = activeNav ?? 'home';
         const siblingIdx = siblings.indexOf(el);
         const delay = siblingIdx >= 0 ? siblingIdx * 80 : idx * 60;
 
-        const obs = new IntersectionObserver(entries => {
-          if (entries[0].isIntersecting) {
-            el.dataset.revealDone = '1';
+        function reveal() {
+          if (el.dataset.revealDone) return;
+          el.dataset.revealDone = '1';
+          requestAnimationFrame(() => {
+            el.style.transition = `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}ms`;
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+            if (isExtreme) {
+              el.classList.add('reveal-glitch');
+              setTimeout(() => el.classList.remove('reveal-glitch'), 300);
+            }
+          });
+        }
 
-            setTimeout(() => {
-              el.style.transition = `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}ms`;
-              el.style.opacity = '1';
-              el.style.transform = 'none';
-
-              // Extreme theme: brief glitch on entrance
-              if (isExtreme) {
-                el.classList.add('reveal-glitch');
-                setTimeout(() => el.classList.remove('reveal-glitch'), 300);
-              }
-            }, 20);
-
-            obs.disconnect();
-          }
-        }, { threshold: 0.1 });
-
-        obs.observe(el);
+        // Check if already in viewport
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          // Already visible — reveal with a small delay for stagger effect
+          setTimeout(reveal, 50 + delay);
+        } else {
+          // Not yet visible — use IntersectionObserver
+          const obs = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting) {
+              reveal();
+              obs.disconnect();
+            }
+          }, { threshold: 0.05 });
+          obs.observe(el);
+        }
       });
     }
 
