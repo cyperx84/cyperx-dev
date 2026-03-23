@@ -382,6 +382,16 @@ body {
 .theme-extreme .bg-fx-extreme-noise { display: block; }
 
 /* ── Mobile Slide-Down Menu ── */
+#mobile-menu {
+  background: rgba(19,19,19,0.95);
+  backdrop-filter: blur(20px);
+}
+.theme-light #mobile-menu {
+  background: rgba(255,255,255,0.95);
+}
+.theme-extreme #mobile-menu {
+  background: rgba(0,0,0,0.95);
+}
 .mobile-menu-inner {
   backdrop-filter: blur(20px);
 }

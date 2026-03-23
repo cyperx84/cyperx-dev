@@ -170,7 +170,7 @@ const pageAttr = activeNav ?? 'home';
         <span class="toggle-icon inline-block mr-1">⚡</span><span class="toggle-label">TRIPP_MODE</span>
       </button>
       <!-- Mobile hamburger -->
-      <button id="mobile-menu-btn" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Menu">
+      <button id="mobile-menu-btn" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Menu" transition:persist>
         <span class="hamburger-line w-6 h-0.5 bg-[#39FF14] transition-all duration-300"></span>
         <span class="hamburger-line w-6 h-0.5 bg-[#39FF14] transition-all duration-300"></span>
         <span class="hamburger-line w-6 h-0.5 bg-[#39FF14] transition-all duration-300"></span>
@@ -196,7 +196,7 @@ const pageAttr = activeNav ?? 'home';
   </footer>
 
   <!-- ── Mobile Slide-Down Menu ── -->
-  <div id="mobile-menu" class="mobile-menu md:hidden fixed top-0 left-0 right-0 z-[55] transition-transform duration-300 ease-out" style="transform:translateY(-100%)">
+  <div id="mobile-menu" class="mobile-menu md:hidden fixed top-0 left-0 right-0 z-[55] transition-transform duration-300 ease-out" style="transform:translateY(-100%)" transition:persist>
     <div class="mobile-menu-inner pt-20 pb-8 px-6 flex flex-col gap-1 shadow-2xl">
       {[
         ['home','HOME','/'],
@@ -426,7 +426,7 @@ const pageAttr = activeNav ?? 'home';
         if (document.hidden) return;
         const scrollY = window.scrollY;
         heroes.forEach(el => {
-          (el as HTMLElement).style.transform = `translateY(${scrollY * 0.1}px)`;
+          el.style.transform = `translateY(${scrollY * 0.1}px)`;
         });
       }, { passive: true });
     }
@@ -434,12 +434,12 @@ const pageAttr = activeNav ?? 'home';
     // ── Footer typewriter re-trigger on scroll into view ──
     function initFooterTypewriter() {
       const el = document.querySelector('.footer-rights');
-      if (!el || (el as HTMLElement).dataset.twDone) return;
+      if (!el || el.dataset.twDone) return;
       const originalText = '© NO_RIGHTS_RESERVED';
 
       function runTypewriter() {
-        (el as HTMLElement).dataset.twDone = '1';
-        (el as HTMLElement).style.visibility = 'visible';
+        el.dataset.twDone = '1';
+        el.style.visibility = 'visible';
         el.textContent = '';
         let i = 0;
         function type() {
