@@ -78,7 +78,7 @@ const rest = projects.slice(1);
           return (
             <a href={`/projects/${project.slug}`} class={`group relative flex flex-col items-start no-underline ${i % 2 === 1 ? 'lg:mt-32' : ''}`} data-reveal>
               <div class={`absolute -top-12 ${i % 2 === 0 ? '-left-8' : '-right-8'} font-mono text-7xl sm:text-9xl text-[#353535] opacity-20 font-black z-0`}>{String(i + 1).padStart(2, '0')}</div>
-              <div class={`relative w-full bg-[#0e0e0e] ${clips[i]} animated-border ${borders[i]} p-6 sm:p-8 z-10 h-full flex flex-col justify-between hover:bg-[#1f1f1f] transition-colors`}>
+              <div class={`relative w-full bg-[#141418] ${clips[i]} animated-border ${borders[i]} p-6 sm:p-8 z-10 h-full flex flex-col justify-between hover:bg-[#1f1f1f] transition-colors`}>
                 <div>
                   <div class="flex items-center justify-between mb-4">
                     <span class="font-mono text-xs px-2 py-1 font-black" style={`background:${project.statusColor}; color:black`}>{project.status}</span>
@@ -136,7 +136,7 @@ const rest = projects.slice(1);
       <!-- Featured Project -->
       <div class="mb-20 sm:mb-32 group relative">
         <div class="absolute -top-12 -left-8 font-mono text-7xl sm:text-9xl text-[#131313]/5 font-black z-0">00</div>
-        <a href={`/projects/${featured.slug}`} class="block relative bg-[#f8f8f8] shard-clip-1 animated-border border-l-8 border-[#39FF14] p-6 sm:p-8 lg:p-12 z-10 no-underline">
+        <a href={`/projects/${featured.slug}`} class="block relative bg-[#eeeeee] shard-clip-1 animated-border border-l-8 border-[#39FF14] p-6 sm:p-8 lg:p-12 z-10 no-underline">
           <div class="flex flex-col md:flex-row gap-6 sm:gap-8">
             <div class="w-full md:w-2/3">
               <div class="flex items-center gap-3 mb-4">
@@ -184,7 +184,7 @@ const rest = projects.slice(1);
           return (
             <a href={`/projects/${project.slug}`} class={`group relative flex flex-col items-start no-underline ${i % 2 === 1 ? 'lg:mt-32' : ''}`} data-reveal>
               <div class={`absolute -top-12 ${i % 2 === 0 ? '-left-8' : '-right-8'} font-mono text-7xl sm:text-9xl text-[#131313]/5 font-black z-0`}>{String(i + 1).padStart(2, '0')}</div>
-              <div class={`relative w-full bg-[#f8f8f8] ${clips[i]} animated-border ${borders[i]} p-6 sm:p-8 z-10 h-full flex flex-col justify-between hover:bg-[#ebebeb] transition-colors`}>
+              <div class={`relative w-full bg-[#eeeeee] ${clips[i]} animated-border ${borders[i]} p-6 sm:p-8 z-10 h-full flex flex-col justify-between hover:bg-[#ebebeb] transition-colors`}>
                 <div>
                   <div class="flex items-center justify-between mb-4">
                     <span class="text-white font-mono text-xs px-2 py-1 font-black" style={`background:${project.statusColor}; color:black`}>{project.status}</span>
@@ -211,7 +211,7 @@ const rest = projects.slice(1);
       </div>
 
       <!-- Coming Soon -->
-      <div class="mt-20 sm:mt-32 p-8 sm:p-12 bg-[#f8f8f8] border border-[#39FF14]/10 text-center" style="clip-path:polygon(0% 10%,100% 0%,90% 100%,10% 90%)">
+      <div class="mt-20 sm:mt-32 p-8 sm:p-12 bg-[#eeeeee] border border-[#39FF14]/10 text-center" style="clip-path:polygon(0% 10%,100% 0%,90% 100%,10% 90%)">
         <span class="material-symbols-outlined text-5xl sm:text-6xl text-[#39FF14] mb-4 animate-pulse block">radar</span>
         <h3 class="text-2xl sm:text-3xl font-black italic tracking-tighter mb-3 text-[#131313]">MORE_INCOMING</h3>
         <p class="font-mono text-xs uppercase tracking-widest text-[#353535]">Loading next batch of experiments...</p>

@@ -87,9 +87,9 @@ body {
 
 /* ── Shard / Clip Paths ── */
 .shard-hero       { clip-path: polygon(0 0, 100% 5%, 95% 90%, 5% 100%); }
-.shard-clip-1     { clip-path: polygon(0 0, 100% 5%, 95% 100%, 2% 90%); }
-.shard-clip-2     { clip-path: polygon(5% 0, 100% 0, 90% 95%, 0 100%); }
-.shard-clip-3     { clip-path: polygon(0 8%, 98% 0, 100% 92%, 5% 100%); }
+.shard-clip-1     { clip-path: polygon(0 0, 100% 8%, 92% 100%, 3% 85%); }
+.shard-clip-2     { clip-path: polygon(8% 0, 100% 0, 85% 92%, 0 100%); }
+.shard-clip-3     { clip-path: polygon(0 12%, 95% 0, 100% 88%, 6% 100%); }
 .shard-card-1     { clip-path: polygon(0 15%, 100% 0, 90% 100%, 5% 85%); }
 .shard-card-2     { clip-path: polygon(10% 0, 100% 10%, 85% 100%, 0 90%); }
 .shard-card-3     { clip-path: polygon(0 0, 95% 5%, 100% 95%, 5% 100%); }
@@ -233,6 +233,16 @@ body {
   transition: background-color 0.3s ease;
 }
 .theme-dark .site-header   { background: rgba(19,19,19,0.8); }
+/* Light theme shard cards: drop-shadow works outside clip-path (box-shadow doesn't) */
+.theme-light [class*="shard-clip"] {
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.12)) drop-shadow(0 1px 3px rgba(0,0,0,0.08));
+}
+
+/* Extreme theme shard cards: neon glow to show the clipped edges */
+.theme-extreme [class*="shard-clip"] {
+  filter: drop-shadow(0 0 8px rgba(57,255,20,0.3)) drop-shadow(0 0 20px rgba(255,81,250,0.15));
+}
+
 .theme-light .site-header  { background: rgba(255,255,255,0.8); }
 .theme-extreme .site-header {
   background: rgba(0,0,0,0.9);
