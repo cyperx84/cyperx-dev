@@ -9,11 +9,18 @@ const { title = 'CYPERX.DEV', activeNav } = Astro.props;
 const pageAttr = activeNav ?? 'home';
 ---
 <!doctype html>
-<html lang="en" class="theme-light">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
+  <!-- Apply theme BEFORE first paint to prevent flash -->
+  <script is:inline>
+    (function(){
+      var t = localStorage.getItem('cyperx-theme') || 'extreme';
+      document.documentElement.className = 'theme-' + t;
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -139,12 +146,11 @@ const pageAttr = activeNav ?? 'home';
     };
 
     function applyTheme(theme) {
-      const html = document.documentElement;
-      THEMES.forEach(t => html.classList.remove('theme-' + t));
-      html.classList.add('theme-' + theme);
+      var html = document.documentElement;
+      html.className = 'theme-' + theme;
       localStorage.setItem('cyperx-theme', theme);
-      updateToggleLabel(theme);
-      updateScrollProgress();
+      try { updateToggleLabel(theme); } catch(e) {}
+      try { updateScrollProgress(); } catch(e) {}
     }
 
     function updateToggleLabel(theme) {
