@@ -121,7 +121,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <!-- ════════════════════════════════════════
        LIGHT VARIANT — blog-bleached-shards
   ════════════════════════════════════════ -->
-  <div class="variant-light bg-white text-[#131313] min-h-screen">
+  <div class="variant-light bg-white text-[#131313] min-h-screen overflow-x-hidden">
     <main class="pt-28 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto">
       <!-- Hero Section -->
       <section class="relative mb-16 sm:mb-24">
@@ -135,20 +135,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <span>ENTROPY: 99.9%</span>
         </div>
       </section>
-
       <!-- Sharded Blog Grid -->
       <div class="grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-y-0">
         <!-- Article 1: Large Bleached Shard -->
         <article class="md:col-span-8 md:translate-x-4 z-10 group">
-          <div class="bg-[#ebebeb] p-1 shard-clip-2 transition-all group-hover:bg-[#39FF14] duration-75">
-            <div class="bg-white p-8 md:p-12 relative overflow-hidden">
+          <div class="bg-[#ebebeb] p-1 transition-all group-hover:bg-[#39FF14] duration-75" style="clip-path:polygon(10% 0, 100% 5%, 90% 100%, 0 85%)">
+            <div class="bg-white p-6 sm:p-8 lg:p-12 relative overflow-hidden" style="clip-path:polygon(10% 0, 100% 5%, 90% 100%, 0 85%)">
               <div class="absolute top-0 right-0 p-4 font-mono text-[10px] text-[#AC89FF]">#001_NULL</div>
               <h2 class="text-3xl sm:text-4xl lg:text-6xl font-black uppercase mb-6 leading-tight">Architecture of a Fractal Void</h2>
               <div class="aspect-video mb-8 bg-[#f0f0f0] overflow-hidden relative">
-                <img class="w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABaHfAk6ZL8rlbdj2z85oA3AAlZqV5ymu1cYf7rklSxuD81hrwGB8nglSjBnHAsDdwqbZPEQ98W0TvLb6XYAwcje2aDpBfl1idaz3YUbn-pfv8P785qxBMoNNSKexCoAXOlrKClv9AbttQOkCH-p21FoIghNGZU3oMmrCZEabvbPSKi3pX_aEsUsv7nsxza0j50ZyqllWzFbZS5Lr784tcPSpYaRQw2-_Bqgc0vktPZjqTNwrl2zVqnYmCDNkl22sD7OD1jIEU7CQ" alt="Abstract fractal geometry" loading="lazy" />
+                <img class="w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:opacity-100 transition-opacity" alt="Abstract white fractal geometry with neon highlights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABaHfAk6ZL8rlbdj2z85oA3AAlZqV5ymu1cYf7rklSxuD81hrwGB8nglSjBnHAsDdwqbZPEQ98W0TvLb6XYAwcje2aDpBfl1idaz3YUbn-pfv8P785qxBMoNNSKexCoAXOlrKClv9AbttQOkCH-p21FoIghNGZU3oMmrCZEabvbPSKi3pX_aEsUsv7nsxza0j50ZyqllWzFbZS5Lr784tcPSpYaRQw2-_Bqgc0vktPZjqTNwrl2zVqnYmCDNkl22sD7OD1jIEU7CQ"/>
                 <div class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent"></div>
               </div>
-              <p class="text-lg sm:text-xl font-medium leading-relaxed mb-8 max-w-2xl">
+              <p class="text-lg sm:text-xl lg:text-2xl font-medium leading-relaxed mb-8 max-w-2xl">
                 The screen bleaches. The data blooms. We are no longer observing the interface; we are decomposing within its architecture.
               </p>
               <a class="inline-flex items-center gap-2 font-black uppercase tracking-widest text-[#39FF14] group-hover:text-[#FF51FA]" href="#">
@@ -157,11 +156,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </div>
           </div>
         </article>
-
         <!-- Article 2: Small Overlapping Shard -->
         <article class="md:col-span-5 md:-translate-y-24 md:-ml-12 z-20 group">
-          <div class="bg-[#FF51FA] p-1 shard-clip-3 transition-all duration-75 hover:skew-y-2">
-            <div class="bg-white p-6">
+          <div class="bg-[#FF51FA] p-1 transition-all duration-75 hover:skew-y-2" style="clip-path:polygon(5% 5%, 90% 0, 100% 95%, 0% 100%)">
+            <div class="bg-white p-6" style="clip-path:polygon(5% 5%, 90% 0, 100% 95%, 0% 100%)">
               <div class="mb-4 flex justify-between items-start">
                 <span class="bg-[#FF51FA] text-white text-[10px] font-mono px-2 py-1">CRITICAL_FAIL</span>
                 <span class="font-mono text-[10px] opacity-40">2024.05.12</span>
@@ -171,21 +169,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 Research into high-luminance UI and its effect on the lizard brain. Why we crave the blinding light of the void.
               </p>
               <div class="w-full h-32 bg-[#f8f8f8] overflow-hidden">
-                <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAS09UON0o8JlPrpg5BPyuGdEQddPzmVPmbCP306mNAxAOSauwHNcgVj4NPi-kK6ndAVtHP9tSmS5s1_Q0I8jFzSd6ZXyIDDyu-7RWGOo8c2003fdnItmosvVQ_N7uWR9KWpOGHBM55EW2gVwM6sjWHrUxNht5m6O1eTWPjSYiAdL94k7NYa4VoAaN9LKdD2oLQ2bIcIlED0CEG61KiTNo8a0-BnSshDUOG00iaQ0sjLNwwFKpKv1nEBqU2umV--fgyYK98wqimKxE" alt="Neon pink light" loading="lazy" />
+                <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all" alt="Neon pink light leaking through white shards" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAS09UON0o8JlPrpg5BPyuGdEQddPzmVPmbCP306mNAxAOSauwHNcgVj4NPi-kK6ndAVtHP9tSmS5s1_Q0I8jFzSd6ZXyIDDyu-7RWGOo8c2003fdnItmosvVQ_N7uWR9KWpOGHBM55EW2gVwM6sjWHrUxNht5m6O1eTWPjSYiAdL94k7NYa4VoAaN9LKdD2oLQ2bIcIlED0CEG61KiTNo8a0-BnSshDUOG00iaQ0sjLNwwFKpKv1nEBqU2umV--fgyYK98wqimKxE"/>
               </div>
             </div>
           </div>
         </article>
-
         <!-- Article 3: Lateral Shard -->
         <article class="md:col-span-7 md:col-start-6 md:-translate-y-48 z-10 group">
-          <div class="bg-[#AC89FF] p-1 shard-clip-1 transition-all duration-75 hover:bg-[#39FF14]">
-            <div class="bg-white p-8 sm:p-10 flex flex-col md:flex-row gap-8">
+          <div class="bg-[#AC89FF] p-1 transition-all duration-75 hover:bg-[#39FF14]" style="clip-path:polygon(0 15%, 95% 0, 100% 85%, 5% 100%)">
+            <div class="bg-white p-6 sm:p-10 flex flex-col md:flex-row gap-8" style="clip-path:polygon(0 15%, 95% 0, 100% 85%, 5% 100%)">
               <div class="md:w-1/3 aspect-square bg-[#f0f0f0]">
-                <img class="w-full h-full object-cover mix-blend-screen brightness-150" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8fX4aczWDeOkXirR5PLH40fY6wah1nQptqyaUajlL75x-ZWxKRFUfl8SN5tF7-3uD2403BBsV3ndVLUBndTODa_ggLYRwVxtr87O7Y0ipSC4qS6Solv0JyB48mc-QfsCTfASIFJirb9u-_a-LKTqY1dxEp1uJU4r0lxlGw6vSNhk8xl_JsuE4el_8q6xy_-NrLHYnQ8jaJabU26dlKef2a-jOnBgytdj1t83EXGmsaG3v_T0b9HWfEQDTPuZpBCWtox5wgi7Of6Y" alt="Digital glitch" loading="lazy" />
+                <img class="w-full h-full object-cover mix-blend-screen brightness-150" alt="Digital glitch pattern in green and white" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8fX4aczWDeOkXirR5PLH40fY6wah1nQptqyaUajlL75x-ZWxKRFUfl8SN5tF7-3uD2403BBsV3ndVLUBndTODa_ggLYRwVxtr87O7Y0ipSC4qS6Solv0JyB48mc-QfsCTfASIFJirb9u-_a-LKTqY1dxEp1uJU4r0lxlGw6vSNhk8xl_JsuE4el_8q6xy_-NrLHYnQ8jaJabU26dlKef2a-jOnBgytdj1t83EXGmsaG3v_T0b9HWfEQDTPuZpBCWtox5wgi7Of6Y"/>
               </div>
               <div class="md:w-2/3">
-                <h3 class="text-2xl sm:text-3xl font-black uppercase mb-4">Melted Interactivity</h3>
+                <h3 class="text-3xl font-black uppercase mb-4">Melted Interactivity</h3>
                 <p class="text-base mb-6 opacity-80">
                   Breaking the standard 12-column grid to find the liquid state of digital information.
                 </p>
@@ -196,10 +193,34 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </div>
           </div>
         </article>
+        <!-- Floating Sidebar: Acid Toggle -->
+        <aside class="md:col-span-3 md:fixed md:right-12 md:top-64 z-40">
+          <div class="p-6 bg-[#ebebeb] border-r-4 border-[#39FF14]" style="clip-path:polygon(0 0, 100% 0, 95% 100%, 5% 95%)">
+            <h4 class="font-mono text-[10px] font-bold uppercase mb-4 text-[#FF51FA]">SYSTEM_CONTROL</h4>
+            <div class="space-y-4">
+              <div class="flex justify-between items-center group cursor-pointer">
+                <span class="font-black text-sm uppercase group-hover:text-[#39FF14]">GLITCH_FEED</span>
+                <div class="w-10 h-5 bg-[#39FF14] p-1">
+                  <div class="w-3 h-3 bg-black"></div>
+                </div>
+              </div>
+              <div class="flex justify-between items-center group cursor-pointer">
+                <span class="font-black text-sm uppercase group-hover:text-[#FF51FA] line-through">SAFETY_NET</span>
+                <div class="w-10 h-5 bg-[#f0f0f0] p-1">
+                  <div class="w-3 h-3 bg-[#131313]/20"></div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-[#131313]/10">
+              <p class="font-mono text-[9px] leading-tight opacity-50">
+                WARNING: HIGH FREQUENCY VISUALS MAY CAUSE SENSORY SYNESTHESIA. PROCEED INTO THE WHITE.
+              </p>
+            </div>
+          </div>
+        </aside>
       </div>
-
       <!-- Terminal Section -->
-      <section class="mt-12 md:-mt-24 p-8 bg-[#131313] text-white shard-clip-2 max-w-2xl">
+      <section class="mt-12 md:-mt-24 p-6 sm:p-8 bg-[#131313] text-white max-w-2xl" style="clip-path:polygon(10% 0, 100% 5%, 90% 100%, 0 85%)">
         <div class="flex items-center gap-2 mb-4">
           <div class="w-3 h-3 bg-[#39FF14]"></div>
           <span class="font-mono text-xs uppercase tracking-tighter">REMOTE_TERMINAL_ACCESS</span>
@@ -218,117 +239,223 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <!-- ════════════════════════════════════════
        EXTREME VARIANT — blog-shard-breach-dark-extreme
   ════════════════════════════════════════ -->
-  <div class="variant-extreme min-h-screen" style="background:#000; color:#fff;">
-    <main class="relative pt-28 sm:pt-40 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto min-h-screen">
+  <div class="variant-extreme bg-[#050505] text-white min-h-screen overflow-x-hidden" style="cursor:crosshair">
+    <main class="relative pt-28 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto min-h-screen">
+      <!-- Fractal Underlay -->
+      <div class="fixed inset-0 x-fractal-bg -z-10"></div>
       <!-- Header Section -->
       <header class="mb-20 sm:mb-32 space-y-8 relative">
         <div class="absolute -top-12 -left-12 w-64 h-64 bg-[#8eff71]/20 blur-[120px] rounded-full animate-pulse"></div>
-        <h1 class="text-5xl sm:text-7xl lg:text-[10rem] font-black tracking-tighter glitch-text-extreme uppercase leading-none">
+        <h1 class="text-5xl sm:text-7xl lg:text-[10rem] font-black tracking-tighter x-vibrating-text uppercase leading-none">
           DATA<br/>LOGS_0x0
         </h1>
-        <div class="flex flex-wrap items-center gap-8 text-[#8eff71] font-mono text-base sm:text-lg">
+        <div class="flex flex-wrap items-center gap-4 sm:gap-8 text-[#8eff71] font-mono text-sm sm:text-lg">
           <span class="animate-ping h-3 w-3 rounded-full bg-[#8eff71]"></span>
-          <span class="tracking-[0.5em] font-black text-[#ff51fa]">SYSTEM_INFILTRATION_CRITICAL</span>
+          <span class="tracking-[0.3em] sm:tracking-[0.5em] font-black text-[#ff51fa]">SYSTEM_INFILTRATION_CRITICAL</span>
           <span class="opacity-40 italic">// ENTROPY: 99.98% // SECTOR: VOID_NULL</span>
         </div>
       </header>
-
-      <!-- Shard Grid Layout -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+      <!-- Shard Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12 items-start">
         <!-- Featured Shard -->
-        <article class="md:col-span-9 group relative mb-20">
+        <article class="md:col-span-9 group relative mb-12 sm:mb-20">
           <div class="absolute -inset-8 bg-gradient-to-br from-[#8eff71] via-[#ff51fa] to-[#ac89ff] blur-[100px] opacity-20 group-hover:opacity-80 transition-opacity duration-1000"></div>
-          <div class="relative bg-[#1f1f1f] border-4 border-[#8eff71]/50 shard-clip-1 shadow-[0_0_60px_rgba(142,255,113,0.3)] overflow-hidden">
+          <div class="relative bg-[#191919] border-4 border-[#8eff71]/50 x-shard-melt-intense shadow-[0_0_60px_rgba(142,255,113,0.3)] overflow-hidden x-glitch-hover">
+            <div class="x-shard-inner-fractal"></div>
             <div class="relative overflow-hidden aspect-[21/9]">
-              <img alt="Abstract neon structures" class="w-full h-full object-cover grayscale invert contrast-[1.5] brightness-[1.2] group-hover:grayscale-0 group-hover:invert-0 transition-all duration-1000 scale-150 group-hover:scale-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqEcMx3GLdKip5cD62YHedg03UpAHh0pnasq_xqIGwoCN9K6_vBn7DF8OKePusRs9Rw82DvVwJqBEKPzBIrGEU2BFo5TLpjNfEWZX5D1r_FTDcX24FGXGlYK0Lx-mKsKSe7XuAcivpt4XcWItRFAVp0jYZhG_wIqD88AtJnaqPHQwZuAjozdKxb8o5czCYBGllicBvODVZfpxvzLufNN-Y59v3WzCbZTGgenDchuYcuJpdSE-L2UkLNElIftV7AQRkeX7J0VXDKV8" loading="lazy" />
+              <img alt="Abstract neon geometric structures" class="w-full h-full object-cover grayscale invert contrast-[1.5] brightness-[1.2] group-hover:grayscale-0 group-hover:invert-0 transition-all duration-1000 scale-150 group-hover:scale-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqEcMx3GLdKip5cD62YHedg03UpAHh0pnasq_xqIGwoCN9K6_vBn7DF8OKePusRs9Rw82DvVwJqBEKPzBIrGEU2BFo5TLpjNfEWZX5D1r_FTDcX24FGXGlYK0Lx-mKsKSe7XuAcivpt4XcWItRFAVp0jYZhG_wIqD88AtJnaqPHQwZuAjozdKxb8o5czCYBGllicBvODVZfpxvzLufNN-Y59v3WzCbZTGgenDchuYcuJpdSE-L2UkLNElIftV7AQRkeX7J0VXDKV8"/>
               <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-              <div class="absolute bottom-12 sm:bottom-20 left-8 sm:left-12 right-8 sm:right-12">
-                <h2 class="text-3xl sm:text-5xl lg:text-7xl font-black text-white uppercase tracking-tighter glitch-text-extreme group-hover:text-[#8eff71]">
+              <div class="absolute bottom-8 sm:bottom-20 left-6 sm:left-12 right-6 sm:right-12">
+                <h2 class="text-3xl sm:text-4xl lg:text-7xl font-black text-white uppercase tracking-tighter x-vibrating-text group-hover:text-[#8eff71]">
                   NEURAL_MELTDOWN_PROTOCOL_v4
                 </h2>
               </div>
             </div>
-            <div class="p-8 sm:p-12 pt-4 space-y-8 relative z-10">
-              <p class="text-xl sm:text-2xl font-bold leading-tight max-w-3xl italic tracking-tight">
+            <div class="p-6 sm:p-12 pt-4 space-y-6 sm:space-y-8 relative z-10">
+              <p class="text-white text-lg sm:text-2xl font-bold leading-tight max-w-3xl italic tracking-tight">
                 "THE BOUNDARIES BETWEEN SILICON AND SOUL ARE DISSOLVING. WE ARE THE LEAK IN THE REALITY PIPELINE."
               </p>
-              <div class="flex flex-wrap items-center gap-8 sm:gap-12">
-                <button class="bg-[#8eff71] text-black px-10 sm:px-16 py-4 sm:py-6 font-black text-lg sm:text-xl uppercase tracking-tighter hover:bg-white hover:text-black transition-all shard-card-1 shadow-[0_0_30px_rgba(142,255,113,0.8)]">
+              <div class="flex flex-wrap items-center gap-6 sm:gap-12">
+                <button class="bg-[#8eff71] text-[#0d6100] px-8 sm:px-16 py-4 sm:py-6 font-black text-base sm:text-xl uppercase tracking-tighter hover:bg-white hover:text-black transition-all x-shard-1 shadow-[0_0_30px_rgba(142,255,113,0.8)]">
                   DECRYPT_VOID
                 </button>
-                <span class="text-[#ff51fa] font-mono text-sm animate-pulse">0x88FF112 // HASH_CORRUPTED</span>
+                <span class="text-[#ff51fa] font-mono text-xs sm:text-sm animate-pulse">0x88FF112 // HASH_CORRUPTED</span>
               </div>
             </div>
           </div>
         </article>
-
         <!-- Sidebar Shards -->
-        <div class="md:col-span-3 space-y-12 sm:space-y-16">
-          <div class="bg-[#111] p-8 sm:p-10 border-4 border-[#ff51fa]/40 relative overflow-hidden shard-clip-2 shadow-[0_0_40px_rgba(255,81,250,0.2)]">
+        <div class="md:col-span-3 space-y-8 sm:space-y-16">
+          <div class="bg-[#111] p-6 sm:p-10 border-4 border-[#ff51fa]/40 relative overflow-hidden x-shard-sidebar shadow-[0_0_40px_rgba(255,81,250,0.2)] x-glitch-hover">
+            <div class="x-shard-inner-fractal"></div>
             <div class="absolute top-4 right-6 text-[10px] font-mono text-[#ff51fa] animate-bounce uppercase tracking-[0.5em]">VOID_FEED</div>
-            <h3 class="text-lg font-black text-[#ff51fa] mb-8 tracking-[0.3em] uppercase">SYSTEM_ALERTS</h3>
-            <ul class="space-y-8">
-              <li class="flex gap-4 items-start border-b-2 border-[#3c4b35]/20 pb-6">
+            <h3 class="text-lg font-black text-[#ff51fa] mb-6 sm:mb-8 tracking-[0.3em] uppercase x-vibrating-text">SYSTEM_ALERTS</h3>
+            <ul class="space-y-6 sm:space-y-8">
+              <li class="flex gap-4 items-start border-b-2 border-[#484848]/20 pb-4 sm:pb-6 group/item">
                 <span class="material-symbols-outlined text-[#8eff71] text-2xl animate-ping">warning</span>
                 <div>
-                  <p class="text-sm font-black text-white uppercase">BUFFER_OVERFLOW_7G</p>
+                  <p class="text-sm font-black text-white uppercase group-hover/item:text-[#8eff71] transition-colors">BUFFER_OVERFLOW_7G</p>
                   <p class="text-[10px] text-[#8eff71]/60 uppercase mt-2 font-mono">T-MINUS_00:03</p>
                 </div>
               </li>
-              <li class="flex gap-4 items-start border-b-2 border-[#3c4b35]/20 pb-6">
+              <li class="flex gap-4 items-start border-b-2 border-[#484848]/20 pb-4 sm:pb-6 group/item">
                 <span class="material-symbols-outlined text-[#ff51fa] text-2xl animate-pulse">bolt</span>
                 <div>
-                  <p class="text-sm font-black text-white uppercase">STATIC_DISCHARGE_DET</p>
+                  <p class="text-sm font-black text-white uppercase group-hover/item:text-[#ff51fa] transition-colors">STATIC_DISCHARGE_DET</p>
                   <p class="text-[10px] text-[#ff51fa]/60 uppercase mt-2 font-mono">T-MINUS_00:14</p>
                 </div>
               </li>
             </ul>
           </div>
-          <div class="bg-[#ff51fa] p-8 sm:p-12 flex flex-col items-center justify-center text-center space-y-8 shard-clip-2 shadow-[0_0_80px_rgba(255,81,250,0.6)] rotate-3 hover:rotate-0 transition-all cursor-none">
-            <span class="material-symbols-outlined text-white text-6xl sm:text-8xl animate-pulse" style="font-variation-settings:'FILL' 1">skull</span>
+          <div class="bg-[#ff51fa] p-8 sm:p-12 flex flex-col items-center justify-center text-center space-y-6 sm:space-y-8 x-shard-2 shadow-[0_0_80px_rgba(255,81,250,0.6)] rotate-3 hover:rotate-0 transition-all" style="cursor:none">
+            <span class="material-symbols-outlined text-[#400040] text-6xl sm:text-8xl animate-pulse" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24">skull</span>
             <div>
-              <h4 class="text-white font-black text-2xl sm:text-3xl uppercase tracking-tighter">FEED_THE_VOID</h4>
-              <p class="text-white/70 text-sm mt-4 uppercase tracking-[0.4em] font-bold">DIGITAL_OBLIVION_AWAITS</p>
+              <h4 class="text-[#400040] font-black text-2xl sm:text-3xl uppercase tracking-tighter x-vibrating-text">FEED_THE_VOID</h4>
+              <p class="text-[#400040]/70 text-sm mt-4 uppercase tracking-[0.4em] font-bold">DIGITAL_OBLIVION_AWAITS</p>
             </div>
+            <input class="w-full bg-black/40 border-none text-[#400040] placeholder:text-[#400040]/30 focus:ring-0 text-base sm:text-lg py-4 sm:py-5 font-mono text-center" placeholder="ENTITY_ADDRESS_HERE" type="text"/>
           </div>
         </div>
-
-        <!-- Overlapping Grid Feed -->
-        <article class="md:col-span-6 group -mt-16 md:-mt-32 relative z-10">
-          <div class="bg-[#353535] p-8 shard-clip-3 border-4 border-[#ff51fa]/50 hover:scale-110 transition-all duration-700 shadow-[0_0_50px_rgba(255,81,250,0.3)]">
-            <div class="relative aspect-[4/3] mb-8 overflow-hidden">
-              <img alt="Digital abstract pattern" class="w-full h-full object-cover contrast-[2] saturate-[3] hue-rotate-90 group-hover:hue-rotate-0 transition-all duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvvm_XTfFvURVBBXXb2FtVNQwk4YKEJEQxWyqwiZ2Q-H4Q37fFFZXJNJNBIg4ydMz_bTBuGGssVRLPQWiW7Wfvjtn3FmdM1ddSNwhzGOp3ZYGG9atUSDJ61wYX71oL-8wWDz2QDyRCwp24QHe9uyJ4AcrQ5pvclQlOaGPvWzNxu2kJDeS8zwqtaW8mztR05vcZ97v0BnWczRoa1_k8BlsYpaFx-XO2sbjiP86ks3Ddyp-s1rpWMPuPQlERfj8TmUPKJgVJAyB2-G0" loading="lazy" />
+        <!-- Grid Feed: Slot 1 -->
+        <article class="md:col-span-6 group md:-mt-32 relative z-10">
+          <div class="bg-[#262626] p-6 sm:p-8 x-shard-3 border-4 border-[#ff51fa]/50 hover:scale-110 transition-all duration-700 shadow-[0_0_50px_rgba(255,81,250,0.3)] x-glitch-hover">
+            <div class="x-shard-inner-fractal"></div>
+            <div class="relative aspect-[4/3] mb-6 sm:mb-8 overflow-hidden">
+              <img alt="Digital abstract pattern" class="w-full h-full object-cover contrast-[2] saturate-[3] hue-rotate-90 group-hover:hue-rotate-0 transition-all duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvvm_XTfFvURVBBXXb2FtVNQwk4YKEJEQxWyqwiZ2Q-H4Q37fFFZXJNJNBIg4ydMz_bTBuGGssVRLPQWiW7Wfvjtn3FmdM1ddSNwhzGOp3ZYGG9atUSDJ61wYX71oL-8wWDz2QDyRCwp24QHe9uyJ4AcrQ5pvclQlOaGPvWzNxu2kJDeS8zwqtaW8mztR05vcZ97v0BnWczRoa1_k8BlsYpaFx-XO2sbjiP86ks3Ddyp-s1rpWMPuPQlERfj8TmUPKJgVJAyB2-G0"/>
               <div class="absolute inset-0 bg-[#8eff71]/30 mix-blend-color-dodge"></div>
             </div>
             <span class="text-xs font-mono text-[#ff51fa] mb-4 block tracking-[0.5em] font-black uppercase">LOG_ID: 0x992 // BLEEDING</span>
-            <h3 class="text-3xl sm:text-4xl font-black text-white mb-4 uppercase tracking-tighter glitch-text-extreme group-hover:text-[#ff51fa]">LIQUID_DREAMS</h3>
-            <p class="text-sm text-[#baccb0] leading-tight font-bold italic">THE MAIN_FRAME IS SATURATED. REALITY SCRIPTS ARE BEGINNING TO HEMORRHAGE INTO THE PHYSICAL DOMAIN.</p>
+            <h3 class="text-2xl sm:text-4xl font-black text-white mb-4 uppercase tracking-tighter x-vibrating-text group-hover:text-[#ff51fa]">LIQUID_DREAMS</h3>
+            <p class="text-sm text-[#ababab] leading-tight font-bold italic">THE MAIN_FRAME IS SATURATED. REALITY SCRIPTS ARE BEGINNING TO HEMORRHAGE INTO THE PHYSICAL DOMAIN.</p>
           </div>
         </article>
-
+        <!-- Grid Feed: Slot 2 -->
         <article class="md:col-span-6 group md:-ml-20 relative z-20">
-          <div class="bg-[#2a2a2a] p-8 sm:p-10 shard-clip-1 border-4 border-[#8eff71]/50 hover:scale-[1.05] transition-all duration-500 shadow-[0_0_70px_rgba(142,255,113,0.4)]">
-            <div class="flex flex-col gap-8 sm:gap-10">
-              <div class="relative w-full aspect-video overflow-hidden shard-card-1 border-2 border-[#8eff71]/20">
-                <img alt="Cosmic distortion" class="w-full h-full object-cover invert hue-rotate-180 group-hover:invert-0 group-hover:hue-rotate-0 transition-all duration-1000 scale-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQn3R_NyN7D3b4-rhxfBZZcE1dPyyZgngJ8Er1r31ujQ5ifJloQRjRlDHl7IqmPelVVfedhmkm0s7FtzgOIClaA-GoDam97Njkkx_-ZAIQCsjYiRhXg185XszYnJwqohXHnz1hkyVTVJutEOLvEf2BUMVj9mudMvsu3jG5c-CyEHZTGdwtf5mQIUJ5rQ7EdBnqEhKpI2Gb9MIMIwqJWDFrQsdn3vT0xYscjwDyeZw8bbs4hGEVu-0wPr2jip8Z8OBdxqsb7JeM7jY" loading="lazy" />
+          <div class="bg-[#1f1f1f] p-6 sm:p-10 x-shard-4 border-4 border-[#8eff71]/50 hover:scale-[1.05] transition-all duration-500 shadow-[0_0_70px_rgba(142,255,113,0.4)] x-glitch-hover">
+            <div class="x-shard-inner-fractal"></div>
+            <div class="flex flex-col gap-6 sm:gap-10">
+              <div class="relative w-full aspect-video overflow-hidden x-shard-1 border-2 border-[#8eff71]/20">
+                <img alt="Cosmic digital distortion" class="w-full h-full object-cover invert hue-rotate-180 group-hover:invert-0 group-hover:hue-rotate-0 transition-all duration-1000 scale-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQn3R_NyN7D3b4-rhxfBZZcE1dPyyZgngJ8Er1r31ujQ5ifJloQRjRlDHl7IqmPelVVfedhmkm0s7FtzgOIClaA-GoDam97Njkkx_-ZAIQCsjYiRhXg185XszYnJwqohXHnz1hkyVTVJutEOLvEf2BUMVj9mudMvsu3jG5c-CyEHZTGdwtf5mQIUJ5rQ7EdBnqEhKpI2Gb9MIMIwqJWDFrQsdn3vT0xYscjwDyeZw8bbs4hGEVu-0wPr2jip8Z8OBdxqsb7JeM7jY"/>
               </div>
               <div class="space-y-4 sm:space-y-6">
                 <span class="text-xs font-mono text-[#8eff71] block tracking-[0.5em] font-black uppercase">LOG_ID: 0x441 // INTRUSION</span>
-                <h3 class="text-3xl sm:text-5xl font-black text-white uppercase tracking-tighter glitch-text-extreme group-hover:text-[#8eff71]">GHOST_KERNEL_v0</h3>
-                <p class="text-base sm:text-lg text-[#baccb0] leading-snug font-medium italic">AUTONOMOUS SCRIPTS HAVE BYPASSED ALL PROTOCOLS. THE HISTORY LOGS ARE WRITING THEMSELVES NOW.</p>
+                <h3 class="text-3xl sm:text-5xl font-black text-white uppercase tracking-tighter x-vibrating-text group-hover:text-[#8eff71]">GHOST_KERNEL_v0</h3>
+                <p class="text-base sm:text-lg text-[#ababab] leading-snug font-medium italic">AUTONOMOUS SCRIPTS HAVE BYPASSED ALL PROTOCOLS. THE HISTORY LOGS ARE WRITING THEMSELVES NOW.</p>
                 <button class="text-sm font-black uppercase tracking-[0.6em] text-[#8eff71] border-b-4 border-[#8eff71] pb-2 hover:text-white hover:border-white transition-all">ACCESS_CORE_VOID</button>
               </div>
             </div>
           </div>
         </article>
+        <!-- Grid Feed: Slot 3 -->
+        <article class="md:col-span-5 md:col-start-4 group mt-8 sm:mt-16 relative z-10">
+          <div class="bg-black/80 p-6 x-shard-melt-intense border-2 border-[#8eff71]/30 hover:scale-125 transition-all duration-500 x-glitch-hover">
+            <div class="x-shard-inner-fractal"></div>
+            <div class="relative aspect-square mb-6 overflow-hidden x-shard-2">
+              <img alt="Colorful digital gradient glitch" class="w-full h-full object-cover contrast-[3] brightness-[0.5] group-hover:brightness-100 transition-all duration-500 scale-150 group-hover:rotate-45" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPLVawfec3WGsAyD4SFhHkIOdozKY4lf0ps1qh0kyrd4l71jFmh5tcbImTKZ_ERSzuYtEAVp9siVC0FiwHvbkgeztyyGjxc55WzA-oP3_OJsD-jd6JcQUPFbXnHhGfuR4mtgTYKMhi1qP0Iwd9gmB06jVo09y36yoTRB0m7NKolrVwEhWsg7v688Upohol7xUPpB8j-LbNhtu_uC_CthUkuwURp3TxNE0OpnG6cNyqSCb9t1cu3XVbyVsO0iSW7Ji66ibwBWtRSQ"/>
+            </div>
+            <span class="text-[10px] font-mono text-[#8eff71] mb-3 block tracking-[0.8em] uppercase text-center">DECAY_STATE_ACTIVE</span>
+            <h3 class="text-2xl font-black text-white mb-3 uppercase tracking-tighter text-center group-hover:text-[#8eff71] transition-colors">CHROME_DISSOLUTION</h3>
+          </div>
+        </article>
       </div>
-
       <!-- Pagination -->
-      <div class="mt-32 sm:mt-48 flex justify-center gap-6">
-        <button class="w-16 h-16 sm:w-20 sm:h-20 border-4 border-[#8eff71] text-[#8eff71] hover:bg-[#8eff71] hover:text-black transition-all shard-card-1 font-black text-xl sm:text-2xl">01</button>
-        <button class="w-18 h-18 sm:w-24 sm:h-24 border-4 border-[#ff51fa] bg-[#ff51fa] text-black flex items-center justify-center font-black text-2xl sm:text-3xl shard-clip-2 shadow-[0_0_40px_rgba(255,81,250,0.8)]">02</button>
-        <button class="w-16 h-16 sm:w-20 sm:h-20 border-4 border-[#8eff71]/30 flex items-center justify-center text-[#8eff71]/40 hover:text-white hover:border-white transition-all shard-clip-3 font-black text-xl sm:text-2xl">03</button>
+      <div class="mt-24 sm:mt-48 flex justify-center gap-4 sm:gap-6">
+        <button class="w-16 sm:w-20 h-16 sm:h-20 border-4 border-[#8eff71] text-[#8eff71] hover:bg-[#8eff71] hover:text-black transition-all x-shard-1 font-black text-xl sm:text-2xl x-vibrating-text">01</button>
+        <button class="w-20 sm:w-24 h-20 sm:h-24 border-4 border-[#ff51fa] bg-[#ff51fa] text-black flex items-center justify-center font-black text-2xl sm:text-3xl x-shard-2 shadow-[0_0_40px_rgba(255,81,250,0.8)]">02</button>
+        <button class="w-16 sm:w-20 h-16 sm:h-20 border-4 border-[#8eff71]/30 flex items-center justify-center text-[#8eff71]/40 hover:text-white hover:border-white transition-all x-shard-3 font-black text-xl sm:text-2xl">03</button>
+        <div class="w-16 sm:w-20 h-16 sm:h-20 flex items-center justify-center text-[#8eff71]/20 tracking-[1em] font-black">...</div>
+        <button class="w-16 sm:w-20 h-16 sm:h-20 border-4 border-[#8eff71]/30 flex items-center justify-center text-[#8eff71]/40 hover:text-white hover:border-white transition-all x-shard-4 font-black text-xl sm:text-2xl">99</button>
       </div>
     </main>
   </div>
+
 </BaseLayout>
+
+<style is:global>
+  /* ── Extreme Variant: Keyframe Animations ── */
+  @keyframes x-drift {
+    0%   { transform: translate(0,0) rotate(0deg) scale(1); }
+    33%  { transform: translate(15px,-10px) rotate(1deg) scale(1.02); }
+    66%  { transform: translate(-10px,15px) rotate(-1deg) scale(0.98); }
+    100% { transform: translate(0,0) rotate(0deg) scale(1); }
+  }
+  @keyframes x-glitch-anim {
+    0%   { clip-path: inset(40% 0 61% 0); transform: translate(-5px); }
+    20%  { clip-path: inset(92% 0 1% 0);  transform: translate(5px); }
+    40%  { clip-path: inset(43% 0 1% 0);  transform: translate(-5px); }
+    60%  { clip-path: inset(25% 0 58% 0); transform: translate(5px); }
+    80%  { clip-path: inset(54% 0 7% 0);  transform: translate(-5px); }
+    100% { clip-path: inset(58% 0 43% 0); transform: translate(5px); }
+  }
+  @keyframes x-fractal-shift {
+    0%   { background-position: 0% 0%;     filter: hue-rotate(0deg); }
+    100% { background-position: 100% 100%; filter: hue-rotate(360deg); }
+  }
+
+  /* ── Extreme Variant: Shard Clip-paths ── */
+  .x-shard-1 {
+    clip-path: polygon(0% 15%, 100% 0%, 85% 100%, 5% 85%);
+    animation: x-drift 7s ease-in-out infinite;
+  }
+  .x-shard-2 {
+    clip-path: polygon(10% 0%, 100% 25%, 90% 100%, 0% 75%);
+    animation: x-drift 8s ease-in-out infinite reverse;
+  }
+  .x-shard-3 {
+    clip-path: polygon(5% 5%, 95% 0%, 100% 95%, 15% 100%);
+    animation: x-drift 6s ease-in-out infinite 1s;
+  }
+  .x-shard-4 {
+    clip-path: polygon(0% 0%, 88% 12%, 100% 88%, 12% 100%);
+    animation: x-drift 9s ease-in-out infinite 0.5s;
+  }
+  .x-shard-melt-intense {
+    clip-path: polygon(2% 2%, 98% 5%, 95% 45%, 100% 48%, 92% 85%, 75% 82%, 65% 100%, 45% 88%, 25% 95%, 10% 75%, 0% 85%, 5% 50%);
+    animation: x-drift 10s ease-in-out infinite;
+  }
+  .x-shard-sidebar { clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%); }
+  .x-shard-footer  { clip-path: polygon(0 30%, 20% 0, 40% 25%, 60% 5%, 80% 30%, 100% 10%, 100% 100%, 0 100%); }
+
+  /* ── Extreme Variant: Vibrating Text ── */
+  .x-vibrating-text {
+    animation: vibrate-effect 0.1s infinite;
+    text-shadow: 3px 0 #ff51fa, -3px 0 #8eff71;
+  }
+
+  /* ── Extreme Variant: Fractal Background ── */
+  .x-fractal-bg {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCCF-Wu0arOTEDRI7pEIgN9zoNVdLKE4WsdOdqmG-mtDHqHKeMqx_pBPtjbjQ4HLpooT9zBpJxFZIdyqmNhwaR3F5bS0VU9SZlVRdaD5SIIexczbDXVJLbC3fYM2lj-LBSQE8z_t1hhuH-YwO4BAU9o7bwkQAjqbW5Q1Lla1YTPzZjwno57NJKB4OVSqJNG42o5Uyn6rRNAztZgkm42__gqzmM9KOWda7YxxqhQfjXKC-JYyYqX7MWlCNskOFkjixU_RUmSdE3msqg);
+    background-size: 200%;
+    animation: x-fractal-shift 20s linear infinite;
+    opacity: 0.2;
+    mix-blend-mode: screen;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+  }
+
+  /* ── Extreme Variant: Inner Fractal Overlay on Cards ── */
+  .x-shard-inner-fractal {
+    position: absolute;
+    inset: 0;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCCF-Wu0arOTEDRI7pEIgN9zoNVdLKE4WsdOdqmG-mtDHqHKeMqx_pBPtjbjQ4HLpooT9zBpJxFZIdyqmNhwaR3F5bS0VU9SZlVRdaD5SIIexczbDXVJLbC3fYM2lj-LBSQE8z_t1hhuH-YwO4BAU9o7bwkQAjqbW5Q1Lla1YTPzZjwno57NJKB4OVSqJNG42o5Uyn6rRNAztZgkm42__gqzmM9KOWda7YxxqhQfjXKC-JYyYqX7MWlCNskOFkjixU_RUmSdE3msqg);
+    background-size: cover;
+    mix-blend-mode: overlay;
+    opacity: 0.3;
+    animation: x-fractal-shift 10s alternate infinite;
+    pointer-events: none;
+  }
+
+  /* ── Extreme Variant: Glitch Hover Effect ── */
+  .x-glitch-hover { position: relative; }
+  .x-glitch-hover:hover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    animation: x-glitch-anim 0.3s infinite;
+    z-index: 20;
+    mix-blend-mode: hard-light;
+    opacity: 0.8;
+  }
+</style>
