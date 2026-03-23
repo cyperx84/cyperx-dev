@@ -15,6 +15,7 @@ const sections = [
     description: "4 autonomous AI agents running on Apple Silicon. A generalist, builder, researcher, and ops agent — orchestrating, building, and maintaining systems 24/7.",
     stat: "4 AGENTS",
     statLabel: "ACTIVE",
+    href: "/projects/openclaw-fleet",
   },
   {
     icon: "terminal",
@@ -22,6 +23,7 @@ const sections = [
     description: "Fleet TUI, voice forge, knowledge processors, and custom CLIs. Everything built to be used, not demoed. If it doesn't ship, it doesn't exist.",
     stat: "12+",
     statLabel: "TOOLS SHIPPED",
+    href: "/projects/fleet-tui",
   },
   {
     icon: "memory",
@@ -29,13 +31,14 @@ const sections = [
     description: "Obsidian vault as operating system. Pipelines from ideas → PRDs → builds → ship. Shared context for humans AND agents. Structure that compounds.",
     stat: "∞",
     statLabel: "COMPOUNDING",
+    href: "/projects/personal-os",
   },
 ];
 
 const timeline = [
-  { date: "2026.03", title: "Agent Fleet v2", description: "Multi-agent gateway, Discord integration, inter-agent orchestration, automatic failover chains." },
-  { date: "2026.02", title: "Fleet TUI", description: "Go/Bubbletea terminal dashboard. Real-time session monitoring, error feeds, vim keybinds." },
-  { date: "2026.01", title: "Voice Forge v3", description: "Automated voice corpus pipeline. Whisper transcription, ElevenLabs cloning, agent TTS." },
+  { date: "2026.03", title: "Agent Fleet v2", description: "Multi-agent gateway, Discord integration, inter-agent orchestration, automatic failover chains.", href: "/projects/openclaw-fleet" },
+  { date: "2026.02", title: "Fleet TUI", description: "Go/Bubbletea terminal dashboard. Real-time session monitoring, error feeds, vim keybinds.", href: "/projects/fleet-tui" },
+  { date: "2026.01", title: "Voice Forge v3", description: "Automated voice corpus pipeline. Whisper transcription, ElevenLabs cloning, agent TTS.", href: "/projects/voice-forge" },
 ];
 ---
 <BaseLayout title="CYPERX.DEV" activeNav="home">
@@ -80,7 +83,7 @@ const timeline = [
             const clips = ["shard-card-1", "shard-card-2", "shard-card-3"];
             const offsets = ["z-20 md:-mr-4", "z-30 md:mt-10", "z-10 md:-ml-4"];
             return (
-              <div class={`${clips[i]} ${bgs[i]} p-6 sm:p-8 group hover:bg-[#393939] transition-colors relative ${offsets[i]} hover-lift`} data-reveal>
+              <a href={s.href} class={`${clips[i]} ${bgs[i]} p-6 sm:p-8 group hover:bg-[#393939] transition-colors relative ${offsets[i]} hover-lift block no-underline`} data-reveal>
                 <span class="material-symbols-outlined text-4xl sm:text-5xl mb-4 sm:mb-6 block" style={`color:${colors[i]}`}>{s.icon}</span>
                 <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 italic tracking-tight">{s.title.toUpperCase()}</h3>
                 <p class="text-sm opacity-70 font-mono leading-relaxed mb-4 sm:mb-6">{s.description}</p>
@@ -88,7 +91,7 @@ const timeline = [
                   <span class="text-2xl font-black" style={`color:${colors[i]}`}>{s.stat}</span>
                   <span class="font-mono text-[10px] opacity-40">{s.statLabel}</span>
                 </div>
-              </div>
+              </a>
             );
           })}
         </div>
@@ -106,7 +109,7 @@ const timeline = [
             const colors = ["#39FF14", "#FF51FA", "#AC89FF"];
             const rev = i % 2 === 1;
             return (
-              <div class={`relative flex flex-col ${rev ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-8 sm:gap-12 group pl-12 md:pl-0`} data-reveal>
+              <a href={item.href} class={`relative flex flex-col ${rev ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-8 sm:gap-12 group pl-12 md:pl-0 no-underline hover:opacity-80 transition-opacity`} data-reveal>
                 <div class={`w-full md:w-1/2 ${rev ? 'md:text-left' : 'md:text-right'}`}>
                   <h4 class="font-mono text-xs mb-2" style={`color:${colors[i]}`}>{item.date}</h4>
                   <h3 class="text-2xl sm:text-3xl font-black italic uppercase leading-none mb-3 sm:mb-4">{item.title}</h3>
@@ -114,7 +117,7 @@ const timeline = [
                 </div>
                 <div class="z-10 w-3 sm:w-4 h-3 sm:h-4 rotate-45 absolute left-2.5 md:relative md:left-auto" style={`background:${colors[i]}; box-shadow:0 0 15px ${colors[i]}`}></div>
                 <div class="w-full md:w-1/2"></div>
-              </div>
+              </a>
             );
           })}
         </div>
@@ -164,7 +167,7 @@ const timeline = [
             ];
             const borderColors = ["#39FF14", "#FF51FA", "#AC89FF"];
             return (
-              <div class={`${spans[i]} p-1 hover:scale-[1.01] transition-transform group`} style={`background:${borderColors[i]}; clip-path:${clipPaths[i]}`} data-reveal>
+              <a href={s.href} class={`${spans[i]} p-1 hover:scale-[1.01] transition-transform group block no-underline`} style={`background:${borderColors[i]}; clip-path:${clipPaths[i]}`} data-reveal>
                 <div class="bg-white h-full p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden" style={`clip-path:${clipPaths[i]}`}>
                   <div class="absolute top-0 right-0 p-4 font-mono opacity-10 text-5xl sm:text-6xl font-black select-none" style={`color:${borderColors[i]}`}>{String(i + 1).padStart(2, '0')}</div>
                   <div class="space-y-3 sm:space-y-4 relative z-10">
@@ -177,7 +180,7 @@ const timeline = [
                     <span class="font-mono text-sm tracking-widest uppercase text-[#131313]/40">{s.stat} {s.statLabel}</span>
                   </div>
                 </div>
-              </div>
+              </a>
             );
           })}
         </div>
@@ -193,11 +196,11 @@ const timeline = [
           {timeline.map((item, i) => {
             const borderColors = ["#39FF14", "#FF51FA", "#AC89FF"];
             return (
-              <div class="border-l-4 pl-6 py-4 hover:bg-[#f8f8f8] transition-colors" style={`border-color:${borderColors[i]}`} data-reveal>
+              <a href={item.href} class="block border-l-4 pl-6 py-4 hover:bg-[#f8f8f8] transition-colors no-underline" style={`border-color:${borderColors[i]}`} data-reveal>
                 <span class="font-mono text-xs" style={`color:${borderColors[i]}`}>{item.date}</span>
-                <h3 class="text-xl sm:text-2xl font-black uppercase mt-1 mb-2">{item.title}</h3>
+                <h3 class="text-xl sm:text-2xl font-black uppercase mt-1 mb-2 text-[#131313]">{item.title}</h3>
                 <p class="text-sm text-[#131313]/60">{item.description}</p>
-              </div>
+              </a>
             );
           })}
         </div>
@@ -252,7 +255,7 @@ const timeline = [
           const colors = ["#8eff71", "#ff51fa", "#ac89ff"];
           const masks = ["acid-mask-1", "acid-mask-3", "acid-mask-2"];
           return (
-            <div class={`${spans[i]} bg-black/80 backdrop-blur-md relative z-${10 + i * 10} ${masks[i]} glitch-border-vibrate`}>
+            <a href={s.href} class={`${spans[i]} bg-black/80 backdrop-blur-md relative z-${10 + i * 10} ${masks[i]} glitch-border-vibrate block no-underline hover:scale-[1.02] transition-transform`}>
               <div class="p-4 border-b-4" style={`background:${colors[i]}20; border-color:${colors[i]}`}>
                 <span class="text-lg sm:text-xl font-black uppercase tracking-[0.5em] italic" style={`color:${colors[i]}`}>{s.title.toUpperCase()}</span>
               </div>
@@ -264,7 +267,7 @@ const timeline = [
                 </div>
                 <p class="text-white/80">{s.description}</p>
               </div>
-            </div>
+            </a>
           );
         })}
       </div>
@@ -277,7 +280,7 @@ const timeline = [
             const colors = ["#8eff71", "#ff51fa", "#ac89ff"];
             const masks = ["acid-mask-1", "acid-mask-2", "acid-mask-3"];
             return (
-              <div class={`group flex items-center justify-between p-8 sm:p-12 transition-all ${masks[i]} glitch-border-vibrate cursor-none flex-wrap gap-4`} style={`background:${colors[i]}10`}>
+              <a href={item.href} class={`group flex items-center justify-between p-8 sm:p-12 transition-all ${masks[i]} glitch-border-vibrate no-underline flex-wrap gap-4 hover:scale-[1.01]`} style={`background:${colors[i]}10`}>
                 <div class="flex items-center gap-6 sm:gap-10 flex-wrap">
                   <span class="text-lg sm:text-2xl font-mono text-white">{item.date}</span>
                   <div>
@@ -286,7 +289,7 @@ const timeline = [
                   </div>
                 </div>
                 <span class="material-symbols-outlined text-5xl sm:text-7xl animate-pulse" style={`color:${colors[i]}`}>arrow_forward</span>
-              </div>
+              </a>
             );
           })}
         </div>
