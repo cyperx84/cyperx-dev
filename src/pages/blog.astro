@@ -22,8 +22,9 @@ const rest = posts.slice(1);
       <!-- Featured Post -->
       <article class="mb-16 sm:mb-24 group relative">
         <div class="absolute -inset-1 bg-[#39FF14]/20 blur-xl group-hover:bg-[#39FF14]/40 transition-colors"></div>
-        <a href={`/blog/${featured.slug}`} class="block relative bg-[#2a2a2a] shard-clip-1 melt-effect border-l-8 border-[#39FF14] p-6 sm:p-8 lg:p-12">
-          <div class="flex flex-col md:flex-row gap-6 sm:gap-8">
+        <a href={`/blog/${featured.slug}`} class="block relative bg-[#2a2a2a] x-shard-melt-intense overflow-hidden x-glitch-hover border-l-8 border-[#39FF14] p-6 sm:p-8 lg:p-12">
+          <div class="x-shard-inner-fractal"></div>
+          <div class="flex flex-col md:flex-row gap-6 sm:gap-8 relative z-10">
             <div class="w-full md:w-1/2">
               <div class="font-mono text-[10px] text-[#FF51FA] mb-2">SIGNAL_STRENGTH: {featured.signal}% // {featured.date}</div>
               <h2 class="text-2xl sm:text-3xl lg:text-5xl font-black uppercase leading-none mb-4 sm:mb-6 group-hover:text-[#39FF14] transition-colors">{featured.title.replace(/ /g, '_').toUpperCase()}</h2>
@@ -64,12 +65,13 @@ const rest = posts.slice(1);
             "border-t-4 border-[#FF51FA]",
             "border-l-4 border-[#AC89FF]",
           ];
-          const clips = ["shard-clip-2", "shard-clip-1", "shard-clip-3", "shard-clip-2", "shard-clip-1"];
+          const xShards = ["x-shard-sidebar", "x-shard-3", "x-shard-4", "x-shard-sidebar", "x-shard-3"];
           const colors = ["#FF51FA", "#39FF14", "#AC89FF", "#FF51FA", "#39FF14"];
           return (
             <article class={`${spans[i]} group`} data-reveal>
-              <a href={`/blog/${post.slug}`} class={`block bg-[#0e0e0e] ${clips[i]} p-6 sm:p-8 ${borders[i]} h-full flex flex-col justify-between hover:bg-[#1f1f1f] transition-colors`}>
-                <div>
+              <a href={`/blog/${post.slug}`} class={`block bg-[#0e0e0e] ${xShards[i]} p-6 sm:p-8 ${borders[i]} overflow-hidden relative x-glitch-hover h-full flex flex-col justify-between hover:bg-[#1f1f1f] transition-all duration-500`}>
+                <div class="x-shard-inner-fractal"></div>
+                <div class="relative z-10">
                   <div class="flex items-center justify-between mb-4">
                     <span class="font-mono text-[10px] text-[#e2e2e2]/50">{post.category}</span>
                     <span class="font-mono text-[10px]" style={`color:${colors[i]}`}>{post.date}</span>
@@ -87,6 +89,7 @@ const rest = posts.slice(1);
                 <div class="mt-6 sm:mt-8 flex items-center justify-between font-mono text-[10px] border-t border-[#e2e2e2]/10 pt-4">
                   <span>{post.readTime.toUpperCase()}</span>
                   <span style={`color:${colors[i]}`}>READ_&gt;&gt;</span>
+                </div>
                 </div>
               </a>
             </article>
@@ -117,8 +120,9 @@ const rest = posts.slice(1);
 
       <!-- Featured -->
       <article class="mb-16 group">
-        <div class="bg-[#ebebeb] p-1 transition-all group-hover:bg-[#39FF14] duration-75" style="clip-path:polygon(10% 0, 100% 5%, 90% 100%, 0 85%)">
+        <div class="bg-[#ebebeb] p-1 transition-all group-hover:bg-[#39FF14] duration-500 x-glitch-hover overflow-hidden relative x-shard-melt-intense" style="">
           <div class="bg-white p-6 sm:p-8 lg:p-12 relative overflow-hidden" style="clip-path:polygon(10% 0, 100% 5%, 90% 100%, 0 85%)">
+            <div class="x-shard-inner-fractal opacity-5"></div>
             <div class="absolute top-0 right-0 p-4 font-mono text-[10px] text-[#AC89FF]">#001 // {featured.category}</div>
             <h2 class="text-3xl sm:text-4xl lg:text-6xl font-black uppercase mb-6 leading-tight">{featured.title}</h2>
             <p class="text-lg sm:text-xl lg:text-2xl font-medium leading-relaxed mb-8 max-w-2xl">{featured.excerpt}</p>
@@ -151,23 +155,27 @@ const rest = posts.slice(1);
             "polygon(0 15%, 95% 0, 100% 85%, 5% 100%)",
           ];
           const borderColors = ["#FF51FA", "#AC89FF", "#39FF14", "#FF51FA", "#AC89FF"];
+          const xShards = ["x-shard-sidebar", "x-shard-3", "x-shard-4", "x-shard-sidebar", "x-shard-3"];
           return (
-            <article class={`${spans[i]} group`} data-reveal>
-              <a href={`/blog/${post.slug}`} class={`block p-1 transition-all duration-75 hover:skew-y-1`} style={`background:${borderColors[i]}; clip-path:${clipPaths[i]}`}>
-                <div class="bg-white p-6" style={`clip-path:${clipPaths[i]}`}>
-                  <div class="mb-3 flex justify-between items-start">
-                    <span class="text-white text-[10px] font-mono px-2 py-1" style={`background:${borderColors[i]}`}>{post.category}</span>
-                    <span class="font-mono text-[10px] opacity-40">{post.date}</span>
-                  </div>
-                  <h3 class="text-xl sm:text-2xl font-black uppercase mb-3">{post.title}</h3>
-                  <p class="text-sm mb-4 opacity-70">{post.excerpt}</p>
-                  <div class="flex items-center justify-between">
-                    <div class="flex flex-wrap gap-1">
-                      {post.tags.slice(0, 2).map(tag => (
-                        <span class="bg-[#f0f0f0] text-[9px] font-mono px-2 py-1">#{tag}</span>
-                      ))}
+            <article class={`${spans[i]} group`} data-reveal style={`animation: x-drift ${7 + i}s ease-in-out infinite`}>
+              <a href={`/blog/${post.slug}`} class={`block p-1 transition-all duration-500 hover:skew-y-1 x-glitch-hover overflow-hidden relative`} style={`background:${borderColors[i]}; clip-path:${clipPaths[i]}`}>
+                <div class="bg-white p-6 relative overflow-hidden" style={`clip-path:${clipPaths[i]}`}>
+                  <div class="x-shard-inner-fractal opacity-5"></div>
+                  <div class="relative z-10">
+                    <div class="mb-3 flex justify-between items-start">
+                      <span class="text-white text-[10px] font-mono px-2 py-1" style={`background:${borderColors[i]}`}>{post.category}</span>
+                      <span class="font-mono text-[10px] opacity-40">{post.date}</span>
                     </div>
-                    <span class="font-mono text-[10px] opacity-40">{post.readTime}</span>
+                    <h3 class="text-xl sm:text-2xl font-black uppercase mb-3">{post.title}</h3>
+                    <p class="text-sm mb-4 opacity-70">{post.excerpt}</p>
+                    <div class="flex items-center justify-between">
+                      <div class="flex flex-wrap gap-1">
+                        {post.tags.slice(0, 2).map(tag => (
+                          <span class="bg-[#f0f0f0] text-[9px] font-mono px-2 py-1">#{tag}</span>
+                        ))}
+                      </div>
+                      <span class="font-mono text-[10px] opacity-40">{post.readTime}</span>
+                    </div>
                   </div>
                 </div>
               </a>

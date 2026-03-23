@@ -252,13 +252,15 @@ body {
 }
 
 /* Nav links — theme-aware colors + active state */
+.nav-link { font-weight: 900; letter-spacing: 0.3em; font-size: 1.1rem; }
+
 .theme-dark .nav-link        { color: #e2e2e2; }
-.theme-dark .nav-link.active { color: #39FF14; border-bottom: 2px solid #39FF14; padding-bottom: 4px; }
+.theme-dark .nav-link.active { color: #39FF14; border-bottom: 4px solid #39FF14; padding-bottom: 4px; }
 
 .theme-light .nav-link        { color: #131313; }
-.theme-light .nav-link.active { color: #39FF14; border-bottom: 2px solid #39FF14; padding-bottom: 4px; }
+.theme-light .nav-link.active { color: #39FF14; border-bottom: 4px solid #39FF14; padding-bottom: 4px; }
 
-.theme-extreme .nav-link        { color: #8eff71; font-weight: 900; letter-spacing: 0.3em; }
+.theme-extreme .nav-link        { color: #8eff71; }
 .theme-extreme .nav-link.active { color: #ff51fa; border-bottom: 4px solid #ff51fa; padding-bottom: 4px; }
 
 /* ── Unified Footer ── */
