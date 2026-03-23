@@ -1,0 +1,234 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { projects } from '../../data/projects';
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+---
+<BaseLayout title={`CYPERX.DEV // ${project.name.toUpperCase()}`} activeNav="projects">
+
+  <!-- ════════════════════════════════════════
+       DARK VARIANT
+  ════════════════════════════════════════ -->
+  <div class="variant-dark bg-[#131313] text-[#e2e2e2] min-h-screen">
+    <main class="relative pt-28 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-12 max-w-4xl mx-auto min-h-screen">
+
+      <!-- Back link -->
+      <a href="/projects" class="inline-flex items-center gap-2 font-mono text-xs text-[#39FF14] hover:text-[#FF51FA] transition-colors mb-8 sm:mb-12 group">
+        <span class="group-hover:-translate-x-1 transition-transform">&lt;&lt;</span> BACK_TO_PROJECTS
+      </a>
+
+      <!-- Header -->
+      <header class="mb-10 sm:mb-16">
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+          <span class="font-mono text-xs px-3 py-1 font-black" style={`background:${project.statusColor}; color:black`}>{project.status}</span>
+          <span class="font-mono text-[10px] text-[#e2e2e2]/40">ENTROPY: {project.entropy}%</span>
+        </div>
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tighter italic leading-none mb-4">{project.name}</h1>
+        <p class="text-[#39FF14] font-mono text-sm italic mb-6">{project.tagline}</p>
+        <p class="text-[#baccb0] text-base sm:text-lg border-l-4 border-[#39FF14] pl-4">{project.description}</p>
+      </header>
+
+      <!-- Full Description -->
+      <section class="prose-dark mb-12 sm:mb-16" set:html={project.longDescription} />
+
+      <!-- Tech Stack -->
+      <section class="mb-10 sm:mb-12">
+        <h2 class="font-mono text-[10px] text-[#e2e2e2]/40 tracking-[0.3em] uppercase mb-4">TECH_STACK</h2>
+        <div class="flex flex-wrap gap-3">
+          {project.stack.map(tech => (
+            <span class="px-4 py-2 bg-[#1f1f1f] border border-[#39FF14]/20 font-mono text-xs text-[#39FF14]">{tech}</span>
+          ))}
+        </div>
+      </section>
+
+      <!-- Links -->
+      {(project.links.github || project.links.live) && (
+        <section class="mb-12 sm:mb-16">
+          <h2 class="font-mono text-[10px] text-[#e2e2e2]/40 tracking-[0.3em] uppercase mb-4">LINKS</h2>
+          <div class="flex flex-wrap gap-4">
+            {project.links.github && (
+              <a href={project.links.github} target="_blank" rel="noopener" class="bg-[#39FF14] text-black px-6 py-3 font-black italic tracking-tighter hover:bg-[#FF51FA] hover:text-white transition-all" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">
+                VIEW_SOURCE &gt;&gt;
+              </a>
+            )}
+            {project.links.live && (
+              <a href={project.links.live} target="_blank" rel="noopener" class="bg-[#FF51FA] text-white px-6 py-3 font-black italic tracking-tighter hover:bg-[#39FF14] hover:text-black transition-all" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">
+                OPEN_LIVE &gt;&gt;
+              </a>
+            )}
+          </div>
+        </section>
+      )}
+
+      <!-- Back -->
+      <a href="/projects" class="inline-flex items-center gap-2 font-mono text-xs text-[#e2e2e2]/40 hover:text-[#39FF14] transition-colors group">
+        <span class="group-hover:-translate-x-1 transition-transform">&lt;&lt;</span> ALL_PROJECTS
+      </a>
+    </main>
+  </div>
+
+
+  <!-- ════════════════════════════════════════
+       LIGHT VARIANT
+  ════════════════════════════════════════ -->
+  <div class="variant-light bg-white text-[#131313] min-h-screen">
+    <main class="pt-28 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-12 max-w-4xl mx-auto">
+
+      <!-- Back link -->
+      <a href="/projects" class="inline-flex items-center gap-2 font-mono text-xs font-bold text-[#131313] hover:text-[#FF51FA] transition-colors mb-8 sm:mb-12 group">
+        <span class="group-hover:-translate-x-1 transition-transform">&lt;&lt;</span> BACK
+      </a>
+
+      <!-- Header -->
+      <header class="mb-10 sm:mb-16">
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+          <span class="font-mono text-xs px-3 py-1 font-black text-white" style={`background:${project.statusColor}`}>{project.status}</span>
+          <span class="font-mono text-[10px] text-[#131313]/40">ENTROPY: {project.entropy}%</span>
+        </div>
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-none mb-4">{project.name}</h1>
+        <p class="text-[#FF51FA] font-mono text-sm italic mb-6 font-bold">{project.tagline}</p>
+        <p class="text-[#131313]/70 text-base sm:text-lg border-l-4 border-[#FF51FA] pl-4">{project.description}</p>
+      </header>
+
+      <!-- Full Description -->
+      <section class="prose-light mb-12 sm:mb-16" set:html={project.longDescription} />
+
+      <!-- Tech Stack -->
+      <section class="mb-10 sm:mb-12">
+        <h2 class="font-mono text-[10px] text-[#131313]/40 tracking-[0.3em] uppercase mb-4">TECH_STACK</h2>
+        <div class="flex flex-wrap gap-3">
+          {project.stack.map(tech => (
+            <span class="px-4 py-2 bg-[#f0f0f0] font-mono text-xs text-[#131313]/70">{tech}</span>
+          ))}
+        </div>
+      </section>
+
+      <!-- Links -->
+      {(project.links.github || project.links.live) && (
+        <section class="mb-12 sm:mb-16">
+          <h2 class="font-mono text-[10px] text-[#131313]/40 tracking-[0.3em] uppercase mb-4">LINKS</h2>
+          <div class="flex flex-wrap gap-4">
+            {project.links.github && (
+              <a href={project.links.github} target="_blank" rel="noopener" class="inline-flex items-center gap-2 font-black uppercase tracking-widest text-[#39FF14] hover:text-[#FF51FA] transition-colors">
+                VIEW SOURCE <span class="material-symbols-outlined text-base">arrow_forward</span>
+              </a>
+            )}
+            {project.links.live && (
+              <a href={project.links.live} target="_blank" rel="noopener" class="inline-flex items-center gap-2 font-black uppercase tracking-widest text-[#FF51FA] hover:text-[#39FF14] transition-colors">
+                LIVE SITE <span class="material-symbols-outlined text-base">open_in_new</span>
+              </a>
+            )}
+          </div>
+        </section>
+      )}
+
+      <!-- Back -->
+      <a href="/projects" class="inline-flex items-center gap-2 font-mono text-xs text-[#131313]/40 hover:text-[#FF51FA] transition-colors group">
+        <span class="group-hover:-translate-x-1 transition-transform">&lt;&lt;</span> ALL PROJECTS
+      </a>
+    </main>
+  </div>
+
+
+  <!-- ════════════════════════════════════════
+       EXTREME VARIANT
+  ════════════════════════════════════════ -->
+  <div class="variant-extreme bg-[#050505] text-white min-h-screen overflow-x-hidden" style="cursor:crosshair">
+    <main class="relative pt-28 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-12 max-w-4xl mx-auto min-h-screen">
+      <div class="fixed inset-0 x-fractal-bg -z-10"></div>
+
+      <!-- Back link -->
+      <a href="/projects" class="inline-flex items-center gap-2 font-mono text-xs font-black text-[#8eff71] hover:text-[#ff51fa] transition-colors mb-8 sm:mb-12 group relative z-10">
+        <span class="group-hover:-translate-x-1 transition-transform">&lt;&lt;</span> BACK_TO_BUILDS
+      </a>
+
+      <!-- Header -->
+      <header class="mb-10 sm:mb-16 relative z-10">
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+          <span class="font-mono text-xs px-3 py-1 font-black" style={`background:${project.statusColor}; color:black`}>{project.status}</span>
+          <span class="font-mono text-[10px] text-[#ff51fa]">ENTROPY: {project.entropy}%</span>
+        </div>
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-none mb-4 x-vibrating-text">{project.name}</h1>
+        <p class="text-[#8eff71] font-mono text-sm italic mb-6">{project.tagline}</p>
+        <p class="text-white/70 text-base sm:text-lg border-l-4 border-[#8eff71] pl-4">{project.description}</p>
+      </header>
+
+      <!-- Full Description -->
+      <section class="prose-extreme mb-12 sm:mb-16 relative z-10" set:html={project.longDescription} />
+
+      <!-- Tech Stack -->
+      <section class="mb-10 sm:mb-12 relative z-10">
+        <h2 class="font-mono text-[10px] text-white/30 tracking-[0.3em] uppercase mb-4">TECH_STACK</h2>
+        <div class="flex flex-wrap gap-3">
+          {project.stack.map(tech => (
+            <span class="px-4 py-2 bg-black/50 border border-[#8eff71]/30 font-mono text-xs text-[#8eff71]">{tech}</span>
+          ))}
+        </div>
+      </section>
+
+      <!-- Links -->
+      {(project.links.github || project.links.live) && (
+        <section class="mb-12 sm:mb-16 relative z-10">
+          <h2 class="font-mono text-[10px] text-white/30 tracking-[0.3em] uppercase mb-4">LINKS</h2>
+          <div class="flex flex-wrap gap-4">
+            {project.links.github && (
+              <a href={project.links.github} target="_blank" rel="noopener" class="bg-[#8eff71] text-[#0d6100] px-8 py-4 font-black uppercase tracking-tighter hover:bg-white hover:text-black transition-all shadow-[0_0_20px_rgba(142,255,113,0.5)]">
+                VIEW_SOURCE &gt;&gt;
+              </a>
+            )}
+            {project.links.live && (
+              <a href={project.links.live} target="_blank" rel="noopener" class="bg-[#ff51fa] text-white px-8 py-4 font-black uppercase tracking-tighter hover:bg-white hover:text-black transition-all shadow-[0_0_20px_rgba(255,81,250,0.5)]">
+                OPEN_LIVE &gt;&gt;
+              </a>
+            )}
+          </div>
+        </section>
+      )}
+
+      <!-- Back -->
+      <a href="/projects" class="inline-flex items-center gap-2 font-mono text-xs text-white/30 hover:text-[#8eff71] transition-colors group relative z-10">
+        <span class="group-hover:-translate-x-1 transition-transform">&lt;&lt;</span> ALL_BUILDS
+      </a>
+    </main>
+  </div>
+
+</BaseLayout>
+
+<style is:global>
+  /* Project prose styles (same palette as blog) */
+  .prose-dark h2, .prose-light h2, .prose-extreme h2,
+  .prose-dark h3, .prose-light h3, .prose-extreme h3,
+  .prose-dark p, .prose-light p, .prose-extreme p,
+  .prose-dark ul, .prose-light ul, .prose-extreme ul,
+  .prose-dark ul li, .prose-light ul li, .prose-extreme ul li,
+  .prose-dark code, .prose-light code, .prose-extreme code,
+  .prose-dark strong, .prose-light strong, .prose-extreme strong {
+    /* Handled by blog/[slug].astro global styles */
+  }
+
+  @keyframes x-fractal-shift {
+    0%   { background-position: 0% 0%;     filter: hue-rotate(0deg); }
+    100% { background-position: 100% 100%; filter: hue-rotate(360deg); }
+  }
+  @keyframes vibrate-effect {
+    0%   { transform: translate(0,0); }
+    25%  { transform: translate(1px, -1px); }
+    50%  { transform: translate(-1px, 1px); }
+    75%  { transform: translate(1px, 1px); }
+    100% { transform: translate(0,0); }
+  }
+  .x-vibrating-text { animation: psychedelic-melt 6s ease-in-out infinite; text-shadow: 3px 0 #ff51fa, -3px 0 #8eff71; }
+  .x-fractal-bg {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCCF-Wu0arOTEDRI7pEIgN9zoNVdLKE4WsdOdqmG-mtDHqHKeMqx_pBPtjbjQ4HLpooT9zBpJxFZIdyqmNhwaR3F5bS0VU9SZlVRdaD5SIIexczbDXVJLbC3fYM2lj-LBSQE8z_t1hhuH-YwO4BAU9o7bwkQAjqbW5Q1Lla1YTPzZjwno57NJKB4OVSqJNG42o5Uyn6rRNAztZgkm42__gqzmM9KOWda7YxxqhQfjXKC-JYyYqX7MWlCNskOFkjixU_RUmSdE3msqg);
+    background-size: 200%; animation: x-fractal-shift 20s linear infinite;
+    opacity: 0.2; mix-blend-mode: screen; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  }
+  .x-glitch-hover { position: relative; }
+</style>

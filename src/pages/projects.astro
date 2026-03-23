@@ -64,9 +64,10 @@ const rest = projects.slice(1);
       </div>
 
       <!-- Project Grid -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-16 sm:gap-y-24 gap-x-8 lg:gap-x-16 relative">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12">
         {rest.map((project, i) => {
-          const clips = ["shard-clip-2", "shard-clip-3", "shard-clip-1", "shard-clip-2", "shard-clip-3"];
+          const spans = ["md:col-span-4", "md:col-span-8", "md:col-span-6", "md:col-span-6", "md:col-span-5"];
+          const clips = ["shard-clip-2", "shard-clip-3", "shard-clip-1", "shard-clip-2", "shard-clip-1"];
           const borders = [
             "border-r-4 border-[#FF51FA]",
             "border-l-4 border-[#AC89FF]",
@@ -74,19 +75,18 @@ const rest = projects.slice(1);
             "border-t-4 border-[#FF51FA]",
             "border-l-4 border-[#39FF14]",
           ];
-          const icons = ["code", "language", "memory", "graphic_eq", "web"];
+          const colors = ["#FF51FA", "#AC89FF", "#39FF14", "#FF51FA", "#39FF14"];
           return (
-            <a href={`/projects/${project.slug}`} class={`group relative flex flex-col items-start no-underline ${i % 2 === 1 ? 'lg:mt-32' : ''}`} data-reveal>
-              <div class={`absolute -top-12 ${i % 2 === 0 ? '-left-8' : '-right-8'} font-mono text-7xl sm:text-9xl text-[#353535] opacity-20 font-black z-0`}>{String(i + 1).padStart(2, '0')}</div>
-              <div class={`relative w-full bg-[#141418] ${clips[i]} animated-border ${borders[i]} p-6 sm:p-8 z-10 h-full flex flex-col justify-between hover:bg-[#1f1f1f] transition-colors`}>
+            <article class={`${spans[i]} group`} data-reveal>
+              <a href={`/projects/${project.slug}`} class={`block bg-[#0e0e0e] ${clips[i]} ${borders[i]} p-6 sm:p-8 h-full flex flex-col justify-between hover:bg-[#1f1f1f] transition-colors no-underline`}>
                 <div>
                   <div class="flex items-center justify-between mb-4">
                     <span class="font-mono text-xs px-2 py-1 font-black" style={`background:${project.statusColor}; color:black`}>{project.status}</span>
-                    <span class="material-symbols-outlined text-2xl opacity-20">{icons[i]}</span>
+                    <span class="font-mono text-[10px]" style={`color:${colors[i]}`}>E:{project.entropy}%</span>
                   </div>
-                  <h3 class="text-2xl sm:text-3xl font-black italic tracking-tighter mb-3 group-hover:text-[#39FF14] transition-colors">{project.name.replace(/ /g, '_').toUpperCase()}</h3>
+                  <h3 class="text-xl sm:text-2xl font-black italic tracking-tighter mb-3 group-hover:text-[#39FF14] transition-colors">{project.name.replace(/ /g, '_').toUpperCase()}</h3>
                   <p class="font-mono text-xs text-[#FF51FA] mb-4 italic">{project.tagline}</p>
-                  <p class="text-[#baccb0] mb-6 text-sm">{project.description}</p>
+                  <p class="text-[#baccb0] mb-4 text-sm">{project.description}</p>
                   <div class="flex flex-wrap gap-2">
                     {project.stack.map(tech => (
                       <span class="px-2 py-1 bg-[#1f1f1f] text-[8px] font-mono text-[#e2e2e2]/40">{tech}</span>
@@ -95,11 +95,11 @@ const rest = projects.slice(1);
                 </div>
                 <div class="mt-6 sm:mt-8 flex items-center gap-4 font-mono text-[10px] border-t border-[#e2e2e2]/10 pt-4">
                   <span>ENTROPY: {project.entropy}%</span>
-                  {project.links.github && <span class="text-[#39FF14]">SOURCE_&gt;&gt;</span>}
-                  {project.links.live && <span class="text-[#FF51FA]">LIVE_&gt;&gt;</span>}
+                  {project.links.github && <span style={`color:${colors[i]}`}>SOURCE_&gt;&gt;</span>}
+                  {project.links.live && <span style={`color:${colors[i]}`}>LIVE_&gt;&gt;</span>}
                 </div>
-              </div>
-            </a>
+              </a>
+            </article>
           );
         })}
       </div>
@@ -170,42 +170,40 @@ const rest = projects.slice(1);
       </div>
 
       <!-- Project Grid -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-16 sm:gap-y-24 gap-x-8 lg:gap-x-16 relative">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
         {rest.map((project, i) => {
-          const clips = ["shard-clip-2", "shard-clip-3", "shard-clip-1", "shard-clip-2", "shard-clip-3"];
-          const borders = [
-            "border-r-4 border-[#FF51FA]",
-            "border-l-4 border-[#AC89FF]",
-            "border-b-4 border-[#39FF14]",
-            "border-t-4 border-[#FF51FA]",
-            "border-l-4 border-[#39FF14]",
+          const spans = ["md:col-span-5", "md:col-span-7", "md:col-span-7", "md:col-span-5", "md:col-span-6"];
+          const clipPaths = [
+            "polygon(5% 5%, 90% 0, 100% 95%, 0% 100%)",
+            "polygon(0 15%, 95% 0, 100% 85%, 5% 100%)",
+            "polygon(10% 0, 100% 5%, 90% 100%, 0 85%)",
+            "polygon(5% 5%, 90% 0, 100% 95%, 0% 100%)",
+            "polygon(0 15%, 95% 0, 100% 85%, 5% 100%)",
           ];
-          const icons = ["code", "language", "memory", "graphic_eq", "web"];
+          const borderColors = ["#FF51FA", "#AC89FF", "#39FF14", "#FF51FA", "#AC89FF"];
           return (
-            <a href={`/projects/${project.slug}`} class={`group relative flex flex-col items-start no-underline ${i % 2 === 1 ? 'lg:mt-32' : ''}`} data-reveal>
-              <div class={`absolute -top-12 ${i % 2 === 0 ? '-left-8' : '-right-8'} font-mono text-7xl sm:text-9xl text-[#131313]/5 font-black z-0`}>{String(i + 1).padStart(2, '0')}</div>
-              <div class={`relative w-full bg-[#eeeeee] ${clips[i]} animated-border ${borders[i]} p-6 sm:p-8 z-10 h-full flex flex-col justify-between hover:bg-[#ebebeb] transition-colors`}>
-                <div>
-                  <div class="flex items-center justify-between mb-4">
-                    <span class="text-white font-mono text-xs px-2 py-1 font-black" style={`background:${project.statusColor}; color:black`}>{project.status}</span>
-                    <span class="material-symbols-outlined text-2xl opacity-20">{icons[i]}</span>
+            <article class={`${spans[i]} group`} data-reveal>
+              <a href={`/projects/${project.slug}`} class="block p-1 transition-all duration-75 hover:skew-y-1 no-underline" style={`background:${borderColors[i]}; clip-path:${clipPaths[i]}`}>
+                <div class="bg-white p-6" style={`clip-path:${clipPaths[i]}`}>
+                  <div class="mb-3 flex justify-between items-start">
+                    <span class="text-white text-[10px] font-mono px-2 py-1 font-black" style={`background:${project.statusColor}`}>{project.status}</span>
+                    <span class="font-mono text-[10px] opacity-40">E:{project.entropy}%</span>
                   </div>
-                  <h3 class="text-2xl sm:text-3xl font-black italic tracking-tighter mb-3 group-hover:text-[#39FF14] transition-colors text-[#131313]">{project.name.replace(/ /g, '_').toUpperCase()}</h3>
-                  <p class="font-mono text-xs text-[#FF51FA] mb-4 italic">{project.tagline}</p>
-                  <p class="text-[#353535] mb-6 text-sm">{project.description}</p>
-                  <div class="flex flex-wrap gap-2">
-                    {project.stack.map(tech => (
-                      <span class="px-2 py-1 bg-[#ebebeb] text-[8px] font-mono text-[#131313]/40">{tech}</span>
+                  <h3 class="text-xl sm:text-2xl font-black uppercase mb-3 text-[#131313]">{project.name.replace(/ /g, '_').toUpperCase()}</h3>
+                  <p class="font-mono text-xs text-[#FF51FA] mb-3 italic">{project.tagline}</p>
+                  <p class="text-sm mb-4 opacity-70">{project.description}</p>
+                  <div class="flex flex-wrap gap-2 mb-4">
+                    {project.stack.slice(0, 4).map(tech => (
+                      <span class="bg-[#f0f0f0] text-[9px] font-mono px-2 py-1">#{tech}</span>
                     ))}
                   </div>
+                  <div class="flex items-center justify-between">
+                    {project.links.github && <span class="font-mono text-[10px]" style={`color:${borderColors[i]}`}>SOURCE_&gt;&gt;</span>}
+                    {project.links.live && <span class="font-mono text-[10px]" style={`color:${borderColors[i]}`}>LIVE_&gt;&gt;</span>}
+                  </div>
                 </div>
-                <div class="mt-6 sm:mt-8 flex items-center gap-4 font-mono text-[10px] border-t border-[#131313]/10 pt-4">
-                  <span>ENTROPY: {project.entropy}%</span>
-                  {project.links.github && <span class="text-[#39FF14]">SOURCE_&gt;&gt;</span>}
-                  {project.links.live && <span class="text-[#FF51FA]">LIVE_&gt;&gt;</span>}
-                </div>
-              </div>
-            </a>
+              </a>
+            </article>
           );
         })}
       </div>
@@ -273,11 +271,12 @@ const rest = projects.slice(1);
       <!-- Project Grid -->
       <div class="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12 items-start relative z-10">
         {rest.map((project, i) => {
-          const spans = ["md:col-span-6", "md:col-span-6", "md:col-span-6", "md:col-span-6", "md:col-span-6"];
+          const spans = ["md:col-span-4", "md:col-span-8", "md:col-span-6", "md:col-span-6", "md:col-span-5"];
           const borderColors = ["#ff51fa", "#8eff71", "#ac89ff", "#ff51fa", "#8eff71"];
+          const xShards = ["x-shard-sidebar", "x-shard-3", "x-shard-4", "x-shard-sidebar", "x-shard-3"];
           return (
-            <a href={`/projects/${project.slug}`} class={`${spans[i]} group no-underline`} data-reveal>
-              <div class={`bg-[#111] p-6 sm:p-8 border-4 overflow-hidden relative x-glitch-hover hover:scale-[1.02] transition-all duration-500 animated-border`} style={`border-color:${borderColors[i]}50; box-shadow:0 0 40px ${borderColors[i]}33`}>
+            <article class={`${spans[i]} group`} data-reveal>
+              <a href={`/projects/${project.slug}`} class={`block bg-[#111] p-6 sm:p-8 border-4 overflow-hidden relative ${xShards[i]} x-glitch-hover hover:scale-[1.02] transition-all duration-500 no-underline`} style={`border-color:${borderColors[i]}50; box-shadow:0 0 40px ${borderColors[i]}33`}>
                 <div class="x-shard-inner-fractal"></div>
                 <div class="relative z-10">
                   <div class="flex items-center justify-between mb-4">
@@ -299,8 +298,8 @@ const rest = projects.slice(1);
                     {project.links.live && <span class="font-black uppercase tracking-[0.3em]" style={`color:${borderColors[i]}`}>LIVE_&gt;&gt;</span>}
                   </div>
                 </div>
-              </div>
-            </a>
+              </a>
+            </article>
           );
         })}
       </div>

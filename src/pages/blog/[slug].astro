@@ -1,0 +1,401 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { posts } from '../../data/posts';
+
+export function getStaticPaths() {
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const currentIndex = posts.findIndex(p => p.slug === post.slug);
+const prevPost = currentIndex > 0 ? posts[currentIndex - 1] : null;
+const nextPost = currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null;
+---
+<BaseLayout title={`CYPERX.DEV // ${post.title.toUpperCase()}`} activeNav="blog">
+
+  <!-- ════════════════════════════════════════
+       DARK VARIANT
+  ════════════════════════════════════════ -->
+  <div class="variant-dark bg-[#131313] text-[#e2e2e2] min-h-screen">
+    <main class="relative pt-28 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-12 max-w-4xl mx-auto min-h-screen">
+
+      <!-- Back link -->
+      <a href="/blog" class="inline-flex items-center gap-2 font-mono text-xs text-[#39FF14] hover:text-[#FF51FA] transition-colors mb-8 sm:mb-12 group">
+        <span class="group-hover:-translate-x-1 transition-transform">&lt;&lt;</span> BACK_TO_SIGNAL_STREAM
+      </a>
+
+      <!-- Header -->
+      <header class="mb-10 sm:mb-16 border-l-8 border-[#39FF14] pl-6 sm:pl-8">
+        <div class="flex flex-wrap items-center gap-4 mb-4 font-mono text-[10px] text-[#e2e2e2]/50">
+          <span class="text-[#FF51FA]">{post.date}</span>
+          <span>·</span>
+          <span>{post.readTime.toUpperCase()}</span>
+          <span>·</span>
+          <span class="text-[#AC89FF]">{post.category}</span>
+          <span>·</span>
+          <span class="text-[#39FF14]">SIGNAL: {post.signal}%</span>
+        </div>
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-none mb-6">{post.title}</h1>
+        <p class="text-base sm:text-lg text-[#baccb0] italic mb-6">{post.excerpt}</p>
+        <div class="flex flex-wrap gap-2">
+          {post.tags.map(tag => (
+            <span class="px-2 py-1 bg-[#1f1f1f] text-[9px] font-mono text-[#39FF14]">#{tag}</span>
+          ))}
+        </div>
+      </header>
+
+      <!-- Article Body -->
+      <article class="prose-dark mb-16 sm:mb-24 text-[#e2e2e2]" set:html={post.content} />
+
+      <!-- Prev/Next Navigation -->
+      <nav class="border-t border-[#e2e2e2]/10 pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {prevPost && (
+          <a href={`/blog/${prevPost.slug}`} class="group bg-[#0e0e0e] p-6 border-l-4 border-[#FF51FA] hover:bg-[#1f1f1f] transition-colors">
+            <div class="font-mono text-[9px] text-[#e2e2e2]/40 mb-2">&lt;&lt; PREVIOUS</div>
+            <div class="text-sm font-black uppercase leading-tight group-hover:text-[#FF51FA] transition-colors">{prevPost.title}</div>
+          </a>
+        )}
+        {nextPost && (
+          <a href={`/blog/${nextPost.slug}`} class={`group bg-[#0e0e0e] p-6 border-r-4 border-[#AC89FF] hover:bg-[#1f1f1f] transition-colors ${!prevPost ? 'sm:col-start-2' : ''}`}>
+            <div class="font-mono text-[9px] text-[#e2e2e2]/40 mb-2 text-right">NEXT &gt;&gt;</div>
+            <div class="text-sm font-black uppercase leading-tight text-right group-hover:text-[#AC89FF] transition-colors">{nextPost.title}</div>
+          </a>
+        )}
+      </nav>
+    </main>
+  </div>
+
+
+  <!-- ════════════════════════════════════════
+       LIGHT VARIANT
+  ════════════════════════════════════════ -->
+  <div class="variant-light bg-white text-[#131313] min-h-screen">
+    <main class="pt-28 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-12 max-w-4xl mx-auto">
+
+      <!-- Back link -->
+      <a href="/blog" class="inline-flex items-center gap-2 font-mono text-xs font-bold text-[#131313] hover:text-[#FF51FA] transition-colors mb-8 sm:mb-12 group">
+        <span class="group-hover:-translate-x-1 transition-transform">&lt;&lt;</span> BACK
+      </a>
+
+      <!-- Header -->
+      <header class="mb-10 sm:mb-16">
+        <div class="flex flex-wrap items-center gap-4 mb-4 font-mono text-[10px] text-[#131313]/50">
+          <span class="text-[#FF51FA] font-bold">{post.date}</span>
+          <span>·</span>
+          <span>{post.readTime.toUpperCase()}</span>
+          <span>·</span>
+          <span class="text-[#AC89FF] font-bold">{post.category}</span>
+        </div>
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-none mb-6">{post.title}</h1>
+        <p class="text-base sm:text-lg text-[#131313]/70 italic mb-6 border-l-4 border-[#FF51FA] pl-4">{post.excerpt}</p>
+        <div class="flex flex-wrap gap-2">
+          {post.tags.map(tag => (
+            <span class="px-2 py-1 bg-[#f0f0f0] text-[9px] font-mono text-[#131313]/60">#{tag}</span>
+          ))}
+        </div>
+      </header>
+
+      <!-- Article Body -->
+      <article class="prose-light mb-16 sm:mb-24 text-[#131313]" set:html={post.content} />
+
+      <!-- Prev/Next Navigation -->
+      <nav class="border-t border-[#131313]/10 pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {prevPost && (
+          <a href={`/blog/${prevPost.slug}`} class="group bg-[#f5f5f5] p-6 hover:bg-[#ebebeb] transition-colors" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">
+            <div class="font-mono text-[9px] text-[#131313]/40 mb-2">&lt;&lt; PREVIOUS</div>
+            <div class="text-sm font-black uppercase leading-tight group-hover:text-[#FF51FA] transition-colors">{prevPost.title}</div>
+          </a>
+        )}
+        {nextPost && (
+          <a href={`/blog/${nextPost.slug}`} class={`group bg-[#f5f5f5] p-6 hover:bg-[#ebebeb] transition-colors ${!prevPost ? 'sm:col-start-2' : ''}`} style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">
+            <div class="font-mono text-[9px] text-[#131313]/40 mb-2 text-right">NEXT &gt;&gt;</div>
+            <div class="text-sm font-black uppercase leading-tight text-right group-hover:text-[#AC89FF] transition-colors">{nextPost.title}</div>
+          </a>
+        )}
+      </nav>
+    </main>
+  </div>
+
+
+  <!-- ════════════════════════════════════════
+       EXTREME VARIANT
+  ════════════════════════════════════════ -->
+  <div class="variant-extreme bg-[#050505] text-white min-h-screen overflow-x-hidden" style="cursor:crosshair">
+    <main class="relative pt-28 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-12 max-w-4xl mx-auto min-h-screen">
+      <div class="fixed inset-0 x-fractal-bg -z-10"></div>
+
+      <!-- Back link -->
+      <a href="/blog" class="inline-flex items-center gap-2 font-mono text-xs font-black text-[#8eff71] hover:text-[#ff51fa] transition-colors mb-8 sm:mb-12 group relative z-10">
+        <span class="group-hover:-translate-x-1 transition-transform">&lt;&lt;</span> BACK_TO_LOGS
+      </a>
+
+      <!-- Header -->
+      <header class="mb-10 sm:mb-16 relative z-10 border-l-8 border-[#8eff71] pl-6 sm:pl-8">
+        <div class="flex flex-wrap items-center gap-4 mb-4 font-mono text-[10px]">
+          <span class="text-[#ff51fa] font-black">{post.date}</span>
+          <span class="text-white/30">·</span>
+          <span class="text-white/50">{post.readTime.toUpperCase()}</span>
+          <span class="text-white/30">·</span>
+          <span class="text-[#ac89ff] font-black">{post.category}</span>
+          <span class="text-white/30">·</span>
+          <span class="text-[#8eff71] font-black animate-pulse">SIG: {post.signal}%</span>
+        </div>
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-none mb-6 x-vibrating-text">{post.title}</h1>
+        <p class="text-base sm:text-lg text-white/70 italic mb-6">{post.excerpt}</p>
+        <div class="flex flex-wrap gap-2">
+          {post.tags.map(tag => (
+            <span class="px-2 py-1 bg-black/50 border border-[#8eff71]/30 text-[9px] font-mono text-[#8eff71]">#{tag}</span>
+          ))}
+        </div>
+      </header>
+
+      <!-- Article Body -->
+      <article class="prose-extreme mb-16 sm:mb-24 text-white relative z-10" set:html={post.content} />
+
+      <!-- Prev/Next Navigation -->
+      <nav class="border-t border-white/10 pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 gap-6 relative z-10">
+        {prevPost && (
+          <a href={`/blog/${prevPost.slug}`} class="group bg-[#111] p-6 border-l-4 border-[#ff51fa] hover:border-[#ff51fa] hover:bg-[#191919] transition-all x-glitch-hover">
+            <div class="font-mono text-[9px] text-white/30 mb-2">&lt;&lt; PREVIOUS</div>
+            <div class="text-sm font-black uppercase leading-tight group-hover:text-[#ff51fa] transition-colors">{prevPost.title}</div>
+          </a>
+        )}
+        {nextPost && (
+          <a href={`/blog/${nextPost.slug}`} class={`group bg-[#111] p-6 border-r-4 border-[#8eff71] hover:bg-[#191919] transition-all x-glitch-hover ${!prevPost ? 'sm:col-start-2' : ''}`}>
+            <div class="font-mono text-[9px] text-white/30 mb-2 text-right">NEXT &gt;&gt;</div>
+            <div class="text-sm font-black uppercase leading-tight text-right group-hover:text-[#8eff71] transition-colors">{nextPost.title}</div>
+          </a>
+        )}
+      </nav>
+    </main>
+  </div>
+
+</BaseLayout>
+
+<style is:global>
+  /* ── Article prose styles ── */
+  .prose-dark h2 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+    color: #39FF14;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+  .prose-dark h3 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    color: #FF51FA;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .prose-dark p {
+    margin-bottom: 1.25rem;
+    line-height: 1.75;
+    color: #baccb0;
+  }
+  .prose-dark ul {
+    margin: 1.25rem 0;
+    padding-left: 1.5rem;
+    list-style: none;
+  }
+  .prose-dark ul li {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: #baccb0;
+    line-height: 1.7;
+  }
+  .prose-dark ul li::before {
+    content: '//';
+    position: absolute;
+    left: 0;
+    color: #39FF14;
+    font-family: monospace;
+    font-size: 0.75rem;
+  }
+  .prose-dark ul li strong {
+    color: #e2e2e2;
+    font-weight: 800;
+  }
+  .prose-dark code {
+    background: #1f1f1f;
+    color: #39FF14;
+    padding: 0.1em 0.4em;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    border: 1px solid #39FF14/20;
+  }
+  .prose-dark strong {
+    color: #e2e2e2;
+    font-weight: 800;
+  }
+
+  .prose-light h2 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+    color: #131313;
+    border-left: 4px solid #FF51FA;
+    padding-left: 1rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+  .prose-light h3 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    color: #AC89FF;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .prose-light p {
+    margin-bottom: 1.25rem;
+    line-height: 1.75;
+    color: #333;
+  }
+  .prose-light ul {
+    margin: 1.25rem 0;
+    padding-left: 1.5rem;
+    list-style: none;
+  }
+  .prose-light ul li {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+    line-height: 1.7;
+  }
+  .prose-light ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #FF51FA;
+    font-size: 0.85rem;
+  }
+  .prose-light ul li strong {
+    color: #131313;
+    font-weight: 800;
+  }
+  .prose-light code {
+    background: #f0f0f0;
+    color: #FF51FA;
+    padding: 0.1em 0.4em;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+  }
+  .prose-light strong {
+    color: #131313;
+    font-weight: 800;
+  }
+
+  .prose-extreme h2 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+    color: #8eff71;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    font-style: italic;
+    text-shadow: 0 0 20px rgba(142,255,113,0.5);
+  }
+  .prose-extreme h3 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    color: #ff51fa;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .prose-extreme p {
+    margin-bottom: 1.25rem;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.8);
+  }
+  .prose-extreme ul {
+    margin: 1.25rem 0;
+    padding-left: 1.5rem;
+    list-style: none;
+  }
+  .prose-extreme ul li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7;
+  }
+  .prose-extreme ul li::before {
+    content: '>>';
+    position: absolute;
+    left: 0;
+    color: #8eff71;
+    font-family: monospace;
+    font-size: 0.7rem;
+  }
+  .prose-extreme ul li strong {
+    color: #fff;
+    font-weight: 800;
+  }
+  .prose-extreme code {
+    background: rgba(0,0,0,0.5);
+    color: #8eff71;
+    padding: 0.1em 0.4em;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    border: 1px solid rgba(142,255,113,0.3);
+  }
+  .prose-extreme strong {
+    color: #fff;
+    font-weight: 800;
+  }
+
+  /* Extreme animations (copied from blog.astro) */
+  @keyframes x-drift {
+    0%   { transform: translate(0,0) rotate(0deg) scale(1); }
+    33%  { transform: translate(15px,-10px) rotate(1deg) scale(1.02); }
+    66%  { transform: translate(-10px,15px) rotate(-1deg) scale(0.98); }
+    100% { transform: translate(0,0) rotate(0deg) scale(1); }
+  }
+  @keyframes x-glitch-anim {
+    0%   { clip-path: inset(40% 0 61% 0); transform: translate(-5px); }
+    20%  { clip-path: inset(92% 0 1% 0);  transform: translate(5px); }
+    40%  { clip-path: inset(43% 0 1% 0);  transform: translate(-5px); }
+    60%  { clip-path: inset(25% 0 58% 0); transform: translate(5px); }
+    80%  { clip-path: inset(54% 0 7% 0);  transform: translate(-5px); }
+    100% { clip-path: inset(58% 0 43% 0); transform: translate(5px); }
+  }
+  @keyframes x-fractal-shift {
+    0%   { background-position: 0% 0%;     filter: hue-rotate(0deg); }
+    100% { background-position: 100% 100%; filter: hue-rotate(360deg); }
+  }
+  @keyframes vibrate-effect {
+    0%   { transform: translate(0,0); }
+    25%  { transform: translate(1px, -1px); }
+    50%  { transform: translate(-1px, 1px); }
+    75%  { transform: translate(1px, 1px); }
+    100% { transform: translate(0,0); }
+  }
+  .x-vibrating-text { animation: psychedelic-melt 6s ease-in-out infinite; text-shadow: 3px 0 #ff51fa, -3px 0 #8eff71; }
+  .x-fractal-bg {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCCF-Wu0arOTEDRI7pEIgN9zoNVdLKE4WsdOdqmG-mtDHqHKeMqx_pBPtjbjQ4HLpooT9zBpJxFZIdyqmNhwaR3F5bS0VU9SZlVRdaD5SIIexczbDXVJLbC3fYM2lj-LBSQE8z_t1hhuH-YwO4BAU9o7bwkQAjqbW5Q1Lla1YTPzZjwno57NJKB4OVSqJNG42o5Uyn6rRNAztZgkm42__gqzmM9KOWda7YxxqhQfjXKC-JYyYqX7MWlCNskOFkjixU_RUmSdE3msqg);
+    background-size: 200%; animation: x-fractal-shift 20s linear infinite;
+    opacity: 0.2; mix-blend-mode: screen; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  }
+  .x-glitch-hover { position: relative; }
+  .x-glitch-hover:hover::after {
+    content: ""; position: absolute; inset: 0; background: inherit;
+    animation: x-glitch-anim 0.3s infinite; z-index: 20; mix-blend-mode: hard-light; opacity: 0.8;
+  }
+</style>
