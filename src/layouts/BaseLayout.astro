@@ -98,7 +98,7 @@ const { title = 'CYPERX.DEV', activeNav } = Astro.props;
 
   <!-- ── Theme Toggle + Mobile Menu + Animations Script ── -->
   <script is:inline>
-    const THEMES = ['light', 'dark', 'extreme'];
+    const THEMES = ['extreme', 'dark', 'light'];
 
     function applyTheme(theme) {
       const html = document.documentElement;
@@ -108,12 +108,12 @@ const { title = 'CYPERX.DEV', activeNav } = Astro.props;
     }
 
     // Init on load
-    const saved = localStorage.getItem('cyperx-theme') || 'light';
+    const saved = localStorage.getItem('cyperx-theme') || 'extreme';
     applyTheme(saved);
 
     // Cycle on click (light → dark → extreme)
     document.getElementById('theme-toggle').addEventListener('click', () => {
-      const current = localStorage.getItem('cyperx-theme') || 'light';
+      const current = localStorage.getItem('cyperx-theme') || 'extreme';
       const next = THEMES[(THEMES.indexOf(current) + 1) % THEMES.length];
       applyTheme(next);
     });
