@@ -1,10 +1,47 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const hero = {
+  tagline: "BUILDER // BREAKER // AUTOMATOR",
+  title: "CYPERX",
+  subtitle: "DEV",
+  description: "Building infrastructure for humans and AI agents. Obsidian vaults, distributed agent fleets, and tools that compound over time.",
+};
+
+const sections = [
+  {
+    icon: "hub",
+    title: "Agent Fleet",
+    description: "4 autonomous AI agents running on Apple Silicon. A generalist, builder, researcher, and ops agent — orchestrating, building, and maintaining systems 24/7.",
+    stat: "4 AGENTS",
+    statLabel: "ACTIVE",
+  },
+  {
+    icon: "terminal",
+    title: "Builder Tools",
+    description: "Fleet TUI, voice forge, knowledge processors, and custom CLIs. Everything built to be used, not demoed. If it doesn't ship, it doesn't exist.",
+    stat: "12+",
+    statLabel: "TOOLS SHIPPED",
+  },
+  {
+    icon: "memory",
+    title: "Knowledge OS",
+    description: "Obsidian vault as operating system. Pipelines from ideas → PRDs → builds → ship. Shared context for humans AND agents. Structure that compounds.",
+    stat: "∞",
+    statLabel: "COMPOUNDING",
+  },
+];
+
+const timeline = [
+  { date: "2026.03", title: "Agent Fleet v2", description: "Multi-agent gateway, Discord integration, inter-agent orchestration, automatic failover chains." },
+  { date: "2026.02", title: "Fleet TUI", description: "Go/Bubbletea terminal dashboard. Real-time session monitoring, error feeds, vim keybinds." },
+  { date: "2026.01", title: "Voice Forge v3", description: "Automated voice corpus pipeline. Whisper transcription, ElevenLabs cloning, agent TTS." },
+];
 ---
 <BaseLayout title="CYPERX.DEV" activeNav="home">
 
   <!-- ════════════════════════════════════════
-       DARK VARIANT — home-dark-void
+       DARK VARIANT
   ════════════════════════════════════════ -->
   <div class="variant-dark bg-[#131313] text-[#e2e2e2] min-h-screen">
     <main class="pt-28 sm:pt-32 pb-20 px-4 sm:px-6 max-w-7xl mx-auto space-y-24 sm:space-y-40">
@@ -14,13 +51,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <div class="absolute inset-0 bg-gradient-to-br from-[#131313] via-[#1a0a2e] to-[#0a1a0a] opacity-80"></div>
           <div class="absolute inset-0 flex items-center justify-center p-6 sm:p-12">
             <div class="text-center z-10">
-              <p class="font-mono text-[#39FF14] text-xs sm:text-sm tracking-[0.5em] mb-4">ESTABLISHING CONNECTION...</p>
-              <h1 class="text-4xl sm:text-6xl lg:text-9xl font-black italic tracking-tighter glitch-text leading-none mb-6 sm:mb-8">
-                CYPERX.DEV <br/><span class="text-[#e2e2e2] opacity-90">//</span> BEYOND_THE_VOID
+              <p class="font-mono text-[#39FF14] text-xs sm:text-sm tracking-[0.5em] mb-4">{hero.tagline}</p>
+              <h1 class="text-4xl sm:text-6xl lg:text-9xl font-black italic tracking-tighter glitch-text leading-none mb-4">
+                {hero.title}<span class="text-[#e2e2e2] opacity-90">.</span>{hero.subtitle}
               </h1>
+              <p class="max-w-xl mx-auto text-[#baccb0] text-sm sm:text-base mb-6 sm:mb-8">{hero.description}</p>
               <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
-                <button class="bg-[#39FF14] text-black px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-xl font-black italic shard-card-3 hover:scale-105 transition-transform">ENTER_SYSTEM</button>
-                <button class="border-2 border-[#FF51FA]/30 text-[#FF51FA] px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-xl font-black italic shard-card-1 hover:border-[#FF51FA] transition-all">VIEW_ARCHIVES</button>
+                <a href="/projects" class="bg-[#39FF14] text-black px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-xl font-black italic shard-card-3 hover:scale-105 transition-transform">VIEW_PROJECTS</a>
+                <a href="/blog" class="border-2 border-[#FF51FA]/30 text-[#FF51FA] px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-xl font-black italic shard-card-1 hover:border-[#FF51FA] transition-all">READ_BLOG</a>
               </div>
             </div>
           </div>
@@ -29,71 +67,62 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
       </section>
 
-      <!-- THE_BREACH -->
+      <!-- What I Build -->
       <section>
         <div class="mb-8 sm:mb-16 flex items-baseline gap-4 flex-wrap">
-          <h2 class="text-3xl sm:text-5xl font-black italic text-[#39FF14] tracking-tighter">THE_BREACH</h2>
+          <h2 class="text-3xl sm:text-5xl font-black italic text-[#39FF14] tracking-tighter">WHAT_I_BUILD</h2>
           <div class="h-[2px] flex-grow bg-gradient-to-r from-[#39FF14]/50 to-transparent"></div>
-          <span class="font-mono text-xs opacity-50">STATUS: COMPROMISED</span>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-0 relative">
-          <div class="shard-card-1 bg-[#2a2a2a] p-6 sm:p-8 group hover:bg-[#393939] transition-colors relative z-20 md:-mr-4">
-            <span class="material-symbols-outlined text-4xl sm:text-5xl text-[#39FF14] mb-4 sm:mb-6 block">terminal</span>
-            <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 italic tracking-tight">KRNL_OVERFLOW</h3>
-            <p class="text-sm opacity-70 font-mono leading-relaxed mb-4 sm:mb-6">System breach detected at sector 7G. Memory leak propagating through neural links. Data integrity failing... [REDACTED]</p>
-            <div class="font-mono text-[10px] text-[#39FF14]/60">UID: 0x99281-ALPHA</div>
-          </div>
-          <div class="shard-card-2 bg-[#353535] p-6 sm:p-8 group hover:bg-[#393939] transition-colors relative z-30 md:-mt-0 md:mt-10">
-            <div class="mb-4 sm:mb-6 flex justify-between">
-              <span class="material-symbols-outlined text-4xl sm:text-5xl text-[#FF51FA]" style="font-variation-settings:'FILL' 1">skull</span>
-              <span class="text-[#FF51FA] font-black text-3xl sm:text-4xl">77%</span>
-            </div>
-            <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 italic tracking-tight">BIO_HAZARD_01</h3>
-            <p class="text-sm opacity-70 font-mono leading-relaxed mb-4 sm:mb-6">Biological interfaces responding to psychedelic stimuli. Synthetic consciousness approaching transcendence.</p>
-            <div class="w-full bg-[#131313] h-1"><div class="bg-[#FF51FA] h-full w-[77%] animate-pulse"></div></div>
-          </div>
-          <div class="shard-card-3 bg-[#1f1f1f] p-6 sm:p-8 group hover:bg-[#393939] transition-colors relative z-10 md:-ml-4">
-            <span class="material-symbols-outlined text-4xl sm:text-5xl text-[#AC89FF] mb-4 sm:mb-6 block">electric_bolt</span>
-            <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 italic tracking-tight">VOID_PROTOCOL</h3>
-            <p class="text-sm opacity-70 font-mono leading-relaxed mb-4 sm:mb-6">The silence is screaming. Sub-atomic vibrations detected within the firewall. Prepare for total system ego death.</p>
-            <button class="text-[10px] font-black uppercase tracking-widest text-[#AC89FF] border-b border-[#AC89FF]/30 pb-1 hover:border-[#AC89FF] transition-all">INITIALIZE_SHUTDOWN</button>
-          </div>
+          {sections.map((s, i) => {
+            const bgs = ["bg-[#2a2a2a]", "bg-[#353535]", "bg-[#1f1f1f]"];
+            const colors = ["#39FF14", "#FF51FA", "#AC89FF"];
+            const clips = ["shard-card-1", "shard-card-2", "shard-card-3"];
+            const offsets = ["z-20 md:-mr-4", "z-30 md:mt-10", "z-10 md:-ml-4"];
+            return (
+              <div class={`${clips[i]} ${bgs[i]} p-6 sm:p-8 group hover:bg-[#393939] transition-colors relative ${offsets[i]}`}>
+                <span class="material-symbols-outlined text-4xl sm:text-5xl mb-4 sm:mb-6 block" style={`color:${colors[i]}`}>{s.icon}</span>
+                <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 italic tracking-tight">{s.title.toUpperCase()}</h3>
+                <p class="text-sm opacity-70 font-mono leading-relaxed mb-4 sm:mb-6">{s.description}</p>
+                <div class="flex items-baseline gap-2">
+                  <span class="text-2xl font-black" style={`color:${colors[i]}`}>{s.stat}</span>
+                  <span class="font-mono text-[10px] opacity-40">{s.statLabel}</span>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
-      <!-- CORE_PROTOCOL Timeline -->
+      <!-- Timeline -->
       <section class="max-w-4xl mx-auto">
         <div class="mb-12 sm:mb-20 text-center">
-          <h2 class="text-3xl sm:text-5xl font-black italic text-[#FF51FA] tracking-tighter mb-2">CORE_PROTOCOL</h2>
-          <p class="font-mono text-xs opacity-40">LATEST_CORRUPTIONS_LOG_V4.0.2</p>
+          <h2 class="text-3xl sm:text-5xl font-black italic text-[#FF51FA] tracking-tighter mb-2">RECENT_BUILDS</h2>
+          <p class="font-mono text-xs opacity-40">LATEST FROM THE WORKSHOP</p>
         </div>
         <div class="space-y-16 sm:space-y-24 relative">
-          <div class="absolute left-1/2 top-0 bottom-0 w-[1px] bg-gradient-to-b from-[#39FF14] via-[#FF51FA] to-[#AC89FF] opacity-20 hidden md:block"></div>
-          {[
-            { ts: '04:22:11', color: '#39FF14', title: 'Fragmented Reality', body: 'Visual sharding applied to all root nodes. The grid is no longer a safety net; it is a cage we have broken.', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBtMsYO-2f_RpqhdW_Nn5fWBdMIVS6ZoIlxrccJyoAmO1BQLb4gEDhus1D2sr6lptV_UWDWmti0kUMECFKpWGdnUlPku3EebLKSSNmifSu1i9b5GY5C_E0WcKQ3nOrIqYFvNn22Q5cDtbZJAQ9y4wxrnOBYZ-K3eEW4emc_eTaObJAkclFeo5QhhyN98P4MnmA83IV_U8uIUNBvTcU4EjsFuCRUnXwVXiosWJvnSjQGSsMlTSiD5Tyty0Gl9BtE--fv8_BR_7d1ahc', rev: false },
-            { ts: '09:15:00', color: '#FF51FA', title: 'Neural Breach', body: 'Injected sensory overload scripts into the user interface. Experience is now measured in hertz and hallucinations.', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAYHjP9kd6Vy4XqZtabv_c5sML3yf3hdJBy0pr6ENA2fgBP2EoAzv2Y1DxXAgHPHWp2rBF4yBNk3M0FvNUEHLmhkeIuPtcBm9T4WxuSSe8dX-Tm3cnUCu7BXRmtrYBuHwOqzNJrr1c3X4LJqat2zrqwOlA-6hZtkyWwJ7wsIbG3eYHzPty-ZDn44OHpLBoqmViS-UcJCfDCgbx5k22KJZXKEaJQmJHnfm6efsjB7Q7LqbOe94qAhAqU26W_c4WTXpZpeG9EV337fMY', rev: true },
-            { ts: '23:59:59', color: '#AC89FF', title: 'System Ego Death', body: 'Total convergence achieved. The boundary between user and machine has dissolved into white noise.', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDGI4RqT5TIHkBUwzRwnMAdWHBHuBu9leC3Ve6p5HJyY9y6mSWPHXjkfTRLf5rbhXJ803ZWPYcReiYIOdzUT-ALE_N9fe_ej0DiYkhc5B3bRswd-ao4-kyOgn1CLMIzBQsNKCdD9qXnD9XuWioTxPzFcgtLE0IDBGzdJtc6DxzvM5zlGk6086l0DZyDdj1x-7QwCgLO63O97z8N3TGjhbLBBNKj-ZWobwz8TUD-iNSANTCSY6ZER_qXyEGXEh1xRdlDJU1CAwMbUbE', rev: false }
-          ].map(({ ts, color, title, body, img, rev }) => (
-            <div class={`relative flex flex-col ${rev ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-8 sm:gap-12 group`}>
-              <div class={`w-full md:w-1/2 ${rev ? 'text-left' : 'text-right'}`}>
-                <h4 class="font-mono text-xs mb-2" style={`color: ${color}`}>TIMESTAMP: {ts}</h4>
-                <h3 class="text-2xl sm:text-3xl font-black italic uppercase leading-none mb-3 sm:mb-4">{title}</h3>
-                <p class="text-sm opacity-60">{body}</p>
-              </div>
-              <div class="z-10 w-3 sm:w-4 h-3 sm:h-4 rotate-45 hidden md:block" style={`background: ${color}; box-shadow: 0 0 15px ${color}`}></div>
-              <div class="w-full md:w-1/2">
-                <div class="bg-[#2a2a2a] aspect-video shard-card-1 relative overflow-hidden group-hover:scale-105 transition-transform">
-                  <img class="w-full h-full object-cover opacity-50 grayscale hover:grayscale-0 transition-all duration-500" src={img} alt={title} loading="lazy" />
+          <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-[1px] bg-gradient-to-b from-[#39FF14] via-[#FF51FA] to-[#AC89FF] opacity-20"></div>
+          {timeline.map((item, i) => {
+            const colors = ["#39FF14", "#FF51FA", "#AC89FF"];
+            const rev = i % 2 === 1;
+            return (
+              <div class={`relative flex flex-col ${rev ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-8 sm:gap-12 group pl-12 md:pl-0`}>
+                <div class={`w-full md:w-1/2 ${rev ? 'md:text-left' : 'md:text-right'}`}>
+                  <h4 class="font-mono text-xs mb-2" style={`color:${colors[i]}`}>{item.date}</h4>
+                  <h3 class="text-2xl sm:text-3xl font-black italic uppercase leading-none mb-3 sm:mb-4">{item.title}</h3>
+                  <p class="text-sm opacity-60">{item.description}</p>
                 </div>
+                <div class="z-10 w-3 sm:w-4 h-3 sm:h-4 rotate-45 absolute left-2.5 md:relative md:left-auto" style={`background:${colors[i]}; box-shadow:0 0 15px ${colors[i]}`}></div>
+                <div class="w-full md:w-1/2"></div>
               </div>
-            </div>
-          ))}
-          <div class="mt-20 sm:mt-32 flex justify-center">
-            <button class="relative group">
-              <div class="absolute inset-0 bg-[#39FF14] blur-xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
-              <div class="relative bg-[#131313] border-2 border-[#39FF14] text-[#39FF14] px-8 sm:px-12 py-4 sm:py-5 font-black text-xl sm:text-2xl italic tracking-widest shard-card-1 group-hover:bg-[#39FF14] group-hover:text-black transition-all">INITIATE_INSANITY_V2</div>
-            </button>
-          </div>
+            );
+          })}
+        </div>
+        <div class="mt-20 sm:mt-32 flex justify-center">
+          <a href="/projects" class="relative group">
+            <div class="absolute inset-0 bg-[#39FF14] blur-xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
+            <div class="relative bg-[#131313] border-2 border-[#39FF14] text-[#39FF14] px-8 sm:px-12 py-4 sm:py-5 font-black text-xl sm:text-2xl italic tracking-widest shard-card-1 group-hover:bg-[#39FF14] group-hover:text-black transition-all">VIEW_ALL_PROJECTS</div>
+          </a>
         </div>
       </section>
     </main>
@@ -101,196 +130,174 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 
   <!-- ════════════════════════════════════════
-       LIGHT VARIANT — home-blinding-light
+       LIGHT VARIANT
   ════════════════════════════════════════ -->
   <div class="variant-light bg-white text-[#131313] min-h-screen">
     <main class="pt-28 sm:pt-32 min-h-screen">
       <!-- Hero -->
-      <section class="relative px-4 sm:px-8 py-16 sm:py-20 flex flex-col items-center justify-center min-h-[500px] sm:min-h-[819px] bg-white overflow-hidden">
-        <div class="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')] bg-cover bg-center grayscale contrast-200"></div>
+      <section class="relative px-4 sm:px-8 py-16 sm:py-20 flex flex-col items-center justify-center min-h-[500px] sm:min-h-[700px] bg-white overflow-hidden">
+        <div class="absolute inset-0 opacity-5 bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')] bg-cover bg-center grayscale contrast-200"></div>
         <div class="relative z-10 text-center space-y-4 sm:space-y-6">
-          <p class="font-mono text-[#FF51FA] tracking-[0.5em] text-sm" style="animation: flicker 0.1s infinite">SYSTEM_INITIALIZED_2024</p>
-          <h1 class="text-5xl sm:text-7xl lg:text-9xl font-black italic tracking-tighter glitch-text leading-none">VOID<br/>GAZER</h1>
-          <p class="max-w-xl mx-auto text-[#131313]/80 text-base sm:text-lg uppercase font-medium">Decoding the sensory overload of the blinding digital frontier. Pure white entropy at 99.9% stability.</p>
+          <p class="font-mono text-[#FF51FA] tracking-[0.5em] text-sm">{hero.tagline}</p>
+          <h1 class="text-5xl sm:text-7xl lg:text-9xl font-black italic tracking-tighter glitch-text leading-none">{hero.title}<span class="text-[#39FF14]">.</span>{hero.subtitle}</h1>
+          <p class="max-w-xl mx-auto text-[#131313]/80 text-base sm:text-lg">{hero.description}</p>
           <div class="flex flex-wrap justify-center gap-4 mt-8 sm:mt-12">
-            <button class="bg-[#39FF14] text-black px-8 sm:px-10 py-3 sm:py-4 text-lg sm:text-xl font-black hover:bg-[#FF51FA] hover:text-white transition-all" style="clip-path: polygon(0 0,100% 0,95% 100%,5% 95%)">INITIALIZE_BREACH</button>
-            <button class="border-2 border-[#FF51FA] text-[#FF51FA] px-8 sm:px-10 py-3 sm:py-4 text-lg sm:text-xl font-black hover:bg-[#FF51FA] hover:text-white transition-all" style="clip-path: polygon(2% 5%,100% 0,98% 95%,0 100%)">VIEW_RECORDS</button>
-          </div>
-        </div>
-        <!-- Metadata -->
-        <div class="absolute bottom-8 sm:bottom-10 left-8 sm:left-10 hidden lg:block bg-[#ebebeb] p-4 sm:p-6 chroma-bleed" style="clip-path: polygon(0 15%,95% 0,100% 85%,5% 100%)">
-          <div class="font-mono text-xs space-y-1">
-            <p class="text-[#39FF14]">CORE_TEMP: 0.00K</p>
-            <p class="text-[#FF51FA]">UPLINK: ACTIVE</p>
-            <p class="text-[#131313]">LOC: NEON_VOID_V2</p>
+            <a href="/projects" class="bg-[#39FF14] text-black px-8 sm:px-10 py-3 sm:py-4 text-lg sm:text-xl font-black hover:bg-[#FF51FA] hover:text-white transition-all" style="clip-path: polygon(0 0,100% 0,95% 100%,5% 95%)">VIEW_PROJECTS</a>
+            <a href="/blog" class="border-2 border-[#FF51FA] text-[#FF51FA] px-8 sm:px-10 py-3 sm:py-4 text-lg sm:text-xl font-black hover:bg-[#FF51FA] hover:text-white transition-all" style="clip-path: polygon(2% 5%,100% 0,98% 95%,0 100%)">READ_BLOG</a>
           </div>
         </div>
       </section>
 
-      <!-- Bento Grid -->
+      <!-- What I Build -->
       <section class="px-4 sm:px-8 py-16 sm:py-24 space-y-8 sm:space-y-12 max-w-7xl mx-auto">
         <div class="flex justify-between items-end border-b-4 border-[#39FF14] pb-4 flex-wrap gap-4">
-          <h2 class="text-3xl sm:text-5xl font-black italic tracking-tighter text-[#131313]">SHARD_COLLECTION</h2>
-          <span class="font-mono text-[#FF51FA] text-sm">[003_ACTIVE_NODES]</span>
+          <h2 class="text-3xl sm:text-5xl font-black italic tracking-tighter text-[#131313]">WHAT_I_BUILD</h2>
+          <span class="font-mono text-[#FF51FA] text-sm">[{sections.length}_ACTIVE_DOMAINS]</span>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8">
-          <!-- Large shard -->
-          <div class="md:col-span-8 bg-[#f0f0f0] p-1 hover:scale-[1.01] transition-transform group" style="clip-path: polygon(0 0,100% 0,95% 100%,5% 95%)">
-            <div class="bg-white h-full p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden">
-              <div class="absolute top-0 right-0 p-4 font-mono text-[#39FF14] opacity-20 text-5xl sm:text-6xl font-black select-none">01</div>
-              <div class="space-y-3 sm:space-y-4 relative z-10">
-                <span class="bg-[#FF51FA] text-white text-xs px-2 py-1 font-mono">EXPERIMENTAL</span>
-                <h3 class="text-2xl sm:text-4xl font-black text-[#131313] group-hover:text-[#39FF14] transition-colors">NEURAL_LIQUID_UI</h3>
-                <p class="text-[#131313]/70 max-w-md">Interfaces that melt and reform based on user biometric data. A breakthrough in organic silicon interaction.</p>
+          {sections.map((s, i) => {
+            const spans = ["md:col-span-8", "md:col-span-4", "md:col-span-12"];
+            const clipPaths = [
+              "polygon(0 0,100% 0,95% 100%,5% 95%)",
+              "polygon(2% 5%,100% 0,98% 95%,0 100%)",
+              "polygon(0 0,100% 0,95% 100%,5% 95%)",
+            ];
+            const borderColors = ["#39FF14", "#FF51FA", "#AC89FF"];
+            return (
+              <div class={`${spans[i]} p-1 hover:scale-[1.01] transition-transform group`} style={`background:${borderColors[i]}; clip-path:${clipPaths[i]}`}>
+                <div class="bg-white h-full p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden" style={`clip-path:${clipPaths[i]}`}>
+                  <div class="absolute top-0 right-0 p-4 font-mono opacity-10 text-5xl sm:text-6xl font-black select-none" style={`color:${borderColors[i]}`}>{String(i + 1).padStart(2, '0')}</div>
+                  <div class="space-y-3 sm:space-y-4 relative z-10">
+                    <span class="text-white text-xs px-2 py-1 font-mono" style={`background:${borderColors[i]}`}>{s.statLabel}</span>
+                    <h3 class="text-2xl sm:text-3xl font-black text-[#131313] group-hover:text-[#39FF14] transition-colors">{s.title.toUpperCase()}</h3>
+                    <p class="text-[#131313]/70 max-w-md">{s.description}</p>
+                  </div>
+                  <div class="mt-6 sm:mt-8 flex items-center gap-4">
+                    <span class="material-symbols-outlined" style={`color:${borderColors[i]}`}>{s.icon}</span>
+                    <span class="font-mono text-sm tracking-widest uppercase text-[#131313]/40">{s.stat} {s.statLabel}</span>
+                  </div>
+                </div>
               </div>
-              <div class="mt-8 sm:mt-12 flex items-center gap-4">
-                <span class="material-symbols-outlined text-[#39FF14]">terminal</span>
-                <span class="font-mono text-sm tracking-widest uppercase">system_access_granted</span>
+            );
+          })}
+        </div>
+      </section>
+
+      <!-- Timeline -->
+      <section class="px-4 sm:px-8 py-16 sm:py-24 max-w-4xl mx-auto">
+        <div class="mb-12 text-center">
+          <h2 class="text-3xl sm:text-5xl font-black italic tracking-tighter text-[#131313] mb-2">RECENT_BUILDS</h2>
+          <p class="font-mono text-xs text-[#131313]/40">LATEST FROM THE WORKSHOP</p>
+        </div>
+        <div class="space-y-8">
+          {timeline.map((item, i) => {
+            const borderColors = ["#39FF14", "#FF51FA", "#AC89FF"];
+            return (
+              <div class="border-l-4 pl-6 py-4 hover:bg-[#f8f8f8] transition-colors" style={`border-color:${borderColors[i]}`}>
+                <span class="font-mono text-xs" style={`color:${borderColors[i]}`}>{item.date}</span>
+                <h3 class="text-xl sm:text-2xl font-black uppercase mt-1 mb-2">{item.title}</h3>
+                <p class="text-sm text-[#131313]/60">{item.description}</p>
               </div>
-            </div>
-          </div>
-          <!-- Small shards -->
-          <div class="md:col-span-4 bg-[#39FF14] p-1 group" style="clip-path: polygon(2% 5%,100% 0,98% 95%,0 100%)">
-            <div class="bg-white h-full p-6 sm:p-8 flex flex-col justify-between">
-              <div class="space-y-3 sm:space-y-4">
-                <span class="bg-[#131313] text-white text-xs px-2 py-1 font-mono">PROTOCOL</span>
-                <h3 class="text-2xl sm:text-3xl font-black text-[#131313]">DEEP_LIGHT</h3>
-              </div>
-              <p class="text-[#131313]/70 mt-4 font-mono text-xs">REDACTED DATA STREAM // LEVEL 9 CLEARANCE REQUIRED</p>
-              <button class="mt-6 sm:mt-8 text-[#39FF14] font-black flex items-center gap-2 group-hover:translate-x-2 transition-transform">DECRYPT <span class="material-symbols-outlined">arrow_forward</span></button>
-            </div>
-          </div>
-          <div class="md:col-span-4 bg-[#FF51FA] p-1 group" style="clip-path: polygon(0 15%,95% 0,100% 85%,5% 100%)">
-            <div class="bg-white h-full p-6 sm:p-8 flex flex-col justify-between">
-              <div class="space-y-3 sm:space-y-4">
-                <span class="bg-[#39FF14] text-black text-xs px-2 py-1 font-mono">SIGNAL</span>
-                <h3 class="text-2xl sm:text-3xl font-black text-[#131313]">GHOST_FREQ</h3>
-              </div>
-              <div class="mt-6 sm:mt-8 h-16 sm:h-20 bg-[#f8f8f8] border-l-2 border-[#FF51FA] animate-pulse flex items-center justify-center">
-                <span class="material-symbols-outlined text-[#FF51FA] text-3xl sm:text-4xl">graphic_eq</span>
-              </div>
-            </div>
-          </div>
-          <!-- Medium shard -->
-          <div class="md:col-span-8 bg-[#ebebeb] p-1 hover:shadow-2xl transition-all" style="clip-path: polygon(0 0,100% 0,95% 100%,5% 95%)">
-            <div class="bg-white h-full p-6 sm:p-8 grid sm:grid-cols-2 gap-6 sm:gap-8 items-center">
-              <div class="relative aspect-video bg-[#131313] overflow-hidden" style="clip-path: polygon(2% 5%,100% 0,98% 95%,0 100%)">
-                <img class="w-full h-full object-cover mix-blend-screen opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfrb9kxpwOQmoXnv-TklDn7U-0DMieU2XzZ2nvrADZ_YCfryxccZHMswn5s8HGfu_6rM2Vgmi3tzlHEZehG_W_ojPlqgbpuuhFytV-bJxyDGelWjdCUouRXccLYJBLxXR9FKWEaXSL2s5b_0sJKhyLNM-oqkELDbfdsr_3lE-aZyWbCuU9Vhh0MQJ_8WFx6kqeR6i-Iogv_7jQw4-rqjWYjAHJtUwQuuf5rovooA3HZjDVfZBJHPHCQM4KEFG_Qc7RwdY6bnCAe18" alt="Circuitry" loading="lazy" />
-              </div>
-              <div class="space-y-3 sm:space-y-4">
-                <h3 class="text-2xl sm:text-3xl font-black uppercase text-[#131313]">Synapse_Bridge</h3>
-                <p class="text-sm text-[#131313]/80">Connecting the physical neural pathways to the high-brightness white void of the meta-web.</p>
-                <div class="flex gap-2"><div class="w-2 h-2 bg-[#39FF14]"></div><div class="w-2 h-2 bg-[#FF51FA]"></div><div class="w-2 h-2 bg-[#AC89FF]"></div></div>
-              </div>
-            </div>
-          </div>
+            );
+          })}
+        </div>
+        <div class="mt-12 text-center">
+          <a href="/projects" class="inline-flex items-center gap-2 font-black uppercase tracking-widest text-[#39FF14] hover:text-[#FF51FA]">
+            VIEW ALL PROJECTS <span class="material-symbols-outlined">arrow_forward</span>
+          </a>
         </div>
       </section>
 
       <!-- Quote -->
       <section class="py-20 sm:py-32 bg-[#39FF14] text-black mx-4 sm:mx-8 relative overflow-hidden" style="clip-path: polygon(2% 5%,100% 0,98% 95%,0 100%)">
-        <div class="absolute inset-0 opacity-20 pointer-events-none text-6xl sm:text-8xl font-black italic break-all leading-[0.8] select-none">VOID VOID VOID VOID VOID VOID VOID VOID VOID VOID VOID VOID</div>
+        <div class="absolute inset-0 opacity-10 pointer-events-none text-6xl sm:text-8xl font-black italic break-all leading-[0.8] select-none">BUILD BUILD BUILD BUILD BUILD BUILD BUILD BUILD BUILD BUILD</div>
         <div class="relative z-10 max-w-4xl mx-auto px-6 sm:px-8 text-center space-y-6 sm:space-y-8">
           <span class="material-symbols-outlined text-5xl sm:text-6xl">format_quote</span>
-          <blockquote class="text-2xl sm:text-4xl lg:text-6xl font-black tracking-tight uppercase leading-tight italic">"WE ARE NOT BROWSING THE WEB. WE ARE BREACHING THE REALITY OF PURE INFORMATION."</blockquote>
-          <div class="font-mono text-base sm:text-xl tracking-widest">— ARCHITECT_X7</div>
+          <blockquote class="text-2xl sm:text-4xl lg:text-6xl font-black tracking-tight uppercase leading-tight italic">"BUILD FOR MODELS 6 MONTHS OUT, NOT TODAY'S LIMITATIONS."</blockquote>
         </div>
       </section>
 
-      <!-- Newsletter -->
-      <section class="px-4 sm:px-8 py-16 sm:py-24 flex flex-col items-center max-w-7xl mx-auto">
-        <div class="w-full max-w-2xl bg-[#fafafa] p-8 sm:p-12 border-r-8 border-[#FF51FA] chroma-bleed" style="clip-path: polygon(0 0,100% 0,95% 100%,5% 95%)">
-          <h2 class="text-3xl sm:text-4xl font-black tracking-tighter text-[#131313] uppercase mb-4 sm:mb-6">STAY_CONNECTED</h2>
-          <p class="text-[#131313]/60 font-mono text-sm mb-6 sm:mb-8">Enter your terminal address to receive high-frequency updates directly into your visual cortex.</p>
-          <div class="flex flex-col sm:flex-row gap-0">
-            <input class="flex-1 bg-[#f0f0f0] border-none focus:ring-2 focus:ring-[#39FF14] font-mono p-4 uppercase text-[#131313] placeholder-[#131313]/40" placeholder="USER@VOID.DEV" type="email" />
-            <button class="bg-[#131313] text-white px-6 sm:px-8 py-4 font-black hover:bg-[#FF51FA] transition-colors" style="clip-path: polygon(2% 5%,100% 0,98% 95%,0 100%)">UPLINK</button>
-          </div>
-        </div>
-      </section>
+      <div class="h-16 sm:h-24"></div>
     </main>
   </div>
 
 
   <!-- ════════════════════════════════════════
-       EXTREME VARIANT — home-void-fracture-dark-extreme
+       EXTREME VARIANT
   ════════════════════════════════════════ -->
-  <div class="variant-extreme min-h-screen" style="background:#000; color:#fff; font-family:'Space Grotesk',sans-serif;">
+  <div class="variant-extreme min-h-screen" style="background:#000; color:#fff;">
     <main class="relative pt-28 sm:pt-40 pb-20 px-4 sm:px-6 max-w-7xl mx-auto min-h-screen overflow-hidden">
       <!-- Hero -->
-      <section class="relative py-16 sm:py-24 flex flex-col items-center justify-center text-center perspective-warp">
-        <div class="absolute inset-0 w-full h-full opacity-60 pointer-events-none hero-acid-blast -z-10 bg-gradient-to-br from-[#8eff71] via-[#ff51fa] to-[#ac89ff]">
+      <section class="relative py-16 sm:py-24 flex flex-col items-center justify-center text-center">
+        <div class="absolute inset-0 w-full h-full opacity-40 pointer-events-none -z-10 bg-gradient-to-br from-[#8eff71] via-[#ff51fa] to-[#ac89ff]">
           <img alt="Fractal" class="w-full h-full object-cover melting-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwcbab-5YhH-iky9sU2ZHl12P86KeGKWIEHxmHrSlWPlvkj237y_G9mJ821eOet1Y3IOgz9lezVu1WxjCqiFBC3FC02XcGpM3FYpVj0wvdyoDGhX7K80NrLUbvckTvjxgYCCdxeRqt-3xvAwdPY1MirjpCUjxawgAjbZkT-St7S91UBNrDUs_Z2Dt1Zz79xi8lFAs708RyBPuP4WaWxpIKkjJY-ySDg8eQDee-S4DhLcdbu49VuDZ0Td0z4gDfSCBPhZRx6wzmlNg" loading="lazy" />
         </div>
-        <h1 class="text-5xl sm:text-7xl lg:text-[14rem] font-black tracking-tighter mb-8 sm:mb-12 glitch-text-extreme uppercase italic leading-[0.8] relative z-10 text-white">
-          VOID<br/><span class="text-[#8eff71] scale-125 inline-block">SINGULARITY</span>
+        <p class="font-mono text-[#8eff71] tracking-[0.5em] text-sm sm:text-lg mb-4 relative z-10">{hero.tagline}</p>
+        <h1 class="text-5xl sm:text-7xl lg:text-[14rem] font-black tracking-tighter mb-6 glitch-text-extreme uppercase italic leading-[0.8] relative z-10 text-white">
+          {hero.title}<br/><span class="text-[#8eff71]">{hero.subtitle}</span>
         </h1>
-        <p class="max-w-4xl text-white font-mono text-base sm:text-xl lg:text-3xl tracking-[0.3em] mb-10 sm:mb-16 bg-black/90 p-6 sm:p-10 backdrop-blur-3xl border-4 sm:border-8 border-[#8eff71] acid-mask-1 uppercase font-black">
-          REALITY_BUFFER: OVERFLOWING // ENTROPY_VALVE: SHREDDED // CONSUMING THE DATA STREAMS.
+        <p class="max-w-2xl text-white font-mono text-base sm:text-xl tracking-wider mb-10 sm:mb-16 bg-black/90 p-6 sm:p-10 backdrop-blur-3xl border-4 sm:border-8 border-[#8eff71] uppercase font-bold relative z-10">
+          {hero.description}
         </p>
         <div class="flex flex-wrap justify-center gap-6 sm:gap-12 relative z-10">
-          <button class="bg-[#8eff71] text-black px-8 sm:px-16 py-5 sm:py-8 font-black text-xl sm:text-3xl hover:scale-125 transition-transform shadow-[20px_20px_0_#ff51fa] acid-mask-3">FEED_THE_VOID</button>
-          <button class="border-8 border-[#ff51fa] text-[#ff51fa] bg-black px-8 sm:px-16 py-5 sm:py-8 font-black text-xl sm:text-3xl hover:scale-125 transition-transform shadow-[-20px_20px_0_#8eff71] acid-mask-2">DISSOLVE</button>
+          <a href="/projects" class="bg-[#8eff71] text-black px-8 sm:px-16 py-5 sm:py-8 font-black text-xl sm:text-3xl hover:scale-125 transition-transform shadow-[20px_20px_0_#ff51fa]">VIEW_PROJECTS</a>
+          <a href="/blog" class="border-8 border-[#ff51fa] text-[#ff51fa] bg-black px-8 sm:px-16 py-5 sm:py-8 font-black text-xl sm:text-3xl hover:scale-125 transition-transform shadow-[-20px_20px_0_#8eff71]">READ_BLOG</a>
         </div>
       </section>
 
-      <!-- Asymmetrical Grid -->
+      <!-- What I Build -->
       <div class="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-16 mt-20 sm:mt-40 relative">
-        <!-- Diagnostics -->
-        <div class="md:col-span-8 bg-black/80 backdrop-blur-md relative z-10 acid-mask-1 glitch-border-vibrate">
-          <div class="bg-[#8eff71]/20 p-4 border-b-4 border-[#8eff71]">
-            <span class="text-lg sm:text-xl font-black text-[#8eff71] uppercase tracking-[0.5em] italic">CORE_CORRUPTION_LOG</span>
-          </div>
-          <div class="p-8 sm:p-12 font-mono text-base sm:text-xl space-y-6 sm:space-y-8 pb-16 sm:pb-32">
-            <div class="flex gap-4 items-start animate-pulse"><span class="text-[#8eff71] font-black text-2xl sm:text-3xl">☣</span><p>FRACTAL_LEAK: REALITY_LEAKING_INTO_SYSTEM_00</p></div>
-            <div class="flex gap-4 items-start text-red-500 animate-bounce"><span class="font-black text-2xl sm:text-3xl">⚠</span><p class="font-black">CRITICAL_COLLAPSE: THE_VOID_IS_HUNGRY</p></div>
-            <div class="relative overflow-hidden acid-mask-2">
-              <img alt="Glitch Data" class="w-full h-48 sm:h-96 object-cover melting-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHXBrmq6zr1R5u1iEnEQQX9NHoVrcWtsEoBSe3BLa4FRD18yUU7eK6lTwtI6Nj7inv4Ak4s5a43_PoiBRUkutbQGCfr9z8INvVTuMW4hj5rSgYGR32y_6ZnTTaYDM7o2KNEfqRjX-vI9qt8KgyYDrJE_ayg7pzCGTXN7fq3XTveCn3sZik7NY3vd6iOqFLwjOCRQIGWTQX9wTSLThlgHX40LCgnZoPYn5NpMIT-QJJ2GJF0RgYQtGqAOzeB-GolyncXfDQdT6L6Ic" loading="lazy" />
-            </div>
-          </div>
-        </div>
-        <!-- Entity -->
-        <div class="md:col-span-4 md:-ml-8 lg:-ml-12 md:mt-20 bg-black/90 relative z-20 acid-mask-3 glitch-border-vibrate overflow-hidden">
-          <div class="bg-[#ff51fa]/20 p-4 border-b-4 border-[#ff51fa]">
-            <span class="text-lg sm:text-xl font-black text-[#ff51fa] uppercase tracking-[0.5em] italic">ENTITY_000</span>
-          </div>
-          <div class="p-8 sm:p-12 flex flex-col items-center justify-center pb-16 sm:pb-32">
-            <div class="text-[#ff51fa] text-7xl sm:text-9xl mb-8 sm:mb-12 drop-shadow-[0_0_40px_rgba(255,81,250,1)] animate-ping">
-              <span class="material-symbols-outlined" style="font-size: 8rem; font-variation-settings:'FILL' 1">skull</span>
-            </div>
-            <div class="w-full h-3 sm:h-4 bg-gradient-to-r from-[#8eff71] via-[#ff51fa] to-[#ac89ff] mb-8 sm:mb-12 animate-pulse"></div>
-            <div class="space-y-4 sm:space-y-6 w-full">
-              <div class="bg-[#8eff71]/20 p-4 sm:p-6 border-l-8 border-[#8eff71] acid-mask-1">
-                <label class="text-xs text-[#8eff71] block font-black uppercase">Existence_Probability</label>
-                <span class="text-3xl sm:text-4xl font-black italic">0.000001%</span>
+        {sections.map((s, i) => {
+          const spans = ["md:col-span-8", "md:col-span-4 md:-ml-8 md:mt-20", "md:col-span-12"];
+          const colors = ["#8eff71", "#ff51fa", "#ac89ff"];
+          const masks = ["acid-mask-1", "acid-mask-3", "acid-mask-2"];
+          return (
+            <div class={`${spans[i]} bg-black/80 backdrop-blur-md relative z-${10 + i * 10} ${masks[i]} glitch-border-vibrate`}>
+              <div class="p-4 border-b-4" style={`background:${colors[i]}20; border-color:${colors[i]}`}>
+                <span class="text-lg sm:text-xl font-black uppercase tracking-[0.5em] italic" style={`color:${colors[i]}`}>{s.title.toUpperCase()}</span>
               </div>
-              <div class="bg-[#ff51fa]/20 p-4 sm:p-6 border-l-8 border-[#ff51fa] acid-mask-2">
-                <label class="text-xs text-[#ff51fa] block font-black uppercase">Void_Cohesion</label>
-                <span class="text-3xl sm:text-4xl font-black italic">NULL</span>
+              <div class="p-8 sm:p-12 font-mono text-base sm:text-lg space-y-4">
+                <div class="flex gap-4 items-center">
+                  <span class="material-symbols-outlined text-4xl" style={`color:${colors[i]}`}>{s.icon}</span>
+                  <span class="text-3xl sm:text-4xl font-black italic">{s.stat}</span>
+                  <span class="text-xs opacity-40">{s.statLabel}</span>
+                </div>
+                <p class="text-white/80">{s.description}</p>
               </div>
             </div>
-          </div>
-        </div>
+          );
+        })}
       </div>
 
-      <!-- DEATH_STREAMS -->
+      <!-- Timeline -->
       <section class="mt-32 sm:mt-60 border-t-8 border-white pt-16 sm:pt-24">
-        <h2 class="text-5xl sm:text-7xl lg:text-9xl font-black mb-12 sm:mb-20 italic uppercase tracking-tighter text-white glitch-text-extreme">DEATH_STREAMS</h2>
+        <h2 class="text-5xl sm:text-7xl lg:text-9xl font-black mb-12 sm:mb-20 italic uppercase tracking-tighter text-white glitch-text-extreme">RECENT_BUILDS</h2>
         <div class="space-y-8 sm:space-y-16">
-          {[
-            { hex: '0xDARK', title: 'Void_Engine_Unbound', bg: 'bg-[#8eff71]/10 hover:bg-[#8eff71]/40', mask: 'acid-mask-1', icon: 'skull' },
-            { hex: '0xVOID', title: 'Neural_Acid_Burn', bg: 'bg-[#ff51fa]/10 hover:bg-[#ff51fa]/40', mask: 'acid-mask-2', icon: 'destruction' }
-          ].map(({ hex, title, bg, mask, icon }) => (
-            <div class={`group flex items-center justify-between p-8 sm:p-12 ${bg} transition-all ${mask} glitch-border-vibrate cursor-none flex-wrap gap-4`}>
-              <div class="flex items-center gap-6 sm:gap-10">
-                <span class="text-lg sm:text-2xl font-mono text-white">{hex}</span>
-                <span class="text-2xl sm:text-4xl font-black tracking-widest uppercase text-white italic group-hover:translate-x-8 sm:group-hover:translate-x-12 transition-transform">{title}</span>
+          {timeline.map((item, i) => {
+            const colors = ["#8eff71", "#ff51fa", "#ac89ff"];
+            const masks = ["acid-mask-1", "acid-mask-2", "acid-mask-3"];
+            return (
+              <div class={`group flex items-center justify-between p-8 sm:p-12 transition-all ${masks[i]} glitch-border-vibrate cursor-none flex-wrap gap-4`} style={`background:${colors[i]}10`}>
+                <div class="flex items-center gap-6 sm:gap-10 flex-wrap">
+                  <span class="text-lg sm:text-2xl font-mono text-white">{item.date}</span>
+                  <div>
+                    <span class="text-2xl sm:text-4xl font-black tracking-widest uppercase text-white italic group-hover:translate-x-4 transition-transform block">{item.title}</span>
+                    <p class="text-sm text-white/60 mt-2 max-w-lg">{item.description}</p>
+                  </div>
+                </div>
+                <span class="material-symbols-outlined text-5xl sm:text-7xl animate-pulse" style={`color:${colors[i]}`}>arrow_forward</span>
               </div>
-              <span class="material-symbols-outlined text-white text-5xl sm:text-7xl animate-ping">{icon}</span>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
+
+      <!-- CTA -->
+      <div class="mt-32 sm:mt-60 flex justify-center relative z-10">
+        <a href="/projects" class="bg-[#8eff71] text-black px-12 sm:px-20 py-6 sm:py-10 font-black text-2xl sm:text-4xl uppercase tracking-tighter hover:scale-110 transition-transform shadow-[0_0_80px_rgba(142,255,113,0.6)] border-8 border-black">
+          VIEW_ALL_PROJECTS
+        </a>
+      </div>
     </main>
   </div>
 </BaseLayout>
