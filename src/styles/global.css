@@ -612,3 +612,48 @@ body {
   75%  { transform: skew(-0.2deg, 0.3deg) scaleY(1.002); }
   100% { transform: skew(0) scaleY(1); }
 }
+
+/* ── Extreme Theme: x-shard clip-paths ── */
+@keyframes x-drift {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  33%  { transform: translate(2px, -2px) rotate(0.3deg); }
+  66%  { transform: translate(-1px, 1px) rotate(-0.2deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+@keyframes x-fractal-shift {
+  0%   { background-position: 0% 0%;     filter: hue-rotate(0deg); }
+  100% { background-position: 100% 100%; filter: hue-rotate(360deg); }
+}
+@keyframes x-glitch-anim {
+  0%   { clip-path: inset(40% 0 61% 0); transform: translate(-2px); }
+  20%  { clip-path: inset(92% 0 1% 0);  transform: translate(2px); }
+  40%  { clip-path: inset(43% 0 1% 0);  transform: translate(1px); }
+  60%  { clip-path: inset(25% 0 58% 0); transform: translate(-1px); }
+  80%  { clip-path: inset(54% 0 7% 0);  transform: translate(3px); }
+  100% { clip-path: inset(58% 0 43% 0); transform: translate(5px); }
+}
+
+.x-shard-1        { clip-path: polygon(0% 15%, 100% 0%, 85% 100%, 5% 85%); animation: x-drift 7s ease-in-out infinite; }
+.x-shard-2        { clip-path: polygon(10% 0%, 100% 25%, 90% 100%, 0% 75%); animation: x-drift 8s ease-in-out infinite reverse; }
+.x-shard-3        { clip-path: polygon(5% 5%, 95% 0%, 100% 95%, 15% 100%); animation: x-drift 6s ease-in-out infinite 1s; }
+.x-shard-4        { clip-path: polygon(0% 0%, 88% 12%, 100% 88%, 12% 100%); animation: x-drift 9s ease-in-out infinite 0.5s; }
+.x-shard-melt-intense { clip-path: polygon(2% 2%, 98% 5%, 95% 45%, 100% 48%, 92% 85%, 75% 82%, 65% 100%, 45% 88%, 25% 95%, 10% 75%, 0% 85%, 5% 50%); animation: x-drift 10s ease-in-out infinite; }
+.x-shard-sidebar  { clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%); }
+
+.x-vibrating-text { animation: psychedelic-melt 6s ease-in-out infinite; text-shadow: 3px 0 #ff51fa, -3px 0 #8eff71; }
+
+.x-fractal-bg {
+  background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCCF-Wu0arOTEDRI7pEIgN9zoNVdLKE4WsdOdqmG-mtDHqHKeMqx_pBPtjbjQ4HLpooT9zBpJxFZIdyqmNhwaR3F5bS0VU9SZlVRdaD5SIIexczbDXVJLbC3fYM2lj-LBSQE8z_t1hhuH-YwO4BAU9o7bwkQAjqbW5Q1Lla1YTPzZjwno57NJKB4OVSqJNG42o5Uyn6rRNAztZgkm42__gqzmM9KOWda7YxxqhQfjXKC-JYyYqX7MWlCNskOFkjixU_RUmSdE3msqg);
+  background-size: 200%; animation: x-fractal-shift 20s linear infinite;
+  opacity: 0.2; mix-blend-mode: screen; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+}
+.x-shard-inner-fractal {
+  position: absolute; inset: 0;
+  background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCCF-Wu0arOTEDRI7pEIgN9zoNVdLKE4WsdOdqmG-mtDHqHKeMqx_pBPtjbjQ4HLpooT9zBpJxFZIdyqmNhwaR3F5bS0VU9SZlVRdaD5SIIexczbDXVJLbC3fYM2lj-LBSQE8z_t1hhuH-YwO4BAU9o7bwkQAjqbW5Q1Lla1YTPzZjwno57NJKB4OVSqJNG42o5Uyn6rRNAztZgkm42__gqzmM9KOWda7YxxqhQfjXKC-JYyYqX7MWlCNskOFkjixU_RUmSdE3msqg);
+  background-size: cover; mix-blend-mode: overlay; opacity: 0.3; animation: x-fractal-shift 10s alternate infinite; pointer-events: none;
+}
+.x-glitch-hover { position: relative; }
+.x-glitch-hover:hover::after {
+  content: ""; position: absolute; inset: 0; background: inherit;
+  animation: x-glitch-anim 0.3s infinite; z-index: 20; mix-blend-mode: hard-light; opacity: 0.8;
+}
