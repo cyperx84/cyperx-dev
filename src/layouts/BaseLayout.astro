@@ -72,6 +72,7 @@ const pageAttr = activeNav ?? 'home';
         class="theme-toggle-btn bg-[#39FF14] text-black px-4 sm:px-6 py-2 font-black italic text-xs sm:text-sm transition-all relative overflow-hidden"
         style="clip-path: polygon(10% 0,100% 0,90% 100%,0 100%)"
         aria-label="Cycle theme"
+        onclick="(function(){var T=['extreme','dark','light'];var c=localStorage.getItem('cyperx-theme')||'extreme';var n=T[(T.indexOf(c)+1)%T.length];document.documentElement.className='theme-'+n;localStorage.setItem('cyperx-theme',n);})()"
       >
         <span class="toggle-icon inline-block mr-1">⚡</span><span class="toggle-label">TRIPP_MODE</span>
       </button>
@@ -164,29 +165,7 @@ const pageAttr = activeNav ?? 'home';
     const saved = localStorage.getItem('cyperx-theme') || 'extreme';
     applyTheme(saved);
 
-    // Cycle on click
-    const themeBtn = document.getElementById('theme-toggle');
-    if (themeBtn) {
-      themeBtn.addEventListener('click', () => {
-        const current = localStorage.getItem('cyperx-theme') || 'extreme';
-        const next = THEMES[(THEMES.indexOf(current) + 1) % THEMES.length];
-
-        // Spin icon
-        const icon = themeBtn.querySelector('.toggle-icon');
-        if (icon) {
-          icon.classList.add('icon-spin');
-          setTimeout(() => icon.classList.remove('icon-spin'), 400);
-        }
-
-        // Ripple
-        const ripple = document.createElement('span');
-        ripple.className = 'toggle-ripple';
-        themeBtn.appendChild(ripple);
-        setTimeout(() => ripple.remove(), 600);
-
-        applyTheme(next);
-      });
-    }
+    // Theme toggle handler is inline on the button element (HMR-safe)
 
     // Mobile menu toggle
     const menuBtn = document.getElementById('mobile-menu-btn');
