@@ -47,10 +47,10 @@ const rest = projects.slice(1);
               </div>
               <div class="flex gap-4">
                 {featured.links.github && (
-                  <a href={featured.links.github} target="_blank" class="bg-[#39FF14] text-black px-6 sm:px-8 py-3 font-black italic tracking-tighter hover:bg-[#FF51FA] transition-all" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">VIEW_SOURCE</a>
+                  <span class="bg-[#39FF14] text-black px-6 sm:px-8 py-3 font-black italic tracking-tighter" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">VIEW_SOURCE</span>
                 )}
                 {featured.links.live && (
-                  <a href={featured.links.live} target="_blank" class="bg-[#FF51FA] text-white px-6 sm:px-8 py-3 font-black italic tracking-tighter hover:bg-[#39FF14] hover:text-black transition-all" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">OPEN_LIVE</a>
+                  <span class="bg-[#FF51FA] text-white px-6 sm:px-8 py-3 font-black italic tracking-tighter" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">OPEN_LIVE</span>
                 )}
               </div>
             </div>
@@ -95,8 +95,8 @@ const rest = projects.slice(1);
                 </div>
                 <div class="mt-6 sm:mt-8 flex items-center gap-4 font-mono text-[10px] border-t border-[#e2e2e2]/10 pt-4">
                   <span>ENTROPY: {project.entropy}%</span>
-                  {project.links.github && <a href={project.links.github} target="_blank" class="text-[#39FF14] hover:text-[#FF51FA]">SOURCE_&gt;&gt;</a>}
-                  {project.links.live && <a href={project.links.live} target="_blank" class="text-[#FF51FA] hover:text-[#39FF14]">LIVE_&gt;&gt;</a>}
+                  {project.links.github && <span class="text-[#39FF14]">SOURCE_&gt;&gt;</span>}
+                  {project.links.live && <span class="text-[#FF51FA]">LIVE_&gt;&gt;</span>}
                 </div>
               </div>
             </a>
@@ -150,9 +150,9 @@ const rest = projects.slice(1);
                 ))}
               </div>
               {featured.links.github && (
-                <a href={featured.links.github} target="_blank" class="inline-flex items-center gap-2 font-black uppercase tracking-widest text-[#39FF14] group-hover:text-[#FF51FA]">
+                <span class="inline-flex items-center gap-2 font-black uppercase tracking-widest text-[#39FF14] group-hover:text-[#FF51FA]">
                   VIEW SOURCE <span class="material-symbols-outlined">arrow_forward</span>
-                </a>
+                </span>
               )}
             </div>
           </div>
@@ -162,18 +162,11 @@ const rest = projects.slice(1);
       <!-- Project Grid -->
       <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
         {rest.map((project, i) => {
-          const spans = ["md:col-span-5", "md:col-span-7", "md:col-span-7", "md:col-span-5", "md:col-span-6"];
-          const clipPaths = [
-            "polygon(5% 5%, 90% 0, 100% 95%, 0% 100%)",
-            "polygon(0 15%, 95% 0, 100% 85%, 5% 100%)",
-            "polygon(10% 0, 100% 5%, 90% 100%, 0 85%)",
-            "polygon(5% 5%, 90% 0, 100% 95%, 0% 100%)",
-            "polygon(0 15%, 95% 0, 100% 85%, 5% 100%)",
-          ];
+          const spans = ["md:col-span-6", "md:col-span-6", "md:col-span-6", "md:col-span-6", "md:col-span-6"];
           return (
             <a href={`/projects/${project.slug}`} class={`${spans[i]} group no-underline`} data-reveal>
-              <div class="p-1 transition-all duration-75 hover:skew-y-1" style={`background:${project.statusColor}; clip-path:${clipPaths[i]}`}>
-                <div class="bg-white p-6" style={`clip-path:${clipPaths[i]}`}>
+              <div class="p-[2px] transition-all duration-200 hover:-translate-y-1" style={`background:${project.statusColor}`}>
+                <div class="bg-white p-6">
                   <div class="mb-3 flex justify-between items-start">
                     <span class="text-white text-[10px] font-mono px-2 py-1" style={`background:${project.statusColor}`}>{project.status}</span>
                   </div>
@@ -185,13 +178,9 @@ const rest = projects.slice(1);
                       <span class="bg-[#f0f0f0] text-[9px] font-mono px-2 py-1">{tech}</span>
                     ))}
                   </div>
-                  <div class="flex gap-3">
-                    {project.links.github && (
-                      <a href={project.links.github} target="_blank" class="text-[10px] font-mono font-black text-[#39FF14] hover:text-[#FF51FA]">SOURCE →</a>
-                    )}
-                    {project.links.live && (
-                      <a href={project.links.live} target="_blank" class="text-[10px] font-mono font-black text-[#FF51FA] hover:text-[#39FF14]">LIVE →</a>
-                    )}
+                  <div class="flex gap-3 font-mono text-[10px] font-black">
+                    {project.links.github && <span class="text-[#39FF14]">SOURCE →</span>}
+                    {project.links.live && <span class="text-[#FF51FA]">LIVE →</span>}
                   </div>
                 </div>
               </div>
@@ -255,9 +244,9 @@ const rest = projects.slice(1);
             </div>
             <div class="flex flex-wrap items-center gap-6">
               {featured.links.github && (
-                <a href={featured.links.github} target="_blank" class="bg-[#8eff71] text-[#0d6100] px-8 sm:px-12 py-4 sm:py-6 font-black text-base sm:text-xl uppercase tracking-tighter hover:bg-white hover:text-black transition-all shadow-[0_0_30px_rgba(142,255,113,0.8)]">
+                <span class="bg-[#8eff71] text-[#0d6100] px-8 sm:px-12 py-4 sm:py-6 font-black text-base sm:text-xl uppercase tracking-tighter shadow-[0_0_30px_rgba(142,255,113,0.8)]">
                   VIEW_SOURCE
-                </a>
+                </span>
               )}
             </div>
           </div>
@@ -267,12 +256,11 @@ const rest = projects.slice(1);
       <!-- Project Grid -->
       <div class="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12 items-start relative z-10">
         {rest.map((project, i) => {
-          const spans = ["md:col-span-4", "md:col-span-8", "md:col-span-6", "md:col-span-6", "md:col-span-5"];
+          const spans = ["md:col-span-6", "md:col-span-6", "md:col-span-6", "md:col-span-6", "md:col-span-6"];
           const borderColors = ["#ff51fa", "#8eff71", "#ac89ff", "#ff51fa", "#8eff71"];
-          const xShards = ["x-shard-sidebar", "x-shard-3", "x-shard-4", "x-shard-sidebar", "x-shard-3"];
           return (
             <a href={`/projects/${project.slug}`} class={`${spans[i]} group no-underline`} data-reveal>
-              <div class={`bg-[#111] p-6 sm:p-8 border-4 overflow-hidden relative ${xShards[i]} x-glitch-hover hover:scale-[1.02] transition-all duration-500`} style={`border-color:${borderColors[i]}50; box-shadow:0 0 40px ${borderColors[i]}33`}>
+              <div class={`bg-[#111] p-6 sm:p-8 border-4 overflow-hidden relative x-glitch-hover hover:scale-[1.02] transition-all duration-500`} style={`border-color:${borderColors[i]}50; box-shadow:0 0 40px ${borderColors[i]}33`}>
                 <div class="x-shard-inner-fractal"></div>
                 <div class="relative z-10">
                   <div class="flex items-center justify-between mb-4">
@@ -290,8 +278,8 @@ const rest = projects.slice(1);
                     ))}
                   </div>
                   <div class="flex items-center gap-4 font-mono text-[10px] border-t border-white/10 pt-4">
-                    {project.links.github && <a href={project.links.github} target="_blank" class="font-black uppercase tracking-[0.3em]" style={`color:${borderColors[i]}`}>SOURCE_&gt;&gt;</a>}
-                    {project.links.live && <a href={project.links.live} target="_blank" class="font-black uppercase tracking-[0.3em]" style={`color:${borderColors[i]}`}>LIVE_&gt;&gt;</a>}
+                    {project.links.github && <span class="font-black uppercase tracking-[0.3em]" style={`color:${borderColors[i]}`}>SOURCE_&gt;&gt;</span>}
+                    {project.links.live && <span class="font-black uppercase tracking-[0.3em]" style={`color:${borderColors[i]}`}>LIVE_&gt;&gt;</span>}
                   </div>
                 </div>
               </div>
