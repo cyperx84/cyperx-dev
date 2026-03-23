@@ -848,3 +848,244 @@ body .hover-card {
 /* Generic .card, article, and link-cards pick up hover effects */
 .card, article.card, a.card { }
 
+/* ══════════════════════════════════════════════════════════════════════════
+   NEW POLISH — cursor, sparkle, scroll progress, micro-interactions
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Smooth Scroll ── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── Custom Cursor — hide native, show canvas cursor ── */
+@media (hover: hover) and (pointer: fine) {
+  body { cursor: none; }
+  a, button, [role="button"], input, select, textarea, label, [tabindex] {
+    cursor: none;
+  }
+}
+
+/* ── Hero Parallax ── */
+.hero-parallax {
+  will-change: transform;
+}
+
+/* ── CTA Button Micro-interactions ── */
+@keyframes shimmer-sweep {
+  0%   { transform: translateX(-150%) skewX(-20deg); }
+  100% { transform: translateX(250%) skewX(-20deg); }
+}
+
+/* CTA buttons — VIEW_PROJECTS / READ_BLOG style */
+a[href="/projects"], a[href="/blog"], a[href="/projects/openclaw-fleet"],
+a[href="/projects/fleet-tui"], a[href="/projects/voice-forge"],
+a[href="/projects/personal-os"] {
+  /* base handled by existing classes */
+}
+
+/* Generic CTA lift for shard-card buttons */
+.shard-card-1, .shard-card-2, .shard-card-3 {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.shard-card-1:hover, .shard-card-2:hover, .shard-card-3:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(57,255,20,0.25);
+}
+.shard-card-1:active, .shard-card-2:active, .shard-card-3:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(57,255,20,0.1);
+  transition-duration: 0.05s;
+}
+
+/* Shimmer on hover */
+.shard-card-1::after, .shard-card-2::after, .shard-card-3::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.18), transparent);
+  transform: translateX(-150%) skewX(-20deg);
+  pointer-events: none;
+}
+.shard-card-1:hover::after, .shard-card-2:hover::after, .shard-card-3:hover::after {
+  animation: shimmer-sweep 0.55s ease forwards;
+}
+
+/* ── Nav Link Enhancements ── */
+.nav-link {
+  transform-origin: center;
+}
+.nav-link:hover {
+  transform: scale(1.05) skewX(-3deg);
+}
+
+@keyframes underline-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+.nav-link.active {
+  animation: underline-pulse 2s ease-in-out infinite;
+}
+
+/* ── Content Link Underlines ── */
+.prose a, article a, .content a,
+.site-footer .footer-link {
+  position: relative;
+  text-decoration: none;
+}
+.prose a::after, article a::after, .content a::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.2s ease;
+}
+.prose a:hover::after, article a:hover::after, .content a:hover::after {
+  width: 100%;
+}
+
+/* Footer link strikethrough from left */
+.site-footer .footer-link {
+  position: relative;
+}
+.site-footer .footer-link::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.25s ease;
+}
+.site-footer .footer-link:hover::after {
+  width: 100%;
+}
+.site-footer .footer-link:hover {
+  color: #39FF14 !important;
+  text-decoration: none;
+}
+
+/* ── Logo Enhancement ── */
+@keyframes logo-glitch-slow {
+  0%   { text-shadow: 2px 0 #FF51FA, -2px 0 #AC89FF; }
+  20%  { text-shadow: -3px 0 #FF51FA, 3px 0 #39FF14; }
+  40%  { text-shadow: 2px 0 #FF51FA, -2px 0 #AC89FF; }
+  60%  { text-shadow: -2px 1px #AC89FF, 2px -1px #FF51FA; }
+  80%  { text-shadow: 3px 0 #FF51FA, -3px 0 #39FF14; }
+  100% { text-shadow: 2px 0 #FF51FA, -2px 0 #AC89FF; }
+}
+
+@keyframes logo-glitch-burst {
+  0%   { text-shadow: 2px 0 #FF51FA, -2px 0 #AC89FF; filter: none; }
+  15%  { text-shadow: -6px 2px #FF51FA, 6px -2px #39FF14; filter: brightness(1.4); }
+  30%  { text-shadow: 5px -1px #AC89FF, -5px 1px #FF51FA; filter: brightness(0.9); }
+  45%  { text-shadow: -4px 3px #39FF14, 4px -3px #FF51FA; filter: brightness(1.5); }
+  60%  { text-shadow: 6px 0 #FF51FA, -6px 0 #AC89FF; filter: brightness(1.2); }
+  80%  { text-shadow: -2px 0 #FF51FA, 2px 0 #39FF14; filter: none; }
+  100% { text-shadow: 2px 0 #FF51FA, -2px 0 #AC89FF; filter: none; }
+}
+
+.logo-text {
+  animation: logo-glitch-slow 8s ease-in-out infinite;
+}
+.logo-text:hover {
+  animation: logo-glitch-burst 0.2s steps(1) forwards, logo-glitch-slow 8s ease-in-out 0.2s infinite;
+}
+
+@keyframes dot-pulse {
+  0%, 100% { color: #39FF14; text-shadow: 0 0 6px #39FF14; }
+  50%       { color: #FF51FA; text-shadow: 0 0 12px #FF51FA; }
+}
+.logo-dot {
+  display: inline-block;
+  animation: dot-pulse 1.8s ease-in-out infinite;
+}
+
+/* ── Theme Toggle Button ── */
+@keyframes toggle-ripple-anim {
+  0%   { transform: scale(0); opacity: 0.6; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+.theme-toggle-btn {
+  position: relative;
+  overflow: hidden;
+}
+.theme-toggle-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(57,255,20,0.3);
+}
+.theme-toggle-btn:active {
+  transform: translateY(1px);
+}
+
+.toggle-ripple {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 20px; height: 20px;
+  margin-top: -10px; margin-left: -10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  animation: toggle-ripple-anim 0.5s ease forwards;
+  pointer-events: none;
+}
+
+@keyframes icon-spin-anim {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.icon-spin {
+  animation: icon-spin-anim 0.35s ease-in-out;
+}
+
+/* ── Scroll Reveal Glitch (extreme entrance) ── */
+@keyframes reveal-glitch-in {
+  0%   { filter: none; transform: none; }
+  20%  { filter: hue-rotate(90deg) brightness(1.5); transform: translateX(3px); }
+  40%  { filter: hue-rotate(180deg) brightness(0.9); transform: translateX(-3px); }
+  60%  { filter: hue-rotate(270deg) brightness(1.3); transform: translateX(2px); }
+  80%  { filter: hue-rotate(360deg) brightness(1.1); transform: translateX(-1px); }
+  100% { filter: none; transform: none; }
+}
+.reveal-glitch {
+  animation: reveal-glitch-in 0.3s ease forwards;
+}
+
+/* ── Footer Brand Heartbeat ── */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14%      { transform: scale(1.03); }
+  28%      { transform: scale(1); }
+  42%      { transform: scale(1.05); }
+  70%      { transform: scale(1); }
+}
+.footer-brand {
+  display: inline-block;
+  animation: heartbeat 2.4s ease-in-out infinite;
+}
+
+/* ── Footer "© NO_RIGHTS_RESERVED" typewriter reset effect ── */
+.footer-rights {
+  visibility: hidden;
+}
+.footer-rights::after {
+  content: '▌';
+  color: #39FF14;
+  animation: blink-cursor 0.7s step-end infinite;
+}
+.theme-light .footer-rights::after { color: #FF51FA; }
+
+/* ── Parallax Wrapper ── */
+.parallax-hero {
+  will-change: transform;
+  transform: translateY(0);
+}
+

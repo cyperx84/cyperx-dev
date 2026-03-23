@@ -21,6 +21,12 @@ const pageAttr = activeNav ?? 'home';
 </head>
 <body class="overflow-x-hidden" data-page={pageAttr}>
 
+  <!-- ── Scroll Progress Bar ── -->
+  <div id="scroll-progress" class="fixed top-0 left-0 h-[3px] w-0 z-[60] pointer-events-none" style="transition:width 0.05s linear"></div>
+
+  <!-- ── Cursor Canvas (z-50, above everything except modals) ── -->
+  <canvas id="cursor-canvas" class="fixed inset-0 z-[50] pointer-events-none"></canvas>
+
   <!-- ── Three.js Background Canvas ── -->
   <canvas id="three-bg" class="fixed inset-0 pointer-events-none" style="z-index:-20"></canvas>
 
@@ -45,19 +51,23 @@ const pageAttr = activeNav ?? 'home';
 
   <!-- ── Unified Header / Nav ── -->
   <header class="site-header fixed top-0 w-full flex justify-between items-center px-4 sm:px-8 py-4 sm:py-6 backdrop-blur-xl z-50">
-    <a href="/" class="text-2xl sm:text-3xl font-black text-[#39FF14] [text-shadow:2px_0_#FF51FA,-2px_0_#AC89FF] animate-pulse font-['Space_Grotesk'] uppercase tracking-tighter italic no-underline">CYPERX.DEV</a>
+    <a href="/" class="logo-text text-2xl sm:text-3xl font-black text-[#39FF14] font-['Space_Grotesk'] uppercase tracking-tighter italic no-underline" aria-label="CYPERX.DEV home">
+      CYPERX<span class="logo-dot">.</span>DEV
+    </a>
     <nav class="hidden md:flex gap-8 lg:gap-10 font-['Space_Grotesk'] uppercase tracking-tighter italic">
-      <a class={`nav-link hover:text-[#FF51FA] hover:skew-x-12 transition-all duration-75 ${activeNav === 'home' ? 'active' : ''}`} href="/">HOME</a>
-      <a class={`nav-link hover:text-[#FF51FA] hover:skew-x-12 transition-all duration-75 ${activeNav === 'blog' ? 'active' : ''}`} href="/blog">BLOG</a>
-      <a class={`nav-link hover:text-[#FF51FA] hover:skew-x-12 transition-all duration-75 ${activeNav === 'projects' ? 'active' : ''}`} href="/projects">PROJECTS</a>
+      <a class={`nav-link hover:text-[#FF51FA] transition-all duration-150 ${activeNav === 'home' ? 'active' : ''}`} href="/">HOME</a>
+      <a class={`nav-link hover:text-[#FF51FA] transition-all duration-150 ${activeNav === 'blog' ? 'active' : ''}`} href="/blog">BLOG</a>
+      <a class={`nav-link hover:text-[#FF51FA] transition-all duration-150 ${activeNav === 'projects' ? 'active' : ''}`} href="/projects">PROJECTS</a>
     </nav>
     <div class="flex items-center gap-3">
       <button
         id="theme-toggle"
-        class="bg-[#39FF14] text-black px-4 sm:px-6 py-2 font-black italic text-xs sm:text-sm hover:bg-[#FF51FA] hover:text-white transition-all"
+        class="theme-toggle-btn bg-[#39FF14] text-black px-4 sm:px-6 py-2 font-black italic text-xs sm:text-sm transition-all relative overflow-hidden"
         style="clip-path: polygon(10% 0,100% 0,90% 100%,0 100%)"
         aria-label="Cycle theme"
-      >TRIPP_MODE</button>
+      >
+        <span class="toggle-icon inline-block mr-1">⚡</span><span class="toggle-label">TRIPP_MODE</span>
+      </button>
       <!-- Mobile hamburger -->
       <button id="mobile-menu-btn" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Menu">
         <span class="hamburger-line w-6 h-0.5 bg-[#39FF14] transition-all duration-300"></span>
@@ -73,15 +83,15 @@ const pageAttr = activeNav ?? 'home';
   <!-- ── Unified Footer ── -->
   <footer class="site-footer w-full py-10 sm:py-12 px-6 sm:px-10 flex flex-col md:flex-row justify-between items-end gap-4">
     <div class="flex flex-col gap-2">
-      <a href="/" class="text-[#39FF14] font-bold text-xl font-['Space_Grotesk'] uppercase tracking-tighter italic no-underline">CYPERX.DEV</a>
+      <a href="/" class="footer-brand text-[#39FF14] font-bold text-xl font-['Space_Grotesk'] uppercase tracking-tighter italic no-underline">CYPERX.DEV</a>
       <p class="footer-tagline font-mono text-[10px] uppercase tracking-widest">SYSTEM ENTROPY: 99.9% | STABLE BEYOND VOID</p>
     </div>
     <div class="flex gap-6 sm:gap-8 font-mono text-[10px] uppercase tracking-widest">
       {['TERMINAL','REACH_OUT','LEGAL_VOID'].map(l => (
-        <a class="footer-link hover:line-through hover:blur-[1px] transition-all" href="#">{l}</a>
+        <a class="footer-link transition-all" href="#">{l}</a>
       ))}
     </div>
-    <div class="footer-copy font-mono text-[10px]">© NO_RIGHTS_RESERVED</div>
+    <div class="footer-copy font-mono text-[10px]"><span class="footer-rights" data-typewriter="60">© NO_RIGHTS_RESERVED</span></div>
   </footer>
 
   <!-- ── Mobile Slide-Down Menu ── -->
@@ -106,27 +116,71 @@ const pageAttr = activeNav ?? 'home';
     document.addEventListener('DOMContentLoaded', () => { initThreeBg(); });
   </script>
 
+  <!-- ── Cursor + Sparkle Effects (unified canvas loop in cursor.ts) ── -->
+  <script>
+    import { initCursor } from '../scripts/cursor';
+    document.addEventListener('DOMContentLoaded', () => {
+      initCursor();
+    });
+  </script>
+
   <!-- ── Theme Toggle + Mobile Menu + Animations Script ── -->
   <script is:inline>
     const THEMES = ['extreme', 'dark', 'light'];
+    const THEME_LABELS = {
+      extreme: 'TRIPP_MODE',
+      dark: 'VOID_MODE',
+      light: 'CLEAN_MODE',
+    };
+    const THEME_ICONS = {
+      extreme: '⚡',
+      dark: '💀',
+      light: '☀️',
+    };
 
     function applyTheme(theme) {
       const html = document.documentElement;
       THEMES.forEach(t => html.classList.remove('theme-' + t));
       html.classList.add('theme-' + theme);
       localStorage.setItem('cyperx-theme', theme);
+      updateToggleLabel(theme);
+      updateScrollProgress();
+    }
+
+    function updateToggleLabel(theme) {
+      const label = document.querySelector('.toggle-label');
+      const icon = document.querySelector('.toggle-icon');
+      if (label) label.textContent = THEME_LABELS[theme] || 'TRIPP_MODE';
+      if (icon) icon.textContent = THEME_ICONS[theme] || '⚡';
     }
 
     // Init on load
     const saved = localStorage.getItem('cyperx-theme') || 'extreme';
     applyTheme(saved);
 
-    // Cycle on click (light → dark → extreme)
-    document.getElementById('theme-toggle').addEventListener('click', () => {
-      const current = localStorage.getItem('cyperx-theme') || 'extreme';
-      const next = THEMES[(THEMES.indexOf(current) + 1) % THEMES.length];
-      applyTheme(next);
-    });
+    // Cycle on click
+    const themeBtn = document.getElementById('theme-toggle');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const current = localStorage.getItem('cyperx-theme') || 'extreme';
+        const next = THEMES[(THEMES.indexOf(current) + 1) % THEMES.length];
+
+        // Spin icon
+        const icon = themeBtn.querySelector('.toggle-icon');
+        if (icon) {
+          icon.classList.add('icon-spin');
+          setTimeout(() => icon.classList.remove('icon-spin'), 400);
+        }
+
+        // Ripple
+        const ripple = document.createElement('span');
+        ripple.className = 'toggle-ripple';
+        themeBtn.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+
+        applyTheme(next);
+      });
+    }
 
     // Mobile menu toggle
     const menuBtn = document.getElementById('mobile-menu-btn');
@@ -138,7 +192,6 @@ const pageAttr = activeNav ?? 'home';
         menu.style.transform = menuOpen ? 'translateY(0)' : 'translateY(-100%)';
         menuBtn.classList.toggle('menu-open', menuOpen);
       });
-      // Close on link click
       menu.querySelectorAll('a').forEach(a => {
         a.addEventListener('click', () => {
           menuOpen = false;
@@ -148,7 +201,37 @@ const pageAttr = activeNav ?? 'home';
       });
     }
 
-    // Typewriter effect for elements with data-typewriter
+    // ── Scroll Progress Bar ──
+    function updateScrollProgress() {
+      const bar = document.getElementById('scroll-progress');
+      if (!bar) return;
+      const scrolled = window.scrollY;
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = total > 0 ? (scrolled / total) * 100 : 0;
+      bar.style.width = pct + '%';
+
+      const theme = localStorage.getItem('cyperx-theme') || 'extreme';
+      if (theme === 'dark') {
+        bar.style.background = 'linear-gradient(to right, #39FF14, #FF51FA)';
+      } else if (theme === 'light') {
+        bar.style.background = 'linear-gradient(to right, #FF51FA, #AC89FF)';
+      } else {
+        // extreme: animated rainbow — use inline keyframe via CSS var
+        bar.style.background = `linear-gradient(to right, hsl(${(Date.now()/30)%360},100%,60%), hsl(${((Date.now()/30)+120)%360},100%,60%), hsl(${((Date.now()/30)+240)%360},100%,60%))`;
+      }
+    }
+
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+
+    // Animate rainbow on extreme
+    function animateRainbow() {
+      const theme = localStorage.getItem('cyperx-theme') || 'extreme';
+      if (theme === 'extreme') updateScrollProgress();
+      requestAnimationFrame(animateRainbow);
+    }
+    animateRainbow();
+
+    // ── Typewriter effect ──
     function initTypewriters() {
       document.querySelectorAll('[data-typewriter]').forEach(el => {
         if (el.dataset.twDone) return;
@@ -158,6 +241,7 @@ const pageAttr = activeNav ?? 'home';
         el.style.visibility = 'visible';
         let i = 0;
         const speed = parseInt(el.dataset.typewriter) || 50;
+
         function type() {
           if (i < text.length) {
             el.textContent += text.charAt(i);
@@ -165,7 +249,7 @@ const pageAttr = activeNav ?? 'home';
             setTimeout(type, speed);
           }
         }
-        // Start when element is in viewport
+
         const obs = new IntersectionObserver(entries => {
           if (entries[0].isIntersecting) { type(); obs.disconnect(); }
         }, { threshold: 0.3 });
@@ -173,26 +257,111 @@ const pageAttr = activeNav ?? 'home';
       });
     }
 
-    // Scroll-triggered fade-in
+    // ── Staggered Scroll Reveal ──
     function initScrollReveal() {
-      document.querySelectorAll('[data-reveal]').forEach(el => {
+      const isExtreme = document.documentElement.classList.contains('theme-extreme');
+
+      document.querySelectorAll('[data-reveal]').forEach((el, idx) => {
+        if (el.dataset.revealDone) return;
+
+        const variant = el.dataset.reveal || 'slide-up';
+
+        // Initial state
         el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        el.style.transition = 'none';
+
+        if (variant === 'slide-up' || variant === '') {
+          el.style.transform = 'translateY(40px)';
+        } else if (variant === 'slide-left') {
+          el.style.transform = 'translateX(-40px)';
+        } else if (variant === 'slide-right') {
+          el.style.transform = 'translateX(40px)';
+        } else if (variant === 'scale') {
+          el.style.transform = 'scale(0.85)';
+        }
+
+        // Stagger delay based on sibling index
+        const siblings = el.parentElement ? Array.from(el.parentElement.querySelectorAll('[data-reveal]')) : [];
+        const siblingIdx = siblings.indexOf(el);
+        const delay = siblingIdx >= 0 ? siblingIdx * 80 : idx * 60;
+
         const obs = new IntersectionObserver(entries => {
           if (entries[0].isIntersecting) {
-            el.style.opacity = '1';
-            el.style.transform = 'translateY(0)';
+            el.dataset.revealDone = '1';
+
+            setTimeout(() => {
+              el.style.transition = `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}ms`;
+              el.style.opacity = '1';
+              el.style.transform = 'none';
+
+              // Extreme theme: brief glitch on entrance
+              if (isExtreme) {
+                el.classList.add('reveal-glitch');
+                setTimeout(() => el.classList.remove('reveal-glitch'), 300);
+              }
+            }, 20);
+
             obs.disconnect();
           }
         }, { threshold: 0.1 });
+
         obs.observe(el);
       });
     }
 
-    // Init animations
+    // ── Hero Parallax ──
+    function initParallax() {
+      const heroes = document.querySelectorAll('.parallax-hero, .shard-hero');
+      if (!heroes.length) return;
+      window.addEventListener('scroll', () => {
+        if (document.hidden) return;
+        const scrollY = window.scrollY;
+        heroes.forEach(el => {
+          (el as HTMLElement).style.transform = `translateY(${scrollY * 0.1}px)`;
+        });
+      }, { passive: true });
+    }
+
+    // ── Footer typewriter re-trigger on scroll into view ──
+    function initFooterTypewriter() {
+      const el = document.querySelector('.footer-rights');
+      if (!el || (el as HTMLElement).dataset.twDone) return;
+      const originalText = '© NO_RIGHTS_RESERVED';
+
+      function runTypewriter() {
+        (el as HTMLElement).dataset.twDone = '1';
+        (el as HTMLElement).style.visibility = 'visible';
+        el.textContent = '';
+        let i = 0;
+        function type() {
+          if (i < originalText.length) {
+            el.textContent += originalText[i];
+            i++;
+            setTimeout(type, 55);
+          }
+        }
+        type();
+      }
+
+      const obs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+          runTypewriter();
+          obs.disconnect();
+        }
+      }, { threshold: 0.5 });
+      obs.observe(el);
+    }
+
+    // Init
     document.addEventListener('DOMContentLoaded', () => {
       initTypewriters();
+      initScrollReveal();
+      initParallax();
+      initFooterTypewriter();
+    });
+
+    // Re-init reveal when theme changes (theme switch resets page)
+    document.documentElement.addEventListener('classChange', () => {
       initScrollReveal();
     });
   </script>

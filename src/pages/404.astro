@@ -2,63 +2,198 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="💀 404 — BAD_TRIP" activeNav="">
+<BaseLayout title="💀 404 — SIGNAL_LOST" activeNav="">
 
-  <!-- Chaos sticker badges (sm+) -->
-  <div class="chaos-sticker sticker-red hidden sm:block" style="position: absolute; top: 5%; right: 5%; z-index: 40; pointer-events: none;">SECTOR_CORRUPT</div>
-  <div class="chaos-sticker sticker-magenta hidden sm:block" style="position: absolute; bottom: 10%; left: 3%; z-index: 40; pointer-events: none;">BAD_TRIP_404</div>
-  <div class="chaos-sticker sticker-acid hidden md:block" style="position: absolute; top: 45%; right: 2%; z-index: 40; pointer-events: none; transform: rotate(-6deg);">VOID_404</div>
+  <style>
+    /* 404-specific styles */
+    @keyframes glitch-404 {
+      0%   { text-shadow: 4px 0 #FF51FA, -4px 0 #39FF14; transform: translate(0); }
+      10%  { text-shadow: -6px 2px #FF51FA, 6px -2px #39FF14; transform: translate(-3px, 1px); }
+      20%  { text-shadow: 4px 0 #FF51FA, -4px 0 #39FF14; transform: translate(0); }
+      30%  { text-shadow: 8px 0 #AC89FF, -8px 0 #FF51FA; transform: translate(4px, -2px); clip-path: inset(20% 0 60% 0); }
+      31%  { clip-path: inset(0); transform: translate(0); }
+      60%  { text-shadow: -5px 3px #39FF14, 5px -3px #FF51FA; transform: translate(-2px, 0); }
+      70%  { text-shadow: 4px 0 #FF51FA, -4px 0 #39FF14; transform: translate(0); }
+      85%  { text-shadow: -3px 0 #AC89FF, 3px 0 #FF51FA; transform: translate(2px, 1px); }
+      100% { text-shadow: 4px 0 #FF51FA, -4px 0 #39FF14; transform: translate(0); }
+    }
 
-  <!-- Emoji clusters -->
-  <span class="absolute top-10 left-3 sm:left-10 text-2xl sm:text-4xl opacity-50 z-0 drop-shadow-[0_0_10px_#FF00FF] animate-float-medium">💀🍄😎</span>
-  <span class="absolute bottom-24 right-4 sm:right-20 text-3xl sm:text-5xl opacity-30 z-0 drop-shadow-[0_0_15px_#06f9f9] transform rotate-45 animate-float-slow hidden sm:block">🛹👾👽</span>
-  <span class="absolute top-1/4 right-1/4 text-2xl sm:text-3xl opacity-40 z-0 drop-shadow-[0_0_5px_#FF003C] -rotate-12 animate-float-fast hidden md:block">🤖💥👾</span>
+    @keyframes signal-scan {
+      0%   { transform: translateY(-100%); opacity: 0; }
+      10%  { opacity: 0.4; }
+      90%  { opacity: 0.4; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
 
-  <div class="z-10 flex flex-col items-center gap-6 sm:gap-12 w-full max-w-5xl px-3 sm:px-6 text-center">
-    <!-- Glitch Header -->
-    <h1 class="text-5xl sm:text-7xl lg:text-8xl text-center leading-none w-full break-words" style="position: relative; display: inline-block; animation: pulseGlitch 0.5s infinite; font-weight: 900; text-transform: uppercase; letter-spacing: -2px;">
-      <span class="block text-chaos-2xl glitch-intense">404</span>
-      <span class="block text-2xl sm:text-chaos-xl mt-2 sm:mt-4">BAD_TRIP /</span>
-      <span class="block text-2xl sm:text-chaos-xl text-accent-red">SECTOR CORRUPT</span>
-    </h1>
+    @keyframes static-flicker {
+      0%, 100% { opacity: 0.03; }
+      50%       { opacity: 0.07; }
+    }
 
-    <!-- ASCII Block -->
-    <div class="ascii-block w-full max-w-xs sm:max-w-lg chaos-rotate-n2 text-[9px] sm:text-sm overflow-hidden">
-      ▓▓▓ NAVIGATION_FAILED :: SECTOR_CORRUPT ▓▓▓
-      ░░░ REALITY_PTR: NULL :: RETURN: UNDEFINED ░░░
-      ███ 0x404 NOT_FOUND :: VOID_STATE: ACTIVE ███
+    @keyframes subtitle-blink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+
+    .error-404-text {
+      animation: glitch-404 3s infinite ease-in-out;
+      font-size: clamp(6rem, 22vw, 18rem);
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .theme-dark .error-404-text   { color: #e2e2e2; }
+    .theme-light .error-404-text  { color: #131313; }
+    .theme-extreme .error-404-text { color: #fff; }
+
+    .signal-lost {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(1.2rem, 4vw, 2.5rem);
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      font-weight: 700;
+    }
+
+    .theme-dark .signal-lost   { color: #39FF14; }
+    .theme-light .signal-lost  { color: #FF51FA; }
+    .theme-extreme .signal-lost { color: #8eff71; animation: subtitle-blink 1s step-end infinite; }
+
+    .noise-bg-404 {
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      animation: static-flicker 0.2s infinite steps(1);
+      pointer-events: none;
+      z-index: 0;
+      mix-blend-mode: overlay;
+    }
+
+    .scan-line {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(to right, transparent, rgba(57,255,20,0.6), transparent);
+      animation: signal-scan 4s linear infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .error-page-content {
+      position: relative;
+      z-index: 10;
+    }
+
+    .ascii-404 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(0.35rem, 1.2vw, 0.8rem);
+      line-height: 1.15;
+      white-space: pre;
+      user-select: none;
+    }
+
+    .theme-dark .ascii-404   { color: #39FF14; opacity: 0.6; }
+    .theme-light .ascii-404  { color: #FF51FA; opacity: 0.5; }
+    .theme-extreme .ascii-404 { color: #8eff71; opacity: 0.7; }
+
+    .return-btn {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 900;
+      font-style: italic;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .theme-dark .return-btn {
+      background: #39FF14;
+      color: #000;
+      box-shadow: 0 0 30px rgba(57,255,20,0.3);
+    }
+    .theme-light .return-btn {
+      background: #FF51FA;
+      color: #fff;
+      box-shadow: 0 0 30px rgba(255,81,250,0.3);
+    }
+    .theme-extreme .return-btn {
+      background: #8eff71;
+      color: #000;
+      box-shadow: 0 0 50px rgba(142,255,113,0.5), 20px 20px 0 #ff51fa;
+    }
+
+    .return-btn:hover {
+      transform: translateY(-3px) scale(1.04);
+    }
+    .return-btn:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    .corrupt-lines {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      opacity: 0.4;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .theme-dark .corrupt-lines   { color: #FF51FA; }
+    .theme-light .corrupt-lines  { color: #AC89FF; }
+    .theme-extreme .corrupt-lines { color: #ff51fa; }
+  </style>
+
+  <!-- Noise + scan line -->
+  <div class="noise-bg-404" aria-hidden="true"></div>
+  <div class="scan-line" aria-hidden="true"></div>
+
+  <main class="min-h-screen flex items-center justify-center pt-24 pb-16 px-4">
+    <div class="error-page-content flex flex-col items-center gap-6 sm:gap-10 text-center max-w-4xl w-full">
+
+      <!-- Big 404 -->
+      <div class="relative">
+        <div class="error-404-text select-none">404</div>
+        <!-- Glitch layer -->
+        <div class="error-404-text select-none absolute inset-0 opacity-40" style="clip-path:inset(40% 0 45% 0); animation: glitch-404 3s infinite ease-in-out 0.1s;" aria-hidden="true">404</div>
+      </div>
+
+      <!-- SIGNAL_LOST -->
+      <div class="signal-lost">SIGNAL_LOST</div>
+
+      <!-- Corrupt data lines -->
+      <div class="corrupt-lines space-y-1">
+        <div>▓▓▓ NAVIGATION_FAILED :: SECTOR_CORRUPT ▓▓▓</div>
+        <div>░░░ REALITY_PTR: NULL :: RETURN: UNDEFINED ░░░</div>
+        <div>███ 0x404 NOT_FOUND :: VOID_STATE: ACTIVE ███</div>
+      </div>
+
+      <!-- ASCII art -->
+      <pre class="ascii-404" aria-hidden="true">
+ _____ ___ _  _   _ _    ___  ___ _____
+/ ____|   \  \| | | |  | / _ \/ __||_   _|
+\__ \| |) | .` | |_| | |_) | (__ | |   
+|___/|___/|_|\_|\___/|____/ \___||_|   
+      </pre>
+
+      <!-- Return link -->
+      <a href="/" class="return-btn" data-reveal="scale">
+        ← RETURN_TO_BASE
+      </a>
+
+      <!-- Status codes -->
+      <div class="font-mono text-[10px] opacity-30 uppercase tracking-widest">
+        ERR_PAGE_NOT_FOUND &nbsp;|&nbsp; STATUS: 404 &nbsp;|&nbsp; REBOOT_RECOMMENDED
+      </div>
     </div>
-
-    <!-- Corrupt block -->
-    <div class="corrupt-block w-full max-w-xs sm:max-w-lg"></div>
-
-    <!-- Return Button -->
-    <a class="group relative cursor-pointer fractal-card px-6 sm:px-8 py-3 sm:py-4 z-20 hover:bg-accent-red hover:border-accent-red hover:text-background-dark transition-colors duration-0" href="/">
-      <span class="font-mono text-base sm:text-xl md:text-2xl font-bold uppercase tracking-widest block relative z-10 group-hover:animate-none text-primary group-hover:text-background-dark">
-        <span class="text-accent-red group-hover:text-background-dark animate-pulse-glitch inline-block mr-1 sm:mr-2">[&gt;</span>
-        PADDLE BACK OUT
-        <span class="text-accent-red group-hover:text-background-dark animate-pulse-glitch inline-block ml-1 sm:ml-2">&lt;]</span>
-      </span>
-      <div class="absolute inset-0 border-2 border-accent-red transform translate-x-2 translate-y-2 mix-blend-screen opacity-50 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform"></div>
-    </a>
-
-    <!-- ASCII Art -->
-    <div class="w-full flex justify-center overflow-hidden">
-      <pre class="font-mono text-center" style="font-size: clamp(0.4rem, 1.5vw, 0.9rem); line-height: 1.1; color: #00FFFF; text-shadow: 2px 0 #FF003C, -2px 0 #00FFFF; white-space: pre;">        .-.
-       (o.o)
-        |=|
-       __|__
-     //.=|=.\\
-    // .=|=. \\
-    \\ .=|=. //
-     \\(_=_)//
-      (:| |:)
-       || ||
-       () ()
-       || ||
-       || ||
-      ==' '==</pre>
-    </div>
-  </div>
+  </main>
 
 </BaseLayout>
