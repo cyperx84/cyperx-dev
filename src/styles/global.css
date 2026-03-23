@@ -121,10 +121,10 @@ body {
 }
 .glitch-text-extreme {
   text-shadow: 4px 0 #ff51fa, -4px 0 #8eff71, 0 4px #ac89ff;
-  animation: glitch-shake 0.15s infinite step-end;
+  animation: psychedelic-melt 6s ease-in-out infinite;
 }
 .glitch-text-animated {
-  animation: chaos-glitch 2s infinite linear alternate-reverse;
+  animation: chaos-glitch 6s infinite ease-in-out alternate-reverse;
 }
 
 /* ── Overlays ── */
@@ -154,7 +154,7 @@ body {
   top: -50%; left: -50%; right: -50%; bottom: -50%;
   width: 200%; height: 200%;
   background: transparent url('http://assets.iceable.com/img/noise-transparent.png') repeat 0 0;
-  animation: noise-shift 0.2s infinite;
+  animation: noise-shift 1.5s infinite;
   opacity: 0.08;
   pointer-events: none;
   z-index: 99;
@@ -192,7 +192,7 @@ body {
   border-image: linear-gradient(to right, #39FF14, #FF51FA, #39FF14) 1;
 }
 .glitch-border-vibrate {
-  animation: glitch-border 0.1s infinite step-end, glitch-shake 0.1s infinite step-end;
+  animation: glitch-border 4s ease-in-out infinite, liquid-warp 8s ease-in-out infinite;
   border: 4px solid #8eff71;
 }
 .over-expose:hover {
@@ -213,7 +213,7 @@ body {
   filter: hue-rotate(90deg) contrast(200%);
 }
 .melt-effect { animation: liquid-melt 4s ease-in-out infinite; }
-.vibrate { animation: vibrate-effect 0.1s infinite; }
+.vibrate { animation: vibrate-effect 5s ease-in-out infinite; }
 .melting-drip { position: relative; }
 .melting-drip::after {
   content: '';
@@ -522,12 +522,11 @@ body {
   100% { transform: translate(-50%,-50%) scale(1) rotate(360deg); }
 }
 @keyframes glitch-shake {
-  0%   { transform: translate(0); }
-  20%  { transform: translate(-5px,5px) skew(5deg); }
-  40%  { transform: translate(5px,-5px) skew(-5deg); }
-  60%  { transform: translate(-5px,-5px) skew(5deg); }
-  80%  { transform: translate(5px,5px) skew(-5deg); }
-  100% { transform: translate(0); }
+  0%   { transform: translate(0) skew(0deg); filter: hue-rotate(0deg); }
+  25%  { transform: translate(0) skew(-1deg, 0.5deg); filter: hue-rotate(30deg); }
+  50%  { transform: translate(0) skew(0.5deg, -0.5deg) scaleY(1.01); filter: hue-rotate(60deg); }
+  75%  { transform: translate(0) skew(-0.5deg, 1deg); filter: hue-rotate(90deg); }
+  100% { transform: translate(0) skew(0deg); filter: hue-rotate(0deg); }
 }
 @keyframes melt-jagged {
   0%   { clip-path: polygon(5% 0%, 100% 0%, 95% 85%, 70% 100%, 25% 95%, 0% 80%); }
@@ -535,16 +534,17 @@ body {
   100% { clip-path: polygon(5% 0%, 100% 0%, 95% 85%, 70% 100%, 25% 95%, 0% 80%); }
 }
 @keyframes chaos-glitch {
-  0%   { transform: translate(0); text-shadow: 2px 0 #ff51fa, -2px 0 #8eff71; }
-  2%   { transform: translate(-2px, 1px); }
-  4%   { transform: translate(2px,-1px); text-shadow: -3px 0 #00ffff, 3px 0 #ff00ff; }
-  6%   { transform: translate(0); }
-  100% { transform: translate(0); }
+  0%   { transform: translate(0) skew(0); text-shadow: 2px 0 #ff51fa, -2px 0 #8eff71; filter: hue-rotate(0deg); }
+  25%  { transform: translate(0) skew(-0.5deg); text-shadow: -4px 2px #00ffff, 4px -2px #ff00ff; filter: hue-rotate(45deg); }
+  50%  { transform: translate(0) skew(0.3deg); text-shadow: 3px 0 #ff51fa, -3px 0 #8eff71, 0 3px #ac89ff; filter: hue-rotate(90deg); }
+  75%  { transform: translate(0) skew(-0.3deg); text-shadow: -2px -1px #39FF14, 5px 1px #ff51fa; filter: hue-rotate(135deg); }
+  100% { transform: translate(0) skew(0); text-shadow: 2px 0 #ff51fa, -2px 0 #8eff71; filter: hue-rotate(0deg); }
 }
 @keyframes glitch-border {
-  0%   { border-color: #8eff71; outline: 5px solid #ff51fa; }
-  50%  { border-color: #ff51fa; outline: 5px solid #ac89ff; }
-  100% { border-color: #ac89ff; outline: 5px solid #8eff71; }
+  0%   { border-color: #8eff71; box-shadow: 0 0 15px #ff51fa, inset 0 0 10px rgba(142,255,113,0.1); }
+  33%  { border-color: #ff51fa; box-shadow: 0 0 20px #ac89ff, inset 0 0 15px rgba(255,81,250,0.1); }
+  66%  { border-color: #ac89ff; box-shadow: 0 0 15px #8eff71, inset 0 0 10px rgba(172,137,255,0.1); }
+  100% { border-color: #8eff71; box-shadow: 0 0 15px #ff51fa, inset 0 0 10px rgba(142,255,113,0.1); }
 }
 @keyframes liquid-melt {
   0%   { transform: scaleY(1); }
@@ -577,9 +577,28 @@ body {
   100% { transform: translate(5%,0); }
 }
 @keyframes vibrate-effect {
-  0%   { transform: translate(0); }
-  25%  { transform: translate(2px,-2px); }
-  50%  { transform: translate(-2px,2px); }
-  75%  { transform: translate(2px,2px); }
-  100% { transform: translate(0); }
+  0%   { transform: translate(0) skew(0); filter: hue-rotate(0deg) saturate(1); }
+  25%  { transform: translate(0) skew(-0.8deg, 0.3deg); filter: hue-rotate(40deg) saturate(1.5); }
+  50%  { transform: translate(0) skew(0.5deg, -0.5deg) scaleX(1.005); filter: hue-rotate(80deg) saturate(2); }
+  75%  { transform: translate(0) skew(-0.3deg, 0.8deg); filter: hue-rotate(120deg) saturate(1.5); }
+  100% { transform: translate(0) skew(0); filter: hue-rotate(0deg) saturate(1); }
+}
+
+/* ── Psychedelic Melt (slow trippy text) ── */
+@keyframes psychedelic-melt {
+  0%   { text-shadow: 4px 0 #ff51fa, -4px 0 #8eff71, 0 4px #ac89ff; filter: hue-rotate(0deg); transform: skew(0); }
+  20%  { text-shadow: -6px 3px #00ffff, 6px -3px #ff00ff, 0 6px #ac89ff; filter: hue-rotate(40deg); transform: skew(-0.5deg); }
+  40%  { text-shadow: 5px -2px #ff51fa, -5px 4px #39FF14, 3px 0 #ac89ff; filter: hue-rotate(80deg); transform: skew(0.3deg) scaleY(1.005); }
+  60%  { text-shadow: -4px 0 #00ffff, 7px 2px #ff51fa, -2px -5px #8eff71; filter: hue-rotate(120deg); transform: skew(-0.3deg); }
+  80%  { text-shadow: 3px 4px #ac89ff, -6px -1px #39FF14, 0 -4px #ff51fa; filter: hue-rotate(160deg); transform: skew(0.5deg) scaleY(0.998); }
+  100% { text-shadow: 4px 0 #ff51fa, -4px 0 #8eff71, 0 4px #ac89ff; filter: hue-rotate(0deg); transform: skew(0); }
+}
+
+/* ── Liquid Warp (slow card morphing) ── */
+@keyframes liquid-warp {
+  0%   { transform: skew(0) scaleY(1); }
+  25%  { transform: skew(-0.3deg, 0.2deg) scaleY(1.003); }
+  50%  { transform: skew(0.2deg, -0.3deg) scaleY(0.998); }
+  75%  { transform: skew(-0.2deg, 0.3deg) scaleY(1.002); }
+  100% { transform: skew(0) scaleY(1); }
 }
