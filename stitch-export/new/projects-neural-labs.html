@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CYPERX.DEV // NEURAL_EXPERIMENTS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-error": "#690005",
+                        "secondary-fixed-dim": "#ffaaf3",
+                        "secondary-fixed": "#ffd7f5",
+                        "error": "#ffb4ab",
+                        "on-surface-variant": "#baccb0",
+                        "surface": "#131313",
+                        "on-secondary-fixed": "#380038",
+                        "primary-fixed": "#79ff5b",
+                        "surface-container-highest": "#353535",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#810081",
+                        "primary-container": "#39ff14",
+                        "secondary": "#ffaaf3",
+                        "outline-variant": "#3c4b35",
+                        "on-tertiary-fixed-variant": "#532da0",
+                        "primary": "#efffe3",
+                        "on-primary-fixed-variant": "#095300",
+                        "tertiary-fixed-dim": "#d1bcff",
+                        "tertiary-container": "#e5d7ff",
+                        "on-surface": "#e2e2e2",
+                        "on-tertiary": "#3b0b89",
+                        "tertiary": "#fef8ff",
+                        "surface-container": "#1f1f1f",
+                        "outline": "#85967c",
+                        "on-background": "#e2e2e2",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-bright": "#393939",
+                        "on-secondary": "#5b005b",
+                        "surface-dim": "#131313",
+                        "inverse-on-surface": "#303030",
+                        "error-container": "#93000a",
+                        "inverse-primary": "#106e00",
+                        "tertiary-fixed": "#e9ddff",
+                        "on-secondary-container": "#fff0f8",
+                        "on-primary": "#053900",
+                        "surface-container-lowest": "#0e0e0e",
+                        "background": "#131313",
+                        "on-tertiary-fixed": "#23005b",
+                        "on-tertiary-container": "#6e4bbd",
+                        "primary-fixed-dim": "#2ae500",
+                        "surface-tint": "#2ae500",
+                        "surface-variant": "#353535",
+                        "surface-container-low": "#1b1b1b",
+                        "inverse-surface": "#e2e2e2",
+                        "on-primary-fixed": "#022100",
+                        "secondary-container": "#c600c6",
+                        "on-primary-container": "#107100"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Space Grotesk"],
+                        "label": ["JetBrains Mono"]
+                    },
+                    borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glitch-text:hover {
+            text-shadow: 2px 0 #FF51FA, -2px 0 #39FF14;
+        }
+        .scanline {
+            background: linear-gradient(to bottom, rgba(255,255,255,0) 50%, rgba(0,0,0,.1) 50%), linear-gradient(90deg, rgba(255,0,0,.03), rgba(0,255,0,.01), rgba(0,0,255,.03));
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+        }
+        .liquid-shadow {
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.4);
+        }
+        .shard-clip-1 { clip-path: polygon(0 0, 100% 5%, 95% 100%, 5% 90%); }
+        .shard-clip-2 { clip-path: polygon(5% 0, 100% 0, 90% 95%, 0 100%); }
+        .shard-clip-3 { clip-path: polygon(0 15%, 95% 0, 100% 85%, 10% 100%); }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container overflow-x-hidden">
+<!-- Global Scanline Overlay -->
+<div class="fixed inset-0 z-[100] scanline opacity-20 pointer-events-none"></div>
+<!-- TopAppBar -->
+<nav class="fixed top-0 w-full flex justify-between items-center px-8 py-6 bg-[#131313]/80 backdrop-blur-xl z-50 shadow-[0_2px_0_0_rgba(57,255,20,0.2)] [clip-path:polygon(0_0,100%_0,98%_100%,0_92%)]">
+<div class="text-3xl font-black text-[#39FF14] [text-shadow:2px_0_#FF51FA,-2px_0_#AC89FF] font-['Space_Grotesk'] uppercase tracking-tighter italic animate-pulse">
+            CYPERX.DEV
+        </div>
+<div class="hidden md:flex gap-12 font-['Space_Grotesk'] uppercase tracking-tighter italic">
+<a class="text-[#e2e2e2] hover:animate-ping hover:text-[#FF51FA] hover:skew-x-12 transition-all duration-75" href="#">HOME</a>
+<a class="text-[#e2e2e2] hover:animate-ping hover:text-[#FF51FA] hover:skew-x-12 transition-all duration-75" href="#">BLOG</a>
+<a class="text-[#39FF14] border-b-2 border-[#39FF14] pb-1 hover:text-[#FF51FA] hover:skew-x-12 transition-all duration-75" href="#">PROJECTS</a>
+</div>
+<button class="bg-primary-container text-on-primary-container px-6 py-2 font-black italic tracking-tighter [clip-path:polygon(10%_0,100%_0,90%_100%,0_100%)] hover:bg-secondary transition-colors">
+            TRIPP_MODE
+        </button>
+</nav>
+<main class="pt-32 pb-24 px-6 md:px-20 max-w-screen-2xl mx-auto">
+<!-- Hero Section -->
+<header class="mb-32">
+<div class="flex items-center gap-4 mb-6">
+<span class="font-label text-primary-container text-sm tracking-widest bg-surface-container-highest px-3 py-1">SYSTEM_STATUS: ACTIVE</span>
+<div class="h-[2px] flex-grow bg-gradient-to-r from-primary-container to-transparent"></div>
+</div>
+<h1 class="text-6xl md:text-9xl font-black uppercase tracking-tighter italic leading-none mb-8">
+                Neural<br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-container via-secondary to-tertiary-container">Experiments</span>
+</h1>
+<p class="max-w-2xl font-body text-xl text-on-surface-variant leading-relaxed">
+                Breaching the interface between biological consciousness and synthetic architecture. These shards represent 0.01% of the terminal entropy logged in the void.
+            </p>
+</header>
+<!-- Project Grid: Neural Shards -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-y-32 gap-x-16 relative">
+<!-- Project Shard 01 -->
+<div class="group relative flex flex-col items-start">
+<div class="absolute -top-12 -left-8 font-label text-9xl text-surface-container-highest opacity-20 font-black z-0">01</div>
+<div class="relative w-full aspect-[4/3] bg-surface-container-high overflow-hidden shard-clip-1 transition-all duration-500 hover:scale-[1.02] hover:-rotate-1 z-10">
+<img alt="Fractal digital patterns" class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700 blur-[2px] group-hover:blur-0" data-alt="Abstract fractal glowing green and pink digital web" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMLs646RYBEcNq9KsYvkSSFOOOso6g35yHIpDU_O9oZKRKlUM3OhobOBvbRRywDUn57adyRlqcUTbss0qk6qD_bP1hzVSSyz92D0rbCg9KQsJxFnTYMQF1lul7FNcWVug1Stt06omRl0ql5X9gSZ0RwMF0uIcgPulnICGf5UmCnEnsOgPPN6Atd7s_3y8UGwXj7B-4OuXSjJscYz-qJ-zMo3qFQWhVkXvsTRya3GFsB_J5Y_H6ln8AqCAQnD1cTTwN-g4rdwgPhVc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
+<div class="absolute top-6 right-6 font-label text-primary-container bg-background/80 backdrop-blur px-4 py-2 border border-primary-container/20">
+                        LATENCY: 4ms
+                    </div>
+</div>
+<div class="mt-8 px-4 z-20">
+<h3 class="text-4xl font-black italic tracking-tighter mb-4 group-hover:text-primary-container transition-colors">PROJECT_VOID_WALKER</h3>
+<p class="font-label text-sm text-secondary mb-6 tracking-tight">STATUS: DECRYPTING_ARRAY...</p>
+<p class="font-body text-on-surface-variant mb-8 max-w-md">
+                        A generative architecture that maps user biometric feedback into real-time procedural voxel landscapes.
+                    </p>
+<button class="bg-primary-container text-on-primary-container px-8 py-4 font-black italic tracking-tighter [clip-path:polygon(5%_0%,_100%_0%,_95%_100%,_0%_100%)] liquid-shadow hover:bg-secondary transition-all hover:translate-x-2">
+                        INITIATE_BREACH
+                    </button>
+</div>
+</div>
+<!-- Project Shard 02 -->
+<div class="group relative flex flex-col items-end text-right lg:mt-48">
+<div class="absolute -top-12 -right-8 font-label text-9xl text-surface-container-highest opacity-20 font-black z-0">02</div>
+<div class="relative w-full aspect-[4/3] bg-surface-container-high overflow-hidden shard-clip-2 transition-all duration-500 hover:scale-[1.02] hover:rotate-1 z-10">
+<img alt="Cybernetic data clusters" class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700 blur-[2px] group-hover:blur-0" data-alt="Digital clusters of light flowing like data neon pink" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3xKb8JnprxqKBS0Fz4AU2GO9qS3lH7liyTzaZoC9jLd-G0JVrQieKrIZ7q70Z8p9fEtiltX15B-sI8e71VeD1VegJp5fPkItiG11-sw8k8bcXMxRBNHtoetMAYomWEme0OoWklqPbegIrSDkxT6CMsaKzuHV0_4e8d9OpjYjOoIr-PadAPVhUj5zuHqb8y7wBLJIklTmEWZwcB4uu1LLc9gXeQFY06NiwEe-F32lF-MuFXQeFGhx8cRuGTOUD8ZVKjsGpG1K5oEo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
+<div class="absolute top-6 left-6 font-label text-secondary bg-background/80 backdrop-blur px-4 py-2 border border-secondary/20">
+                        ENTROPY: 94%
+                    </div>
+</div>
+<div class="mt-8 px-4 z-20">
+<h3 class="text-4xl font-black italic tracking-tighter mb-4 group-hover:text-secondary transition-colors">SYNTHETIC_ECHO</h3>
+<p class="font-label text-sm text-primary-container mb-6 tracking-tight">RECURSION_LEVEL: 0x09</p>
+<p class="font-body text-on-surface-variant mb-8 max-w-md ml-auto">
+                        Deep-learning audio synthesizers that capture ambient electronic smog and convert it into melodic ghost-data.
+                    </p>
+<button class="bg-secondary text-on-secondary px-8 py-4 font-black italic tracking-tighter [clip-path:polygon(5%_0%,_100%_0%,_95%_100%,_0%_100%)] shadow-[0_0_20px_rgba(255,81,250,0.4)] hover:bg-primary-container transition-all hover:-translate-x-2">
+                        ACCESS_TERMINAL
+                    </button>
+</div>
+</div>
+<!-- Project Shard 03 -->
+<div class="group relative flex flex-col items-start lg:-mt-24">
+<div class="absolute -top-12 -left-8 font-label text-9xl text-surface-container-highest opacity-20 font-black z-0">03</div>
+<div class="relative w-full aspect-video bg-surface-container-high overflow-hidden shard-clip-3 transition-all duration-500 hover:scale-[1.02] hover:skew-y-1 z-10">
+<img alt="Iridescent liquid metal" class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700 blur-[2px] group-hover:blur-0" data-alt="Iridescent fluid metal textures with toxic green highlights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdBfEfKLYQNmmKw2HK37tgSCu9kgVugHN4zmM19TJZ6wLcSqkfZ3-hqkOq4H6-fQwQM5lKCSxU-_pBbPPbtE6AXhmSQMX7JrqMDRMfhyLk6W9akMGyRKWXEf89OgOlOXFASLYy3rVSXdLG1jTVTbwfA4vKCR7YgDoysAw1h_I2IvEfVJXDmiSLzEd7yKjHDpwble0S3rP6gS1PnO9OjfgwRgXOXKjEN63iqh3ulwBEzRJb-RzL8px9UN0N6ESDpL_Bb6Iqd-cO094"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
+</div>
+<div class="mt-8 px-4 z-20">
+<h3 class="text-4xl font-black italic tracking-tighter mb-4 group-hover:text-tertiary-fixed-dim transition-colors">LIQUID_DREAMS_v2</h3>
+<p class="font-label text-sm text-on-surface-variant mb-6 tracking-tight">ENCRYPTION: QUANTUM_64</p>
+<p class="font-body text-on-surface-variant mb-8 max-w-md">
+                        A browser-based shader experiment utilizing WebGL to simulate the flow of data within a non-Euclidean digital ocean.
+                    </p>
+<button class="bg-surface-bright text-on-background px-8 py-4 font-black italic tracking-tighter [clip-path:polygon(5%_0%,_100%_0%,_95%_100%,_0%_100%)] border border-primary-container/40 hover:bg-primary-container hover:text-on-primary transition-all">
+                        RUN_SCRIPT
+                    </button>
+</div>
+</div>
+<!-- Project Shard 04 (Bento Shard) -->
+<div class="group relative flex flex-col items-center justify-center lg:mt-24 p-12 bg-surface-container-lowest border border-primary-container/10 [clip-path:polygon(0%_10%,_100%_0%,_90%_100%,_10%_90%)] overflow-hidden">
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<img alt="Network grid" class="w-full h-full object-cover" data-alt="Complex digital circuitry and network grid lines" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEqs2_hnURmltmYXuRuiP5LSWgCjVRyGrw4Mi2LOcE-leNdceKhkMr4b7X4ZsFuscW4CuMlIb2tDJrpAHRCfNVsw1h6pScP7jJcvR07IgtY3KBuq7AeNnJO9Ck7E051ZQTPY76EsPthfmp82xdYoq8llVlPFIuIDa08K1WIhXzI0bk9U7jQ1fDA3iWezKh8wCRjbNQQ38GEOOy_3wYOo68a7UZBf2a-fLWddgv08TvdfpBCxQk0Kf8ySftQ6Npij9u5EcAG0Y82HU"/>
+</div>
+<div class="relative z-10 text-center">
+<span class="material-symbols-outlined text-6xl text-primary-container mb-6 animate-pulse">radar</span>
+<h3 class="text-3xl font-black italic tracking-tighter mb-4">MORE_FRAGMENTED_DATA</h3>
+<p class="font-label text-xs uppercase tracking-widest text-on-surface-variant mb-8">Loading upcoming experiments...</p>
+<div class="flex gap-4 justify-center">
+<div class="w-2 h-8 bg-primary-container animate-bounce"></div>
+<div class="w-2 h-8 bg-secondary animate-bounce [animation-delay:0.2s]"></div>
+<div class="w-2 h-8 bg-tertiary animate-bounce [animation-delay:0.4s]"></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 px-10 flex flex-col md:flex-row justify-between items-end gap-4 bg-[#0e0e0e] border-t border-[#39FF14]/10 [clip-path:polygon(2%_0,100%_8%,100%_100%,0_100%)] shadow-[0_-10px_30px_rgba(172,137,255,0.05)]">
+<div class="flex flex-col gap-2">
+<div class="text-[#39FF14] font-bold text-xl font-['Space_Grotesk'] tracking-tighter italic">CYPERX.DEV</div>
+<div class="font-mono text-[10px] uppercase tracking-widest text-[#AC89FF]">SYSTEM ENTROPY: 99.9% | STABLE BEYOND VOID</div>
+</div>
+<div class="flex gap-8 font-mono text-[10px] uppercase tracking-widest">
+<a class="text-[#e2e2e2]/60 hover:text-[#39FF14] hover:line-through transition-all hover:blur-[1px]" href="#">TERMINAL</a>
+<a class="text-[#e2e2e2]/60 hover:text-[#39FF14] hover:line-through transition-all hover:blur-[1px]" href="#">REACH_OUT</a>
+<a class="text-[#e2e2e2]/60 hover:text-[#39FF14] hover:line-through transition-all hover:blur-[1px]" href="#">LEGAL_VOID</a>
+</div>
+<div class="font-mono text-[10px] text-[#e2e2e2]/40">
+            © 2024 / NO RIGHTS RESERVED / COPYLEFT
+        </div>
+</footer>
+<!-- Fixed UI Accents -->
+<div class="fixed bottom-8 left-8 z-[60] flex flex-col gap-2 pointer-events-none">
+<div class="h-12 w-1 bg-primary-container"></div>
+<div class="font-label text-[10px] text-primary-container vertical-text [writing-mode:vertical-rl] tracking-widest">CONNECTED_TO_NODE_7</div>
+</div>
+<div class="fixed top-1/2 right-4 -translate-y-1/2 z-[60] hidden md:flex flex-col gap-8 pointer-events-none opacity-40">
+<span class="font-label text-xs">P_01</span>
+<span class="font-label text-xs text-primary-container">P_02</span>
+<span class="font-label text-xs">P_03</span>
+<span class="font-label text-xs">P_04</span>
+</div>
+</body></html>

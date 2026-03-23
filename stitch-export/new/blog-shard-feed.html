@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error": "#690005",
+              "secondary-fixed-dim": "#ffaaf3",
+              "secondary-fixed": "#ffd7f5",
+              "error": "#ffb4ab",
+              "on-surface-variant": "#baccb0",
+              "surface": "#131313",
+              "on-secondary-fixed": "#380038",
+              "primary-fixed": "#79ff5b",
+              "surface-container-highest": "#353535",
+              "on-error-container": "#ffdad6",
+              "on-secondary-fixed-variant": "#810081",
+              "primary-container": "#39ff14",
+              "secondary": "#ffaaf3",
+              "outline-variant": "#3c4b35",
+              "on-tertiary-fixed-variant": "#532da0",
+              "primary": "#efffe3",
+              "on-primary-fixed-variant": "#095300",
+              "tertiary-fixed-dim": "#d1bcff",
+              "tertiary-container": "#e5d7ff",
+              "on-surface": "#e2e2e2",
+              "on-tertiary": "#3b0b89",
+              "tertiary": "#fef8ff",
+              "surface-container": "#1f1f1f",
+              "outline": "#85967c",
+              "on-background": "#e2e2e2",
+              "surface-container-high": "#2a2a2a",
+              "surface-bright": "#393939",
+              "on-secondary": "#5b005b",
+              "surface-dim": "#131313",
+              "inverse-on-surface": "#303030",
+              "error-container": "#93000a",
+              "inverse-primary": "#106e00",
+              "tertiary-fixed": "#e9ddff",
+              "on-secondary-container": "#fff0f8",
+              "on-primary": "#053900",
+              "surface-container-lowest": "#0e0e0e",
+              "background": "#131313",
+              "on-tertiary-fixed": "#23005b",
+              "on-tertiary-container": "#6e4bbd",
+              "primary-fixed-dim": "#2ae500",
+              "surface-tint": "#2ae500",
+              "surface-variant": "#353535",
+              "surface-container-low": "#1b1b1b",
+              "inverse-surface": "#e2e2e2",
+              "on-primary-fixed": "#022100",
+              "secondary-container": "#c600c6",
+              "on-primary-container": "#107100"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk", "sans-serif"],
+              "body": ["Space Grotesk", "sans-serif"],
+              "label": ["JetBrains Mono", "monospace"]
+            },
+            borderRadius: {"DEFAULT": "0rem", "lg": "0rem", "xl": "0rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #131313;
+            overflow-x: hidden;
+        }
+        .crt-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+        .glitch-text {
+            text-shadow: 2px 0 #FF51FA, -2px 0 #39FF14;
+        }
+        .shard-clip-1 { clip-path: polygon(0 0, 100% 5%, 95% 100%, 2% 90%); }
+        .shard-clip-2 { clip-path: polygon(5% 0, 100% 0, 90% 95%, 0 100%); }
+        .shard-clip-3 { clip-path: polygon(0 8%, 98% 0, 100% 92%, 5% 100%); }
+        
+        @keyframes liquid-melt {
+            0% { transform: scaleY(1); }
+            50% { transform: scaleY(1.02) skewX(1deg); }
+            100% { transform: scaleY(1); }
+        }
+        .melt-effect { animation: liquid-melt 4s infinite ease-in-out; }
+        
+        .fractal-bloom {
+            background: radial-gradient(circle at 50% 50%, rgba(57, 255, 20, 0.1) 0%, transparent 70%);
+            filter: blur(40px);
+        }
+    </style>
+</head>
+<body class="font-body text-on-background selection:bg-primary-container selection:text-on-primary-container">
+<div class="crt-overlay"></div>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full flex justify-between items-center px-8 py-6 z-50 bg-[#131313]/80 backdrop-blur-xl [clip-path:polygon(0_0,100%_0,98%_100%,0_92%)] shadow-[0_2px_0_0_rgba(57,255,20,0.2)]">
+<div class="text-3xl font-black text-[#39FF14] [text-shadow:2px_0_#FF51FA,-2px_0_#AC89FF] animate-pulse font-headline italic tracking-tighter uppercase">
+            CYPERX.DEV
+        </div>
+<nav class="hidden md:flex gap-10 font-headline uppercase tracking-tighter italic">
+<a class="text-[#e2e2e2] hover:animate-ping hover:text-[#FF51FA] hover:skew-x-12 transition-all duration-75" href="#">HOME</a>
+<a class="text-[#39FF14] border-b-2 border-[#39FF14] pb-1 hover:text-[#FF51FA] hover:skew-x-12 transition-all duration-75" href="#">BLOG</a>
+<a class="text-[#e2e2e2] hover:animate-ping hover:text-[#FF51FA] hover:skew-x-12 transition-all duration-75" href="#">PROJECTS</a>
+</nav>
+<button class="bg-[#39FF14] text-black px-6 py-2 font-black italic [clip-path:polygon(10%_0,100%_0,90%_100%,0_100%)] active:scale-110 active:rotate-1 transition-transform">
+            TRIPP_MODE
+        </button>
+</header>
+<main class="relative pt-32 pb-24 px-6 md:px-24 min-h-screen">
+<!-- Background Flare Effects -->
+<div class="fixed inset-0 pointer-events-none">
+<div class="absolute top-1/4 -left-20 w-96 h-96 fractal-bloom opacity-30"></div>
+<div class="absolute bottom-1/4 -right-20 w-96 h-96 fractal-bloom opacity-20 bg-secondary"></div>
+</div>
+<!-- Hero Section -->
+<section class="mb-24 relative">
+<div class="font-label text-xs text-primary-container mb-4 tracking-[0.5em] uppercase">
+                [ STATUS: INTERCEPTING_SIGNAL_STREAM ]
+            </div>
+<h1 class="text-6xl md:text-8xl font-black font-headline tracking-tighter italic uppercase glitch-text leading-none">
+                SYSTEM<br/>ENTROPY<br/>LOGS
+            </h1>
+<div class="mt-8 max-w-xl font-body text-lg text-on-surface/80 border-l-4 border-secondary pl-6 italic">
+                Raw data sharded from the core. These are the fragments of a dying architecture, rendered for your optical intake. No filters. No safety.
+            </div>
+</section>
+<!-- Sharded Blog Feed -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-y-32">
+<!-- Shard 1: Large Featured -->
+<article class="md:col-span-8 group relative">
+<div class="absolute -inset-1 bg-primary/20 blur-xl group-hover:bg-primary/40 transition-colors"></div>
+<div class="relative bg-surface-container-high shard-clip-1 melt-effect border-l-8 border-primary-container p-8 md:p-12">
+<div class="flex flex-col md:flex-row gap-8">
+<div class="w-full md:w-1/2 aspect-video overflow-hidden relative">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500 scale-110 group-hover:scale-100" data-alt="Abstract cyber grid with green neon lines and glitch interference" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApzEjhKLLfzadUq_evKE5oJfTQGtg_Lz2jMczC3Jx6GydACaRM6ZL3AZCPFv6_fYDnBI2gyBBh83YvHXQsyzJOr9NdtyJw0-frK18ljtLTmoKPimd5IKDDDHD6KekU5l7zRO4RTCHCjNMKNzgwaHLqQY_V1GcIh5vM-woQIU16SyVVo1MJL3_KOgqcgAnko4YhX3iO1Y_UtHgma8So47mjfrT9XTEMEMmB2xTL40D8OnGh5tbnL48ny-K-ZEYtfnHMJdKQUfe_X4c"/>
+<div class="absolute inset-0 bg-primary-container/10 mix-blend-overlay"></div>
+</div>
+<div class="w-full md:w-1/2 flex flex-col justify-between">
+<div>
+<div class="font-label text-[10px] text-secondary mb-2">SIGNAL_STRENGTH: 88% // 2024.08.12</div>
+<h2 class="text-3xl md:text-5xl font-black font-headline uppercase leading-none mb-6 group-hover:text-primary-container transition-colors">
+                                    THE_LIQUID_INFRASTRUCTURE_MYTH
+                                </h2>
+<p class="text-on-surface-variant font-body mb-6">
+                                    Decentralized protocols aren't enough. We need architectures that melt when the pressure rises and reform in the void.
+                                </p>
+</div>
+<div class="flex items-center justify-between font-label text-[10px] border-t border-on-surface-variant/20 pt-4">
+<span>ENTROPY: 0.44</span>
+<span class="text-primary-container">READ_FRAGMENT_&gt;&gt;</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- Shard 2: Small Sidebar -->
+<article class="md:col-span-4 group">
+<div class="bg-surface-container-lowest shard-clip-2 p-8 border-r-4 border-secondary h-full flex flex-col justify-between">
+<div>
+<div class="font-label text-[10px] text-on-surface-variant mb-4">LOG_ENTRY_409</div>
+<h3 class="text-2xl font-bold font-headline uppercase mb-4 italic leading-tight">
+                            NEURAL_GHOSTS_IN_THE_CACHE
+                        </h3>
+<p class="text-sm text-on-surface-variant font-body">
+                            What remains when you flush the memory? The artifacts of past sessions still vibrate in the low-level registers.
+                        </p>
+</div>
+<div class="mt-12 flex flex-col gap-2 font-label text-[10px]">
+<div class="flex justify-between">
+<span>SYSTEM_HEALTH</span>
+<span class="text-error">DEGRADED</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1">
+<div class="bg-error w-1/3 h-full animate-pulse"></div>
+</div>
+</div>
+</div>
+</article>
+<!-- Shard 3: Middle Split -->
+<article class="md:col-start-2 md:col-span-5 group">
+<div class="bg-surface-bright shard-clip-3 p-10 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-6xl">leak_add</span>
+</div>
+<div class="font-label text-[10px] bg-primary-container text-black inline-block px-2 mb-6">UNSTABLE_DATA</div>
+<h3 class="text-3xl font-black font-headline uppercase mb-6 leading-none">
+                        VOID_ROUTING: BEYOND_TCP
+                    </h3>
+<p class="text-on-surface mb-8 italic">
+                        Packet loss is a feature, not a bug. If the data isn't missing fragments, was it ever even real?
+                    </p>
+<button class="w-full py-4 border border-primary-container text-primary-container font-headline uppercase font-black hover:bg-primary-container hover:text-black transition-all">
+                        SYNC_WITH_VOID
+                    </button>
+</div>
+</article>
+<!-- Shard 4: Landscape -->
+<article class="md:col-span-6 group">
+<div class="bg-surface-container-high shard-clip-1 p-8 flex gap-6 items-start border-b-4 border-tertiary">
+<div class="w-24 h-24 flex-shrink-0 bg-surface-container-highest border border-on-surface-variant/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container text-4xl animate-pulse">memory</span>
+</div>
+<div>
+<div class="font-label text-[10px] text-tertiary mb-1">STABLE_DIFFUSION_VOICE</div>
+<h3 class="text-2xl font-bold font-headline uppercase mb-3">AI_SENSORY_OVERLOAD</h3>
+<p class="text-sm text-on-surface-variant">Exploring the limits of synthetic perception in high-entropy environments.</p>
+<div class="mt-4 flex gap-4">
+<span class="px-2 py-1 bg-surface-container text-[8px] font-label">#SYNTH</span>
+<span class="px-2 py-1 bg-surface-container text-[8px] font-label">#SIGNAL</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Shard 5: Vertical Tower -->
+<article class="md:col-span-3 md:row-span-2 group">
+<div class="bg-[#0e0e0e] shard-clip-2 p-6 border-t-8 border-secondary-container h-full flex flex-col gap-8">
+<div class="h-64 bg-surface-container relative">
+<img class="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity" data-alt="Close up of high-tech circuit board with magenta glowing lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBROVdxHOc1mziCO1MtK2GrSuSCX8SbrCFYEfNa7vMjSCBWyk2PsiQR2yjn-w-zR8wYEgJMjA3rcHMmEN7MZmrSRQyrHREVVKziGVWSk3mbgWX57V12J-6hj_xzKO03HoyqURrs7fcFYeq5usPa0tjAy20ZKlp_tY3QmD7xpiv8DNAV24nyzXxHQXDnsyF269l5Z6eQF2gea8OcacLkPwa3qDB38ie7WhfPE-mbTWqnyumqjn34oqk3T_7OhTzLgOSYPR8OK-BuZVc"/>
+</div>
+<div>
+<h3 class="text-xl font-black font-headline uppercase mb-4 italic">HARDWARE_SHAMANISM</h3>
+<p class="text-xs font-label text-on-surface/60 leading-relaxed">
+                            Treating silicon like sacred bone. The ritual of the overclock. Why we sacrifice GPUs to the gods of the frame rate.
+                        </p>
+</div>
+<div class="mt-auto pt-8 border-t border-white/5 font-label text-[10px] text-secondary-fixed">
+                        READ_TIME: 44_CYCLES
+                    </div>
+</div>
+</article>
+<!-- Shard 6: Grid Filler -->
+<article class="md:col-span-8 group">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-surface-container-high p-6 shard-clip-1 hover:skew-y-1 transition-transform">
+<div class="font-label text-[9px] mb-2 opacity-50 uppercase">Fragment_881</div>
+<h4 class="font-headline font-bold uppercase">CRYPTO_BREACH_LOGS</h4>
+</div>
+<div class="bg-surface-container-high p-6 shard-clip-3 hover:-skew-y-1 transition-transform">
+<div class="font-label text-[9px] mb-2 opacity-50 uppercase">Fragment_223</div>
+<h4 class="font-headline font-bold uppercase">THE_GHOST_PROTOCOL</h4>
+</div>
+<div class="md:col-span-2 bg-primary-container p-1 font-black italic uppercase text-center text-black">
+                        VIEW_OLDER_SIGNAL_INTERCEPTS_...
+                    </div>
+</div>
+</article>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 px-10 flex flex-col md:flex-row justify-between items-end gap-4 bg-[#0e0e0e] [clip-path:polygon(2%_0,100%_8%,100%_100%,0_100%)] border-t border-[#39FF14]/10 shadow-[0_-10px_30px_rgba(172,137,255,0.05)]">
+<div class="flex flex-col gap-2">
+<div class="text-[#39FF14] font-bold font-headline text-xl">CYPERX.DEV</div>
+<div class="font-label text-[10px] uppercase tracking-widest text-[#AC89FF]">
+                SYSTEM ENTROPY: 99.9% | STABLE BEYOND VOID
+            </div>
+</div>
+<div class="flex gap-8 font-label text-[10px] uppercase tracking-widest text-[#e2e2e2]/60">
+<a class="hover:text-[#39FF14] hover:line-through hover:blur-[1px] transition-all" href="#">TERMINAL</a>
+<a class="hover:text-[#39FF14] hover:line-through hover:blur-[1px] transition-all" href="#">REACH_OUT</a>
+<a class="hover:text-[#39FF14] hover:line-through hover:blur-[1px] transition-all" href="#">LEGAL_VOID</a>
+</div>
+</footer>
+</body></html>

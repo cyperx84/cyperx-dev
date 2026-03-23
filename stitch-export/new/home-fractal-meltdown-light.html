@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FRACTAL_VOID // TOTAL_ENTROPY_OVERFLOW</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed": "#bda1ff",
+              "error-container": "#b92902",
+              "inverse-on-surface": "#555555",
+              "error-dim": "#d53d18",
+              "secondary-dim": "#ff51fa",
+              "surface-container-high": "#1f1f1f",
+              "secondary-container": "#a900a9",
+              "on-primary-container": "#0b5800",
+              "on-primary-fixed": "#064200",
+              "inverse-surface": "#f9f9f9",
+              "on-tertiary-container": "#f8f1ff",
+              "on-primary": "#0d6100",
+              "background": "#ffffff",
+              "on-secondary-container": "#fff5f9",
+              "outline-variant": "#484848",
+              "secondary": "#ff51fa",
+              "primary-container": "#2ff801",
+              "surface-container-highest": "#262626",
+              "on-secondary-fixed-variant": "#920091",
+              "on-error-container": "#ffd2c8",
+              "primary-fixed": "#2ff801",
+              "surface": "#ffffff",
+              "on-surface-variant": "#ababab",
+              "on-background": "#000000",
+              "primary-dim": "#2be800",
+              "tertiary": "#ac89ff",
+              "surface-container": "#f5f5f5",
+              "inverse-primary": "#106f00",
+              "surface-dim": "#e0e0e0",
+              "on-secondary": "#400040",
+              "surface-bright": "#ffffff",
+              "tertiary-dim": "#874cff",
+              "surface-container-low": "#f9f9f9",
+              "surface-variant": "#eeeeee",
+              "surface-tint": "#8eff71",
+              "primary-fixed-dim": "#2be800",
+              "on-tertiary-fixed": "#1f0052",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed": "#620061",
+              "error": "#ff7351",
+              "secondary-fixed-dim": "#ffa6f3",
+              "secondary-fixed": "#ffbdf3",
+              "on-error": "#450900",
+              "outline": "#757575",
+              "on-tertiary": "#290067",
+              "tertiary-fixed-dim": "#b190ff",
+              "tertiary-container": "#7000ff",
+              "on-surface": "#000000",
+              "on-primary-fixed-variant": "#0d6200",
+              "primary": "#8eff71",
+              "on-tertiary-fixed-variant": "#4700a7"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Space Grotesk"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "0px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #ffffff;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(142, 255, 113, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(255, 81, 250, 0.2) 0%, transparent 50%),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3BaseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            font-family: 'Space Grotesk', sans-serif;
+            cursor: crosshair;
+            overflow-x: hidden;
+        }
+
+        /* Chaotic Clip Paths */
+        .extreme-shatter-1 { clip-path: polygon(10% 0%, 100% 5%, 85% 95%, 5% 100%, 0% 40%); }
+        .extreme-shatter-2 { clip-path: polygon(0% 15%, 85% 0%, 100% 90%, 20% 100%, 10% 50%); }
+        .extreme-shatter-3 { clip-path: polygon(5% 5%, 95% 2%, 98% 98%, 2% 95%, 40% 50%); }
+        .extreme-shatter-hero { clip-path: polygon(0% 0%, 90% 2%, 100% 80%, 40% 100%, 10% 90%); }
+        .extreme-shatter-nav { clip-path: polygon(0% 0%, 100% 0%, 95% 100%, 5% 70%); }
+        .extreme-shatter-button { clip-path: polygon(15% 0%, 100% 20%, 85% 100%, 0% 80%); }
+
+        /* Liquid Melting Edges */
+        .liquid-border {
+            filter: url('#liquid-filter');
+        }
+
+        .glitch-text {
+            text-shadow: 4px 0 #ff51fa, -4px 0 #8eff71;
+            animation: jitter 0.2s infinite ease-in-out alternate;
+        }
+
+        .chromatic-hover:hover {
+            filter: drop-shadow(4px 0px 0px rgba(255,81,250,0.8)) drop-shadow(-4px 0px 0px rgba(142,255,113,0.8));
+        }
+
+        @keyframes jitter {
+            0% { transform: translate(0,0); }
+            25% { transform: translate(2px, -1px); }
+            50% { transform: translate(-1px, 2px); }
+            75% { transform: translate(1px, 1px); }
+            100% { transform: translate(-2px, -2px); }
+        }
+
+        .shattered-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border: 4px solid #000;
+            box-shadow: 12px 12px 0px #000;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .shattered-panel:hover {
+            transform: scale(1.02) rotate(-1deg);
+            box-shadow: 18px 18px 0px #ff51fa;
+        }
+
+        .flicker-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(255,255,255,0);
+            pointer-events: none;
+            z-index: 9998;
+            animation: flicker-extreme 0.1s infinite;
+        }
+
+        @keyframes flicker-extreme {
+            0% { background: rgba(142, 255, 113, 0.08); opacity: 1; }
+            33% { background: rgba(255, 81, 250, 0.08); opacity: 0.5; }
+            66% { background: rgba(0, 0, 0, 0.05); opacity: 0.8; }
+            100% { background: rgba(255, 255, 255, 0.12); opacity: 0.3; }
+        }
+
+        .trip-pulse {
+            animation: fractal-vibrate 0.15s infinite;
+            background: linear-gradient(45deg, #000, #ff51fa, #000);
+            background-size: 200% 200%;
+        }
+
+        @keyframes fractal-vibrate {
+            0% { transform: translate(1px, 1px) rotate(0deg) scale(1); }
+            20% { transform: translate(-2px, 0px) rotate(1deg) scale(1.05); }
+            40% { transform: translate(2px, -1px) rotate(-1deg) scale(0.95); }
+            60% { transform: translate(-1px, 1px) rotate(0.5deg) scale(1.1); }
+            80% { transform: translate(1px, -2px) rotate(-0.5deg) scale(1); }
+            100% { transform: translate(0px, 0px) rotate(0deg) scale(1.02); }
+        }
+
+        .crt-scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: repeating-linear-gradient(rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 1px, transparent 1px, transparent 2px);
+            pointer-events: none;
+            z-index: 9999;
+        }
+        
+        .aggressive-skew {
+            transform: skewY(-2deg) rotate(1deg);
+        }
+
+        .float-random-1 { animation: float-1 8s infinite ease-in-out; }
+        @keyframes float-1 {
+            0%, 100% { transform: translateY(0) rotate(2deg); }
+            50% { transform: translateY(-20px) rotate(-3deg); }
+        }
+
+        .float-random-2 { animation: float-2 11s infinite ease-in-out; }
+        @keyframes float-2 {
+            0%, 100% { transform: translateX(0) rotate(-1deg); }
+            50% { transform: translateX(15px) rotate(4deg); }
+        }
+    </style>
+</head>
+<body class="selection:bg-primary selection:text-black overflow-x-hidden">
+<!-- SVG Filter for Liquid Effects -->
+<svg style="display:none;" xmlns="http://www.w3.org/2000/svg">
+<filter id="liquid-filter">
+<feturbulence basefrequency="0.02" numoctaves="3" result="noise" type="fractalNoise"></feturbulence>
+<fedisplacementmap in="SourceGraphic" in2="noise" scale="15"></fedisplacementmap>
+</filter>
+</svg>
+<div class="flicker-overlay"></div>
+<div class="crt-scanlines"></div>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white border-b-8 border-black extreme-shatter-nav flex justify-between items-center px-10 py-8 aggressive-skew">
+<div class="text-4xl font-black tracking-tighter text-black glitch-text font-headline rotate-[-2deg]">FRACTAL_VOID</div>
+<nav class="hidden md:flex items-center gap-12 rotate-[1deg]">
+<a class="font-black uppercase tracking-widest text-base text-secondary border-b-8 border-secondary hover:translate-x-2 transition-transform italic" href="#">HOME</a>
+<a class="font-black uppercase tracking-widest text-base text-black hover:bg-primary px-4 transition-all hover:-rotate-3" href="#">BLOG</a>
+<a class="font-black uppercase tracking-widest text-base text-black hover:bg-tertiary px-4 transition-all hover:rotate-3" href="#">PROJECTS</a>
+</nav>
+<div class="flex items-center gap-8">
+<button class="trip-pulse text-white px-8 py-3 font-black text-sm tracking-[0.5em] extreme-shatter-button hover:brightness-125 active:scale-150 transition-all border-2 border-primary">
+            TRIP_MODE
+        </button>
+<span class="material-symbols-outlined text-3xl text-black cursor-crosshair hover:rotate-[360deg] transition-transform duration-200" data-icon="sensors">sensors</span>
+</div>
+</header>
+<main class="pt-56 px-6 md:px-12 max-w-7xl mx-auto space-y-48 pb-32">
+<!-- Hero Section -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-16 items-center min-h-[800px] relative">
+<div class="md:col-span-8 space-y-12 z-20 float-random-1">
+<div class="inline-block bg-black text-primary px-6 py-3 font-black text-lg extreme-shatter-button -rotate-3 border-r-8 border-secondary">SYSTEM_ACCESS: OVERFLOW</div>
+<h1 class="text-8xl md:text-[11rem] font-black text-black leading-[0.8] glitch-text tracking-tighter italic aggressive-skew">
+                VOID<br/><span class="text-secondary not-italic ml-12">MELT</span><br/><span class="text-primary text-6xl md:text-8xl underline decoration-8 decoration-black">Σ_ERROR</span>
+</h1>
+<p class="text-2xl md:text-3xl text-black font-black max-w-2xl leading-none border-l-[16px] border-primary pl-10 rotate-1">
+                A high-contrast cognitive breach. The geometry is failing. The data is screaming in toxic neon.
+            </p>
+<div class="flex flex-wrap gap-10">
+<button class="bg-primary text-black px-12 py-8 font-black text-3xl extreme-shatter-1 hover:scale-110 transition-transform border-4 border-black shadow-[10px_10px_0px_#ff51fa]">BREACH_VOID</button>
+<button class="bg-white text-black border-8 border-black px-12 py-8 font-black text-3xl extreme-shatter-2 hover:bg-black hover:text-white transition-all -rotate-3">RECORDS_X</button>
+</div>
+</div>
+<div class="md:col-span-4 relative group float-random-2 md:-ml-20">
+<div class="absolute -inset-12 bg-secondary opacity-40 blur-[100px] group-hover:opacity-80 transition-opacity animate-pulse"></div>
+<div class="shattered-panel p-6 extreme-shatter-hero relative z-10 rotate-6 group-hover:rotate-[-10deg] transition-all duration-300 liquid-border">
+<img class="w-full aspect-[3/4] object-cover contrast-[2] brightness-125 grayscale hover:grayscale-0 transition-all duration-500 scale-110" data-alt="Abstract white and neon pink fractal liquid swirl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBN1_aRzr6iOO1ylvARhYeLfMLrxq9UQTwKAUW6OuTvy_qC1UZqNDQZr3_Vd1FOJLs83XnG79iON3-YgKAbwP4ANGlLGLT1VGoFWvGlIlalkg7SFGtw9QKfMMGot_DiSKK4pdel_3Y3JRzPimJBMGqu09si4_HuiJ5ok7thbbGJn5N9XaEYPDZqKNmoW5X5JY6XT89PoNkdi8loXP-C2GfMzjBmMWkLGK66lxg5t7wJu1rhm9wjH4c2OIKs3WakIabviUOiFd_tvqM"/>
+</div>
+</div>
+</section>
+<!-- Broken Grid / Overlapping Elements -->
+<section class="relative">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+<!-- Terminal 1: Gigantic Overlap -->
+<div class="md:col-span-3 shattered-panel extreme-shatter-1 relative overflow-hidden h-[600px] rotate-1 z-10 liquid-border">
+<div class="bg-black p-6 flex justify-between items-center">
+<span class="font-mono text-sm text-primary font-black animate-pulse">root@VOID_CORE://SLAUGHTER_HOUSE</span>
+<div class="flex gap-4">
+<div class="w-5 h-5 bg-error animate-ping"></div>
+<div class="w-5 h-5 bg-secondary rotate-45"></div>
+<div class="w-5 h-5 bg-primary -rotate-45"></div>
+</div>
+</div>
+<div class="p-16 space-y-10">
+<h3 class="text-6xl font-black text-black tracking-tighter italic glitch-text">LIQUID_FAILURE</h3>
+<div class="space-y-6 font-mono text-lg text-black font-black">
+<div class="flex justify-between border-b-8 border-black py-4">
+<span>FRACTURE_KEY</span>
+<span class="bg-primary px-4 py-1 rotate-2">!FF.000000</span>
+</div>
+<div class="flex justify-between border-b-8 border-black py-4">
+<span>ENTROPY_LVL</span>
+<span class="bg-secondary text-white px-4 py-1 -rotate-3">FATAL_OVERFLOW</span>
+</div>
+</div>
+<div class="mt-16 h-48 flex items-end gap-3 px-4">
+<div class="w-full bg-black h-[40%] animate-bounce extreme-shatter-1"></div>
+<div class="w-full bg-primary h-[90%] extreme-shatter-2"></div>
+<div class="w-full bg-black h-[100%] extreme-shatter-3 animate-pulse"></div>
+<div class="w-full bg-secondary h-[70%] extreme-shatter-hero"></div>
+<div class="w-full bg-primary h-[120%] extreme-shatter-1"></div>
+</div>
+</div>
+</div>
+<!-- Terminal 2: Small & Skewed -->
+<div class="md:col-span-1 shattered-panel extreme-shatter-3 relative overflow-hidden h-[500px] -mt-20 md:-ml-24 z-20 bg-primary/20 hover:scale-125 transition-all">
+<div class="bg-black p-4">
+<span class="font-mono text-xs text-secondary font-black">CORE_DUMP.EXE</span>
+</div>
+<div class="p-10 flex flex-col items-center justify-center h-full text-center space-y-10">
+<div class="w-40 h-40 border-[12px] border-black extreme-shatter-1 flex items-center justify-center group trip-pulse">
+<span class="material-symbols-outlined text-8xl text-black group-hover:rotate-[720deg] transition-all duration-1000" data-icon="cyclone">cyclone</span>
+</div>
+<h3 class="text-3xl font-black text-black uppercase glitch-text">SINK_HOLE</h3>
+<button class="w-full bg-black text-white py-6 font-black text-xl uppercase tracking-[0.6em] extreme-shatter-button hover:bg-secondary transition-all">PULL</button>
+</div>
+</div>
+<!-- Terminal 3: Floating / Rotated -->
+<div class="md:col-span-2 shattered-panel border-[12px] border-black relative overflow-hidden p-16 flex flex-col justify-between h-[550px] extreme-shatter-2 rotate-[-5deg] md:mt-10 z-0">
+<span class="material-symbols-outlined text-[15rem] text-black opacity-10 absolute -right-20 -bottom-20 rotate-[45deg] animate-pulse" data-icon="skull">skull</span>
+<h4 class="text-4xl font-black text-black tracking-[0.3em] italic">CORRUPTION</h4>
+<div class="text-[12rem] font-black text-black leading-none glitch-text -ml-10">666%</div>
+<div class="w-full h-12 bg-gray-300 border-8 border-black overflow-hidden extreme-shatter-3">
+<div class="h-full bg-secondary w-full trip-pulse"></div>
+</div>
+</div>
+<!-- Terminal 4: Massive Overlap/Aggressive Grid Break -->
+<div class="md:col-span-2 shattered-panel extreme-shatter-hero relative overflow-hidden group h-[600px] md:-mt-32 md:-ml-10 z-30 liquid-border">
+<div class="flex h-full flex-col md:flex-row">
+<div class="w-full md:w-1/2 p-12 space-y-8 flex flex-col justify-center bg-white">
+<div class="w-24 h-24 bg-black flex items-center justify-center text-primary text-6xl font-black extreme-shatter-1 rotate-12">Σ</div>
+<h3 class="text-5xl font-black text-black leading-tight italic glitch-text">THE_VOID_STAKES</h3>
+<p class="text-xl text-black font-black">Digital dissolution is not a failure. It is the evolution of the shard.</p>
+<ul class="space-y-6">
+<li class="flex items-center gap-5 text-lg font-black text-secondary chromatic-hover">
+<span class="material-symbols-outlined font-black text-4xl" data-icon="close">close</span>
+                                NO_UNDO_STATE
+                            </li>
+<li class="flex items-center gap-5 text-lg font-black text-primary chromatic-hover">
+<span class="material-symbols-outlined font-black text-4xl" data-icon="warning">warning</span>
+                                LEAK_CRITICAL
+                            </li>
+</ul>
+</div>
+<div class="w-full md:w-1/2 bg-black relative overflow-hidden">
+<img class="w-full h-full object-cover opacity-80 group-hover:scale-[2] group-hover:rotate-[15deg] transition-transform duration-500 grayscale brightness-150 contrast-150" data-alt="Abstract neon wires and light fiber optics in white space" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHP27PUPW-Nfl5nbd9u8FN-DXP8qRi8U3C870BM7BJaWE9nGKaOp8t6un1KXRZnE5SxrsTAQJn3F2j4WcU2DIwTMIm1s7h7dQi7NCfBOcYwxG480gMfGGFtMJJLnaSQlbAp8K4fczZFUpWSJG0yRlwAIdTuBy9ibQnDoJE7VcNgbJlDn5dhWJXr4ZoIRGpfDlckCi_GK9yue7hCmd7FRLcD1X59aThGRs_9B2aPnd_WBbivZOo1Ghw8hfJAx0N4Tovghqq1SbwPWQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-secondary/50 via-transparent to-primary/30 mix-blend-overlay"></div>
+<div class="absolute top-10 right-10 text-primary font-mono text-xl font-black tracking-widest bg-black px-4 rotate-90">ERROR_404_VOID</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Extreme Newsletter -->
+<section class="shattered-panel p-24 relative overflow-hidden text-center space-y-12 extreme-shatter-3 border-[16px] border-black bg-white aggressive-skew liquid-border">
+<h2 class="text-8xl md:text-9xl font-black text-black tracking-tighter uppercase italic glitch-text rotate-1">GO_DARK</h2>
+<p class="text-3xl text-black font-black max-w-2xl mx-auto uppercase underline decoration-secondary decoration-8">Surrender your data packets to the collective.</p>
+<div class="max-w-4xl mx-auto flex flex-col md:flex-row gap-0 group border-[12px] border-black rotate-[-1deg] shadow-[20px_20px_0px_#2be800]">
+<input class="flex-grow bg-white p-10 focus:ring-0 outline-none font-black text-black placeholder:text-gray-400 text-3xl extreme-shatter-1" placeholder="ID@VOID.CORE" type="email"/>
+<button class="bg-black text-primary px-16 py-10 font-black text-4xl hover:bg-secondary hover:text-white transition-all extreme-shatter-2 trip-pulse">
+                UPLOAD
+            </button>
+</div>
+<div class="text-lg font-mono font-black text-black opacity-50 uppercase tracking-[1.5em] pt-12 animate-pulse">
+            BLINDING // ETERNAL // SHATTERED
+        </div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="mt-64 w-full relative overflow-visible bg-black pt-48 pb-20 px-12 extreme-shatter-nav -rotate-2 scale-110">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-20">
+<div class="space-y-10">
+<div class="text-4xl font-black text-primary uppercase tracking-widest italic glitch-text">FRACTAL_VOID // ENTROPY_OS</div>
+<p class="font-mono text-xl leading-none text-white opacity-90 max-w-lg border-l-8 border-secondary pl-6">
+                SIGNAL: TERMINATED<br/>ENTROPY: 100%<br/>REALITY: DELETED
+            </p>
+</div>
+<nav class="flex flex-wrap gap-12 items-center">
+<a class="font-black text-xl text-secondary hover:line-through transition-all hover:scale-150" href="#">KILL_SWITCH</a>
+<a class="font-black text-xl text-primary hover:line-through transition-all hover:scale-150" href="#">GHOST_NET</a>
+<a class="font-black text-xl text-white bg-error px-6 py-2 transition-all hover:bg-white hover:text-error" href="#">PURGE</a>
+</nav>
+<div class="text-sm font-mono text-white opacity-40 font-black tracking-widest rotate-90 origin-bottom-right">
+            © 2024_END_OF_LINE
+        </div>
+</div>
+</footer>
+<!-- Floating Jittery Fab -->
+<div class="fixed bottom-12 left-12 z-50">
+<div class="w-24 h-24 bg-primary text-black extreme-shatter-3 flex items-center justify-center animate-ping shadow-[0_0_50px_rgba(43,232,0,0.5)] cursor-pointer hover:bg-secondary transition-colors border-4 border-black">
+<span class="material-symbols-outlined text-5xl font-black" data-icon="emergency_home">emergency_home</span>
+</div>
+</div>
+<div class="fixed top-1/2 -right-10 z-50 rotate-90">
+<div class="trip-pulse bg-black text-secondary px-10 py-4 font-black text-2xl extreme-shatter-1 border-4 border-primary">
+        LEVEL_CRITICAL
+    </div>
+</div>
+</body></html>

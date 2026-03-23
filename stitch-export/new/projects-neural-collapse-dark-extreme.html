@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed": "#bda1ff",
+              "error-container": "#b92902",
+              "inverse-on-surface": "#555555",
+              "error-dim": "#d53d18",
+              "secondary-dim": "#ff51fa",
+              "surface-container-high": "#1f1f1f",
+              "secondary-container": "#a900a9",
+              "on-primary-container": "#0b5800",
+              "on-primary-fixed": "#064200",
+              "inverse-surface": "#f9f9f9",
+              "on-tertiary-container": "#f8f1ff",
+              "on-primary": "#0d6100",
+              "background": "#000000",
+              "on-secondary-container": "#fff5f9",
+              "outline-variant": "#484848",
+              "secondary": "#ff51fa",
+              "primary-container": "#2ff801",
+              "surface-container-highest": "#262626",
+              "on-secondary-fixed-variant": "#920091",
+              "on-error-container": "#ffd2c8",
+              "primary-fixed": "#2ff801",
+              "surface": "#050505",
+              "on-surface-variant": "#ababab",
+              "on-background": "#ffffff",
+              "primary-dim": "#2be800",
+              "tertiary": "#ac89ff",
+              "surface-container": "#191919",
+              "inverse-primary": "#106f00",
+              "surface-dim": "#0e0e0e",
+              "on-secondary": "#400040",
+              "surface-bright": "#2c2c2c",
+              "tertiary-dim": "#874cff",
+              "surface-container-low": "#131313",
+              "surface-variant": "#262626",
+              "surface-tint": "#8eff71",
+              "primary-fixed-dim": "#2be800",
+              "on-tertiary-fixed": "#1f0052",
+              "surface-container-lowest": "#000000",
+              "on-secondary-fixed": "#620061",
+              "error": "#ff0000",
+              "secondary-fixed-dim": "#ffa6f3",
+              "secondary-fixed": "#ffbdf3",
+              "on-error": "#ffffff",
+              "outline": "#757575",
+              "on-tertiary": "#290067",
+              "tertiary-fixed-dim": "#b190ff",
+              "tertiary-container": "#7000ff",
+              "on-surface": "#ffffff",
+              "on-primary-fixed-variant": "#0d6200",
+              "primary": "#8eff71",
+              "on-tertiary-fixed-variant": "#4700a7"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Space Grotesk"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0rem", "lg": "0rem", "xl": "0rem", "full": "0rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        @keyframes chaos-glitch {
+            0% { transform: translate(0); text-shadow: 2px 0 #ff51fa, -2px 0 #8eff71; }
+            2% { transform: translate(-2px, 1px); }
+            4% { transform: translate(2px, -1px); text-shadow: -3px 0 #00ffff, 3px 0 #ff00ff; }
+            6% { transform: translate(0); }
+            100% { transform: translate(0); }
+        }
+        .glitch-text {
+            animation: chaos-glitch 2s infinite linear alternate-reverse;
+        }
+
+        .jagged-1 { clip-path: polygon(0% 15%, 15% 0%, 85% 5%, 100% 15%, 95% 85%, 85% 100%, 15% 95%, 0% 80%); }
+        .jagged-2 { clip-path: polygon(10% 0%, 90% 10%, 100% 50%, 90% 90%, 50% 100%, 10% 90%, 0% 50%); }
+        .jagged-3 { clip-path: polygon(0% 0%, 100% 20%, 80% 100%, 20% 80%); }
+        .jagged-4 { clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%); }
+        .jagged-mess { clip-path: polygon(0 10%, 20% 0, 50% 15%, 80% 0, 100% 20%, 90% 60%, 100% 90%, 70% 100%, 30% 80%, 0 100%); }
+
+        .melting-drip {
+            position: relative;
+        }
+        .melting-drip::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 20%;
+            width: 4px;
+            height: 40px;
+            background: inherit;
+            filter: blur(2px);
+            animation: drip-fall 3s infinite ease-in;
+            z-index: 20;
+        }
+        @keyframes drip-fall {
+            0% { transform: scaleY(0); transform-origin: top; opacity: 1; }
+            50% { transform: scaleY(1.5); opacity: 0.8; }
+            100% { transform: scaleY(2) translateY(20px); opacity: 0; }
+        }
+
+        @keyframes noise {
+            0% { transform: translate(0,0) }
+            10% { transform: translate(-5%,-5%) }
+            20% { transform: translate(-10%,5%) }
+            30% { transform: translate(5%,-10%) }
+            40% { transform: translate(-5%,15%) }
+            50% { transform: translate(-10%,5%) }
+            60% { transform: translate(15%,0) }
+            70% { transform: translate(0,10%) }
+            80% { transform: translate(-15%,0) }
+            90% { transform: translate(10%,5%) }
+            100% { transform: translate(5%,0) }
+        }
+        .noise-overlay {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            right: -50%;
+            bottom: -50%;
+            width: 200%;
+            height: 200%;
+            background: transparent url('http://assets.iceable.com/img/noise-transparent.png') repeat 0 0;
+            background-repeat: repeat;
+            animation: noise .2s infinite;
+            opacity: .08;
+            pointer-events: none;
+            z-index: 99;
+        }
+
+        .crt-scanlines {
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.1), rgba(0, 255, 0, 0.05), rgba(0, 0, 255, 0.1));
+            background-size: 100% 3px, 4px 100%;
+            pointer-events: none;
+        }
+        
+        .breakthrough-mask {
+            mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='black' d='M45.7,-64.1C58.1,-55.3,66.3,-40.1,71.2,-24.5C76.1,-8.8,77.7,7.2,72.2,21.1C66.7,35,54.1,46.8,40.4,54.7C26.7,62.6,11.9,66.6,-3.4,71.3C-18.7,76,-34.5,81.4,-47.1,75.4C-59.7,69.4,-69.1,52,-74.6,34.5C-80.1,17.1,-81.8,-0.4,-77.2,-15.8C-72.6,-31.2,-61.7,-44.5,-48.9,-53.2C-36.1,-61.9,-21.3,-66.1,-4.3,-60.2C12.7,-54.3,25.4,-38.3,45.7,-64.1Z' transform='translate(100 100)' /%3E%3C/svg%3E");
+            mask-size: cover;
+        }
+
+        .vibrate {
+            animation: vibrate-effect 0.1s infinite;
+        }
+        @keyframes vibrate-effect {
+            0% { transform: translate(0); }
+            25% { transform: translate(2px, -2px); }
+            50% { transform: translate(-2px, 2px); }
+            75% { transform: translate(2px, 2px); }
+            100% { transform: translate(0); }
+        }
+
+        .shard-hover:hover {
+            transform: scale(1.1) rotate(5deg) skew(10deg);
+            z-index: 50;
+            filter: hue-rotate(90deg) contrast(200%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-secondary selection:text-white overflow-x-hidden">
+<div class="noise-overlay"></div>
+<div class="fixed inset-0 z-[100] crt-scanlines opacity-40 pointer-events-none"></div>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-[110] bg-black/80 backdrop-blur-3xl border-b-4 border-primary flex justify-between items-center px-6 py-4">
+<div class="text-4xl font-black tracking-tighter text-primary italic glitch-text">FRACTAL_VOID</div>
+<nav class="hidden md:flex items-center gap-4">
+<a class="bg-primary text-black px-4 py-1 font-black uppercase text-xs hover:skew-x-12 transition-transform" href="#">HOME</a>
+<a class="bg-secondary text-white px-4 py-1 font-black uppercase text-xs hover:-skew-x-12 transition-transform" href="#">BLOG</a>
+<a class="bg-white text-black px-4 py-1 font-black uppercase text-xs border-r-8 border-primary" href="#">PROJECTS</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="bg-error text-white px-6 py-2 font-black uppercase tracking-widest text-xs animate-bounce vibrate">
+            DANGER_ZONE
+</button>
+</div>
+</header>
+<main class="relative min-h-screen pt-40 pb-60 px-4 max-w-[1600px] mx-auto">
+<!-- Background Chaotic Elements -->
+<div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+<div class="absolute top-0 left-0 w-full h-full opacity-30 mix-blend-color-dodge">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-secondary rounded-full blur-[200px] animate-pulse"></div>
+<div class="absolute top-[20%] right-[10%] w-[400px] h-[400px] bg-primary rounded-full blur-[150px] animate-vibrate"></div>
+</div>
+</div>
+<!-- Section Title -->
+<div class="mb-32 relative z-10">
+<div class="flex items-center gap-4 text-secondary font-mono text-sm tracking-widest mb-4">
+<span class="inline-block w-24 h-[4px] bg-secondary"></span>
+        STATUS: UNSTABLE_EQUILIBRIUM
+    </div>
+<h1 class="text-[12vw] leading-[0.8] font-black font-headline tracking-tighter glitch-text uppercase italic text-white mix-blend-difference">
+        TOXIC<br/><span class="text-primary">DECAY</span>
+</h1>
+<div class="mt-8 p-4 bg-primary text-black inline-block font-black text-xl -skew-x-12">
+        SYSTEM OVERRIDE DETECTED
+    </div>
+</div>
+<!-- Chaotic Bento Grid / Shards -->
+<div class="relative flex flex-wrap justify-center gap-0 perspective-1000">
+<!-- Project Card 1: Main Shard -->
+<div class="w-full md:w-2/3 lg:w-1/2 p-2 group shard-hover transition-all duration-75 relative z-20">
+<div class="bg-primary jagged-mess p-2 vibrate">
+<div class="relative bg-black h-[600px] overflow-hidden jagged-mess melting-drip">
+<img alt="Fractal Skull" class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-150 group-hover:rotate-12 transition-all duration-500 saturate-[3] contrast-[1.5]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHhWTSad2VZBD6LGroXShiEaq-ot2U152iRcgtRiy8IkGbNIyOEYWvIHdYlsJWHaU7oGqXjVGqo9tyuJT_tZLhCMddNTK1vWExUmEaJyr9vk2ocHFJnnASywqBJt-zCBhqA21JL6zuccBD5d-hgeSMHGu4iNmggsABithTLoK3LmXZIVkWdtiYdSFX9rHRUz-cSDB18kllOiPgHBIthEeZ_T1_SAvV7ljwVyiALD_dzNSpkXbBOHeAnCwUCGXamuaBgjSsJflN3pw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-primary/20"></div>
+<div class="absolute bottom-10 left-10 right-10 z-10">
+<h2 class="text-5xl font-black text-white bg-black/80 p-2 inline-block mb-4">PHANTOM_LIMB</h2>
+<p class="text-primary font-bold bg-black p-2 max-w-sm">NEURAL RECURSION ACTIVE. DATA BLEEDING.</p>
+<button class="mt-4 bg-white text-black px-10 py-4 font-black uppercase text-xl hover:bg-primary transition-colors">CONSUME</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Project Card 2: Overlapping Shard -->
+<div class="w-full md:w-1/2 lg:w-1/3 p-2 group shard-hover transition-all duration-75 relative -ml-20 -mt-20 z-30">
+<div class="bg-secondary jagged-1 p-2">
+<div class="relative bg-black h-[500px] overflow-hidden jagged-1">
+<img alt="Liquid Neon" class="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-screen group-hover:skew-y-12 transition-transform" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD67RoqtvkjW0D8JUByrr79RfUoQzDH9AWVbMqcan5u3wgBN0iA15NByS83K-M3ORoXj1mFOX7-_0Lv5R8ue-zJdAvni-WJO1G9v3gU192ed5zaXCU_yBa_HwsSaXmA-9Ffcu2JkvkutUEVkGkhrIDh546M_7RtvNtwCoYepmfAhHkUq_-_6jecibg2KEF4HJHfttEKAIvoKvxfCjBu7HtEahcQ2Cq14coTO8IxGmd9LwVylhjofbDuDb_saneCiW22_IUHwP_STLw"/>
+<div class="absolute inset-0 bg-black/40"></div>
+<div class="absolute top-10 right-10 text-right">
+<span class="text-secondary font-black text-4xl block">0x992F</span>
+<h3 class="text-white font-black text-2xl">GHOST_SHELL</h3>
+</div>
+</div>
+</div>
+</div>
+<!-- Project Card 3: Tiny Floating Shard -->
+<div class="hidden lg:block w-1/4 p-2 group shard-hover transition-all duration-75 absolute top-0 right-0 z-10 rotate-12">
+<div class="bg-white jagged-3 p-1">
+<div class="bg-black h-80 jagged-3 p-6 flex flex-col justify-between">
+<span class="material-symbols-outlined text-primary text-6xl" data-icon="terminal">terminal</span>
+<div class="text-primary font-black text-xs uppercase">Terminal_Void_v2.0</div>
+</div>
+</div>
+</div>
+<!-- Project Card 4: Long Melting Shard -->
+<div class="w-full md:w-3/4 p-2 group shard-hover transition-all duration-75 relative z-40 mt-10">
+<div class="bg-tertiary jagged-mess p-2 melting-drip">
+<div class="relative bg-black h-[400px] flex overflow-hidden jagged-mess">
+<div class="w-full md:w-1/2 p-12 flex flex-col justify-center bg-black/90">
+<h2 class="text-6xl font-black text-tertiary glitch-text mb-4">SYNAPTIC_MELT</h2>
+<p class="text-white font-bold opacity-80">COGNITIVE DISSOLUTION IN PROGRESS. DO NOT DISCONNECT.</p>
+</div>
+<div class="hidden md:block w-1/2 relative">
+<img alt="Abstract Landscape" class="w-full h-full object-cover grayscale invert contrast-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDD0bQzx2xV9CyTUspQf_YH8kKCwlUKxD9pfWJ41cnyzDjzgm1QghhRSo3mtgRqT5YvG1UJ-468arLfqGHBJBffXTgTgiz9bSt02oztlE5gjHf1ImCxYLvim2CsihTkyAHvua5t-rypZkjQ62T_m3aHpoPsvSHh9TR3fIxpprexH7CcAidWPLDLCXQcb86haxTy1HrDGVUi9JqWlkFRGhunr3ZSMhXS7oYknEEkMjmDUgQ66CyGcDKKNuHOjOQaIBB2smLSBWYMK6w"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- System Alert: Extreme Contrast -->
+<div class="mt-60 p-12 bg-error text-white jagged-mess flex flex-col md:flex-row items-center justify-between gap-8 border-[20px] border-black vibrate">
+<div class="flex items-center gap-10">
+<span class="material-symbols-outlined text-[120px] animate-ping" data-icon="skull">skull</span>
+<div>
+<h3 class="text-6xl font-black uppercase italic leading-none">CRITICAL_FAILURE</h3>
+<p class="text-2xl font-black bg-black text-error px-4 inline-block mt-4">REALITY_BUFFER_OVERFLOW</p>
+</div>
+</div>
+<button class="bg-black text-white px-12 py-6 font-black text-3xl hover:bg-white hover:text-black transition-all border-4 border-white">
+        TERMINATE_EXISTENCE
+    </button>
+</div>
+</main>
+<!-- Footer: Jagged & Unstable -->
+<footer class="w-full relative bg-primary text-black pt-40 pb-20 px-10 [clip-path:polygon(0_30%,_15%_0,_30%_25%,_50%_5%,_70%_35%,_85%_10%,_100%_40%,_100%_100%,_0_100%)]">
+<div class="flex flex-col md:flex-row justify-between items-end gap-12">
+<div class="max-w-md">
+<div class="text-6xl font-black italic mb-6">VOID_OS</div>
+<div class="font-mono text-sm leading-tight font-bold">
+                [SYSTEM]: ENTROPY_MAXIMIZED<br/>
+                [STATUS]: COLLAPSING<br/>
+                [ACTION]: NONE_AVAILABLE
+            </div>
+</div>
+<nav class="flex flex-col gap-2 text-right">
+<a class="text-2xl font-black hover:bg-black hover:text-primary transition-all px-4" href="#">DIAGNOSTICS</a>
+<a class="text-2xl font-black hover:bg-black hover:text-primary transition-all px-4" href="#">COORDINATES</a>
+<a class="text-2xl font-black hover:bg-black hover:text-primary transition-all px-4" href="#">FORGET</a>
+</nav>
+</div>
+<div class="mt-20 flex justify-between items-center border-t-4 border-black pt-10">
+<div class="flex gap-8">
+<span class="material-symbols-outlined text-4xl animate-spin" data-icon="settings_reversing">settings_reversing</span>
+<span class="material-symbols-outlined text-4xl vibrate" data-icon="electric_bolt">electric_bolt</span>
+<span class="material-symbols-outlined text-4xl" data-icon="cyclone">cyclone</span>
+</div>
+<div class="font-black text-xl uppercase tracking-tighter">©2024_NON_EXISTENT_ENTITY</div>
+</div>
+<!-- Toxic Drips -->
+<div class="absolute top-0 left-10 w-4 h-20 bg-black animate-bounce"></div>
+<div class="absolute top-0 left-40 w-8 h-40 bg-black/50"></div>
+<div class="absolute top-0 right-20 w-2 h-60 bg-secondary"></div>
+</footer>
+</body></html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed": "#bda1ff",
+              "error-container": "#b92902",
+              "inverse-on-surface": "#555555",
+              "error-dim": "#d53d18",
+              "secondary-dim": "#ff51fa",
+              "surface-container-high": "#1f1f1f",
+              "secondary-container": "#a900a9",
+              "on-primary-container": "#0b5800",
+              "on-primary-fixed": "#064200",
+              "inverse-surface": "#f9f9f9",
+              "on-tertiary-container": "#f8f1ff",
+              "on-primary": "#0d6100",
+              "background": "#050505",
+              "on-secondary-container": "#fff5f9",
+              "outline-variant": "#484848",
+              "secondary": "#ff51fa",
+              "primary-container": "#2ff801",
+              "surface-container-highest": "#262626",
+              "on-secondary-fixed-variant": "#920091",
+              "on-error-container": "#ffd2c8",
+              "primary-fixed": "#2ff801",
+              "surface": "#050505",
+              "on-surface-variant": "#ababab",
+              "on-background": "#ffffff",
+              "primary-dim": "#2be800",
+              "tertiary": "#ac89ff",
+              "surface-container": "#191919",
+              "inverse-primary": "#106f00",
+              "surface-dim": "#0e0e0e",
+              "on-secondary": "#400040",
+              "surface-bright": "#2c2c2c",
+              "tertiary-dim": "#874cff",
+              "surface-container-low": "#131313",
+              "surface-variant": "#262626",
+              "surface-tint": "#8eff71",
+              "primary-fixed-dim": "#2be800",
+              "on-tertiary-fixed": "#1f0052",
+              "surface-container-lowest": "#000000",
+              "on-secondary-fixed": "#620061",
+              "error": "#ff7351",
+              "secondary-fixed-dim": "#ffa6f3",
+              "secondary-fixed": "#ffbdf3",
+              "on-error": "#450900",
+              "outline": "#757575",
+              "on-tertiary": "#290067",
+              "tertiary-fixed-dim": "#b190ff",
+              "tertiary-container": "#7000ff",
+              "on-surface": "#ffffff",
+              "on-primary-fixed-variant": "#0d6200",
+              "primary": "#8eff71",
+              "on-tertiary-fixed-variant": "#4700a7"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Space Grotesk"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        @keyframes drift {
+            0% { transform: translate(0,0) rotate(0deg) scale(1); }
+            33% { transform: translate(15px, -10px) rotate(1deg) scale(1.02); }
+            66% { transform: translate(-10px, 15px) rotate(-1deg) scale(0.98); }
+            100% { transform: translate(0,0) rotate(0deg) scale(1); }
+        }
+        @keyframes glitch {
+            0% { clip-path: inset(40% 0 61% 0); transform: translate(-5px); }
+            20% { clip-path: inset(92% 0 1% 0); transform: translate(5px); }
+            40% { clip-path: inset(43% 0 1% 0); transform: translate(-5px); }
+            60% { clip-path: inset(25% 0 58% 0); transform: translate(5px); }
+            80% { clip-path: inset(54% 0 7% 0); transform: translate(-5px); }
+            100% { clip-path: inset(58% 0 43% 0); transform: translate(5px); }
+        }
+        @keyframes vibrate {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+        @keyframes fractal-shift {
+            0% { background-position: 0% 0%; filter: hue-rotate(0deg); }
+            100% { background-position: 100% 100%; filter: hue-rotate(360deg); }
+        }
+
+        body {
+            background-color: #050505;
+            overflow-x: hidden;
+            cursor: crosshair;
+        }
+        .crt-overlay {
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.1), rgba(0, 255, 0, 0.05), rgba(0, 0, 255, 0.1));
+            background-size: 100% 3px, 4px 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+        .vibrating-text {
+            animation: vibrate 0.1s infinite;
+            text-shadow: 3px 0 #ff51fa, -3px 0 #8eff71;
+        }
+        .fractal-bg {
+            background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCCF-Wu0arOTEDRI7pEIgN9zoNVdLKE4WsdOdqmG-mtDHqHKeMqx_pBPtjbjQ4HLpooT9zBpJxFZIdyqmNhwaR3F5bS0VU9SZlVRdaD5SIIexczbDXVJLbC3fYM2lj-LBSQE8z_t1hhuH-YwO4BAU9o7bwkQAjqbW5Q1Lla1YTPzZjwno57NJKB4OVSqJNG42o5Uyn6rRNAztZgkm42__gqzmM9KOWda7YxxqhQfjXKC-JYyYqX7MWlCNskOFkjixU_RUmSdE3msqg);
+            background-size: 200%;
+            animation: fractal-shift 20s linear infinite;
+            opacity: 0.2;
+            mix-blend-mode: screen;
+        }
+        .shard-inner-fractal {
+            position: absolute;
+            inset: 0;
+            background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCCF-Wu0arOTEDRI7pEIgN9zoNVdLKE4WsdOdqmG-mtDHqHKeMqx_pBPtjbjQ4HLpooT9zBpJxFZIdyqmNhwaR3F5bS0VU9SZlVRdaD5SIIexczbDXVJLbC3fYM2lj-LBSQE8z_t1hhuH-YwO4BAU9o7bwkQAjqbW5Q1Lla1YTPzZjwno57NJKB4OVSqJNG42o5Uyn6rRNAztZgkm42__gqzmM9KOWda7YxxqhQfjXKC-JYyYqX7MWlCNskOFkjixU_RUmSdE3msqg);
+            background-size: cover;
+            mix-blend-mode: overlay;
+            opacity: 0.3;
+            animation: fractal-shift 10s alternate infinite;
+            pointer-events: none;
+        }
+        
+        /* Extreme Asymmetric Shards */
+        .shard-1 { clip-path: polygon(0% 15%, 100% 0%, 85% 100%, 5% 85%); animation: drift 7s ease-in-out infinite; }
+        .shard-2 { clip-path: polygon(10% 0%, 100% 25%, 90% 100%, 0% 75%); animation: drift 8s ease-in-out infinite reverse; }
+        .shard-3 { clip-path: polygon(5% 5%, 95% 0%, 100% 95%, 15% 100%); animation: drift 6s ease-in-out infinite 1s; }
+        .shard-4 { clip-path: polygon(0% 0%, 88% 12%, 100% 88%, 12% 100%); animation: drift 9s ease-in-out infinite 0.5s; }
+        .shard-melt-intense {
+            clip-path: polygon(2% 2%, 98% 5%, 95% 45%, 100% 48%, 92% 85%, 75% 82%, 65% 100%, 45% 88%, 25% 95%, 10% 75%, 0% 85%, 5% 50%);
+            animation: drift 10s ease-in-out infinite;
+        }
+        .shard-sidebar { clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%); }
+        .shard-footer { clip-path: polygon(0 30%, 20% 0, 40% 25%, 60% 5%, 80% 30%, 100% 10%, 100% 100%, 0 100%); }
+        
+        .glitch-hover:hover::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: inherit;
+            animation: glitch 0.3s infinite;
+            z-index: 20;
+            mix-blend-mode: hard-light;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body class="font-body text-on-background selection:bg-primary selection:text-on-primary">
+<!-- CRT Overlay -->
+<div class="fixed inset-0 crt-overlay mix-blend-overlay pointer-events-none"></div>
+<!-- TopAppBar -->
+<nav class="fixed top-0 w-full z-[100] bg-[#000]/95 backdrop-blur-3xl border-b-2 border-primary/40 shadow-[0_0_40px_rgba(142,255,113,0.3)] flex justify-between items-center px-8 py-6">
+<div class="text-3xl font-black tracking-[-0.1em] text-primary vibrating-text">
+        FRACTAL_VOID
+    </div>
+<div class="hidden md:flex gap-12 items-center">
+<a class="font-['Space_Grotesk'] uppercase tracking-[0.4em] text-xs font-black text-primary hover:text-secondary transition-all hover:scale-125" href="#">HOME</a>
+<a class="font-['Space_Grotesk'] uppercase tracking-[0.4em] text-xs font-black text-secondary border-b-4 border-secondary pb-1 animate-pulse" href="#">BLOG</a>
+<a class="font-['Space_Grotesk'] uppercase tracking-[0.4em] text-xs font-black text-primary hover:text-secondary transition-all hover:scale-125" href="#">PROJECTS</a>
+</div>
+<div class="flex items-center gap-6">
+<button class="bg-secondary text-on-secondary px-6 py-2 font-black text-xs tracking-[0.3em] uppercase hover:skew-x-12 transition-all shadow-[0_0_20px_rgba(255,81,250,0.5)]">
+            TRIP_MODE
+        </button>
+<span class="material-symbols-outlined text-primary text-3xl animate-spin" data-icon="sensors" style="animation-duration: 3s;">sensors</span>
+</div>
+</nav>
+<main class="relative pt-48 pb-32 px-6 md:px-16 max-w-[1400px] mx-auto">
+<!-- Fractal Underlay -->
+<div class="fixed inset-0 fractal-bg -z-10" data-alt="Abstract monochrome fractal data patterns"></div>
+<!-- Header Section -->
+<header class="mb-32 space-y-8 relative">
+<div class="absolute -top-12 -left-12 w-64 h-64 bg-primary/20 blur-[120px] rounded-full animate-pulse"></div>
+<h1 class="text-7xl md:text-[10rem] font-black tracking-tighter vibrating-text uppercase leading-none">
+            DATA<br/>LOGS_0x0
+        </h1>
+<div class="flex flex-wrap items-center gap-8 text-primary font-mono text-lg">
+<span class="animate-ping h-3 w-3 rounded-full bg-primary"></span>
+<span class="tracking-[0.5em] font-black text-secondary">SYSTEM_INFILTRATION_CRITICAL</span>
+<span class="opacity-40 italic">// ENTROPY: 99.98% // SECTOR: VOID_NULL</span>
+</div>
+</header>
+<!-- Shard Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+<!-- Featured Shard -->
+<article class="md:col-span-9 group relative mb-20">
+<div class="absolute -inset-8 bg-gradient-to-br from-primary via-secondary to-tertiary blur-[100px] opacity-20 group-hover:opacity-80 transition-opacity duration-1000"></div>
+<div class="relative bg-surface-container border-4 border-primary/50 shard-melt-intense shadow-[0_0_60px_rgba(142,255,113,0.3)] overflow-hidden glitch-hover">
+<div class="shard-inner-fractal"></div>
+<div class="relative overflow-hidden aspect-[21/9]">
+<img alt="Abstract neon geometric structures" class="w-full h-full object-cover grayscale invert contrast-[1.5] brightness-[1.2] group-hover:grayscale-0 group-hover:invert-0 transition-all duration-1000 scale-150 group-hover:scale-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqEcMx3GLdKip5cD62YHedg03UpAHh0pnasq_xqIGwoCN9K6_vBn7DF8OKePusRs9Rw82DvVwJqBEKPzBIrGEU2BFo5TLpjNfEWZX5D1r_FTDcX24FGXGlYK0Lx-mKsKSe7XuAcivpt4XcWItRFAVp0jYZhG_wIqD88AtJnaqPHQwZuAjozdKxb8o5czCYBGllicBvODVZfpxvzLufNN-Y59v3WzCbZTGgenDchuYcuJpdSE-L2UkLNElIftV7AQRkeX7J0VXDKV8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+<div class="absolute bottom-20 left-12 right-12">
+<h2 class="text-4xl md:text-7xl font-black text-white uppercase tracking-tighter vibrating-text group-hover:text-primary">
+                            NEURAL_MELTDOWN_PROTOCOL_v4
+                        </h2>
+</div>
+</div>
+<div class="p-12 pt-4 space-y-8 relative z-10">
+<p class="text-on-surface text-2xl font-bold leading-tight max-w-3xl italic tracking-tight">
+                        "THE BOUNDARIES BETWEEN SILICON AND SOUL ARE DISSOLVING. WE ARE THE LEAK IN THE REALITY PIPELINE."
+                    </p>
+<div class="flex items-center gap-12">
+<button class="bg-primary text-on-primary px-16 py-6 font-black text-xl uppercase tracking-tighter hover:bg-white hover:text-black transition-all shard-1 shadow-[0_0_30px_rgba(142,255,113,0.8)]">
+                            DECRYPT_VOID
+                        </button>
+<span class="text-secondary font-mono text-sm animate-pulse">0x88FF112 // HASH_CORRUPTED</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Sidebar Shards -->
+<div class="md:col-span-3 space-y-16">
+<div class="bg-[#111] p-10 border-4 border-secondary/40 relative overflow-hidden shard-sidebar shadow-[0_0_40px_rgba(255,81,250,0.2)] glitch-hover">
+<div class="shard-inner-fractal"></div>
+<div class="absolute top-4 right-6 text-[10px] font-mono text-secondary animate-bounce uppercase tracking-[0.5em]">VOID_FEED</div>
+<h3 class="text-lg font-black text-secondary mb-8 tracking-[0.3em] uppercase vibrating-text">SYSTEM_ALERTS</h3>
+<ul class="space-y-8">
+<li class="flex gap-4 items-start border-b-2 border-outline-variant/20 pb-6 group/item">
+<span class="material-symbols-outlined text-primary text-2xl animate-ping" data-icon="warning">warning</span>
+<div>
+<p class="text-sm font-black text-white uppercase group-hover/item:text-primary transition-colors">BUFFER_OVERFLOW_7G</p>
+<p class="text-[10px] text-primary/60 uppercase mt-2 font-mono">T-MINUS_00:03</p>
+</div>
+</li>
+<li class="flex gap-4 items-start border-b-2 border-outline-variant/20 pb-6 group/item">
+<span class="material-symbols-outlined text-secondary text-2xl animate-pulse" data-icon="bolt">bolt</span>
+<div>
+<p class="text-sm font-black text-white uppercase group-hover/item:text-secondary transition-colors">STATIC_DISCHARGE_DET</p>
+<p class="text-[10px] text-secondary/60 uppercase mt-2 font-mono">T-MINUS_00:14</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="bg-secondary p-12 flex flex-col items-center justify-center text-center space-y-8 shard-2 shadow-[0_0_80px_rgba(255,81,250,0.6)] rotate-3 hover:rotate-0 transition-all cursor-none">
+<span class="material-symbols-outlined text-on-secondary text-8xl animate-pulse" data-icon="skull" data-weight="fill">skull</span>
+<div>
+<h4 class="text-on-secondary font-black text-3xl uppercase tracking-tighter vibrating-text">FEED_THE_VOID</h4>
+<p class="text-on-secondary/70 text-sm mt-4 uppercase tracking-[0.4em] font-bold">DIGITAL_OBLIVION_AWAITS</p>
+</div>
+<input class="w-full bg-black/40 border-none border-b-8 border-on-secondary text-on-secondary placeholder:text-on-secondary/30 focus:ring-0 text-lg py-5 font-mono text-center" placeholder="ENTITY_ADDRESS_HERE" type="text"/>
+</div>
+</div>
+<!-- Overlapping Grid Feed -->
+<article class="md:col-span-6 group -mt-16 md:-mt-32 relative z-10">
+<div class="bg-surface-container-highest p-8 shard-3 border-4 border-secondary/50 hover:scale-110 transition-all duration-700 shadow-[0_0_50px_rgba(255,81,250,0.3)] glitch-hover">
+<div class="shard-inner-fractal"></div>
+<div class="relative aspect-[4/3] mb-8 overflow-hidden">
+<img alt="Digital abstract pattern" class="w-full h-full object-cover contrast-[2] saturate-[3] hue-rotate-90 group-hover:hue-rotate-0 transition-all duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvvm_XTfFvURVBBXXb2FtVNQwk4YKEJEQxWyqwiZ2Q-H4Q37fFFZXJNJNBIg4ydMz_bTBuGGssVRLPQWiW7Wfvjtn3FmdM1ddSNwhzGOp3ZYGG9atUSDJ61wYX71oL-8wWDz2QDyRCwp24QHe9uyJ4AcrQ5pvclQlOaGPvWzNxu2kJDeS8zwqtaW8mztR05vcZ97v0BnWczRoa1_k8BlsYpaFx-XO2sbjiP86ks3Ddyp-s1rpWMPuPQlERfj8TmUPKJgVJAyB2-G0"/>
+<div class="absolute inset-0 bg-primary/30 mix-blend-color-dodge"></div>
+</div>
+<span class="text-xs font-mono text-secondary mb-4 block tracking-[0.5em] font-black uppercase">LOG_ID: 0x992 // BLEEDING</span>
+<h3 class="text-4xl font-black text-white mb-4 uppercase tracking-tighter vibrating-text group-hover:text-secondary">LIQUID_DREAMS</h3>
+<p class="text-sm text-on-surface-variant leading-tight font-bold italic">THE MAIN_FRAME IS SATURATED. REALITY SCRIPTS ARE BEGINNING TO HEMORRHAGE INTO THE PHYSICAL DOMAIN.</p>
+</div>
+</article>
+<article class="md:col-span-6 group md:-ml-20 relative z-20">
+<div class="bg-surface-container-high p-10 shard-4 border-4 border-primary/50 hover:scale-[1.05] transition-all duration-500 shadow-[0_0_70px_rgba(142,255,113,0.4)] glitch-hover">
+<div class="shard-inner-fractal"></div>
+<div class="flex flex-col gap-10">
+<div class="relative w-full aspect-video overflow-hidden shard-1 border-2 border-primary/20">
+<img alt="Cosmic digital distortion" class="w-full h-full object-cover invert hue-rotate-180 group-hover:invert-0 group-hover:hue-rotate-0 transition-all duration-1000 scale-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQn3R_NyN7D3b4-rhxfBZZcE1dPyyZgngJ8Er1r31ujQ5ifJloQRjRlDHl7IqmPelVVfedhmkm0s7FtzgOIClaA-GoDam97Njkkx_-ZAIQCsjYiRhXg185XszYnJwqohXHnz1hkyVTVJutEOLvEf2BUMVj9mudMvsu3jG5c-CyEHZTGdwtf5mQIUJ5rQ7EdBnqEhKpI2Gb9MIMIwqJWDFrQsdn3vT0xYscjwDyeZw8bbs4hGEVu-0wPr2jip8Z8OBdxqsb7JeM7jY"/>
+</div>
+<div class="space-y-6">
+<span class="text-xs font-mono text-primary block tracking-[0.5em] font-black uppercase">LOG_ID: 0x441 // INTRUSION</span>
+<h3 class="text-5xl font-black text-white uppercase tracking-tighter vibrating-text group-hover:text-primary">GHOST_KERNEL_v0</h3>
+<p class="text-lg text-on-surface-variant leading-snug font-medium italic">AUTONOMOUS SCRIPTS HAVE BYPASSED ALL PROTOCOLS. THE HISTORY LOGS ARE WRITING THEMSELVES NOW.</p>
+<button class="text-sm font-black uppercase tracking-[0.6em] text-primary border-b-4 border-primary pb-2 hover:text-white hover:border-white transition-all">ACCESS_CORE_VOID</button>
+</div>
+</div>
+</div>
+</article>
+<article class="md:col-span-5 md:col-start-4 group mt-16 relative z-10">
+<div class="bg-black/80 p-6 shard-melt-intense border-2 border-primary/30 hover:scale-125 transition-all duration-500 glitch-hover">
+<div class="shard-inner-fractal"></div>
+<div class="relative aspect-square mb-6 overflow-hidden shard-2">
+<img alt="Colorful digital gradient glitch" class="w-full h-full object-cover contrast-[3] brightness-[0.5] group-hover:brightness-100 transition-all duration-500 scale-150 group-hover:rotate-45" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPLVawfec3WGsAyD4SFhHkIOdozKY4lf0ps1qh0kyrd4l71jFmh5tcbImTKZ_ERSzuYtEUZAv9siVC0FiwHvbkgeztyyGjxc55WzA-oP3_OJsD-jd6JcQUPFbXnHhGfuR4mtgTYKMhi1qP0Iwd9gmB06jVo09y36yoTRB0m7NKolrVwEhWsg7v688Upohol7xUPpB8j-LbNhtu_uC_CthUkuwURp3TxNE0OpnG6cNyqSCb9t1cu3XVbyVsO0iSW7Ji66ibwBWtRSQ"/>
+</div>
+<span class="text-[10px] font-mono text-primary mb-3 block tracking-[0.8em] uppercase text-center">DECAY_STATE_ACTIVE</span>
+<h3 class="text-2xl font-black text-white mb-3 uppercase tracking-tighter text-center group-hover:text-primary transition-colors">CHROME_DISSOLUTION</h3>
+</div>
+</article>
+</div>
+<!-- Pagination -->
+<div class="mt-48 flex justify-center gap-6">
+<button class="w-20 h-20 border-4 border-primary text-primary hover:bg-primary hover:text-black transition-all shard-1 font-black text-2xl vibrating-text">01</button>
+<button class="w-24 h-24 border-4 border-secondary bg-secondary text-black flex items-center justify-center font-black text-3xl shard-2 shadow-[0_0_40px_rgba(255,81,250,0.8)]">02</button>
+<button class="w-20 h-20 border-4 border-primary/30 flex items-center justify-center text-primary/40 hover:text-white hover:border-white transition-all shard-3 font-black text-2xl">03</button>
+<div class="w-20 h-20 flex items-center justify-center text-primary/20 tracking-[1em] font-black">...</div>
+<button class="w-20 h-20 border-4 border-primary/30 flex items-center justify-center text-primary/40 hover:text-white hover:border-white transition-all shard-4 font-black text-2xl">99</button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full relative overflow-visible shard-footer bg-[#0a0a0a] pt-48 pb-20 px-12 flex flex-col md:flex-row justify-between items-end gap-12 shadow-[0_-40px_100px_rgba(142,255,113,0.15)] border-t-4 border-primary/20">
+<div class="space-y-6">
+<div class="text-2xl font-black font-mono text-secondary tracking-[0.6em] vibrating-text">FRACTAL_VOID // CORE_KERNEL</div>
+<div class="font-['Space_Grotesk'] text-sm leading-tight font-black text-primary uppercase tracking-[0.5em] animate-pulse">
+            STATUS: CRITICAL_DISSOLUTION_SEQUENCE_99% // ENTROPY_OVERLOAD
+        </div>
+</div>
+<div class="flex gap-12 mb-6">
+<a class="font-['Space_Grotesk'] text-sm font-black leading-tight text-white hover:text-primary transition-all uppercase tracking-[0.4em] hover:-translate-y-2" href="#">DIAGNOSTICS</a>
+<a class="font-['Space_Grotesk'] text-sm font-black leading-tight text-white hover:text-primary transition-all uppercase tracking-[0.4em] hover:-translate-y-2" href="#">COORDINATES</a>
+<a class="font-['Space_Grotesk'] text-sm font-black leading-tight text-error hover:text-white transition-all uppercase tracking-[0.4em] hover:bg-error hover:px-2" href="#">TERMINATE_LINK</a>
+</div>
+</footer>
+<!-- FAB -->
+<div class="fixed bottom-16 right-16 z-[100]">
+<button class="bg-primary text-black w-24 h-24 flex items-center justify-center shadow-[0_0_60px_rgba(142,255,113,0.8)] hover:scale-125 hover:rotate-180 active:scale-90 transition-all duration-500 cursor-none shard-1 border-4 border-black">
+<span class="material-symbols-outlined font-black text-5xl" data-icon="terminal">terminal</span>
+</button>
+</div>
+</body></html>

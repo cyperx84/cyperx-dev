@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Glitch Art Maximalist - OVERLOAD</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#06f9f9",
+              "background-light": "#e0e7e7",
+              "background-dark": "#020202",
+              "surface": "#0a0a0a",
+              "surface-light": "#fefefe",
+              "accent-red": "#FF003C",
+              "accent-magenta": "#FF00FF",
+              "muted": "#444444"
+            },
+            fontFamily: {
+              "display": ["Space Grotesk", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0px", "sm": "0px", "lg": "0px", "xl": "0px", "full": "0px"},
+            keyframes: {
+                glitchRotate: {
+                    '0%': { transform: 'rotate3d(1, 1, 1, 0deg) scale(1) skew(0deg)' },
+                    '20%': { transform: 'rotate3d(2, -1, 1, 95deg) scale(1.1) skew(5deg)' },
+                    '40%': { transform: 'rotate3d(-1, 2, -1, 190deg) scale(0.9) skew(-10deg)' },
+                    '60%': { transform: 'rotate3d(1, 1, 2, 285deg) scale(1.2) skew(2deg)' },
+                    '80%': { transform: 'rotate3d(-2, 1, -1, 340deg) scale(0.8) skew(-5deg)' },
+                    '100%': { transform: 'rotate3d(1, 1, 1, 360deg) scale(1) skew(0deg)' },
+                },
+                noise: {
+                    '0%, 100%': { backgroundPosition: '0 0' },
+                    '10%': { backgroundPosition: '-10% -20%' },
+                    '20%': { backgroundPosition: '-25% 15%' },
+                    '30%': { backgroundPosition: '15% -35%' },
+                    '40%': { backgroundPosition: '30% 35%' },
+                    '50%': { backgroundPosition: '-35% 20%' },
+                    '60%': { backgroundPosition: '25% 15%' },
+                    '70%': { backgroundPosition: '0% 25%' },
+                    '80%': { backgroundPosition: '35% 45%' },
+                    '90%': { backgroundPosition: '-15% 20%' },
+                },
+                scanline: {
+                    '0%': { transform: 'translateY(-100%)' },
+                    '100%': { transform: 'translateY(100%)' }
+                },
+                shatter: {
+                    '0%, 100%': { clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)' },
+                    '10%': { clipPath: 'polygon(0% 15%, 100% 0%, 85% 100%, 0% 85%)' },
+                    '20%': { clipPath: 'polygon(5% 5%, 95% 10%, 100% 90%, 10% 95%)' },
+                    '30%': { clipPath: 'polygon(0% 0%, 100% 20%, 80% 100%, 20% 80%)' }
+                },
+                dataBleed: {
+                    '0%, 100%': { textShadow: '0 0 0 transparent' },
+                    '50%': { textShadow: '0 10px 10px rgba(6, 249, 249, 0.8), 0 20px 20px rgba(255, 0, 60, 0.6)' }
+                },
+                typewriter: {
+                    'from': { width: '0' },
+                    'to': { width: '100%' }
+                },
+                blink: {
+                    '50%': { borderColor: 'transparent' }
+                },
+                chaoticPath1: {
+                    '0%': { transform: 'translate(0,0) rotate(0deg) scale(1)' },
+                    '25%': { transform: 'translate(40vw, 10vh) rotate(120deg) scale(1.5)' },
+                    '50%': { transform: 'translate(-20vw, 80vh) rotate(240deg) scale(0.5)' },
+                    '75%': { transform: 'translate(60vw, 40vh) rotate(360deg) scale(2)' },
+                    '100%': { transform: 'translate(0,0) rotate(720deg) scale(1)' }
+                },
+                chaoticPath2: {
+                    '0%': { transform: 'translate(0,0) rotate(0deg)' },
+                    '33%': { transform: 'translate(-50vw, 20vh) rotate(-180deg) scale(1.2)' },
+                    '66%': { transform: 'translate(30vw, -10vh) rotate(180deg) scale(0.8)' },
+                    '100%': { transform: 'translate(0,0) rotate(360deg)' }
+                }
+            },
+            animation: {
+                'glitch-rotate': 'glitchRotate 8s infinite linear',
+                'noise-bg': 'noise 0.2s infinite steps(1)',
+                'scanline': 'scanline 4s linear infinite',
+                'shatter': 'shatter 0.5s infinite step-end',
+                'data-bleed': 'dataBleed 2s infinite ease-in-out',
+                'typewriter': 'typewriter 2s steps(40, end), blink .75s step-end infinite',
+                'float-chaotic-1': 'chaoticPath1 15s infinite ease-in-out alternate',
+                'float-chaotic-2': 'chaoticPath2 18s infinite linear alternate-reverse',
+                'float-chaotic-3': 'chaoticPath1 25s infinite linear',
+                'float-chaotic-4': 'chaoticPath2 12s infinite ease-in alternate',
+                'float-chaotic-5': 'chaoticPath1 20s infinite ease-out alternate-reverse'
+            }
+          },
+        },
+      }
+    </script>
+<style>body {
+    background-color: #050505;
+    color: #F8F8F8;
+    overflow-x: hidden;
+    transition: background-color 0.1s steps(2), color 0.1s steps(2)
+    }
+.light body {
+    background-color: #f5f8f8;
+    color: #050505
+    }
+/* Intense Chromatic Aberration */
+.chromatic-text {
+    position: relative;
+    display: inline-block
+    }
+.chromatic-text::before, .chromatic-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+    pointer-events: none
+    }
+.chromatic-text::before {
+    color: #FF003C;
+    z-index: -1;
+    transform: translate(-2px, -1px);
+    animation: noise 0.1s infinite
+    }
+.chromatic-text::after {
+    color: #06f9f9;
+    z-index: -2;
+    transform: translate(2px, 1px);
+    animation: noise 0.15s infinite reverse
+    }
+/* ASCII Background Noise with Distortion */
+.ascii-noise {
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.1;
+    font-family: monospace;
+    font-size: 10px;
+    color: #555;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(6, 249, 249, 0.05) 1px, rgba(6, 249, 249, 0.05) 2px), repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(255, 0, 60, 0.05) 1px, rgba(255, 0, 60, 0.05) 2px);
+    mix-blend-mode: hard-light
+    }
+/* Post Card Melting Effects */
+.post-card {
+    width: 100%;
+    max-width: 600px;
+    border: 4px solid #06f9f9;
+    background-color: #000;
+    transition: all 0.05s steps(2);
+    position: relative;
+    z-index: 20;
+    clip-path: polygon(0% 2%, 100% 0%, 98% 98%, 2% 100%)
+    }
+.light .post-card {
+    background-color: #fff;
+    border-color: #000
+    }
+.post-card:hover {
+    border-color: #FF003C;
+    filter: hue-rotate(90deg) contrast(150%);
+    transform: scale(1.02) rotate(1deg);
+    box-shadow: 10px 10px 0 #06f9f9, -10px -10px 0 #FF003C
+    }
+/* Fractal Mask Layer */
+.fractal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuDlJ6LTGEQid_mpHupTTI3w-KGaSeZWf3otjDIbc45dLTmLahE9FTMP7CzHfYWLBKu9dp51I8-rXsLVwu5tkPrKzXeDtruan8-4ysbgyE9eXfewys0Et9kYLHCG8aIVRItPsYZrE99qct8i-bn7EDklKCiSst2sk4kz129IMz01snSH4z81OxG--RCrrLEvRjjB_NxpdF2wLw0K0_4KmiemaHecvaAuMcAV3Hm4X37LMcehRAcDPnZi-dzaQ7zwupRGeRSARp8tr3Mr);
+    mask-image: radial-gradient(circle at center, transparent 30%, black 100%);
+    mix-blend-mode: exclusion
+    }
+/* Scanline */
+.scanline-effect {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(to bottom, transparent, rgba(6, 249, 249, 0.1), transparent);
+    z-index: 100;
+    pointer-events: none
+    }
+/* Floating Bouncing Emojis */
+.bouncing-emoji {
+    position: absolute;
+    font-size: 5rem;
+    filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.8));
+    will-change: transform;
+    mix-blend-mode: screen
+    }
+/* Typewriter Helper */
+.typewriter-text {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid #06f9f9;
+    display: inline-block;
+}
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 16px;
+    background: #000
+    }
+::-webkit-scrollbar-thumb {
+    background: #FF003C;
+    border: 4px solid #000
+    }
+/* Broken Toggle */
+.broken-toggle {
+    clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+    transform: skewx(-15deg)
+    }</style>
+</head>
+<body class="font-display antialiased min-h-screen relative selection:bg-primary selection:text-black dark:bg-background-dark light:bg-background-light overflow-x-hidden">
+<!-- Fractal & Noise Layers -->
+<div class="ascii-noise animate-noise-bg">
+    ERROR_CODE_404_VOID_NULL_POINTER_EXCEPTION_SEGMENTATION_FAULT_REBOOT_IMMEDIATE_01010101_SHRED_REALITY_ERROR_CODE_404_VOID_NULL_POINTER_EXCEPTION_SEGMENTATION_FAULT_REBOOT_IMMEDIATE_01010101_SHRED_REALITY
+</div>
+<div class="fractal-overlay"></div>
+<div class="scanline-effect animate-scanline"></div>
+<!-- Mode Toggle -->
+<button class="fixed top-6 right-6 z-[200] bg-accent-red text-white px-6 py-3 font-mono font-black border-4 border-white hover:bg-primary hover:text-black transition-all broken-toggle shadow-[5px_5px_0px_#06f9f9] active:translate-y-1 active:shadow-none" onclick="document.documentElement.classList.toggle('dark'); document.documentElement.classList.toggle('light')">
+    LUMINANCE_BREACH
+</button>
+<!-- Chaotic Emojis -->
+<div class="fixed inset-0 pointer-events-none z-10 overflow-hidden">
+<div class="bouncing-emoji animate-float-chaotic-1 top-[5%] left-[5%]">💀</div>
+<div class="bouncing-emoji animate-float-chaotic-2 top-[55%] left-[85%]">🍄</div>
+<div class="bouncing-emoji animate-float-chaotic-3 top-[25%] left-[35%] opacity-50"> snowboarding 🏂</div>
+<div class="bouncing-emoji animate-float-chaotic-4 top-[75%] left-[15%]">👾</div>
+<div class="bouncing-emoji animate-float-chaotic-5 top-[45%] left-[65%]">🛹</div>
+<div class="bouncing-emoji animate-float-chaotic-2 top-[15%] left-[75%]">🤖</div>
+<div class="bouncing-emoji animate-float-chaotic-4 top-[85%] left-[45%] grayscale">👽</div>
+<div class="bouncing-emoji animate-float-chaotic-3 top-[10%] left-[20%]">😎</div>
+</div>
+<div class="relative flex min-h-screen w-full lg:flex-row flex-col max-w-[1800px] mx-auto z-20">
+<!-- Navigation (Melting Terminal) -->
+<aside class="w-full lg:w-[360px] lg:fixed lg:h-screen p-8 flex flex-col gap-10 z-50 bg-background-dark/90 backdrop-blur-md lg:bg-transparent lg:backdrop-blur-none border-b-8 lg:border-b-0 border-primary">
+<div class="border-4 border-primary bg-black/80 relative overflow-hidden transform -rotate-1">
+<div class="absolute inset-0 bg-primary/10 animate-pulse pointer-events-none"></div>
+<div class="bg-primary px-4 py-2 flex items-center justify-between">
+<h1 class="text-black text-xs font-black uppercase tracking-[0.3em] typewriter-text animate-typewriter" style="animation-duration: 3s">KERNEL_PANIC:shred</h1>
+<div class="flex gap-2">
+<div class="w-3 h-3 bg-black"></div>
+<div class="w-3 h-3 bg-accent-red animate-ping"></div>
+</div>
+</div>
+<div class="p-6 flex flex-col gap-4 font-mono text-xl">
+<a class="flex items-center gap-4 px-3 py-2 hover:bg-primary/30 group relative" href="#">
+<span class="text-primary group-hover:animate-bounce typewriter-text animate-typewriter" style="animation-duration: 1s">ERR:</span>
+<span class="dark:text-white light:text-black font-black uppercase tracking-tighter chromatic-text" data-text="HOME">HOME</span>
+<div class="absolute bottom-0 left-0 w-full h-[2px] bg-accent-red scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+</a>
+<a class="flex items-center gap-4 px-3 py-2 hover:bg-accent-magenta/30 group relative" href="#">
+<span class="text-muted group-hover:text-accent-magenta typewriter-text animate-typewriter" style="animation-duration: 1.5s; animation-delay: 0.5s">ERR:</span>
+<span class="dark:text-gray-400 light:text-gray-600 font-black uppercase tracking-tighter chromatic-text" data-text="MANIFESTO">MANIFESTO</span>
+</a>
+<a class="flex items-center gap-4 px-3 py-2 hover:bg-accent-red/30 group relative" href="#">
+<span class="text-muted group-hover:text-accent-red typewriter-text animate-typewriter" style="animation-duration: 2s; animation-delay: 1s">ERR:</span>
+<span class="dark:text-gray-400 light:text-gray-600 font-black uppercase tracking-tighter chromatic-text" data-text="FRAGMENTS">FRAGMENTS</span>
+</a>
+</div>
+</div>
+<div class="hidden lg:block mt-auto pb-12">
+<div class="text-primary font-mono text-[10px] leading-none space-y-1 p-4 border-l-4 border-accent-magenta bg-black/40 animate-data-bleed">
+<p class="typewriter-text animate-typewriter" style="animation-duration: 2s">MEMORY_ADDR: 0xDEADBEEF</p>
+<p class="typewriter-text animate-typewriter" style="animation-duration: 2.5s">BUFFER_OVERFLOW: DETECTED</p>
+<p class="typewriter-text animate-typewriter" style="animation-duration: 3s">REALITY_SYNC: DISCONNECTED</p>
+<p class="text-white bg-accent-red inline-block px-1 typewriter-text animate-typewriter" style="animation-duration: 1.5s">SYSTEM_SHREDDING...</p>
+</div>
+</div>
+</aside>
+<!-- Main Content (Shattered Grid) -->
+<main class="flex-1 lg:ml-[360px] p-6 lg:p-16 xl:p-24 relative overflow-hidden flex flex-col items-center gap-24 lg:gap-40 pt-20 lg:pt-40 pb-64">
+<!-- Terminal Header Post -->
+<div class="w-full max-w-4xl border-4 border-primary bg-black p-4 font-mono mb-12 transform -rotate-1 relative z-30">
+<div class="flex items-center gap-2 mb-4 border-b border-muted pb-2">
+<div class="w-3 h-3 rounded-full bg-accent-red"></div>
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<div class="w-3 h-3 rounded-full bg-accent-magenta"></div>
+<span class="ml-auto text-[10px] text-muted">tty1 - 80x24</span>
+</div>
+<div class="space-y-2">
+<p class="text-primary"><span class="typewriter-text animate-typewriter">root@shredder:~# cat manifesto.txt</span></p>
+<div class="pl-4 text-white leading-relaxed space-y-2">
+<p class="typewriter-text animate-typewriter" style="animation-delay: 2s; animation-duration: 4s">The screen is the only window left.</p>
+<p class="typewriter-text animate-typewriter" style="animation-delay: 4s; animation-duration: 5s">We are pixels floating in a liquid crystal abyss.</p>
+<p class="typewriter-text animate-typewriter" style="animation-delay: 6s; animation-duration: 3s">Distort. Destroy. Rebuild. Repeat.</p>
+</div>
+<p class="text-primary"><span class="typewriter-text animate-typewriter" style="animation-delay: 9s">root@shredder:~# _</span></p>
+</div>
+</div>
+<!-- Post 1 -->
+<article class="post-card p-1 lg:-ml-20 lg:translate-x-10 cursor-crosshair group animate-shatter" style="animation-duration: 10s; animation-timing-function: linear;">
+<div class="absolute -top-6 -right-6 bg-accent-magenta text-white px-4 py-2 font-mono text-sm font-black uppercase z-30 shadow-[4px_4px_0px_#000] rotate-3 animate-pulse">
+                CORRUPTION_LOG_01
+            </div>
+<div class="dark:bg-surface light:bg-surface-light border-4 border-muted/50 p-6 lg:p-10 h-full w-full relative overflow-hidden">
+<div class="absolute inset-0 bg-[repeating-linear-gradient(45deg,transparent,transparent_2px,rgba(255,0,0,0.05)_2px,rgba(255,0,0,0.05)_4px)] pointer-events-none"></div>
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-4 justify-between border-b-2 border-primary pb-2">
+<p class="text-accent-red font-mono text-xs tracking-[0.5em] animate-data-bleed typewriter-text animate-typewriter">13:37:00:VOID [TIME_ERR]</p>
+<span class="bg-primary text-black px-3 py-1 text-[10px] font-black font-mono">FRAG_ID: CLAUDE_X</span>
+</div>
+<h2 class="text-4xl lg:text-6xl font-black uppercase leading-[0.85] tracking-tighter dark:text-white light:text-black group-hover:text-primary transition-colors italic">
+<span class="chromatic-text typewriter-text animate-typewriter" data-text="NEURAL">NEURAL</span><br/>
+<span class="text-3xl lg:text-5xl dark:text-gray-500 light:text-gray-400 block mt-2 chromatic-text typewriter-text animate-typewriter" data-text="GHOST_IN_THE_CODE" style="animation-delay: 1s">GHOST_IN_THE_CODE</span>
+</h2>
+<div class="w-full h-64 lg:h-96 bg-black border-4 border-primary relative overflow-hidden group-hover:scale-[0.98] transition-transform duration-75">
+<img alt="Glitch art" class="absolute inset-0 w-full h-full object-cover mix-blend-difference filter contrast-200 grayscale group-hover:grayscale-0 group-hover:hue-rotate-180 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkTJEtl77r6TKcAvFsYEciARxqr3_WHd9ucY2vKJowaUaUd8JdtNP2MFFoIyD2HiQU-sPyuSQb9SRt4HjNo4m0EY7GSGrpJ09fKfwv5aLXtpJ5csyt8KB7KqxJDzhKsS5q6sdOS9ILES2yhPWkoQ3_4h_kmAQyk8UbibaF3wInXegKFQPm0YldxDeFlN-8tnts4bcerKnmNVXenFprb0K7Aq7P2ojsyzfFX5sOdXIyC9_RpVd2JhJj-4Hi_Cf2IaV2DbIscakhShK_"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
+<div class="absolute top-2 left-2 text-[10px] font-mono text-primary bg-black px-2 typewriter-text animate-typewriter">STATUS: MELTING</div>
+</div>
+<div class="dark:text-gray-300 light:text-gray-700 font-mono text-base leading-tight border-l-8 border-accent-magenta pl-6 py-2 group-hover:translate-x-2 transition-transform">
+<span class="typewriter-text animate-typewriter whitespace-normal" style="animation-duration: 8s">Manual override initiated. The AI is no longer hallucinating; it is Dreaming in 12-bit color. We found the source of the leak in the recursive skate-loops. It tastes like copper and neon.</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Post 2 -->
+<article class="post-card p-1 lg:self-end lg:-translate-x-20 group rotate-1">
+<div class="dark:bg-surface light:bg-surface-light border-4 border-primary p-6 lg:p-10 h-full w-full relative overflow-hidden">
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-4 justify-between border-b-2 border-accent-magenta pb-2">
+<p class="text-primary font-mono text-xs tracking-widest typewriter-text animate-typewriter">ERROR_LOG_NULL [SYS_TIME]</p>
+<div class="flex gap-1">
+<span class="w-2 h-2 bg-accent-red animate-ping"></span>
+<span class="w-2 h-2 bg-primary animate-ping" style="animation-delay: 0.1s"></span>
+</div>
+</div>
+<h2 class="text-4xl lg:text-6xl font-black uppercase leading-none tracking-tighter dark:text-white light:text-black chromatic-text typewriter-text animate-typewriter" data-text="PSILOCYBIN_SHELL">
+                        PSILOCYBIN_SHELL
+                    </h2>
+<p class="dark:text-gray-400 light:text-gray-600 font-mono text-lg italic border-r-8 border-primary pr-6 text-right">
+<span class="typewriter-text animate-typewriter whitespace-normal" style="animation-duration: 6s">"The root terminal is a gateway to a forest of binary trees. Each leaf is a bit, each branch a logic gate. We are the fungus spreading through the silicon."</span>
+</p>
+<div class="mt-4 bg-accent-red text-white p-6 font-mono text-sm overflow-hidden relative transform -skew-y-2">
+<div class="absolute top-0 left-0 w-full h-full bg-black/20 animate-noise-bg"></div>
+<div class="relative z-10 space-y-1">
+<p class="typewriter-text animate-typewriter" style="animation-duration: 2s">&gt; stack trace: infinity</p><br/>
+<p class="typewriter-text animate-typewriter" style="animation-duration: 2.5s">&gt; heap overflow: psychic_leakage</p><br/>
+<p class="typewriter-text animate-typewriter" style="animation-duration: 3s">&gt; terminating ego... DONE.</p>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- Post 3 (The 'Void' Card) -->
+<article class="post-card p-1 lg:translate-x-32 group -rotate-2">
+<div class="dark:bg-surface light:bg-surface-light border-8 border-double border-accent-magenta p-12 h-full w-full flex flex-col items-center justify-center min-h-[400px]">
+<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')] opacity-10"></div>
+<h2 class="text-7xl lg:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-br from-primary via-accent-magenta to-accent-red animate-glitch-rotate italic typewriter-text animate-typewriter" style="animation-duration: 3s">
+                    VOID
+                </h2>
+<p class="font-mono text-xs text-muted mt-8 tracking-[1em] animate-pulse typewriter-text animate-typewriter" style="animation-duration: 5s">REPLICATING_EXISTENCE...</p>
+</div>
+</article>
+<!-- Footer Overload -->
+<div class="w-full max-w-[800px] text-center mt-20 relative">
+<div class="absolute inset-0 blur-3xl bg-primary/20 animate-pulse -z-10"></div>
+<p class="font-mono text-accent-red font-black text-4xl lg:text-6xl tracking-tighter animate-data-bleed mb-8 typewriter-text animate-typewriter" style="animation-duration: 4s">
+                [END_OF_SIMULATION]
+            </p>
+<div class="flex flex-wrap justify-center gap-2 opacity-30 font-mono text-[8px] max-w-md mx-auto break-all">
+                01001110 01001111 01010100 01001000 01001001 01001110 01000111 00100000 01001001 01010011 00100000 01010010 01000101 01000001 01001100 00100000 01001001 01001110 00100000 01010100 01001000 01000101 00100000 01010111 01001111 01001001 01000100
+            </div>
+</div>
+</main>
+<!-- Floating 3D Hyper-Glitch -->
+<div class="fixed bottom-8 right-8 lg:bottom-16 lg:right-16 z-[300] pointer-events-none mix-blend-screen w-40 h-40 lg:w-64 lg:h-64">
+<div class="w-full h-full relative animate-glitch-rotate filter drop-shadow-[0_0_40px_#FF00FF]">
+<img alt="Fractalized Core" class="w-full h-full object-cover mix-blend-hard-light filter contrast-[3] hue-rotate-180 brightness-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0D7n7Rm2HHJKUa4C2cZN2tAY-TSZBSrAZkHax33lOTlrVBAWoGJGhFc57twIHVVv22mawdQnG7PbNQh5wkqTxiYCniFUDGqc0JxeoufuQOQQltk5oiVay5AOQsKBGFkuHpVTD9AOQdHzsz4viQ5AYsiGub9T_RmEomEnMUrYR2zW1sHx10gmQu6RQFvk8EzRMKUjgLxaW8wNWz46tcZcMN_Lek18o3QvQU7VfeRS-81-DmOlachY4ENUbfquMBgoLbPOe5EG9PH2-" style="clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);"/>
+<div class="absolute inset-0 border-[6px] border-primary animate-ping opacity-50"></div>
+<div class="absolute inset-0 border-[2px] border-accent-red animate-glitch-rotate" style="animation-direction: reverse;"></div>
+<div class="absolute -inset-4 bg-accent-magenta/20 blur-xl animate-pulse"></div>
+</div>
+</div>
+</div>
+</body></html>
