@@ -1,68 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-
-const posts = [
-  {
-    title: "Why I Gave My AI Agent Root Access",
-    slug: "ai-agent-root-access",
-    date: "2026.03.18",
-    excerpt: "Everyone told me it was insane. They were right. But the productivity gains from letting an autonomous agent manage my infrastructure changed everything about how I build.",
-    tags: ["AI", "AGENTS", "INFRASTRUCTURE"],
-    readTime: "8 min",
-    category: "SYSTEMS",
-    signal: 94,
-  },
-  {
-    title: "The Obsidian Vault as Operating System",
-    slug: "obsidian-vault-os",
-    date: "2026.03.02",
-    excerpt: "Your note-taking app is a shitty operating system. Here's how I turned mine into an actual one — with pipelines, state machines, and agents that read it.",
-    tags: ["OBSIDIAN", "PKM", "AUTOMATION"],
-    readTime: "12 min",
-    category: "KNOWLEDGE",
-    signal: 88,
-  },
-  {
-    title: "Fleet Architecture: Running 4 AI Agents on a Mac Mini",
-    slug: "fleet-architecture-mac-mini",
-    date: "2026.02.26",
-    excerpt: "A generalist, a builder, a researcher, and an ops agent — all running on a single M4 Mac Mini. Here's the architecture, the failures, and what actually works.",
-    tags: ["AGENTS", "MACOS", "DISTRIBUTED"],
-    readTime: "15 min",
-    category: "BUILDS",
-    signal: 91,
-  },
-  {
-    title: "Token Economics: Spending $0.47/day on AI That Actually Works",
-    slug: "token-economics",
-    date: "2026.02.14",
-    excerpt: "Model routing, fallback chains, local inference on Apple Silicon. How to stop bleeding money on API calls without sacrificing capability.",
-    tags: ["LLM", "OPTIMIZATION", "COST"],
-    readTime: "10 min",
-    category: "OPTIMIZATION",
-    signal: 76,
-  },
-  {
-    title: "Building in Public When the Public Doesn't Exist Yet",
-    slug: "building-in-public",
-    date: "2026.01.28",
-    excerpt: "The audience for human-AI collaboration infrastructure is approximately 400 people worldwide. I'm building for the other 8 billion who'll need it in 18 months.",
-    tags: ["PHILOSOPHY", "BUILDING", "FUTURE"],
-    readTime: "6 min",
-    category: "THOUGHTS",
-    signal: 82,
-  },
-  {
-    title: "Tailscale Mesh + Agent Army = Distributed Brain",
-    slug: "tailscale-agent-mesh",
-    date: "2026.01.12",
-    excerpt: "Connecting 3 machines into a single cognitive mesh. The agent on my Linux box can ask the agent on my Mac Mini to look something up, and neither needs to know where the other lives.",
-    tags: ["NETWORKING", "AGENTS", "TAILSCALE"],
-    readTime: "9 min",
-    category: "INFRASTRUCTURE",
-    signal: 85,
-  },
-];
+import { posts } from '../data/posts';
 
 const featured = posts[0];
 const rest = posts.slice(1);
@@ -84,7 +22,7 @@ const rest = posts.slice(1);
       <!-- Featured Post -->
       <article class="mb-16 sm:mb-24 group relative">
         <div class="absolute -inset-1 bg-[#39FF14]/20 blur-xl group-hover:bg-[#39FF14]/40 transition-colors"></div>
-        <div class="relative bg-[#2a2a2a] shard-clip-1 melt-effect border-l-8 border-[#39FF14] p-6 sm:p-8 lg:p-12">
+        <a href={`/blog/${featured.slug}`} class="block relative bg-[#2a2a2a] shard-clip-1 melt-effect border-l-8 border-[#39FF14] p-6 sm:p-8 lg:p-12">
           <div class="flex flex-col md:flex-row gap-6 sm:gap-8">
             <div class="w-full md:w-1/2">
               <div class="font-mono text-[10px] text-[#FF51FA] mb-2">SIGNAL_STRENGTH: {featured.signal}% // {featured.date}</div>
@@ -106,7 +44,7 @@ const rest = posts.slice(1);
               </div>
             </div>
           </div>
-        </div>
+        </a>
       </article>
 
       <!-- Post Grid -->
@@ -130,7 +68,7 @@ const rest = posts.slice(1);
           const colors = ["#FF51FA", "#39FF14", "#AC89FF", "#FF51FA", "#39FF14"];
           return (
             <article class={`${spans[i]} group`}>
-              <div class={`bg-[#0e0e0e] ${clips[i]} p-6 sm:p-8 ${borders[i]} h-full flex flex-col justify-between hover:bg-[#1f1f1f] transition-colors`}>
+              <a href={`/blog/${post.slug}`} class={`block bg-[#0e0e0e] ${clips[i]} p-6 sm:p-8 ${borders[i]} h-full flex flex-col justify-between hover:bg-[#1f1f1f] transition-colors`}>
                 <div>
                   <div class="flex items-center justify-between mb-4">
                     <span class="font-mono text-[10px] text-[#e2e2e2]/50">{post.category}</span>
@@ -150,7 +88,7 @@ const rest = posts.slice(1);
                   <span>{post.readTime.toUpperCase()}</span>
                   <span style={`color:${colors[i]}`}>READ_&gt;&gt;</span>
                 </div>
-              </div>
+              </a>
             </article>
           );
         })}
@@ -192,7 +130,7 @@ const rest = posts.slice(1);
               </div>
               <div class="flex items-center gap-4">
                 <span class="font-mono text-xs text-[#131313]/40">{featured.date} · {featured.readTime}</span>
-                <a class="inline-flex items-center gap-2 font-black uppercase tracking-widest text-[#39FF14] group-hover:text-[#FF51FA]" href="#">
+                <a class="inline-flex items-center gap-2 font-black uppercase tracking-widest text-[#39FF14] group-hover:text-[#FF51FA]" href={`/blog/${featured.slug}`}>
                   READ <span class="material-symbols-outlined">arrow_forward</span>
                 </a>
               </div>
@@ -215,7 +153,7 @@ const rest = posts.slice(1);
           const borderColors = ["#FF51FA", "#AC89FF", "#39FF14", "#FF51FA", "#AC89FF"];
           return (
             <article class={`${spans[i]} group`}>
-              <div class={`p-1 transition-all duration-75 hover:skew-y-1`} style={`background:${borderColors[i]}; clip-path:${clipPaths[i]}`}>
+              <a href={`/blog/${post.slug}`} class={`block p-1 transition-all duration-75 hover:skew-y-1`} style={`background:${borderColors[i]}; clip-path:${clipPaths[i]}`}>
                 <div class="bg-white p-6" style={`clip-path:${clipPaths[i]}`}>
                   <div class="mb-3 flex justify-between items-start">
                     <span class="text-white text-[10px] font-mono px-2 py-1" style={`background:${borderColors[i]}`}>{post.category}</span>
@@ -232,7 +170,7 @@ const rest = posts.slice(1);
                     <span class="font-mono text-[10px] opacity-40">{post.readTime}</span>
                   </div>
                 </div>
-              </div>
+              </a>
             </article>
           );
         })}
@@ -291,9 +229,9 @@ const rest = posts.slice(1);
             </h2>
             <p class="text-white text-lg sm:text-2xl font-bold leading-tight max-w-3xl italic tracking-tight">{featured.excerpt}</p>
             <div class="flex flex-wrap items-center gap-6 sm:gap-12">
-              <button class="bg-[#8eff71] text-[#0d6100] px-8 sm:px-16 py-4 sm:py-6 font-black text-base sm:text-xl uppercase tracking-tighter hover:bg-white hover:text-black transition-all shadow-[0_0_30px_rgba(142,255,113,0.8)]">
+              <a href={`/blog/${featured.slug}`} class="bg-[#8eff71] text-[#0d6100] px-8 sm:px-16 py-4 sm:py-6 font-black text-base sm:text-xl uppercase tracking-tighter hover:bg-white hover:text-black transition-all shadow-[0_0_30px_rgba(142,255,113,0.8)]">
                 DECRYPT_VOID
-              </button>
+              </a>
               <span class="text-[#ff51fa] font-mono text-xs sm:text-sm animate-pulse">SIGNAL: {featured.signal}%</span>
             </div>
           </div>
@@ -308,7 +246,7 @@ const rest = posts.slice(1);
           const xShards = ["x-shard-sidebar", "x-shard-3", "x-shard-4", "x-shard-sidebar", "x-shard-3"];
           return (
             <article class={`${spans[i]} group`}>
-              <div class={`bg-[#111] p-6 sm:p-8 border-4 overflow-hidden relative ${xShards[i]} x-glitch-hover hover:scale-[1.02] transition-all duration-500`} style={`border-color:${borderColors[i]}50; box-shadow:0 0 40px ${borderColors[i]}33`}>
+              <a href={`/blog/${post.slug}`} class={`block bg-[#111] p-6 sm:p-8 border-4 overflow-hidden relative ${xShards[i]} x-glitch-hover hover:scale-[1.02] transition-all duration-500`} style={`border-color:${borderColors[i]}50; box-shadow:0 0 40px ${borderColors[i]}33`}>
                 <div class="x-shard-inner-fractal"></div>
                 <div class="relative z-10">
                   <div class="flex items-center justify-between mb-4">
@@ -329,7 +267,7 @@ const rest = posts.slice(1);
                     <span class="font-black uppercase tracking-[0.3em]" style={`color:${borderColors[i]}`}>DECRYPT_&gt;&gt;</span>
                   </div>
                 </div>
-              </div>
+              </a>
             </article>
           );
         })}

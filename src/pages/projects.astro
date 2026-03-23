@@ -1,74 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-
-const projects = [
-  {
-    name: "OpenClaw Agent Fleet",
-    slug: "openclaw-fleet",
-    tagline: "4 autonomous AI agents on a single Mac Mini",
-    description: "Distributed fleet of AI agents — a generalist, builder, researcher, and ops agent — all running on Apple Silicon. Tailscale mesh networking, Discord integration, automatic failover chains, and inter-agent orchestration.",
-    stack: ["TypeScript", "OpenClaw", "Tailscale", "Discord.js"],
-    status: "ACTIVE",
-    statusColor: "#39FF14",
-    entropy: 94,
-    links: { github: "https://github.com/openclaw/openclaw", live: null },
-  },
-  {
-    name: "Fleet TUI",
-    slug: "fleet-tui",
-    tagline: "Real-time terminal dashboard for agent fleets",
-    description: "Go/Bubbletea TUI for monitoring agent sessions, error feeds, and gateway health. Tokyo Night palette, vim keybinds, live session logs, kill/restart controls. Zero inference — reads raw JSON and logs.",
-    stack: ["Go", "Bubbletea", "Lipgloss"],
-    status: "SHIPPED",
-    statusColor: "#AC89FF",
-    entropy: 88,
-    links: { github: "https://github.com/cyperx84/fleet-tui", live: null },
-  },
-  {
-    name: "CyperX.dev",
-    slug: "cyperx-dev",
-    tagline: "This website. Three themes. Zero restraint.",
-    description: "Personal site built with Astro. Dark, light, and extreme theme variants generated from Google Stitch designs. Neo-brutalist glitch aesthetic with liquid shard layouts.",
-    stack: ["Astro", "Tailwind", "Google Stitch"],
-    status: "BUILDING",
-    statusColor: "#FF51FA",
-    entropy: 76,
-    links: { github: null, live: "https://cyperx.dev" },
-  },
-  {
-    name: "Personal OS",
-    slug: "personal-os",
-    tagline: "Obsidian vault as an actual operating system",
-    description: "A system for capturing and executing ideas autonomously. Pipelines flow from ideas → PRDs → builds → ship. Agents read the vault, execute tasks, and report back. The vault is shared context for humans AND AI.",
-    stack: ["Obsidian", "Markdown", "OpenClaw", "YAML"],
-    status: "ACTIVE",
-    statusColor: "#39FF14",
-    entropy: 91,
-    links: { github: null, live: null },
-  },
-  {
-    name: "Voice Forge",
-    slug: "voice-forge",
-    tagline: "Voice cloning pipeline for agent TTS",
-    description: "Automated pipeline that captures voice messages, transcribes with Whisper, builds a corpus, and trains voice models. Gives AI agents a real voice instead of generic TTS.",
-    stack: ["Python", "Whisper", "ElevenLabs", "FFmpeg"],
-    status: "v3",
-    statusColor: "#AC89FF",
-    entropy: 82,
-    links: { github: null, live: null },
-  },
-  {
-    name: "Changelogs.info",
-    slug: "changelogs-info",
-    tagline: "Aggregated release notes for dev tools",
-    description: "OpenClaw subdomain with neo-brutalist theme. Changelog aggregation, cheatsheets, and config reference. Built to make release tracking less painful.",
-    stack: ["Astro", "Tailwind", "GitHub API"],
-    status: "LOCAL",
-    statusColor: "#FF51FA",
-    entropy: 68,
-    links: { github: "https://github.com/cyperx84/changelogs-info", live: null },
-  },
-];
+import { projects } from '../data/projects';
 
 const featured = projects[0];
 const rest = projects.slice(1);
@@ -98,7 +30,7 @@ const rest = projects.slice(1);
       <!-- Featured Project -->
       <div class="mb-20 sm:mb-32 group relative">
         <div class="absolute -top-12 -left-8 font-mono text-7xl sm:text-9xl text-[#353535] opacity-20 font-black z-0">00</div>
-        <div class="relative bg-[#2a2a2a] shard-clip-1 melt-effect border-l-8 border-[#39FF14] p-6 sm:p-8 lg:p-12 z-10">
+        <a href={`/projects/${featured.slug}`} class="block relative bg-[#2a2a2a] shard-clip-1 melt-effect border-l-8 border-[#39FF14] p-6 sm:p-8 lg:p-12 z-10">
           <div class="flex flex-col md:flex-row gap-6 sm:gap-8">
             <div class="w-full md:w-2/3">
               <div class="flex items-center gap-3 mb-4">
@@ -128,7 +60,7 @@ const rest = projects.slice(1);
               </div>
             </div>
           </div>
-        </div>
+        </a>
       </div>
 
       <!-- Project Grid -->

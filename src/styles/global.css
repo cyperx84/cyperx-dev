@@ -319,17 +319,188 @@ body {
 .theme-extreme .bg-fx-extreme { display: block; }
 .theme-extreme .bg-fx-extreme-noise { display: block; }
 
-/* ── Mobile Bottom Nav — theme-aware ── */
-.mobile-bottom-nav {
-  border-top: 1px solid rgba(57,255,20,0.2);
+/* ── Mobile Slide-Down Menu ── */
+.mobile-menu-inner {
+  backdrop-filter: blur(20px);
 }
-.theme-dark .mobile-bottom-nav    { background: rgba(19,19,19,0.9); }
-.theme-light .mobile-bottom-nav   { background: rgba(255,255,255,0.9); }
-.theme-extreme .mobile-bottom-nav { background: rgba(0,0,0,0.9); border-top: 4px solid #8eff71; }
+.theme-dark .mobile-menu-inner   { background: rgba(19,19,19,0.95); }
+.theme-light .mobile-menu-inner  { background: rgba(255,255,255,0.95); }
+.theme-extreme .mobile-menu-inner { background: rgba(0,0,0,0.95); border-bottom: 4px solid #8eff71; }
 
-.mobile-nav-link { color: #39FF14; }
-.theme-extreme .mobile-nav-link { color: #8eff71; }
-.theme-light .mobile-nav-label  { color: #131313; }
+.mobile-menu-link { color: #e2e2e2; border-bottom: 1px solid rgba(57,255,20,0.1); }
+.mobile-menu-link:hover, .mobile-menu-link.active { color: #39FF14; background: rgba(57,255,20,0.05); }
+.theme-light .mobile-menu-link { color: #131313; }
+.theme-light .mobile-menu-link:hover, .theme-light .mobile-menu-link.active { color: #39FF14; background: rgba(57,255,20,0.08); }
+.theme-extreme .mobile-menu-link { color: #8eff71; border-color: rgba(142,255,113,0.1); }
+.theme-extreme .mobile-menu-link:hover, .theme-extreme .mobile-menu-link.active { color: #ff51fa; background: rgba(255,81,250,0.1); }
+
+/* Hamburger animation */
+.menu-open .hamburger-line:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+.menu-open .hamburger-line:nth-child(2) { opacity: 0; }
+.menu-open .hamburger-line:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+
+/* ── Animated Border Glow (dark + light) ── */
+@keyframes border-travel {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+@keyframes border-travel-reverse {
+  0%   { background-position: 200% 0%; }
+  100% { background-position: 0% 0%; }
+}
+
+.animated-border {
+  position: relative;
+}
+.animated-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  background: linear-gradient(90deg, transparent, #39FF14, #FF51FA, #AC89FF, transparent);
+  background-size: 200% 100%;
+  animation: border-travel 3s linear infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* ── Moving Scanlines Background (subtle) ── */
+@keyframes scanline-scroll {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(100%); }
+}
+
+.theme-dark .bg-ambient-effects::after,
+.theme-light .bg-ambient-effects::after {
+  content: '';
+  position: fixed;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 200%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 3px,
+    rgba(57,255,20,0.015) 3px,
+    rgba(57,255,20,0.015) 4px
+  );
+  animation: scanline-scroll 8s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+.theme-light .bg-ambient-effects::after {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 3px,
+    rgba(57,255,20,0.025) 3px,
+    rgba(57,255,20,0.025) 4px
+  );
+}
+
+/* ── Scroll-Linked Parallax Glow ── */
+.parallax-glow {
+  transition: transform 0.1s ease-out;
+}
+
+/* ── Card Hover Effects (dark + light) ── */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(57,255,20,0.15);
+}
+.theme-light .hover-lift:hover {
+  box-shadow: 0 8px 30px rgba(57,255,20,0.1), 0 4px 15px rgba(0,0,0,0.05);
+}
+
+/* ── Animated Underline on Hover ── */
+.hover-underline {
+  position: relative;
+}
+.hover-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #39FF14, #FF51FA);
+  transition: width 0.3s ease;
+}
+.hover-underline:hover::after {
+  width: 100%;
+}
+
+/* ── Typewriter Cursor ── */
+[data-typewriter] {
+  visibility: hidden;
+}
+[data-typewriter]::after {
+  content: '▌';
+  color: #39FF14;
+  animation: blink-cursor 0.7s step-end infinite;
+}
+.theme-light [data-typewriter]::after { color: #FF51FA; }
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ── Staggered Fade-In for Grid Items ── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+/* ── Ambient Floating Dots (dark theme) ── */
+@keyframes float-particle {
+  0%   { transform: translateY(0) translateX(0); opacity: 0; }
+  10%  { opacity: 0.6; }
+  90%  { opacity: 0.6; }
+  100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+}
+
+.theme-dark .bg-ambient-effects::before {
+  content: '';
+  position: fixed;
+  bottom: 0;
+  left: 20%;
+  width: 2px;
+  height: 2px;
+  background: #39FF14;
+  border-radius: 50%;
+  box-shadow:
+    100px 0 0 #39FF14,
+    200px 20vh 0 #FF51FA,
+    400px 10vh 0 #AC89FF,
+    600px 30vh 0 #39FF14,
+    800px 5vh 0 #FF51FA,
+    300px 50vh 0 #AC89FF,
+    500px 40vh 0 #39FF14,
+    700px 60vh 0 #FF51FA;
+  animation: float-particle 15s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Light Theme: Subtle Grid Pattern ── */
+.theme-light .bg-ambient-effects::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(57,255,20,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(57,255,20,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
 
 /* ── Theme variants: wrap each page variant ── */
 /* Only show the active theme variant */

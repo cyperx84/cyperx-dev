@@ -8,7 +8,7 @@ interface Props {
 const { title = 'CYPERX.DEV', activeNav } = Astro.props;
 ---
 <!doctype html>
-<html lang="en" class="theme-dark">
+<html lang="en" class="theme-light">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -47,12 +47,20 @@ const { title = 'CYPERX.DEV', activeNav } = Astro.props;
       <a class={`nav-link hover:text-[#FF51FA] hover:skew-x-12 transition-all duration-75 ${activeNav === 'blog' ? 'active' : ''}`} href="/blog">BLOG</a>
       <a class={`nav-link hover:text-[#FF51FA] hover:skew-x-12 transition-all duration-75 ${activeNav === 'projects' ? 'active' : ''}`} href="/projects">PROJECTS</a>
     </nav>
-    <button
-      id="theme-toggle"
-      class="bg-[#39FF14] text-black px-4 sm:px-6 py-2 font-black italic text-xs sm:text-sm hover:bg-[#FF51FA] hover:text-white transition-all"
-      style="clip-path: polygon(10% 0,100% 0,90% 100%,0 100%)"
-      aria-label="Cycle theme"
-    >TRIPP_MODE</button>
+    <div class="flex items-center gap-3">
+      <button
+        id="theme-toggle"
+        class="bg-[#39FF14] text-black px-4 sm:px-6 py-2 font-black italic text-xs sm:text-sm hover:bg-[#FF51FA] hover:text-white transition-all"
+        style="clip-path: polygon(10% 0,100% 0,90% 100%,0 100%)"
+        aria-label="Cycle theme"
+      >TRIPP_MODE</button>
+      <!-- Mobile hamburger -->
+      <button id="mobile-menu-btn" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Menu">
+        <span class="hamburger-line w-6 h-0.5 bg-[#39FF14] transition-all duration-300"></span>
+        <span class="hamburger-line w-6 h-0.5 bg-[#39FF14] transition-all duration-300"></span>
+        <span class="hamburger-line w-6 h-0.5 bg-[#39FF14] transition-all duration-300"></span>
+      </button>
+    </div>
   </header>
 
   <!-- ── Page Content ── -->
@@ -72,23 +80,25 @@ const { title = 'CYPERX.DEV', activeNav } = Astro.props;
     <div class="footer-copy font-mono text-[10px]">© NO_RIGHTS_RESERVED</div>
   </footer>
 
-  <!-- ── Mobile Bottom Nav ── -->
-  <div class="mobile-bottom-nav md:hidden fixed bottom-0 left-0 right-0 backdrop-blur-lg flex justify-around items-center py-3 z-50">
-    {[
-      ['home','HOME','/'],
-      ['terminal','BLOG','/blog'],
-      ['shield','PROJECTS','/projects']
-    ].map(([icon, label, href]) => (
-      <a href={href} class={`flex flex-col items-center mobile-nav-link ${activeNav === label.toLowerCase() ? 'active' : ''}`}>
-        <span class="material-symbols-outlined text-xl">{icon}</span>
-        <span class="text-[10px] font-mono mt-1 mobile-nav-label">{label}</span>
-      </a>
-    ))}
+  <!-- ── Mobile Slide-Down Menu ── -->
+  <div id="mobile-menu" class="mobile-menu md:hidden fixed top-0 left-0 right-0 z-[55] transition-transform duration-300 ease-out" style="transform:translateY(-100%)">
+    <div class="mobile-menu-inner pt-20 pb-8 px-6 flex flex-col gap-1 shadow-2xl">
+      {[
+        ['home','HOME','/'],
+        ['terminal','BLOG','/blog'],
+        ['shield','PROJECTS','/projects']
+      ].map(([icon, label, href]) => (
+        <a href={href} class={`mobile-menu-link flex items-center gap-4 py-4 px-4 font-['Space_Grotesk'] uppercase tracking-tighter italic text-xl font-black transition-all duration-200 ${activeNav === label.toLowerCase() ? 'active' : ''}`}>
+          <span class="material-symbols-outlined text-2xl">{icon}</span>
+          <span>{label}</span>
+        </a>
+      ))}
+    </div>
   </div>
 
-  <!-- ── Theme Toggle Script ── -->
+  <!-- ── Theme Toggle + Mobile Menu + Animations Script ── -->
   <script is:inline>
-    const THEMES = ['dark', 'light', 'extreme'];
+    const THEMES = ['light', 'dark', 'extreme'];
 
     function applyTheme(theme) {
       const html = document.documentElement;
@@ -98,14 +108,82 @@ const { title = 'CYPERX.DEV', activeNav } = Astro.props;
     }
 
     // Init on load
-    const saved = localStorage.getItem('cyperx-theme') || 'dark';
+    const saved = localStorage.getItem('cyperx-theme') || 'light';
     applyTheme(saved);
 
-    // Cycle on click
+    // Cycle on click (light → dark → extreme)
     document.getElementById('theme-toggle').addEventListener('click', () => {
-      const current = localStorage.getItem('cyperx-theme') || 'dark';
+      const current = localStorage.getItem('cyperx-theme') || 'light';
       const next = THEMES[(THEMES.indexOf(current) + 1) % THEMES.length];
       applyTheme(next);
+    });
+
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    let menuOpen = false;
+    if (menuBtn && menu) {
+      menuBtn.addEventListener('click', () => {
+        menuOpen = !menuOpen;
+        menu.style.transform = menuOpen ? 'translateY(0)' : 'translateY(-100%)';
+        menuBtn.classList.toggle('menu-open', menuOpen);
+      });
+      // Close on link click
+      menu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          menuOpen = false;
+          menu.style.transform = 'translateY(-100%)';
+          menuBtn.classList.remove('menu-open');
+        });
+      });
+    }
+
+    // Typewriter effect for elements with data-typewriter
+    function initTypewriters() {
+      document.querySelectorAll('[data-typewriter]').forEach(el => {
+        if (el.dataset.twDone) return;
+        el.dataset.twDone = '1';
+        const text = el.textContent;
+        el.textContent = '';
+        el.style.visibility = 'visible';
+        let i = 0;
+        const speed = parseInt(el.dataset.typewriter) || 50;
+        function type() {
+          if (i < text.length) {
+            el.textContent += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+          }
+        }
+        // Start when element is in viewport
+        const obs = new IntersectionObserver(entries => {
+          if (entries[0].isIntersecting) { type(); obs.disconnect(); }
+        }, { threshold: 0.3 });
+        obs.observe(el);
+      });
+    }
+
+    // Scroll-triggered fade-in
+    function initScrollReveal() {
+      document.querySelectorAll('[data-reveal]').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        const obs = new IntersectionObserver(entries => {
+          if (entries[0].isIntersecting) {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+            obs.disconnect();
+          }
+        }, { threshold: 0.1 });
+        obs.observe(el);
+      });
+    }
+
+    // Init animations
+    document.addEventListener('DOMContentLoaded', () => {
+      initTypewriters();
+      initScrollReveal();
     });
   </script>
 </body>
