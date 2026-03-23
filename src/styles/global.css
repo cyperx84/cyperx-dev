@@ -3,10 +3,60 @@
 
 @import "tailwindcss";
 
+/* ── Custom Font Faces ── */
+
+/* Lazer84 — retro 80s brush (headlines in extreme mode) */
+@font-face {
+  font-family: 'Lazer84';
+  src: url('/fonts/Lazer84.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ZedMono Nerd Font Mono Bold — Chris's terminal mono */
+@font-face {
+  font-family: 'ZedMono NFM';
+  src: url('/fonts/ZedMonoNFM-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Monaspace Radon ExtraBold — bold accent */
+@font-face {
+  font-family: 'Monaspace Radon';
+  src: url('/fonts/MonaspaceRadon-ExtraBold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Monaspace Radon Italic */
+@font-face {
+  font-family: 'Monaspace Radon';
+  src: url('/fonts/MonaspaceRadon-Italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Monaspace Krypton ExtraBold Italic — bold-italic accent */
+@font-face {
+  font-family: 'Monaspace Krypton';
+  src: url('/fonts/MonaspaceKrypton-ExtraBoldItalic.woff2') format('woff2');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
 @theme {
   /* ── Fonts ── */
   --font-display: "Space Grotesk", sans-serif;
-  --font-mono: "JetBrains Mono", "IBM Plex Mono", monospace;
+  --font-mono: "ZedMono NFM", "JetBrains Mono", "IBM Plex Mono", monospace;
+  --font-lazer: "Lazer84", "Space Grotesk", cursive;
+  --font-radon: "Monaspace Radon", "Space Grotesk", sans-serif;
+  --font-krypton: "Monaspace Krypton", "JetBrains Mono", monospace;
 
   /* ── Colors — shared system ── */
   --color-primary: #39FF14;
@@ -1110,4 +1160,81 @@ a[href="/projects/personal-os"] {
 footer {
   content-visibility: auto;
   contain-intrinsic-size: 0 200px;
+}
+
+/* ── Custom Font Applications ── */
+
+/* Extreme theme: Lazer84 on hero headlines */
+.theme-extreme h1,
+.theme-extreme .hero-title {
+  font-family: var(--font-lazer);
+  letter-spacing: 0.05em;
+}
+
+/* All themes: ZedMono for inline code and code blocks */
+code, pre, .code-text, kbd {
+  font-family: var(--font-mono);
+}
+
+/* Bold text uses Monaspace Radon */
+.theme-extreme strong,
+.theme-extreme b,
+.theme-dark strong,
+.theme-dark b {
+  font-family: var(--font-radon);
+  font-weight: 800;
+}
+
+/* Italic text uses Monaspace Radon Italic */
+.theme-extreme em,
+.theme-extreme i,
+.theme-dark em,
+.theme-dark i {
+  font-family: var(--font-radon);
+  font-style: italic;
+}
+
+/* Bold italic uses Monaspace Krypton */
+.theme-extreme strong em,
+.theme-extreme em strong,
+.theme-extreme b i,
+.theme-extreme i b,
+.theme-dark strong em,
+.theme-dark em strong {
+  font-family: var(--font-krypton);
+  font-weight: 800;
+  font-style: italic;
+}
+
+/* Nav links in extreme mode: Lazer84 */
+.theme-extreme .nav-link,
+.theme-extreme .mobile-menu-link {
+  font-family: var(--font-lazer);
+  letter-spacing: 0.15em;
+}
+
+/* Card titles in dark/extreme: Monaspace Radon ExtraBold */
+.theme-extreme .hover-card h3,
+.theme-dark .hover-card h3 {
+  font-family: var(--font-radon);
+  font-weight: 800;
+}
+
+/* Footer text: ZedMono for terminal feel */
+footer {
+  font-family: var(--font-mono);
+}
+
+/* Blog prose code: ZedMono */
+.prose-dark code,
+.prose-light code,
+.prose-extreme code {
+  font-family: var(--font-mono);
+}
+
+/* Extreme blog headings: Lazer84 */
+.prose-extreme h1,
+.prose-extreme h2,
+.prose-extreme h3 {
+  font-family: var(--font-lazer);
 }
