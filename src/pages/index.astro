@@ -1,222 +1,412 @@
 ---
-// INDEX - Fractal Chaos A — ported directly from Stitch HTML
-// This is a STANDALONE page (does NOT use BaseLayout) to match the Stitch design exactly
-import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
+<BaseLayout title="CYPERX.DEV" activeNav="home">
 
-<html class="dark" lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>💀 CyperX.dev</title>
-  <link href="https://fonts.googleapis.com" rel="preconnect" />
-  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
-</head>
-<body class="font-display antialiased min-h-screen relative selection:bg-primary selection:text-black bg-[#050505] text-[#F8F8F8] overflow-x-hidden">
+  <!-- ════════════════════════════════════════
+       DARK VARIANT — home-dark-void
+  ════════════════════════════════════════ -->
+  <div class="variant-dark bg-[#131313] text-[#e2e2e2] min-h-screen">
+    <div class="fixed inset-0 z-[100] crt-overlay opacity-20 pointer-events-none"></div>
 
-  <!-- ===== GLOBAL LAYERS ===== -->
+    <!-- Header -->
+    <header class="fixed top-0 w-full flex justify-between items-center px-4 sm:px-8 py-4 sm:py-6 bg-[#131313]/80 backdrop-blur-xl z-50 nav-header">
+      <div class="text-2xl sm:text-3xl font-black text-[#39FF14] [text-shadow:2px_0_#FF51FA,-2px_0_#AC89FF] animate-pulse font-['Space_Grotesk'] uppercase tracking-tighter italic">CYPERX.DEV</div>
+      <nav class="hidden md:flex gap-8 lg:gap-10 font-['Space_Grotesk'] uppercase tracking-tighter italic">
+        <a class="text-[#39FF14] border-b-2 border-[#39FF14] pb-1 hover:text-[#FF51FA] hover:skew-x-12 transition-all duration-75" href="/">HOME</a>
+        <a class="text-[#e2e2e2] hover:text-[#FF51FA] hover:skew-x-12 transition-all duration-75" href="/blog">BLOG</a>
+        <a class="text-[#e2e2e2] hover:text-[#FF51FA] hover:skew-x-12 transition-all duration-75" href="/projects">PROJECTS</a>
+      </nav>
+      <button class="bg-[#39FF14] text-black px-4 sm:px-6 py-2 font-black italic text-xs sm:text-sm" style="clip-path: polygon(10% 0,100% 0,90% 100%,0 100%)">TRIPP_MODE</button>
+    </header>
 
-  <!-- ASCII Background Noise -->
-  <div class="ascii-noise animate-noise-bg">
-    ERROR_CODE_404_VOID_NULL_POINTER_EXCEPTION_SEGMENTATION_FAULT_REBOOT_IMMEDIATE_01010101_SHRED_REALITY_ERROR_CODE_404_VOID_NULL_POINTER_EXCEPTION_SEGMENTATION_FAULT_REBOOT_IMMEDIATE_01010101_SHRED_REALITY
-  </div>
-
-  <!-- Fractal Overlay (skull image) -->
-  <div class="fractal-overlay"></div>
-
-  <!-- Scanline -->
-  <div class="scanline-effect animate-scanline"></div>
-
-  <!-- Mode Toggle -->
-  <button
-    id="luminance-toggle"
-    class="fixed top-4 right-4 sm:top-6 sm:right-6 z-[200] bg-accent-red text-white px-4 sm:px-6 py-2 sm:py-3 font-mono font-black border-4 border-white hover:bg-primary hover:text-black transition-all broken-toggle shadow-[5px_5px_0px_#06f9f9] active:translate-y-1 active:shadow-none text-xs sm:text-sm"
-  >
-    LUMINANCE_BREACH
-  </button>
-
-  <!-- Chaotic Emojis (from Stitch exactly) -->
-  <div class="fixed inset-0 pointer-events-none z-10 overflow-hidden">
-    <div class="bouncing-emoji animate-float-chaotic-1" style="top: 5%; left: 5%;">💀</div>
-    <div class="bouncing-emoji animate-float-chaotic-2" style="top: 55%; left: 85%;">🍄</div>
-    <div class="bouncing-emoji animate-float-chaotic-3 opacity-50" style="top: 25%; left: 35%;">🏂</div>
-    <div class="bouncing-emoji animate-float-chaotic-4" style="top: 75%; left: 15%;">👾</div>
-    <div class="bouncing-emoji animate-float-chaotic-5" style="top: 45%; left: 65%;">🛹</div>
-    <div class="bouncing-emoji animate-float-chaotic-2" style="top: 15%; left: 75%;">🤖</div>
-    <div class="bouncing-emoji animate-float-chaotic-4 grayscale" style="top: 85%; left: 45%;">👽</div>
-    <div class="bouncing-emoji animate-float-chaotic-3" style="top: 10%; left: 20%;">😎</div>
-  </div>
-
-  <!-- ===== MAIN LAYOUT ===== -->
-  <div class="relative flex min-h-screen w-full lg:flex-row flex-col max-w-[1800px] mx-auto z-20">
-
-    <!-- ===== NAVIGATION SIDEBAR (from Stitch) ===== -->
-    <aside class="w-full lg:w-[360px] lg:fixed lg:h-screen p-6 sm:p-8 flex flex-col gap-8 sm:gap-10 z-50 bg-[#020202]/90 backdrop-blur-md lg:bg-transparent lg:backdrop-blur-none border-b-8 lg:border-b-0 border-primary">
-      <div class="border-4 border-primary bg-black/80 relative overflow-hidden transform -rotate-1">
-        <div class="absolute inset-0 bg-primary/10 animate-pulse pointer-events-none"></div>
-        <div class="bg-primary px-4 py-2 flex items-center justify-between">
-          <h1 class="text-black text-xs font-black uppercase tracking-[0.3em]">KERNEL_PANIC:shred</h1>
-          <div class="flex gap-2">
-            <div class="w-3 h-3 bg-black"></div>
-            <div class="w-3 h-3 bg-accent-red animate-ping"></div>
-          </div>
-        </div>
-        <div class="p-4 sm:p-6 flex flex-col gap-3 sm:gap-4 font-mono text-lg sm:text-xl">
-          <a class="flex items-center gap-3 sm:gap-4 px-3 py-2 hover:bg-primary/30 group relative" href="/">
-            <span class="text-primary group-hover:animate-bounce">ERR:</span>
-            <span class="text-white font-black uppercase tracking-tighter chromatic-text" data-text="HOME">HOME</span>
-            <div class="absolute bottom-0 left-0 w-full h-[2px] bg-accent-red scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
-          </a>
-          <a class="flex items-center gap-3 sm:gap-4 px-3 py-2 hover:bg-primary/30 group relative" href="/blog">
-            <span class="text-muted group-hover:text-primary">ERR:</span>
-            <span class="text-gray-400 font-black uppercase tracking-tighter chromatic-text" data-text="BLOG">BLOG</span>
-          </a>
-          <a class="flex items-center gap-3 sm:gap-4 px-3 py-2 hover:bg-accent-red/30 group relative" href="/projects">
-            <span class="text-muted group-hover:text-accent-red">ERR:</span>
-            <span class="text-gray-400 font-black uppercase tracking-tighter chromatic-text" data-text="PROJECTS">PROJECTS</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- System Info (desktop only) -->
-      <div class="hidden lg:block mt-auto pb-12">
-        <div class="text-primary font-mono text-[10px] leading-none space-y-1 p-4 border-l-4 border-accent-magenta bg-black/40 animate-data-bleed">
-          <p>MEMORY_ADDR: 0xDEADBEEF</p>
-          <p>BUFFER_OVERFLOW: DETECTED</p>
-          <p>REALITY_SYNC: DISCONNECTED</p>
-          <p class="text-white bg-accent-red inline-block px-1">SYSTEM_SHREDDING...</p>
-        </div>
-      </div>
-    </aside>
-
-    <!-- ===== MAIN CONTENT ===== -->
-    <main class="flex-1 lg:ml-[360px] p-4 sm:p-6 lg:p-16 xl:p-24 relative overflow-hidden flex flex-col items-center gap-16 sm:gap-24 lg:gap-40 pt-12 sm:pt-20 lg:pt-40 pb-40 sm:pb-64">
-
-      <!-- Terminal Header -->
-      <div class="w-full max-w-4xl border-4 border-primary bg-black p-3 sm:p-4 font-mono mb-6 sm:mb-12 transform -rotate-1 relative z-30">
-        <div class="flex items-center gap-2 mb-3 sm:mb-4 border-b border-muted pb-2">
-          <div class="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-accent-red"></div>
-          <div class="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-primary"></div>
-          <div class="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-accent-magenta"></div>
-          <span class="ml-auto text-[9px] sm:text-[10px] text-muted">tty1 - 80x24</span>
-        </div>
-        <div class="space-y-1 sm:space-y-2">
-          <p class="text-primary text-xs sm:text-sm"><span class="typewriter-text">root@shredder:~# cat manifesto.txt</span></p>
-          <div class="pl-2 sm:pl-4 text-white leading-relaxed space-y-1 sm:space-y-2">
-            <p class="text-xs sm:text-base">The screen is the only window left.</p>
-            <p class="text-xs sm:text-base">We are pixels floating in a liquid crystal abyss.</p>
-            <p class="text-xs sm:text-base">Distort. Destroy. Rebuild. Repeat.</p>
-          </div>
-          <p class="text-primary text-xs sm:text-sm"><span class="typewriter-text">root@shredder:~# _</span></p>
-        </div>
-      </div>
-
-      <!-- ===== POST 1 — NEURAL / GHOST_IN_THE_CODE ===== -->
-      <article class="post-card p-1 cursor-crosshair group lg:-ml-20 lg:translate-x-10">
-        <div class="absolute -top-4 -right-4 sm:-top-6 sm:-right-6 bg-accent-magenta text-white px-3 sm:px-4 py-1 sm:py-2 font-mono text-[10px] sm:text-sm font-black uppercase z-30 shadow-[4px_4px_0px_#000] rotate-3 animate-pulse">
-          CORRUPTION_LOG_01
-        </div>
-        <div class="bg-[#0a0a0a] border-4 border-muted/50 p-4 sm:p-6 lg:p-10 h-full w-full relative overflow-hidden">
-          <div class="absolute inset-0 bg-[repeating-linear-gradient(45deg,transparent,transparent_2px,rgba(255,0,0,0.05)_2px,rgba(255,0,0,0.05)_4px)] pointer-events-none"></div>
-          <div class="flex flex-col gap-4 sm:gap-6">
-            <div class="flex items-center gap-2 sm:gap-4 justify-between border-b-2 border-primary pb-2 flex-wrap">
-              <p class="text-accent-red font-mono text-[10px] sm:text-xs tracking-widest sm:tracking-[0.5em] animate-data-bleed typewriter-text">13:37:00:VOID [TIME_ERR]</p>
-              <span class="bg-primary text-black px-2 sm:px-3 py-1 text-[9px] sm:text-[10px] font-black font-mono">FRAG_ID: CLAUDE_X</span>
-            </div>
-            <h2 class="text-3xl sm:text-4xl lg:text-6xl font-black uppercase leading-[0.85] tracking-tighter text-white group-hover:text-primary transition-colors italic">
-              <span class="chromatic-text typewriter-text" data-text="NEURAL">NEURAL</span><br />
-              <span class="text-2xl sm:text-3xl lg:text-5xl text-gray-500 block mt-2 chromatic-text typewriter-text" data-text="GHOST_IN_THE_CODE">GHOST_IN_THE_CODE</span>
-            </h2>
-            <div class="w-full h-48 sm:h-64 lg:h-96 bg-black border-4 border-primary relative overflow-hidden group-hover:scale-[0.98] transition-transform duration-75">
-              <img
-                alt="Glitch art"
-                class="absolute inset-0 w-full h-full object-cover mix-blend-difference filter contrast-200 grayscale group-hover:grayscale-0 group-hover:hue-rotate-180 transition-all"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkTJEtl77r6TKcAvFsYEciARxqr3_WHd9ucY2vKJowaUaUd8JdtNP2MFFoIyD2HiQU-sPyuSQb9SRt4HjNo4m0EY7GSGrpJ09fKfwv5aLXtpJ5csyt8KB7KqxJDzhKsS5q6sdOS9ILES2yhPWkoQ3_4h_kmAQyk8UbibaF3wInXegKFQPm0YldxDeFlN-8tnts4bcerKnmNVXenFprb0K7Aq7P2ojsyzfFX5sOdXIyC9_RpVd2JhJj-4Hi_Cf2IaV2DbIscakhShK_"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
-              <div class="absolute top-2 left-2 text-[9px] sm:text-[10px] font-mono text-primary bg-black px-2 typewriter-text">STATUS: MELTING</div>
-            </div>
-            <div class="text-gray-300 font-mono text-sm sm:text-base leading-tight border-l-4 sm:border-l-8 border-accent-magenta pl-3 sm:pl-6 py-2 group-hover:translate-x-1 sm:group-hover:translate-x-2 transition-transform">
-              <span class="typewriter-text whitespace-normal">Manual override initiated. The AI is no longer hallucinating; it is Dreaming in 12-bit color. We found the source of the leak in the recursive skate-loops. It tastes like copper and neon.</span>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- ===== POST 2 — PSILOCYBIN_SHELL ===== -->
-      <article class="post-card p-1 group lg:self-end lg:-translate-x-20 rotate-1">
-        <div class="bg-[#0a0a0a] border-4 border-primary p-4 sm:p-6 lg:p-10 h-full w-full relative overflow-hidden">
-          <div class="flex flex-col gap-4 sm:gap-6">
-            <div class="flex items-center gap-2 sm:gap-4 justify-between border-b-2 border-accent-magenta pb-2 flex-wrap">
-              <p class="text-primary font-mono text-[10px] sm:text-xs tracking-wider typewriter-text">ERROR_LOG_NULL [SYS_TIME]</p>
-              <div class="flex gap-1">
-                <span class="w-2 h-2 bg-accent-red animate-ping"></span>
-                <span class="w-2 h-2 bg-primary animate-ping" style="animation-delay: 0.1s"></span>
-              </div>
-            </div>
-            <h2 class="text-3xl sm:text-4xl lg:text-6xl font-black uppercase leading-none tracking-tighter text-white chromatic-text typewriter-text" data-text="PSILOCYBIN_SHELL">
-              PSILOCYBIN_SHELL
-            </h2>
-            <p class="text-gray-400 font-mono text-sm sm:text-lg italic border-r-4 sm:border-r-8 border-primary pr-3 sm:pr-6 text-right">
-              <span class="typewriter-text whitespace-normal">"The root terminal is a gateway to a forest of binary trees. Each leaf is a bit, each branch a logic gate. We are the fungus spreading through the silicon."</span>
-            </p>
-            <div class="mt-2 sm:mt-4 bg-accent-red text-white p-3 sm:p-6 font-mono text-xs sm:text-sm overflow-hidden relative transform -skew-y-1 sm:-skew-y-2">
-              <div class="absolute top-0 left-0 w-full h-full bg-black/20 animate-noise-bg"></div>
-              <div class="relative z-10 space-y-1">
-                <p class="typewriter-text">&gt; stack trace: infinity</p><br />
-                <p class="typewriter-text">&gt; heap overflow: psychic_leakage</p><br />
-                <p class="typewriter-text">&gt; terminating ego... DONE.</p>
+    <main class="pt-28 sm:pt-32 pb-20 px-4 sm:px-6 max-w-7xl mx-auto space-y-24 sm:space-y-40">
+      <!-- Hero -->
+      <section class="relative">
+        <div class="shard-hero w-full h-[400px] sm:h-[600px] lg:h-[716px] relative bg-[#0e0e0e] overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-br from-[#131313] via-[#1a0a2e] to-[#0a1a0a] opacity-80"></div>
+          <div class="absolute inset-0 flex items-center justify-center p-6 sm:p-12">
+            <div class="text-center z-10">
+              <p class="font-mono text-[#39FF14] text-xs sm:text-sm tracking-[0.5em] mb-4">ESTABLISHING CONNECTION...</p>
+              <h1 class="text-4xl sm:text-6xl lg:text-9xl font-black italic tracking-tighter glitch-text leading-none mb-6 sm:mb-8">
+                CYPERX.DEV <br/><span class="text-[#e2e2e2] opacity-90">//</span> BEYOND_THE_VOID
+              </h1>
+              <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
+                <button class="bg-[#39FF14] text-black px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-xl font-black italic shard-card-3 hover:scale-105 transition-transform">ENTER_SYSTEM</button>
+                <button class="border-2 border-[#FF51FA]/30 text-[#FF51FA] px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-xl font-black italic shard-card-1 hover:border-[#FF51FA] transition-all">VIEW_ARCHIVES</button>
               </div>
             </div>
           </div>
+          <div class="absolute top-10 right-10 w-24 sm:w-32 h-24 sm:h-32 border-t-2 border-r-2 border-[#39FF14]/20"></div>
+          <div class="absolute bottom-10 left-10 w-24 sm:w-32 h-24 sm:h-32 border-b-2 border-l-2 border-[#FF51FA]/20"></div>
         </div>
-      </article>
+      </section>
 
-      <!-- ===== POST 3 — VOID ===== -->
-      <article class="post-card p-1 group lg:translate-x-32 -rotate-2">
-        <div class="bg-[#0a0a0a] border-8 border-double border-accent-magenta p-8 sm:p-12 h-full w-full flex flex-col items-center justify-center min-h-[250px] sm:min-h-[400px] relative">
-          <h2 class="text-5xl sm:text-7xl lg:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-br from-primary via-accent-magenta to-accent-red animate-glitch-rotate italic typewriter-text">
-            VOID
-          </h2>
-          <p class="font-mono text-[10px] sm:text-xs text-muted mt-6 sm:mt-8 tracking-[0.5em] sm:tracking-[1em] animate-pulse typewriter-text text-center">REPLICATING_EXISTENCE...</p>
+      <!-- THE_BREACH -->
+      <section>
+        <div class="mb-8 sm:mb-16 flex items-baseline gap-4 flex-wrap">
+          <h2 class="text-3xl sm:text-5xl font-black italic text-[#39FF14] tracking-tighter">THE_BREACH</h2>
+          <div class="h-[2px] flex-grow bg-gradient-to-r from-[#39FF14]/50 to-transparent"></div>
+          <span class="font-mono text-xs opacity-50">STATUS: COMPROMISED</span>
         </div>
-      </article>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-0 relative">
+          <div class="shard-card-1 bg-[#2a2a2a] p-6 sm:p-8 group hover:bg-[#393939] transition-colors relative z-20 md:-mr-4">
+            <span class="material-symbols-outlined text-4xl sm:text-5xl text-[#39FF14] mb-4 sm:mb-6 block">terminal</span>
+            <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 italic tracking-tight">KRNL_OVERFLOW</h3>
+            <p class="text-sm opacity-70 font-mono leading-relaxed mb-4 sm:mb-6">System breach detected at sector 7G. Memory leak propagating through neural links. Data integrity failing... [REDACTED]</p>
+            <div class="font-mono text-[10px] text-[#39FF14]/60">UID: 0x99281-ALPHA</div>
+          </div>
+          <div class="shard-card-2 bg-[#353535] p-6 sm:p-8 group hover:bg-[#393939] transition-colors relative z-30 md:-mt-0 md:mt-10">
+            <div class="mb-4 sm:mb-6 flex justify-between">
+              <span class="material-symbols-outlined text-4xl sm:text-5xl text-[#FF51FA]" style="font-variation-settings:'FILL' 1">skull</span>
+              <span class="text-[#FF51FA] font-black text-3xl sm:text-4xl">77%</span>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 italic tracking-tight">BIO_HAZARD_01</h3>
+            <p class="text-sm opacity-70 font-mono leading-relaxed mb-4 sm:mb-6">Biological interfaces responding to psychedelic stimuli. Synthetic consciousness approaching transcendence.</p>
+            <div class="w-full bg-[#131313] h-1"><div class="bg-[#FF51FA] h-full w-[77%] animate-pulse"></div></div>
+          </div>
+          <div class="shard-card-3 bg-[#1f1f1f] p-6 sm:p-8 group hover:bg-[#393939] transition-colors relative z-10 md:-ml-4">
+            <span class="material-symbols-outlined text-4xl sm:text-5xl text-[#AC89FF] mb-4 sm:mb-6 block">electric_bolt</span>
+            <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 italic tracking-tight">VOID_PROTOCOL</h3>
+            <p class="text-sm opacity-70 font-mono leading-relaxed mb-4 sm:mb-6">The silence is screaming. Sub-atomic vibrations detected within the firewall. Prepare for total system ego death.</p>
+            <button class="text-[10px] font-black uppercase tracking-widest text-[#AC89FF] border-b border-[#AC89FF]/30 pb-1 hover:border-[#AC89FF] transition-all">INITIALIZE_SHUTDOWN</button>
+          </div>
+        </div>
+      </section>
 
-      <!-- Footer Overload -->
-      <div class="w-full max-w-[800px] text-center mt-12 sm:mt-20 relative">
-        <div class="absolute inset-0 blur-3xl bg-primary/20 animate-pulse -z-10"></div>
-        <p class="font-mono text-accent-red font-black text-2xl sm:text-4xl lg:text-6xl tracking-tighter animate-data-bleed mb-4 sm:mb-8 typewriter-text break-words">
-          [END_OF_SIMULATION]
-        </p>
-        <div class="flex flex-wrap justify-center gap-1 sm:gap-2 opacity-30 font-mono text-[7px] sm:text-[8px] max-w-md mx-auto break-all">
-          01001110 01001111 01010100 01001000 01001001 01001110 01000111 00100000 01001001 01010011 00100000 01010010 01000101 01000001 01001100 00100000 01001001 01001110 00100000 01010100 01001000 01000101 00100000 01010111 01001111 01001001 01000100
+      <!-- CORE_PROTOCOL Timeline -->
+      <section class="max-w-4xl mx-auto">
+        <div class="mb-12 sm:mb-20 text-center">
+          <h2 class="text-3xl sm:text-5xl font-black italic text-[#FF51FA] tracking-tighter mb-2">CORE_PROTOCOL</h2>
+          <p class="font-mono text-xs opacity-40">LATEST_CORRUPTIONS_LOG_V4.0.2</p>
         </div>
-      </div>
+        <div class="space-y-16 sm:space-y-24 relative">
+          <div class="absolute left-1/2 top-0 bottom-0 w-[1px] bg-gradient-to-b from-[#39FF14] via-[#FF51FA] to-[#AC89FF] opacity-20 hidden md:block"></div>
+          {[
+            { ts: '04:22:11', color: '#39FF14', title: 'Fragmented Reality', body: 'Visual sharding applied to all root nodes. The grid is no longer a safety net; it is a cage we have broken.', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBtMsYO-2f_RpqhdW_Nn5fWBdMIVS6ZoIlxrccJyoAmO1BQLb4gEDhus1D2sr6lptV_UWDWmti0kUMECFKpWGdnUlPku3EebLKSSNmifSu1i9b5GY5C_E0WcKQ3nOrIqYFvNn22Q5cDtbZJAQ9y4wxrnOBYZ-K3eEW4emc_eTaObJAkclFeo5QhhyN98P4MnmA83IV_U8uIUNBvTcU4EjsFuCRUnXwVXiosWJvnSjQGSsMlTSiD5Tyty0Gl9BtE--fv8_BR_7d1ahc', rev: false },
+            { ts: '09:15:00', color: '#FF51FA', title: 'Neural Breach', body: 'Injected sensory overload scripts into the user interface. Experience is now measured in hertz and hallucinations.', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAYHjP9kd6Vy4XqZtabv_c5sML3yf3hdJBy0pr6ENA2fgBP2EoAzv2Y1DxXAgHPHWp2rBF4yBNk3M0FvNUEHLmhkeIuPtcBm9T4WxuSSe8dX-Tm3cnUCu7BXRmtrYBuHwOqzNJrr1c3X4LJqat2zrqwOlA-6hZtkyWwJ7wsIbG3eYHzPty-ZDn44OHpLBoqmViS-UcJCfDCgbx5k22KJZXKEaJQmJHnfm6efsjB7Q7LqbOe94qAhAqU26W_c4WTXpZpeG9EV337fMY', rev: true },
+            { ts: '23:59:59', color: '#AC89FF', title: 'System Ego Death', body: 'Total convergence achieved. The boundary between user and machine has dissolved into white noise.', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDGI4RqT5TIHkBUwzRwnMAdWHBHuBu9leC3Ve6p5HJyY9y6mSWPHXjkfTRLf5rbhXJ803ZWPYcReiYIOdzUT-ALE_N9fe_ej0DiYkhc5B3bRswd-ao4-kyOgn1CLMIzBQsNKCdD9qXnD9XuWioTxPzFcgtLE0IDBGzdJtc6DxzvM5zlGk6086l0DZyDdj1x-7QwCgLO63O97z8N3TGjhbLBBNKj-ZWobwz8TUD-iNSANTCSY6ZER_qXyEGXEh1xRdlDJU1CAwMbUbE', rev: false }
+          ].map(({ ts, color, title, body, img, rev }) => (
+            <div class={`relative flex flex-col ${rev ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-8 sm:gap-12 group`}>
+              <div class={`w-full md:w-1/2 ${rev ? 'text-left' : 'text-right'}`}>
+                <h4 class="font-mono text-xs mb-2" style={`color: ${color}`}>TIMESTAMP: {ts}</h4>
+                <h3 class="text-2xl sm:text-3xl font-black italic uppercase leading-none mb-3 sm:mb-4">{title}</h3>
+                <p class="text-sm opacity-60">{body}</p>
+              </div>
+              <div class="z-10 w-3 sm:w-4 h-3 sm:h-4 rotate-45 hidden md:block" style={`background: ${color}; box-shadow: 0 0 15px ${color}`}></div>
+              <div class="w-full md:w-1/2">
+                <div class="bg-[#2a2a2a] aspect-video shard-card-1 relative overflow-hidden group-hover:scale-105 transition-transform">
+                  <img class="w-full h-full object-cover opacity-50 grayscale hover:grayscale-0 transition-all duration-500" src={img} alt={title} loading="lazy" />
+                </div>
+              </div>
+            </div>
+          ))}
+          <div class="mt-20 sm:mt-32 flex justify-center">
+            <button class="relative group">
+              <div class="absolute inset-0 bg-[#39FF14] blur-xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
+              <div class="relative bg-[#131313] border-2 border-[#39FF14] text-[#39FF14] px-8 sm:px-12 py-4 sm:py-5 font-black text-xl sm:text-2xl italic tracking-widest shard-card-1 group-hover:bg-[#39FF14] group-hover:text-black transition-all">INITIATE_INSANITY_V2</div>
+            </button>
+          </div>
+        </div>
+      </section>
     </main>
 
-    <!-- Floating 3D Hyper-Glitch -->
-    <div class="fixed bottom-20 right-4 sm:bottom-8 sm:right-8 lg:bottom-16 lg:right-16 z-[300] pointer-events-none mix-blend-screen w-20 h-20 sm:w-40 sm:h-40 lg:w-64 lg:h-64">
-      <div class="w-full h-full relative animate-glitch-rotate filter drop-shadow-[0_0_40px_#FF00FF]">
-        <img
-          alt="Fractalized Core"
-          class="w-full h-full object-cover mix-blend-hard-light filter contrast-[3] hue-rotate-180 brightness-200"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0D7n7Rm2HHJKUa4C2cZN2tAY-TSZBSrAZkHax33lOTlrVBAWoGJGhFc57twIHVVv22mawdQnG7PbNQh5wkqTxiYCniFUDGqc0JxeoufuQOQQltk5oiVay5AOQsKBGFkuHpVTD9AOQdHzsz4viQ5AYsiGub9T_RmEomEnMUrYR2zW1sHx10gmQu6RQFvk8EzRMKUjgLxaW8wNWz46tcZcMN_Lek18o3QvQU7VfeRS-81-DmOlachY4ENUbfquMBgoLbPOe5EG9PH2-"
-          style="clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);"
-        />
-        <div class="absolute inset-0 border-[3px] sm:border-[6px] border-primary animate-ping opacity-50"></div>
-        <div class="absolute inset-0 border-2 border-accent-red animate-glitch-rotate" style="animation-direction: reverse;"></div>
-        <div class="absolute -inset-2 sm:-inset-4 bg-accent-magenta/20 blur-xl animate-pulse"></div>
+    <!-- Footer -->
+    <footer class="w-full py-10 sm:py-12 px-6 sm:px-10 flex flex-col md:flex-row justify-between items-end gap-4 bg-[#0e0e0e] site-footer">
+      <div class="flex flex-col gap-2">
+        <div class="text-[#39FF14] font-bold text-xl font-mono uppercase tracking-widest">CYPERX.DEV</div>
+        <p class="text-[#AC89FF] font-mono text-[10px] uppercase tracking-widest">SYSTEM ENTROPY: 99.9% | STABLE BEYOND VOID</p>
       </div>
+      <div class="flex gap-6 sm:gap-8 items-center">
+        {['TERMINAL','REACH_OUT','LEGAL_VOID'].map(l => (
+          <a class="text-[#e2e2e2]/60 font-mono text-[10px] uppercase tracking-widest hover:text-[#39FF14] hover:line-through hover:blur-[1px] transition-all" href="#">{l}</a>
+        ))}
+      </div>
+      <div class="text-[10px] font-mono opacity-20">© NO_RIGHTS_RESERVED</div>
+    </footer>
+
+    <!-- Mobile nav -->
+    <div class="md:hidden fixed bottom-0 left-0 right-0 bg-[#131313]/90 backdrop-blur-lg border-t border-[#39FF14]/20 flex justify-around items-center py-3 z-50">
+      {[['home','HOME','/'],['terminal','BLOG','/blog'],['shield','PROJECTS','/projects']].map(([icon, label, href]) => (
+        <a href={href} class="flex flex-col items-center text-[#39FF14]">
+          <span class="material-symbols-outlined text-xl">{icon}</span>
+          <span class="text-[10px] font-mono mt-1">{label}</span>
+        </a>
+      ))}
     </div>
   </div>
 
-  <script>
-    // LUMINANCE_BREACH toggle
-    document.getElementById('luminance-toggle')?.addEventListener('click', () => {
-      document.documentElement.classList.toggle('dark');
-      document.documentElement.classList.toggle('light');
-    });
-  </script>
-</body>
-</html>
+
+  <!-- ════════════════════════════════════════
+       LIGHT VARIANT — home-blinding-light
+  ════════════════════════════════════════ -->
+  <div class="variant-light bg-white text-[#131313] min-h-screen">
+    <div class="fixed inset-0 z-[100] light-scanline opacity-30 pointer-events-none"></div>
+
+    <header class="fixed top-0 w-full flex justify-between items-center px-4 sm:px-8 py-4 sm:py-6 z-50 bg-white/80 backdrop-blur-xl nav-header">
+      <div class="text-2xl sm:text-3xl font-black text-[#39FF14] [text-shadow:2px_0_#FF51FA,-2px_0_#AC89FF] animate-pulse font-['Space_Grotesk'] uppercase tracking-tighter italic">CYPERX.DEV</div>
+      <nav class="hidden md:flex gap-8 lg:gap-10 font-['Space_Grotesk'] uppercase tracking-tighter italic">
+        <a class="text-[#39FF14] border-b-2 border-[#39FF14] pb-1 hover:text-[#FF51FA] transition-all duration-75" href="/">HOME</a>
+        <a class="text-[#131313] hover:text-[#FF51FA] transition-all duration-75" href="/blog">BLOG</a>
+        <a class="text-[#131313] hover:text-[#FF51FA] transition-all duration-75" href="/projects">PROJECTS</a>
+      </nav>
+      <button class="bg-[#39FF14] text-black px-4 sm:px-6 py-2 font-bold text-xs sm:text-sm" style="clip-path: polygon(10% 0,100% 0,90% 100%,0 100%)">TRIPP_MODE</button>
+    </header>
+
+    <main class="pt-28 sm:pt-32 min-h-screen">
+      <!-- Hero -->
+      <section class="relative px-4 sm:px-8 py-16 sm:py-20 flex flex-col items-center justify-center min-h-[500px] sm:min-h-[819px] bg-white overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')] bg-cover bg-center grayscale contrast-200"></div>
+        <div class="relative z-10 text-center space-y-4 sm:space-y-6">
+          <p class="font-mono text-[#FF51FA] tracking-[0.5em] text-sm" style="animation: flicker 0.1s infinite">SYSTEM_INITIALIZED_2024</p>
+          <h1 class="text-5xl sm:text-7xl lg:text-9xl font-black italic tracking-tighter glitch-text leading-none">VOID<br/>GAZER</h1>
+          <p class="max-w-xl mx-auto text-[#131313]/80 text-base sm:text-lg uppercase font-medium">Decoding the sensory overload of the blinding digital frontier. Pure white entropy at 99.9% stability.</p>
+          <div class="flex flex-wrap justify-center gap-4 mt-8 sm:mt-12">
+            <button class="bg-[#39FF14] text-black px-8 sm:px-10 py-3 sm:py-4 text-lg sm:text-xl font-black hover:bg-[#FF51FA] hover:text-white transition-all" style="clip-path: polygon(0 0,100% 0,95% 100%,5% 95%)">INITIALIZE_BREACH</button>
+            <button class="border-2 border-[#FF51FA] text-[#FF51FA] px-8 sm:px-10 py-3 sm:py-4 text-lg sm:text-xl font-black hover:bg-[#FF51FA] hover:text-white transition-all" style="clip-path: polygon(2% 5%,100% 0,98% 95%,0 100%)">VIEW_RECORDS</button>
+          </div>
+        </div>
+        <!-- Metadata -->
+        <div class="absolute bottom-8 sm:bottom-10 left-8 sm:left-10 hidden lg:block bg-[#ebebeb] p-4 sm:p-6 chroma-bleed" style="clip-path: polygon(0 15%,95% 0,100% 85%,5% 100%)">
+          <div class="font-mono text-xs space-y-1">
+            <p class="text-[#39FF14]">CORE_TEMP: 0.00K</p>
+            <p class="text-[#FF51FA]">UPLINK: ACTIVE</p>
+            <p class="text-[#131313]">LOC: NEON_VOID_V2</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bento Grid -->
+      <section class="px-4 sm:px-8 py-16 sm:py-24 space-y-8 sm:space-y-12">
+        <div class="flex justify-between items-end border-b-4 border-[#39FF14] pb-4 flex-wrap gap-4">
+          <h2 class="text-3xl sm:text-5xl font-black italic tracking-tighter text-[#131313]">SHARD_COLLECTION</h2>
+          <span class="font-mono text-[#FF51FA] text-sm">[003_ACTIVE_NODES]</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8">
+          <!-- Large shard -->
+          <div class="md:col-span-8 bg-[#f0f0f0] p-1 hover:scale-[1.01] transition-transform group" style="clip-path: polygon(0 0,100% 0,95% 100%,5% 95%)">
+            <div class="bg-white h-full p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden">
+              <div class="absolute top-0 right-0 p-4 font-mono text-[#39FF14] opacity-20 text-5xl sm:text-6xl font-black select-none">01</div>
+              <div class="space-y-3 sm:space-y-4 relative z-10">
+                <span class="bg-[#FF51FA] text-white text-xs px-2 py-1 font-mono">EXPERIMENTAL</span>
+                <h3 class="text-2xl sm:text-4xl font-black text-[#131313] group-hover:text-[#39FF14] transition-colors">NEURAL_LIQUID_UI</h3>
+                <p class="text-[#131313]/70 max-w-md">Interfaces that melt and reform based on user biometric data. A breakthrough in organic silicon interaction.</p>
+              </div>
+              <div class="mt-8 sm:mt-12 flex items-center gap-4">
+                <span class="material-symbols-outlined text-[#39FF14]">terminal</span>
+                <span class="font-mono text-sm tracking-widest uppercase">system_access_granted</span>
+              </div>
+            </div>
+          </div>
+          <!-- Small shards -->
+          <div class="md:col-span-4 bg-[#39FF14] p-1 group" style="clip-path: polygon(2% 5%,100% 0,98% 95%,0 100%)">
+            <div class="bg-white h-full p-6 sm:p-8 flex flex-col justify-between">
+              <div class="space-y-3 sm:space-y-4">
+                <span class="bg-[#131313] text-white text-xs px-2 py-1 font-mono">PROTOCOL</span>
+                <h3 class="text-2xl sm:text-3xl font-black text-[#131313]">DEEP_LIGHT</h3>
+              </div>
+              <p class="text-[#131313]/70 mt-4 font-mono text-xs">REDACTED DATA STREAM // LEVEL 9 CLEARANCE REQUIRED</p>
+              <button class="mt-6 sm:mt-8 text-[#39FF14] font-black flex items-center gap-2 group-hover:translate-x-2 transition-transform">DECRYPT <span class="material-symbols-outlined">arrow_forward</span></button>
+            </div>
+          </div>
+          <div class="md:col-span-4 bg-[#FF51FA] p-1 group" style="clip-path: polygon(0 15%,95% 0,100% 85%,5% 100%)">
+            <div class="bg-white h-full p-6 sm:p-8 flex flex-col justify-between">
+              <div class="space-y-3 sm:space-y-4">
+                <span class="bg-[#39FF14] text-black text-xs px-2 py-1 font-mono">SIGNAL</span>
+                <h3 class="text-2xl sm:text-3xl font-black text-[#131313]">GHOST_FREQ</h3>
+              </div>
+              <div class="mt-6 sm:mt-8 h-16 sm:h-20 bg-[#f8f8f8] border-l-2 border-[#FF51FA] animate-pulse flex items-center justify-center">
+                <span class="material-symbols-outlined text-[#FF51FA] text-3xl sm:text-4xl">graphic_eq</span>
+              </div>
+            </div>
+          </div>
+          <!-- Medium shard -->
+          <div class="md:col-span-8 bg-[#ebebeb] p-1 hover:shadow-2xl transition-all" style="clip-path: polygon(0 0,100% 0,95% 100%,5% 95%)">
+            <div class="bg-white h-full p-6 sm:p-8 grid sm:grid-cols-2 gap-6 sm:gap-8 items-center">
+              <div class="relative aspect-video bg-[#131313] overflow-hidden" style="clip-path: polygon(2% 5%,100% 0,98% 95%,0 100%)">
+                <img class="w-full h-full object-cover mix-blend-screen opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfrb9kxpwOQmoXnv-TklDn7U-0DMieU2XzZ2nvrADZ_YCfryxccZHMswn5s8HGfu_6rM2Vgmi3tzlHEZehG_W_ojPlqgbpuuhFytV-bJxyDGelWjdCUouRXccLYJBLxXR9FKWEaXSL2s5b_0sJKhyLNM-oqkELDbfdsr_3lE-aZyWbCuU9Vhh0MQJ_8WFx6kqeR6i-Iogv_7jQw4-rqjWYjAHJtUwQuuf5rovooA3HZjDVfZBJHPHCQM4KEFG_Qc7RwdY6bnCAe18" alt="Circuitry" loading="lazy" />
+              </div>
+              <div class="space-y-3 sm:space-y-4">
+                <h3 class="text-2xl sm:text-3xl font-black uppercase text-[#131313]">Synapse_Bridge</h3>
+                <p class="text-sm text-[#131313]/80">Connecting the physical neural pathways to the high-brightness white void of the meta-web.</p>
+                <div class="flex gap-2"><div class="w-2 h-2 bg-[#39FF14]"></div><div class="w-2 h-2 bg-[#FF51FA]"></div><div class="w-2 h-2 bg-[#AC89FF]"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quote -->
+      <section class="py-20 sm:py-32 bg-[#39FF14] text-black mx-4 sm:mx-8 relative overflow-hidden" style="clip-path: polygon(2% 5%,100% 0,98% 95%,0 100%)">
+        <div class="absolute inset-0 opacity-20 pointer-events-none text-6xl sm:text-8xl font-black italic break-all leading-[0.8] select-none">VOID VOID VOID VOID VOID VOID VOID VOID VOID VOID VOID VOID</div>
+        <div class="relative z-10 max-w-4xl mx-auto px-6 sm:px-8 text-center space-y-6 sm:space-y-8">
+          <span class="material-symbols-outlined text-5xl sm:text-6xl">format_quote</span>
+          <blockquote class="text-2xl sm:text-4xl lg:text-6xl font-black tracking-tight uppercase leading-tight italic">"WE ARE NOT BROWSING THE WEB. WE ARE BREACHING THE REALITY OF PURE INFORMATION."</blockquote>
+          <div class="font-mono text-base sm:text-xl tracking-widest">— ARCHITECT_X7</div>
+        </div>
+      </section>
+
+      <!-- Newsletter -->
+      <section class="px-4 sm:px-8 py-16 sm:py-24 flex flex-col items-center">
+        <div class="w-full max-w-2xl bg-[#fafafa] p-8 sm:p-12 border-r-8 border-[#FF51FA] chroma-bleed" style="clip-path: polygon(0 0,100% 0,95% 100%,5% 95%)">
+          <h2 class="text-3xl sm:text-4xl font-black tracking-tighter text-[#131313] uppercase mb-4 sm:mb-6">STAY_CONNECTED</h2>
+          <p class="text-[#131313]/60 font-mono text-sm mb-6 sm:mb-8">Enter your terminal address to receive high-frequency updates directly into your visual cortex.</p>
+          <div class="flex flex-col sm:flex-row gap-0">
+            <input class="flex-1 bg-[#f0f0f0] border-none focus:ring-2 focus:ring-[#39FF14] font-mono p-4 uppercase text-[#131313] placeholder-[#131313]/40" placeholder="USER@VOID.DEV" type="email" />
+            <button class="bg-[#131313] text-white px-6 sm:px-8 py-4 font-black hover:bg-[#FF51FA] transition-colors" style="clip-path: polygon(2% 5%,100% 0,98% 95%,0 100%)">UPLINK</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="w-full py-10 sm:py-12 px-6 sm:px-10 flex flex-col md:flex-row justify-between items-end gap-4 bg-[#0e0e0e] text-[#AC89FF] font-mono text-[10px] uppercase tracking-widest site-footer">
+      <div class="flex flex-col gap-2">
+        <div class="text-[#39FF14] font-bold text-xl mb-2 sm:mb-4">CYPERX.DEV</div>
+        <div class="flex gap-4 sm:gap-6">{['TERMINAL','REACH_OUT','LEGAL_VOID'].map(l => <a class="text-[#e2e2e2]/60 hover:text-[#39FF14] hover:line-through hover:blur-[1px] transition-all" href="#">{l}</a>)}</div>
+      </div>
+      <div class="text-right"><p>SYSTEM ENTROPY: 99.9% | STABLE BEYOND VOID</p></div>
+    </footer>
+
+    <!-- Mobile nav -->
+    <div class="md:hidden fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-lg border-t border-[#39FF14]/20 flex justify-around items-center py-3 z-50">
+      {[['home','HOME','/'],['terminal','BLOG','/blog'],['shield','PROJECTS','/projects']].map(([icon, label, href]) => (
+        <a href={href} class="flex flex-col items-center text-[#39FF14]">
+          <span class="material-symbols-outlined text-xl">{icon}</span>
+          <span class="text-[10px] font-mono mt-1 text-[#131313]">{label}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════
+       EXTREME VARIANT — home-void-fracture-dark-extreme
+  ════════════════════════════════════════ -->
+  <div class="variant-extreme min-h-screen" style="background:#000; color:#fff; font-family:'Space Grotesk',sans-serif;">
+    <div class="fractal-bg"></div>
+    <div class="black-hole-vortex"></div>
+    <div class="fixed inset-0 z-[100] crt-scanlines opacity-40 pointer-events-none"></div>
+
+    <header class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-3xl border-b-4 border-[#8eff71] header-jagged h-20 sm:h-28">
+      <div class="flex justify-between items-center px-4 sm:px-10 py-4 w-full h-full">
+        <div class="text-2xl sm:text-4xl font-black tracking-tighter text-[#8eff71] drop-shadow-[0_0_15px_rgba(142,255,113,1)] uppercase cursor-wait animate-bounce">FRACTAL_VOID</div>
+        <nav class="hidden md:flex items-center space-x-8 lg:space-x-12">
+          <a class="uppercase tracking-[0.5em] text-base lg:text-lg font-black text-[#ff51fa] border-b-8 border-[#ff51fa] pb-1 animate-pulse" href="/">HOME</a>
+          <a class="uppercase tracking-[0.5em] text-base lg:text-lg font-black text-[#8eff71] hover:text-[#ac89ff] transition-all hover:scale-150 hover:-rotate-12 duration-75" href="/blog">BLOG</a>
+          <a class="uppercase tracking-[0.5em] text-base lg:text-lg font-black text-[#8eff71] hover:text-[#ac89ff] transition-all hover:scale-150 hover:rotate-12 duration-75" href="/projects">PROJECTS</a>
+        </nav>
+        <div class="flex items-center gap-3 sm:gap-6">
+          <button class="bg-[#8eff71] text-black px-4 sm:px-8 py-2 sm:py-3 text-xs sm:text-sm font-black tracking-widest uppercase hover:skew-x-12 transition-transform border-4 border-white">OVERDOSE_MODE</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="relative pt-28 sm:pt-40 pb-20 px-4 sm:px-6 max-w-full mx-auto min-h-screen overflow-hidden">
+      <!-- Hero -->
+      <section class="relative py-16 sm:py-24 flex flex-col items-center justify-center text-center perspective-warp">
+        <div class="absolute inset-0 w-full h-full opacity-60 pointer-events-none hero-acid-blast -z-10 bg-gradient-to-br from-[#8eff71] via-[#ff51fa] to-[#ac89ff]">
+          <img alt="Fractal" class="w-full h-full object-cover melting-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwcbab-5YhH-iky9sU2ZHl12P86KeGKWIEHxmHrSlWPlvkj237y_G9mJ821eOet1Y3IOgz9lezVu1WxjCqiFBC3FC02XcGpM3FYpVj0wvdyoDGhX7K80NrLUbvckTvjxgYCCdxeRqt-3xvAwdPY1MirjpCUjxawgAjbZkT-St7S91UBNrDUs_Z2Dt1Zz79xi8lFAs708RyBPuP4WaWxpIKkjJY-ySDg8eQDee-S4DhLcdbu49VuDZ0Td0z4gDfSCBPhZRx6wzmlNg" loading="lazy" />
+        </div>
+        <h1 class="text-5xl sm:text-7xl lg:text-[14rem] font-black tracking-tighter mb-8 sm:mb-12 glitch-text-extreme uppercase italic leading-[0.8] relative z-10 text-white">
+          VOID<br/><span class="text-[#8eff71] scale-125 inline-block">SINGULARITY</span>
+        </h1>
+        <p class="max-w-4xl text-white font-mono text-base sm:text-xl lg:text-3xl tracking-[0.3em] mb-10 sm:mb-16 bg-black/90 p-6 sm:p-10 backdrop-blur-3xl border-4 sm:border-8 border-[#8eff71] acid-mask-1 uppercase font-black">
+          REALITY_BUFFER: OVERFLOWING // ENTROPY_VALVE: SHREDDED // CONSUMING THE DATA STREAMS.
+        </p>
+        <div class="flex flex-wrap justify-center gap-6 sm:gap-12 relative z-10">
+          <button class="bg-[#8eff71] text-black px-8 sm:px-16 py-5 sm:py-8 font-black text-xl sm:text-3xl hover:scale-125 transition-transform shadow-[20px_20px_0_#ff51fa] acid-mask-3">FEED_THE_VOID</button>
+          <button class="border-8 border-[#ff51fa] text-[#ff51fa] bg-black px-8 sm:px-16 py-5 sm:py-8 font-black text-xl sm:text-3xl hover:scale-125 transition-transform shadow-[-20px_20px_0_#8eff71] acid-mask-2">DISSOLVE</button>
+        </div>
+      </section>
+
+      <!-- Asymmetrical Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-16 mt-20 sm:mt-40 relative">
+        <!-- Diagnostics -->
+        <div class="md:col-span-8 bg-black/80 backdrop-blur-md relative z-10 acid-mask-1 glitch-border-vibrate">
+          <div class="bg-[#8eff71]/20 p-4 border-b-4 border-[#8eff71]">
+            <span class="text-lg sm:text-xl font-black text-[#8eff71] uppercase tracking-[0.5em] italic">CORE_CORRUPTION_LOG</span>
+          </div>
+          <div class="p-8 sm:p-12 font-mono text-base sm:text-xl space-y-6 sm:space-y-8 pb-16 sm:pb-32">
+            <div class="flex gap-4 items-start animate-pulse"><span class="text-[#8eff71] font-black text-2xl sm:text-3xl">☣</span><p>FRACTAL_LEAK: REALITY_LEAKING_INTO_SYSTEM_00</p></div>
+            <div class="flex gap-4 items-start text-red-500 animate-bounce"><span class="font-black text-2xl sm:text-3xl">⚠</span><p class="font-black">CRITICAL_COLLAPSE: THE_VOID_IS_HUNGRY</p></div>
+            <div class="relative overflow-hidden acid-mask-2">
+              <img alt="Glitch Data" class="w-full h-48 sm:h-96 object-cover melting-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHXBrmq6zr1R5u1iEnEQQX9NHoVrcWtsEoBSe3BLa4FRD18yUU7eK6lTwtI6Nj7inv4Ak4s5a43_PoiBRUkutbQGCfr9z8INvVTuMW4hj5rSgYGR32y_6ZnTTaYDM7o2KNEfqRjX-vI9qt8KgyYDrJE_ayg7pzCGTXN7fq3XTveCn3sZik7NY3vd6iOqFLwjOCRQIGWTQX9wTSLThlgHX40LCgnZoPYn5NpMIT-QJJ2GJF0RgYQtGqAOzeB-GolyncXfDQdT6L6Ic" loading="lazy" />
+            </div>
+          </div>
+        </div>
+        <!-- Entity -->
+        <div class="md:col-span-4 md:-ml-8 lg:-ml-12 md:mt-20 bg-black/90 relative z-20 acid-mask-3 glitch-border-vibrate overflow-hidden">
+          <div class="bg-[#ff51fa]/20 p-4 border-b-4 border-[#ff51fa]">
+            <span class="text-lg sm:text-xl font-black text-[#ff51fa] uppercase tracking-[0.5em] italic">ENTITY_000</span>
+          </div>
+          <div class="p-8 sm:p-12 flex flex-col items-center justify-center pb-16 sm:pb-32">
+            <div class="text-[#ff51fa] text-7xl sm:text-9xl mb-8 sm:mb-12 drop-shadow-[0_0_40px_rgba(255,81,250,1)] animate-ping">
+              <span class="material-symbols-outlined" style="font-size: 8rem; font-variation-settings:'FILL' 1">skull</span>
+            </div>
+            <div class="w-full h-3 sm:h-4 bg-gradient-to-r from-[#8eff71] via-[#ff51fa] to-[#ac89ff] mb-8 sm:mb-12 animate-pulse"></div>
+            <div class="space-y-4 sm:space-y-6 w-full">
+              <div class="bg-[#8eff71]/20 p-4 sm:p-6 border-l-8 border-[#8eff71] acid-mask-1">
+                <label class="text-xs text-[#8eff71] block font-black uppercase">Existence_Probability</label>
+                <span class="text-3xl sm:text-4xl font-black italic">0.000001%</span>
+              </div>
+              <div class="bg-[#ff51fa]/20 p-4 sm:p-6 border-l-8 border-[#ff51fa] acid-mask-2">
+                <label class="text-xs text-[#ff51fa] block font-black uppercase">Void_Cohesion</label>
+                <span class="text-3xl sm:text-4xl font-black italic">NULL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DEATH_STREAMS -->
+      <section class="mt-32 sm:mt-60 border-t-8 border-white pt-16 sm:pt-24">
+        <h2 class="text-5xl sm:text-7xl lg:text-9xl font-black mb-12 sm:mb-20 italic uppercase tracking-tighter text-white glitch-text-extreme">DEATH_STREAMS</h2>
+        <div class="space-y-8 sm:space-y-16">
+          {[
+            { hex: '0xDARK', title: 'Void_Engine_Unbound', bg: 'bg-[#8eff71]/10 hover:bg-[#8eff71]/40', mask: 'acid-mask-1', icon: 'skull' },
+            { hex: '0xVOID', title: 'Neural_Acid_Burn', bg: 'bg-[#ff51fa]/10 hover:bg-[#ff51fa]/40', mask: 'acid-mask-2', icon: 'destruction' }
+          ].map(({ hex, title, bg, mask, icon }) => (
+            <div class={`group flex items-center justify-between p-8 sm:p-12 ${bg} transition-all ${mask} glitch-border-vibrate cursor-none flex-wrap gap-4`}>
+              <div class="flex items-center gap-6 sm:gap-10">
+                <span class="text-lg sm:text-2xl font-mono text-white">{hex}</span>
+                <span class="text-2xl sm:text-4xl font-black tracking-widest uppercase text-white italic group-hover:translate-x-8 sm:group-hover:translate-x-12 transition-transform">{title}</span>
+              </div>
+              <span class="material-symbols-outlined text-white text-5xl sm:text-7xl animate-ping">{icon}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+    </main>
+
+    <footer class="w-full relative overflow-hidden footer-jagged bg-black border-t-8 border-[#8eff71] mt-32 sm:mt-60">
+      <div class="w-full pt-20 sm:pt-40 pb-12 sm:pb-20 px-6 sm:px-12 flex flex-col md:flex-row justify-between items-center gap-10 sm:gap-20">
+        <div class="flex flex-col gap-4 sm:gap-8 text-center md:text-left">
+          <div class="text-4xl sm:text-6xl font-black text-[#ff51fa] tracking-tighter uppercase italic glitch-text-extreme">FRACTAL_VOID</div>
+          <p class="text-base sm:text-xl font-black text-[#8eff71] max-w-xl italic uppercase">YOU ARE NOW PART OF THE SINGULARITY.<br/>THE DATA HAS CONSUMED YOUR PERCEPTION.</p>
+        </div>
+        <nav class="flex flex-wrap justify-center gap-8 sm:gap-16">
+          {[['DIE','#ff51fa'],['DECAY','#8eff71'],['TERMINATE_EXISTENCE','#ff51fa']].map(([l,c]) => (
+            <a class="font-black text-xl sm:text-2xl text-white hover:scale-150 transition-all uppercase tracking-widest" style={`color: ${c}`} href="#">{l}</a>
+          ))}
+        </nav>
+      </div>
+    </footer>
+
+    <!-- FAB -->
+    <div class="fixed bottom-24 sm:bottom-12 right-4 sm:right-12 z-[101] group">
+      <button class="w-20 h-20 sm:w-32 sm:h-32 bg-[#8eff71] text-black flex items-center justify-center hover:scale-150 transition-all shadow-[15px_15px_0_#ff51fa] acid-mask-3 glitch-border-vibrate border-4 border-white">
+        <span class="material-symbols-outlined text-4xl sm:text-6xl animate-spin">emergency_home</span>
+      </button>
+    </div>
+
+    <!-- Mobile nav -->
+    <div class="md:hidden fixed bottom-0 left-0 right-0 bg-black/90 backdrop-blur-lg border-t-4 border-[#8eff71] flex justify-around items-center py-3 z-50">
+      {[['home','HOME','/'],['terminal','BLOG','/blog'],['shield','PROJECTS','/projects']].map(([icon, label, href]) => (
+        <a href={href} class="flex flex-col items-center text-[#8eff71]">
+          <span class="material-symbols-outlined text-xl">{icon}</span>
+          <span class="text-[10px] font-mono mt-1">{label}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
