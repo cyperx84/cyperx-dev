@@ -27,10 +27,16 @@ const pageAttr = activeNav ?? 'home';
       e.newDocument.documentElement.className = 'theme-' + t;
     });
   </script>
+  <meta name="description" content="CyperX — builder, breaker, automator. AI agent infrastructure, distributed fleets, and tools that compound over time." />
+  <meta name="theme-color" content="#131313" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&display=swap" as="style" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" /></noscript>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" /></noscript>
   <ClientRouter />
   <style is:global>
     /* ── Page Transition: Glitch Wipe ── */
@@ -51,14 +57,22 @@ const pageAttr = activeNav ?? 'home';
       100% { opacity: 1; transform: translate(0) skew(0); filter: none; }
     }
 
-    /* Light theme: cleaner slide transition */
-    @keyframes page-slide-out {
-      0%   { opacity: 1; transform: translateY(0); }
-      100% { opacity: 0; transform: translateY(-20px); }
+    /* Light theme: glitch slice — horizontal bands split apart */
+    @keyframes page-slice-out {
+      0%   { opacity: 1; transform: translateX(0); filter: none; clip-path: inset(0); }
+      15%  { opacity: 1; transform: translateX(8px); filter: hue-rotate(30deg); clip-path: inset(0 0 60% 0); }
+      30%  { opacity: 0.9; transform: translateX(-12px); filter: hue-rotate(90deg) saturate(1.5); clip-path: inset(20% 0 30% 0); }
+      50%  { opacity: 0.6; transform: translateX(5px) skewX(-2deg); filter: hue-rotate(60deg) blur(1px); }
+      75%  { opacity: 0.3; transform: translateX(-3px); filter: blur(3px) brightness(1.5); }
+      100% { opacity: 0; transform: translateX(0); filter: blur(6px) brightness(2); }
     }
-    @keyframes page-slide-in {
-      0%   { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
+    @keyframes page-slice-in {
+      0%   { opacity: 0; transform: translateX(-15px) skewX(3deg); filter: blur(6px) brightness(2) hue-rotate(90deg); }
+      20%  { opacity: 0.3; transform: translateX(10px) skewX(-2deg); filter: blur(3px) brightness(1.5) hue-rotate(60deg); }
+      40%  { opacity: 0.6; transform: translateX(-6px) skewX(1deg); filter: blur(1px) hue-rotate(30deg); }
+      60%  { opacity: 0.8; transform: translateX(3px); filter: hue-rotate(15deg); }
+      80%  { opacity: 0.95; transform: translateX(-1px); filter: none; }
+      100% { opacity: 1; transform: translateX(0) skewX(0); filter: none; }
     }
 
     /* Extreme: chaos transition */
@@ -86,13 +100,13 @@ const pageAttr = activeNav ?? 'home';
       animation-delay: 0.05s;
     }
 
-    /* Light theme: smooth slide */
+    /* Light theme: glitch slice */
     .theme-light::view-transition-old(root) {
-      animation: page-slide-out 0.25s ease-in forwards;
+      animation: page-slice-out 0.35s ease-in forwards;
     }
     .theme-light::view-transition-new(root) {
-      animation: page-slide-in 0.3s ease-out forwards;
-      animation-delay: 0.03s;
+      animation: page-slice-in 0.4s ease-out forwards;
+      animation-delay: 0.05s;
     }
 
     /* Extreme theme: chaos */
@@ -197,18 +211,30 @@ const pageAttr = activeNav ?? 'home';
     </div>
   </div>
 
-  <!-- ── Three.js Background ── -->
+  <!-- ── Three.js Background (lazy loaded — not render critical) ── -->
   <script>
-    import { initThreeBg } from '../scripts/three-bg';
-    document.addEventListener('DOMContentLoaded', () => { initThreeBg(); });
+    if (!(window as any).__threeBgInit) {
+      (window as any).__threeBgInit = true;
+      // Defer Three.js load until after first paint
+      if ('requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(() => {
+          import('../scripts/three-bg').then(m => m.initThreeBg());
+        });
+      } else {
+        setTimeout(() => {
+          import('../scripts/three-bg').then(m => m.initThreeBg());
+        }, 100);
+      }
+    }
   </script>
 
-  <!-- ── Cursor + Sparkle Effects (unified canvas loop in cursor.ts) ── -->
+  <!-- ── Cursor + Sparkle Effects (deferred) ── -->
   <script>
     import { initCursor } from '../scripts/cursor';
-    document.addEventListener('DOMContentLoaded', () => {
-      initCursor();
-    });
+    if (!(window as any).__cursorInit) {
+      (window as any).__cursorInit = true;
+      document.addEventListener('DOMContentLoaded', () => { initCursor(); });
+    }
   </script>
 
   <!-- ── Theme Toggle + Mobile Menu + Animations Script ── -->
@@ -246,24 +272,29 @@ const pageAttr = activeNav ?? 'home';
 
     // Theme toggle handler is inline on the button element (HMR-safe)
 
-    // Mobile menu toggle
-    const menuBtn = document.getElementById('mobile-menu-btn');
-    const menu = document.getElementById('mobile-menu');
-    let menuOpen = false;
-    if (menuBtn && menu) {
-      menuBtn.addEventListener('click', () => {
-        menuOpen = !menuOpen;
-        menu.style.transform = menuOpen ? 'translateY(0)' : 'translateY(-100%)';
-        menuBtn.classList.toggle('menu-open', menuOpen);
-      });
-      menu.querySelectorAll('a').forEach(a => {
-        a.addEventListener('click', () => {
-          menuOpen = false;
+    // Mobile menu toggle — re-bind safe for view transitions
+    function initMobileMenu() {
+      var menuBtn = document.getElementById('mobile-menu-btn');
+      var menu = document.getElementById('mobile-menu');
+      if (!menuBtn || !menu) return;
+      // Reset state
+      menu.style.transform = 'translateY(-100%)';
+      menuBtn.classList.remove('menu-open');
+      var open = false;
+      menuBtn.onclick = function() {
+        open = !open;
+        menu.style.transform = open ? 'translateY(0)' : 'translateY(-100%)';
+        menuBtn.classList.toggle('menu-open', open);
+      };
+      menu.querySelectorAll('a').forEach(function(a) {
+        a.onclick = function() {
+          open = false;
           menu.style.transform = 'translateY(-100%)';
           menuBtn.classList.remove('menu-open');
-        });
+        };
       });
     }
+    initMobileMenu();
 
     // ── Scroll Progress Bar ──
     function updateScrollProgress() {
@@ -436,6 +467,7 @@ const pageAttr = activeNav ?? 'home';
       initScrollReveal();
       initParallax();
       initFooterTypewriter();
+      initMobileMenu();
       // Re-apply theme from localStorage (in case of client nav)
       var t = localStorage.getItem('cyperx-theme') || 'extreme';
       document.documentElement.className = 'theme-' + t;

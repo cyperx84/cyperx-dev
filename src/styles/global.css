@@ -1086,3 +1086,28 @@ a[href="/projects/personal-os"] {
   transform: translateY(0);
 }
 
+
+/* ── Performance ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .melting-img, .glitch-border-vibrate, .glitch-text, .glitch-text-extreme {
+    animation: none !important;
+    filter: none !important;
+  }
+  body { cursor: auto; }
+}
+
+/* Paint containment for heavy sections */
+.variant-dark, .variant-light, .variant-extreme {
+  contain: layout style paint;
+}
+
+/* Content visibility for offscreen sections */
+footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 200px;
+}
