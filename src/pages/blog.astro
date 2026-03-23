@@ -1,10 +1,76 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const posts = [
+  {
+    title: "Why I Gave My AI Agent Root Access",
+    slug: "ai-agent-root-access",
+    date: "2026.03.18",
+    excerpt: "Everyone told me it was insane. They were right. But the productivity gains from letting an autonomous agent manage my infrastructure changed everything about how I build.",
+    tags: ["AI", "AGENTS", "INFRASTRUCTURE"],
+    readTime: "8 min",
+    category: "SYSTEMS",
+    signal: 94,
+  },
+  {
+    title: "The Obsidian Vault as Operating System",
+    slug: "obsidian-vault-os",
+    date: "2026.03.02",
+    excerpt: "Your note-taking app is a shitty operating system. Here's how I turned mine into an actual one — with pipelines, state machines, and agents that read it.",
+    tags: ["OBSIDIAN", "PKM", "AUTOMATION"],
+    readTime: "12 min",
+    category: "KNOWLEDGE",
+    signal: 88,
+  },
+  {
+    title: "Fleet Architecture: Running 4 AI Agents on a Mac Mini",
+    slug: "fleet-architecture-mac-mini",
+    date: "2026.02.26",
+    excerpt: "A generalist, a builder, a researcher, and an ops agent — all running on a single M4 Mac Mini. Here's the architecture, the failures, and what actually works.",
+    tags: ["AGENTS", "MACOS", "DISTRIBUTED"],
+    readTime: "15 min",
+    category: "BUILDS",
+    signal: 91,
+  },
+  {
+    title: "Token Economics: Spending $0.47/day on AI That Actually Works",
+    slug: "token-economics",
+    date: "2026.02.14",
+    excerpt: "Model routing, fallback chains, local inference on Apple Silicon. How to stop bleeding money on API calls without sacrificing capability.",
+    tags: ["LLM", "OPTIMIZATION", "COST"],
+    readTime: "10 min",
+    category: "OPTIMIZATION",
+    signal: 76,
+  },
+  {
+    title: "Building in Public When the Public Doesn't Exist Yet",
+    slug: "building-in-public",
+    date: "2026.01.28",
+    excerpt: "The audience for human-AI collaboration infrastructure is approximately 400 people worldwide. I'm building for the other 8 billion who'll need it in 18 months.",
+    tags: ["PHILOSOPHY", "BUILDING", "FUTURE"],
+    readTime: "6 min",
+    category: "THOUGHTS",
+    signal: 82,
+  },
+  {
+    title: "Tailscale Mesh + Agent Army = Distributed Brain",
+    slug: "tailscale-agent-mesh",
+    date: "2026.01.12",
+    excerpt: "Connecting 3 machines into a single cognitive mesh. The agent on my Linux box can ask the agent on my Mac Mini to look something up, and neither needs to know where the other lives.",
+    tags: ["NETWORKING", "AGENTS", "TAILSCALE"],
+    readTime: "9 min",
+    category: "INFRASTRUCTURE",
+    signal: 85,
+  },
+];
+
+const featured = posts[0];
+const rest = posts.slice(1);
 ---
 <BaseLayout title="CYPERX.DEV // BLOG" activeNav="blog">
 
   <!-- ════════════════════════════════════════
-       DARK VARIANT — blog-shard-feed
+       DARK VARIANT
   ════════════════════════════════════════ -->
   <div class="variant-dark bg-[#131313] text-[#e2e2e2] min-h-screen">
     <main class="relative pt-28 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto min-h-screen">
@@ -12,114 +78,89 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <section class="mb-16 sm:mb-24 relative">
         <div class="font-mono text-xs text-[#39FF14] mb-4 tracking-[0.5em] uppercase">[ STATUS: INTERCEPTING_SIGNAL_STREAM ]</div>
         <h1 class="text-4xl sm:text-6xl lg:text-8xl font-black tracking-tighter italic uppercase glitch-text leading-none">SYSTEM<br/>ENTROPY<br/>LOGS</h1>
-        <div class="mt-6 sm:mt-8 max-w-xl text-base sm:text-lg text-[#e2e2e2]/80 border-l-4 border-[#FF51FA] pl-6 italic">Raw data sharded from the core. These are the fragments of a dying architecture, rendered for your optical intake. No filters. No safety.</div>
+        <div class="mt-6 sm:mt-8 max-w-xl text-base sm:text-lg text-[#e2e2e2]/80 border-l-4 border-[#FF51FA] pl-6 italic">Raw transmissions from the build process. No filters. No polish. Just signal.</div>
       </section>
 
-      <!-- Blog Feed -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12 lg:gap-y-32">
-        <!-- Shard 1: Featured -->
-        <article class="md:col-span-8 group relative">
-          <div class="absolute -inset-1 bg-[#39FF14]/20 blur-xl group-hover:bg-[#39FF14]/40 transition-colors"></div>
-          <div class="relative bg-[#2a2a2a] shard-clip-1 melt-effect border-l-8 border-[#39FF14] p-6 sm:p-8 lg:p-12">
-            <div class="flex flex-col md:flex-row gap-6 sm:gap-8">
-              <div class="w-full md:w-1/2 aspect-video overflow-hidden relative">
-                <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500 scale-110 group-hover:scale-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApzEjhKLLfzadUq_evKE5oJfTQGtg_Lz2jMczC3Jx6GydACaRM6ZL3AZCPFv6_fYDnBI2gyBBh83YvHXQsyzJOr9NdtyJw0-frK18ljtLTmoKPimd5IKDDDHD6KekU5l7zRO4RTCHCjNMKNzgwaHLqQY_V1GcIh5vM-woQIU16SyVVo1MJL3_KOgqcgAnko4YhX3iO1Y_UtHgma8So47mjfrT9XTEMEMmB2xTL40D8OnGh5tbnL48ny-K-ZEYtfnHMJdKQUfe_X4c" alt="Cyber grid" loading="lazy" />
-                <div class="absolute inset-0 bg-[#39FF14]/10 mix-blend-overlay"></div>
+      <!-- Featured Post -->
+      <article class="mb-16 sm:mb-24 group relative">
+        <div class="absolute -inset-1 bg-[#39FF14]/20 blur-xl group-hover:bg-[#39FF14]/40 transition-colors"></div>
+        <div class="relative bg-[#2a2a2a] shard-clip-1 melt-effect border-l-8 border-[#39FF14] p-6 sm:p-8 lg:p-12">
+          <div class="flex flex-col md:flex-row gap-6 sm:gap-8">
+            <div class="w-full md:w-1/2">
+              <div class="font-mono text-[10px] text-[#FF51FA] mb-2">SIGNAL_STRENGTH: {featured.signal}% // {featured.date}</div>
+              <h2 class="text-2xl sm:text-3xl lg:text-5xl font-black uppercase leading-none mb-4 sm:mb-6 group-hover:text-[#39FF14] transition-colors">{featured.title.replace(/ /g, '_').toUpperCase()}</h2>
+              <p class="text-[#baccb0] mb-4 sm:mb-6 text-sm sm:text-base">{featured.excerpt}</p>
+              <div class="flex flex-wrap gap-2 mb-6">
+                {featured.tags.map(tag => (
+                  <span class="px-2 py-1 bg-[#1f1f1f] text-[8px] font-mono text-[#39FF14]">#{tag}</span>
+                ))}
               </div>
-              <div class="w-full md:w-1/2 flex flex-col justify-between">
+            </div>
+            <div class="w-full md:w-1/2 flex flex-col justify-between">
+              <div class="aspect-video bg-[#1f1f1f] border border-[#39FF14]/20 flex items-center justify-center mb-4">
+                <span class="material-symbols-outlined text-[#39FF14] text-6xl opacity-30">terminal</span>
+              </div>
+              <div class="flex items-center justify-between font-mono text-[10px] border-t border-[#e2e2e2]/20 pt-4">
+                <span>ENTROPY: 0.{featured.signal} // {featured.readTime.toUpperCase()}</span>
+                <span class="text-[#39FF14]">READ_FRAGMENT_&gt;&gt;</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Post Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12">
+        {rest.map((post, i) => {
+          const spans = [
+            "md:col-span-4",
+            "md:col-span-8",
+            "md:col-span-6",
+            "md:col-span-6",
+            "md:col-span-5",
+          ];
+          const borders = [
+            "border-r-4 border-[#FF51FA]",
+            "border-b-4 border-[#AC89FF]",
+            "border-l-4 border-[#39FF14]",
+            "border-t-4 border-[#FF51FA]",
+            "border-l-4 border-[#AC89FF]",
+          ];
+          const clips = ["shard-clip-2", "shard-clip-1", "shard-clip-3", "shard-clip-2", "shard-clip-1"];
+          const colors = ["#FF51FA", "#39FF14", "#AC89FF", "#FF51FA", "#39FF14"];
+          return (
+            <article class={`${spans[i]} group`}>
+              <div class={`bg-[#0e0e0e] ${clips[i]} p-6 sm:p-8 ${borders[i]} h-full flex flex-col justify-between hover:bg-[#1f1f1f] transition-colors`}>
                 <div>
-                  <div class="font-mono text-[10px] text-[#FF51FA] mb-2">SIGNAL_STRENGTH: 88% // 2024.08.12</div>
-                  <h2 class="text-2xl sm:text-3xl lg:text-5xl font-black uppercase leading-none mb-4 sm:mb-6 group-hover:text-[#39FF14] transition-colors">THE_LIQUID_INFRASTRUCTURE_MYTH</h2>
-                  <p class="text-[#baccb0] mb-4 sm:mb-6 text-sm sm:text-base">Decentralized protocols aren't enough. We need architectures that melt when the pressure rises and reform in the void.</p>
+                  <div class="flex items-center justify-between mb-4">
+                    <span class="font-mono text-[10px] text-[#e2e2e2]/50">{post.category}</span>
+                    <span class="font-mono text-[10px]" style={`color:${colors[i]}`}>{post.date}</span>
+                  </div>
+                  <h3 class={`text-xl sm:text-2xl font-black uppercase mb-4 italic leading-tight group-hover:transition-colors`} style={`--hover-color:${colors[i]}`}>
+                    {post.title.replace(/ /g, '_').toUpperCase()}
+                  </h3>
+                  <p class="text-sm text-[#e2e2e2]/60 mb-4">{post.excerpt}</p>
+                  <div class="flex flex-wrap gap-2">
+                    {post.tags.map(tag => (
+                      <span class="px-2 py-1 bg-[#1f1f1f] text-[8px] font-mono text-[#e2e2e2]/40">#{tag}</span>
+                    ))}
+                  </div>
                 </div>
-                <div class="flex items-center justify-between font-mono text-[10px] border-t border-[#e2e2e2]/20 pt-4">
-                  <span>ENTROPY: 0.44</span>
-                  <span class="text-[#39FF14]">READ_FRAGMENT_&gt;&gt;</span>
+                <div class="mt-6 sm:mt-8 flex items-center justify-between font-mono text-[10px] border-t border-[#e2e2e2]/10 pt-4">
+                  <span>{post.readTime.toUpperCase()}</span>
+                  <span style={`color:${colors[i]}`}>READ_&gt;&gt;</span>
                 </div>
               </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Shard 2: Sidebar -->
-        <article class="md:col-span-4 group">
-          <div class="bg-[#0e0e0e] shard-clip-2 p-6 sm:p-8 border-r-4 border-[#FF51FA] h-full flex flex-col justify-between">
-            <div>
-              <div class="font-mono text-[10px] text-[#e2e2e2]/50 mb-4">LOG_ENTRY_409</div>
-              <h3 class="text-xl sm:text-2xl font-bold uppercase mb-4 italic leading-tight">NEURAL_GHOSTS_IN_THE_CACHE</h3>
-              <p class="text-sm text-[#e2e2e2]/50">What remains when you flush the memory? The artifacts of past sessions still vibrate in the low-level registers.</p>
-            </div>
-            <div class="mt-8 sm:mt-12 flex flex-col gap-2 font-mono text-[10px]">
-              <div class="flex justify-between"><span>SYSTEM_HEALTH</span><span class="text-red-400">DEGRADED</span></div>
-              <div class="w-full bg-[#353535] h-1"><div class="bg-red-400 w-1/3 h-full animate-pulse"></div></div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Shard 3: Middle Split -->
-        <article class="md:col-start-2 md:col-span-5 group">
-          <div class="bg-[#393939] shard-clip-3 p-6 sm:p-10 relative overflow-hidden">
-            <div class="absolute top-0 right-0 p-4 opacity-10"><span class="material-symbols-outlined text-6xl">leak_add</span></div>
-            <div class="font-mono text-[10px] bg-[#39FF14] text-black inline-block px-2 mb-4 sm:mb-6">UNSTABLE_DATA</div>
-            <h3 class="text-2xl sm:text-3xl font-black uppercase mb-4 sm:mb-6 leading-none">VOID_ROUTING: BEYOND_TCP</h3>
-            <p class="text-[#e2e2e2] mb-6 sm:mb-8 italic text-sm sm:text-base">Packet loss is a feature, not a bug. If the data isn't missing fragments, was it ever even real?</p>
-            <button class="w-full py-3 sm:py-4 border border-[#39FF14] text-[#39FF14] uppercase font-black hover:bg-[#39FF14] hover:text-black transition-all text-sm">SYNC_WITH_VOID</button>
-          </div>
-        </article>
-
-        <!-- Shard 4: Landscape -->
-        <article class="md:col-span-6 group">
-          <div class="bg-[#2a2a2a] shard-clip-1 p-6 sm:p-8 flex gap-4 sm:gap-6 items-start border-b-4 border-[#AC89FF]">
-            <div class="w-16 sm:w-24 h-16 sm:h-24 flex-shrink-0 bg-[#353535] border border-[#e2e2e2]/10 flex items-center justify-center">
-              <span class="material-symbols-outlined text-[#39FF14] text-2xl sm:text-4xl animate-pulse">memory</span>
-            </div>
-            <div>
-              <div class="font-mono text-[10px] text-[#AC89FF] mb-1">STABLE_DIFFUSION_VOICE</div>
-              <h3 class="text-xl sm:text-2xl font-bold uppercase mb-2 sm:mb-3">AI_SENSORY_OVERLOAD</h3>
-              <p class="text-sm text-[#e2e2e2]/50">Exploring the limits of synthetic perception in high-entropy environments.</p>
-              <div class="mt-3 sm:mt-4 flex gap-2 sm:gap-4">
-                <span class="px-2 py-1 bg-[#1f1f1f] text-[8px] font-mono">#SYNTH</span>
-                <span class="px-2 py-1 bg-[#1f1f1f] text-[8px] font-mono">#SIGNAL</span>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Shard 5: Vertical Tower -->
-        <article class="md:col-span-3 md:row-span-2 group">
-          <div class="bg-[#0e0e0e] shard-clip-2 p-4 sm:p-6 border-t-8 border-[#c600c6] h-full flex flex-col gap-6 sm:gap-8">
-            <div class="h-40 sm:h-64 bg-[#1f1f1f] relative">
-              <img class="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBROVdxHOc1mziCO1MtK2GrSuSCX8SbrCFYEfNa7vMjSCBWyk2PsiQR2yjn-w-zR8wYEgJMjA3rcHMmEN7MZmrSRQyrHREVVKziGVWSk3mbgWX57V12J-6hj_xzKO03HoyqURrs7fcFYeq5usPa0tjAy20ZKlp_tY3QmD7xpiv8DNAV24nyzXxHQXDnsyF269l5Z6eQF2gea8OcacLkPwa3qDB38ie7WhfPE-mbTWqnyumqjn34oqk3T_7OhTzLgOSYPR8OK-BuZVc" alt="Circuit board" loading="lazy" />
-            </div>
-            <div>
-              <h3 class="text-lg sm:text-xl font-black uppercase mb-3 sm:mb-4 italic">HARDWARE_SHAMANISM</h3>
-              <p class="text-xs font-mono text-[#e2e2e2]/60 leading-relaxed">Treating silicon like sacred bone. The ritual of the overclock. Why we sacrifice GPUs to the gods of the frame rate.</p>
-            </div>
-            <div class="mt-auto pt-6 sm:pt-8 border-t border-white/5 font-mono text-[10px] text-[#FF51FA]">READ_TIME: 44_CYCLES</div>
-          </div>
-        </article>
-
-        <!-- Shard 6: Grid Filler -->
-        <article class="md:col-span-8 group">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="bg-[#2a2a2a] p-4 sm:p-6 shard-clip-1 hover:skew-y-1 transition-transform">
-              <div class="font-mono text-[9px] mb-2 opacity-50 uppercase">Fragment_881</div>
-              <h4 class="font-bold uppercase text-sm sm:text-base">CRYPTO_BREACH_LOGS</h4>
-            </div>
-            <div class="bg-[#2a2a2a] p-4 sm:p-6 shard-clip-3 hover:-skew-y-1 transition-transform">
-              <div class="font-mono text-[9px] mb-2 opacity-50 uppercase">Fragment_223</div>
-              <h4 class="font-bold uppercase text-sm sm:text-base">THE_GHOST_PROTOCOL</h4>
-            </div>
-            <div class="sm:col-span-2 bg-[#39FF14] p-1 font-black italic uppercase text-center text-black text-sm">VIEW_OLDER_SIGNAL_INTERCEPTS_...</div>
-          </div>
-        </article>
+            </article>
+          );
+        })}
       </div>
     </main>
   </div>
 
 
   <!-- ════════════════════════════════════════
-       LIGHT VARIANT — blog-bleached-shards
+       LIGHT VARIANT
   ════════════════════════════════════════ -->
   <div class="variant-light bg-white text-[#131313] min-h-screen overflow-x-hidden">
     <main class="pt-28 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto">
@@ -130,105 +171,83 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           SIGNAL<br/>DECAY_
         </h1>
         <div class="flex items-center gap-4 font-mono text-xs tracking-widest text-[#FF51FA] font-bold">
-          <span>STATUS: OVERLOAD</span>
+          <span>STATUS: BROADCASTING</span>
           <span class="w-12 h-[1px] bg-[#FF51FA]"></span>
-          <span>ENTROPY: 99.9%</span>
+          <span>{posts.length} SIGNALS LOGGED</span>
         </div>
       </section>
-      <!-- Sharded Blog Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-y-0">
-        <!-- Article 1: Large Bleached Shard -->
-        <article class="md:col-span-8 md:translate-x-4 z-10 group">
-          <div class="bg-[#ebebeb] p-1 transition-all group-hover:bg-[#39FF14] duration-75" style="clip-path:polygon(10% 0, 100% 5%, 90% 100%, 0 85%)">
-            <div class="bg-white p-6 sm:p-8 lg:p-12 relative overflow-hidden" style="clip-path:polygon(10% 0, 100% 5%, 90% 100%, 0 85%)">
-              <div class="absolute top-0 right-0 p-4 font-mono text-[10px] text-[#AC89FF]">#001_NULL</div>
-              <h2 class="text-3xl sm:text-4xl lg:text-6xl font-black uppercase mb-6 leading-tight">Architecture of a Fractal Void</h2>
-              <div class="aspect-video mb-8 bg-[#f0f0f0] overflow-hidden relative">
-                <img class="w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:opacity-100 transition-opacity" alt="Abstract white fractal geometry with neon highlights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABaHfAk6ZL8rlbdj2z85oA3AAlZqV5ymu1cYf7rklSxuD81hrwGB8nglSjBnHAsDdwqbZPEQ98W0TvLb6XYAwcje2aDpBfl1idaz3YUbn-pfv8P785qxBMoNNSKexCoAXOlrKClv9AbttQOkCH-p21FoIghNGZU3oMmrCZEabvbPSKi3pX_aEsUsv7nsxza0j50ZyqllWzFbZS5Lr784tcPSpYaRQw2-_Bqgc0vktPZjqTNwrl2zVqnYmCDNkl22sD7OD1jIEU7CQ"/>
-                <div class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent"></div>
+
+      <!-- Featured -->
+      <article class="mb-16 group">
+        <div class="bg-[#ebebeb] p-1 transition-all group-hover:bg-[#39FF14] duration-75" style="clip-path:polygon(10% 0, 100% 5%, 90% 100%, 0 85%)">
+          <div class="bg-white p-6 sm:p-8 lg:p-12 relative overflow-hidden" style="clip-path:polygon(10% 0, 100% 5%, 90% 100%, 0 85%)">
+            <div class="absolute top-0 right-0 p-4 font-mono text-[10px] text-[#AC89FF]">#001 // {featured.category}</div>
+            <h2 class="text-3xl sm:text-4xl lg:text-6xl font-black uppercase mb-6 leading-tight">{featured.title}</h2>
+            <p class="text-lg sm:text-xl lg:text-2xl font-medium leading-relaxed mb-8 max-w-2xl">{featured.excerpt}</p>
+            <div class="flex items-center justify-between flex-wrap gap-4">
+              <div class="flex flex-wrap gap-2">
+                {featured.tags.map(tag => (
+                  <span class="bg-[#f0f0f0] text-[10px] font-mono px-2 py-1 text-[#131313]/60">#{tag}</span>
+                ))}
               </div>
-              <p class="text-lg sm:text-xl lg:text-2xl font-medium leading-relaxed mb-8 max-w-2xl">
-                The screen bleaches. The data blooms. We are no longer observing the interface; we are decomposing within its architecture.
-              </p>
-              <a class="inline-flex items-center gap-2 font-black uppercase tracking-widest text-[#39FF14] group-hover:text-[#FF51FA]" href="#">
-                READ_MORE <span class="material-symbols-outlined">arrow_forward</span>
-              </a>
-            </div>
-          </div>
-        </article>
-        <!-- Article 2: Small Overlapping Shard -->
-        <article class="md:col-span-5 md:-translate-y-24 md:-ml-12 z-20 group">
-          <div class="bg-[#FF51FA] p-1 transition-all duration-75 hover:skew-y-2" style="clip-path:polygon(5% 5%, 90% 0, 100% 95%, 0% 100%)">
-            <div class="bg-white p-6" style="clip-path:polygon(5% 5%, 90% 0, 100% 95%, 0% 100%)">
-              <div class="mb-4 flex justify-between items-start">
-                <span class="bg-[#FF51FA] text-white text-[10px] font-mono px-2 py-1">CRITICAL_FAIL</span>
-                <span class="font-mono text-[10px] opacity-40">2024.05.12</span>
-              </div>
-              <h3 class="text-2xl font-black uppercase mb-4">Toxic White: The Visual Frequency of Panic</h3>
-              <p class="text-sm mb-6 opacity-70">
-                Research into high-luminance UI and its effect on the lizard brain. Why we crave the blinding light of the void.
-              </p>
-              <div class="w-full h-32 bg-[#f8f8f8] overflow-hidden">
-                <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all" alt="Neon pink light leaking through white shards" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAS09UON0o8JlPrpg5BPyuGdEQddPzmVPmbCP306mNAxAOSauwHNcgVj4NPi-kK6ndAVtHP9tSmS5s1_Q0I8jFzSd6ZXyIDDyu-7RWGOo8c2003fdnItmosvVQ_N7uWR9KWpOGHBM55EW2gVwM6sjWHrUxNht5m6O1eTWPjSYiAdL94k7NYa4VoAaN9LKdD2oLQ2bIcIlED0CEG61KiTNo8a0-BnSshDUOG00iaQ0sjLNwwFKpKv1nEBqU2umV--fgyYK98wqimKxE"/>
+              <div class="flex items-center gap-4">
+                <span class="font-mono text-xs text-[#131313]/40">{featured.date} · {featured.readTime}</span>
+                <a class="inline-flex items-center gap-2 font-black uppercase tracking-widest text-[#39FF14] group-hover:text-[#FF51FA]" href="#">
+                  READ <span class="material-symbols-outlined">arrow_forward</span>
+                </a>
               </div>
             </div>
           </div>
-        </article>
-        <!-- Article 3: Lateral Shard -->
-        <article class="md:col-span-7 md:col-start-6 md:-translate-y-48 z-10 group">
-          <div class="bg-[#AC89FF] p-1 transition-all duration-75 hover:bg-[#39FF14]" style="clip-path:polygon(0 15%, 95% 0, 100% 85%, 5% 100%)">
-            <div class="bg-white p-6 sm:p-10 flex flex-col md:flex-row gap-8" style="clip-path:polygon(0 15%, 95% 0, 100% 85%, 5% 100%)">
-              <div class="md:w-1/3 aspect-square bg-[#f0f0f0]">
-                <img class="w-full h-full object-cover mix-blend-screen brightness-150" alt="Digital glitch pattern in green and white" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8fX4aczWDeOkXirR5PLH40fY6wah1nQptqyaUajlL75x-ZWxKRFUfl8SN5tF7-3uD2403BBsV3ndVLUBndTODa_ggLYRwVxtr87O7Y0ipSC4qS6Solv0JyB48mc-QfsCTfASIFJirb9u-_a-LKTqY1dxEp1uJU4r0lxlGw6vSNhk8xl_JsuE4el_8q6xy_-NrLHYnQ8jaJabU26dlKef2a-jOnBgytdj1t83EXGmsaG3v_T0b9HWfEQDTPuZpBCWtox5wgi7Of6Y"/>
-              </div>
-              <div class="md:w-2/3">
-                <h3 class="text-3xl font-black uppercase mb-4">Melted Interactivity</h3>
-                <p class="text-base mb-6 opacity-80">
-                  Breaking the standard 12-column grid to find the liquid state of digital information.
-                </p>
-                <button class="border-2 border-[#131313] px-6 py-2 font-black uppercase hover:bg-[#131313] hover:text-white transition-colors">
-                  EXPLORE_NODE
-                </button>
-              </div>
-            </div>
-          </div>
-        </article>
-        <!-- Floating Sidebar: Acid Toggle -->
-        <aside class="md:col-span-3 md:sticky md:top-24 self-start z-20">
-          <div class="p-6 bg-[#ebebeb] border-r-4 border-[#39FF14]" style="clip-path:polygon(0 0, 100% 0, 95% 100%, 5% 95%)">
-            <h4 class="font-mono text-[10px] font-bold uppercase mb-4 text-[#FF51FA]">SYSTEM_CONTROL</h4>
-            <div class="space-y-4">
-              <div class="flex justify-between items-center group cursor-pointer">
-                <span class="font-black text-sm uppercase group-hover:text-[#39FF14]">GLITCH_FEED</span>
-                <div class="w-10 h-5 bg-[#39FF14] p-1">
-                  <div class="w-3 h-3 bg-black"></div>
+        </div>
+      </article>
+
+      <!-- Post Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        {rest.map((post, i) => {
+          const spans = ["md:col-span-5", "md:col-span-7", "md:col-span-7", "md:col-span-5", "md:col-span-6"];
+          const clipPaths = [
+            "polygon(5% 5%, 90% 0, 100% 95%, 0% 100%)",
+            "polygon(0 15%, 95% 0, 100% 85%, 5% 100%)",
+            "polygon(10% 0, 100% 5%, 90% 100%, 0 85%)",
+            "polygon(5% 5%, 90% 0, 100% 95%, 0% 100%)",
+            "polygon(0 15%, 95% 0, 100% 85%, 5% 100%)",
+          ];
+          const borderColors = ["#FF51FA", "#AC89FF", "#39FF14", "#FF51FA", "#AC89FF"];
+          return (
+            <article class={`${spans[i]} group`}>
+              <div class={`p-1 transition-all duration-75 hover:skew-y-1`} style={`background:${borderColors[i]}; clip-path:${clipPaths[i]}`}>
+                <div class="bg-white p-6" style={`clip-path:${clipPaths[i]}`}>
+                  <div class="mb-3 flex justify-between items-start">
+                    <span class="text-white text-[10px] font-mono px-2 py-1" style={`background:${borderColors[i]}`}>{post.category}</span>
+                    <span class="font-mono text-[10px] opacity-40">{post.date}</span>
+                  </div>
+                  <h3 class="text-xl sm:text-2xl font-black uppercase mb-3">{post.title}</h3>
+                  <p class="text-sm mb-4 opacity-70">{post.excerpt}</p>
+                  <div class="flex items-center justify-between">
+                    <div class="flex flex-wrap gap-1">
+                      {post.tags.slice(0, 2).map(tag => (
+                        <span class="bg-[#f0f0f0] text-[9px] font-mono px-2 py-1">#{tag}</span>
+                      ))}
+                    </div>
+                    <span class="font-mono text-[10px] opacity-40">{post.readTime}</span>
+                  </div>
                 </div>
               </div>
-              <div class="flex justify-between items-center group cursor-pointer">
-                <span class="font-black text-sm uppercase group-hover:text-[#FF51FA] line-through">SAFETY_NET</span>
-                <div class="w-10 h-5 bg-[#f0f0f0] p-1">
-                  <div class="w-3 h-3 bg-[#131313]/20"></div>
-                </div>
-              </div>
-            </div>
-            <div class="mt-8 pt-8 border-t border-[#131313]/10">
-              <p class="font-mono text-[9px] leading-tight opacity-50">
-                WARNING: HIGH FREQUENCY VISUALS MAY CAUSE SENSORY SYNESTHESIA. PROCEED INTO THE WHITE.
-              </p>
-            </div>
-          </div>
-        </aside>
+            </article>
+          );
+        })}
       </div>
-      <!-- Terminal Section -->
-      <section class="mt-12 md:-mt-24 p-6 sm:p-8 bg-[#131313] text-white max-w-2xl" style="clip-path:polygon(10% 0, 100% 5%, 90% 100%, 0 85%)">
+
+      <!-- Terminal -->
+      <section class="mt-16 p-6 sm:p-8 bg-[#131313] text-white max-w-2xl" style="clip-path:polygon(10% 0, 100% 5%, 90% 100%, 0 85%)">
         <div class="flex items-center gap-2 mb-4">
           <div class="w-3 h-3 bg-[#39FF14]"></div>
-          <span class="font-mono text-xs uppercase tracking-tighter">REMOTE_TERMINAL_ACCESS</span>
+          <span class="font-mono text-xs uppercase tracking-tighter">SIGNAL_ARCHIVE</span>
         </div>
         <div class="font-mono text-sm text-[#39FF14]/80 space-y-1">
-          <p>&gt; LOADING ENTROPY_LOGS...</p>
-          <p>&gt; STABLE BEYOND VOID [TRUE]</p>
-          <p>&gt; SIGNAL BLOOM DETECTED</p>
+          <p>&gt; {posts.length} SIGNALS INTERCEPTED</p>
+          <p>&gt; ARCHIVE STATUS: STABLE</p>
+          <p>&gt; OLDER TRANSMISSIONS AVAILABLE</p>
           <p class="animate-pulse">&gt; _</p>
         </div>
       </section>
@@ -237,13 +256,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 
   <!-- ════════════════════════════════════════
-       EXTREME VARIANT — blog-shard-breach-dark-extreme
+       EXTREME VARIANT
   ════════════════════════════════════════ -->
   <div class="variant-extreme bg-[#050505] text-white min-h-screen overflow-x-hidden" style="cursor:crosshair">
     <main class="relative pt-28 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto min-h-screen">
-      <!-- Fractal Underlay -->
       <div class="fixed inset-0 x-fractal-bg -z-10"></div>
-      <!-- Header Section -->
+
+      <!-- Header -->
       <header class="mb-20 sm:mb-32 space-y-8 relative">
         <div class="absolute -top-12 -left-12 w-64 h-64 bg-[#8eff71]/20 blur-[120px] rounded-full animate-pulse"></div>
         <h1 class="text-5xl sm:text-7xl lg:text-[10rem] font-black tracking-tighter x-vibrating-text uppercase leading-none">
@@ -252,119 +271,75 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="flex flex-wrap items-center gap-4 sm:gap-8 text-[#8eff71] font-mono text-sm sm:text-lg">
           <span class="animate-ping h-3 w-3 rounded-full bg-[#8eff71]"></span>
           <span class="tracking-[0.3em] sm:tracking-[0.5em] font-black text-[#ff51fa]">SYSTEM_INFILTRATION_CRITICAL</span>
-          <span class="opacity-40 italic">// ENTROPY: 99.98% // SECTOR: VOID_NULL</span>
+          <span class="opacity-40 italic">// {posts.length} LOGS DECRYPTED</span>
         </div>
       </header>
-      <!-- Shard Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12 items-start">
-        <!-- Featured Shard -->
-        <article class="md:col-span-9 group relative mb-12 sm:mb-20">
-          <div class="absolute -inset-8 bg-gradient-to-br from-[#8eff71] via-[#ff51fa] to-[#ac89ff] blur-[100px] opacity-20 group-hover:opacity-80 transition-opacity duration-1000"></div>
-          <div class="relative bg-[#191919] border-4 border-[#8eff71]/50 x-shard-melt-intense shadow-[0_0_60px_rgba(142,255,113,0.3)] overflow-hidden x-glitch-hover">
-            <div class="x-shard-inner-fractal"></div>
-            <div class="relative overflow-hidden aspect-[21/9]">
-              <img alt="Abstract neon geometric structures" class="w-full h-full object-cover grayscale invert contrast-[1.5] brightness-[1.2] group-hover:grayscale-0 group-hover:invert-0 transition-all duration-1000 scale-150 group-hover:scale-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqEcMx3GLdKip5cD62YHedg03UpAHh0pnasq_xqIGwoCN9K6_vBn7DF8OKePusRs9Rw82DvVwJqBEKPzBIrGEU2BFo5TLpjNfEWZX5D1r_FTDcX24FGXGlYK0Lx-mKsKSe7XuAcivpt4XcWItRFAVp0jYZhG_wIqD88AtJnaqPHQwZuAjozdKxb8o5czCYBGllicBvODVZfpxvzLufNN-Y59v3WzCbZTGgenDchuYcuJpdSE-L2UkLNElIftV7AQRkeX7J0VXDKV8"/>
-              <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-              <div class="absolute bottom-8 sm:bottom-20 left-6 sm:left-12 right-6 sm:right-12">
-                <h2 class="text-3xl sm:text-4xl lg:text-7xl font-black text-white uppercase tracking-tighter x-vibrating-text group-hover:text-[#8eff71]">
-                  NEURAL_MELTDOWN_PROTOCOL_v4
-                </h2>
-              </div>
+
+      <!-- Featured -->
+      <article class="mb-16 sm:mb-24 group relative">
+        <div class="absolute -inset-8 bg-gradient-to-br from-[#8eff71] via-[#ff51fa] to-[#ac89ff] blur-[100px] opacity-20 group-hover:opacity-80 transition-opacity duration-1000"></div>
+        <div class="relative bg-[#191919] border-4 border-[#8eff71]/50 x-shard-melt-intense shadow-[0_0_60px_rgba(142,255,113,0.3)] overflow-hidden x-glitch-hover">
+          <div class="x-shard-inner-fractal"></div>
+          <div class="p-6 sm:p-12 relative z-10 space-y-6 sm:space-y-8">
+            <div class="flex items-center gap-4 font-mono text-xs">
+              <span class="bg-[#8eff71] text-black px-3 py-1 font-black">{featured.category}</span>
+              <span class="text-[#ff51fa]">{featured.date}</span>
+              <span class="text-[#8eff71]/60">{featured.readTime}</span>
             </div>
-            <div class="p-6 sm:p-12 pt-4 space-y-6 sm:space-y-8 relative z-10">
-              <p class="text-white text-lg sm:text-2xl font-bold leading-tight max-w-3xl italic tracking-tight">
-                "THE BOUNDARIES BETWEEN SILICON AND SOUL ARE DISSOLVING. WE ARE THE LEAK IN THE REALITY PIPELINE."
-              </p>
-              <div class="flex flex-wrap items-center gap-6 sm:gap-12">
-                <button class="bg-[#8eff71] text-[#0d6100] px-8 sm:px-16 py-4 sm:py-6 font-black text-base sm:text-xl uppercase tracking-tighter hover:bg-white hover:text-black transition-all x-shard-1 shadow-[0_0_30px_rgba(142,255,113,0.8)]">
-                  DECRYPT_VOID
-                </button>
-                <span class="text-[#ff51fa] font-mono text-xs sm:text-sm animate-pulse">0x88FF112 // HASH_CORRUPTED</span>
-              </div>
+            <h2 class="text-3xl sm:text-5xl lg:text-7xl font-black text-white uppercase tracking-tighter x-vibrating-text group-hover:text-[#8eff71]">
+              {featured.title.replace(/ /g, '_').toUpperCase()}
+            </h2>
+            <p class="text-white text-lg sm:text-2xl font-bold leading-tight max-w-3xl italic tracking-tight">{featured.excerpt}</p>
+            <div class="flex flex-wrap items-center gap-6 sm:gap-12">
+              <button class="bg-[#8eff71] text-[#0d6100] px-8 sm:px-16 py-4 sm:py-6 font-black text-base sm:text-xl uppercase tracking-tighter hover:bg-white hover:text-black transition-all shadow-[0_0_30px_rgba(142,255,113,0.8)]">
+                DECRYPT_VOID
+              </button>
+              <span class="text-[#ff51fa] font-mono text-xs sm:text-sm animate-pulse">SIGNAL: {featured.signal}%</span>
             </div>
-          </div>
-        </article>
-        <!-- Sidebar Shards -->
-        <div class="md:col-span-3 space-y-8 sm:space-y-16">
-          <div class="bg-[#111] p-6 sm:p-10 border-4 border-[#ff51fa]/40 relative overflow-hidden x-shard-sidebar shadow-[0_0_40px_rgba(255,81,250,0.2)] x-glitch-hover">
-            <div class="x-shard-inner-fractal"></div>
-            <div class="absolute top-4 right-6 text-[10px] font-mono text-[#ff51fa] animate-bounce uppercase tracking-[0.5em]">VOID_FEED</div>
-            <h3 class="text-lg font-black text-[#ff51fa] mb-6 sm:mb-8 tracking-[0.3em] uppercase x-vibrating-text">SYSTEM_ALERTS</h3>
-            <ul class="space-y-6 sm:space-y-8">
-              <li class="flex gap-4 items-start border-b-2 border-[#484848]/20 pb-4 sm:pb-6 group/item">
-                <span class="material-symbols-outlined text-[#8eff71] text-2xl animate-ping">warning</span>
-                <div>
-                  <p class="text-sm font-black text-white uppercase group-hover/item:text-[#8eff71] transition-colors">BUFFER_OVERFLOW_7G</p>
-                  <p class="text-[10px] text-[#8eff71]/60 uppercase mt-2 font-mono">T-MINUS_00:03</p>
-                </div>
-              </li>
-              <li class="flex gap-4 items-start border-b-2 border-[#484848]/20 pb-4 sm:pb-6 group/item">
-                <span class="material-symbols-outlined text-[#ff51fa] text-2xl animate-pulse">bolt</span>
-                <div>
-                  <p class="text-sm font-black text-white uppercase group-hover/item:text-[#ff51fa] transition-colors">STATIC_DISCHARGE_DET</p>
-                  <p class="text-[10px] text-[#ff51fa]/60 uppercase mt-2 font-mono">T-MINUS_00:14</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div class="bg-[#ff51fa] p-8 sm:p-12 flex flex-col items-center justify-center text-center space-y-6 sm:space-y-8 x-shard-2 shadow-[0_0_80px_rgba(255,81,250,0.6)] rotate-3 hover:rotate-0 transition-all" style="cursor:none">
-            <span class="material-symbols-outlined text-[#400040] text-6xl sm:text-8xl animate-pulse" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24">skull</span>
-            <div>
-              <h4 class="text-[#400040] font-black text-2xl sm:text-3xl uppercase tracking-tighter x-vibrating-text">FEED_THE_VOID</h4>
-              <p class="text-[#400040]/70 text-sm mt-4 uppercase tracking-[0.4em] font-bold">DIGITAL_OBLIVION_AWAITS</p>
-            </div>
-            <input class="w-full bg-black/40 border-none text-[#400040] placeholder:text-[#400040]/30 focus:ring-0 text-base sm:text-lg py-4 sm:py-5 font-mono text-center" placeholder="ENTITY_ADDRESS_HERE" type="text"/>
           </div>
         </div>
-        <!-- Grid Feed: Slot 1 -->
-        <article class="md:col-span-6 group md:-mt-32 relative z-10">
-          <div class="bg-[#262626] p-6 sm:p-8 x-shard-3 border-4 border-[#ff51fa]/50 hover:scale-110 transition-all duration-700 shadow-[0_0_50px_rgba(255,81,250,0.3)] x-glitch-hover">
-            <div class="x-shard-inner-fractal"></div>
-            <div class="relative aspect-[4/3] mb-6 sm:mb-8 overflow-hidden">
-              <img alt="Digital abstract pattern" class="w-full h-full object-cover contrast-[2] saturate-[3] hue-rotate-90 group-hover:hue-rotate-0 transition-all duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvvm_XTfFvURVBBXXb2FtVNQwk4YKEJEQxWyqwiZ2Q-H4Q37fFFZXJNJNBIg4ydMz_bTBuGGssVRLPQWiW7Wfvjtn3FmdM1ddSNwhzGOp3ZYGG9atUSDJ61wYX71oL-8wWDz2QDyRCwp24QHe9uyJ4AcrQ5pvclQlOaGPvWzNxu2kJDeS8zwqtaW8mztR05vcZ97v0BnWczRoa1_k8BlsYpaFx-XO2sbjiP86ks3Ddyp-s1rpWMPuPQlERfj8TmUPKJgVJAyB2-G0"/>
-              <div class="absolute inset-0 bg-[#8eff71]/30 mix-blend-color-dodge"></div>
-            </div>
-            <span class="text-xs font-mono text-[#ff51fa] mb-4 block tracking-[0.5em] font-black uppercase">LOG_ID: 0x992 // BLEEDING</span>
-            <h3 class="text-2xl sm:text-4xl font-black text-white mb-4 uppercase tracking-tighter x-vibrating-text group-hover:text-[#ff51fa]">LIQUID_DREAMS</h3>
-            <p class="text-sm text-[#ababab] leading-tight font-bold italic">THE MAIN_FRAME IS SATURATED. REALITY SCRIPTS ARE BEGINNING TO HEMORRHAGE INTO THE PHYSICAL DOMAIN.</p>
-          </div>
-        </article>
-        <!-- Grid Feed: Slot 2 -->
-        <article class="md:col-span-6 group md:-ml-20 relative z-20">
-          <div class="bg-[#1f1f1f] p-6 sm:p-10 x-shard-4 border-4 border-[#8eff71]/50 hover:scale-[1.05] transition-all duration-500 shadow-[0_0_70px_rgba(142,255,113,0.4)] x-glitch-hover">
-            <div class="x-shard-inner-fractal"></div>
-            <div class="flex flex-col gap-6 sm:gap-10">
-              <div class="relative w-full aspect-video overflow-hidden x-shard-1 border-2 border-[#8eff71]/20">
-                <img alt="Cosmic digital distortion" class="w-full h-full object-cover invert hue-rotate-180 group-hover:invert-0 group-hover:hue-rotate-0 transition-all duration-1000 scale-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQn3R_NyN7D3b4-rhxfBZZcE1dPyyZgngJ8Er1r31ujQ5ifJloQRjRlDHl7IqmPelVVfedhmkm0s7FtzgOIClaA-GoDam97Njkkx_-ZAIQCsjYiRhXg185XszYnJwqohXHnz1hkyVTVJutEOLvEf2BUMVj9mudMvsu3jG5c-CyEHZTGdwtf5mQIUJ5rQ7EdBnqEhKpI2Gb9MIMIwqJWDFrQsdn3vT0xYscjwDyeZw8bbs4hGEVu-0wPr2jip8Z8OBdxqsb7JeM7jY"/>
+      </article>
+
+      <!-- Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12 items-start">
+        {rest.map((post, i) => {
+          const spans = ["md:col-span-4", "md:col-span-8", "md:col-span-6", "md:col-span-6", "md:col-span-5"];
+          const borderColors = ["#ff51fa", "#8eff71", "#ac89ff", "#ff51fa", "#8eff71"];
+          const xShards = ["x-shard-sidebar", "x-shard-3", "x-shard-4", "x-shard-sidebar", "x-shard-3"];
+          return (
+            <article class={`${spans[i]} group`}>
+              <div class={`bg-[#111] p-6 sm:p-8 border-4 overflow-hidden relative ${xShards[i]} x-glitch-hover hover:scale-[1.02] transition-all duration-500`} style={`border-color:${borderColors[i]}50; box-shadow:0 0 40px ${borderColors[i]}33`}>
+                <div class="x-shard-inner-fractal"></div>
+                <div class="relative z-10">
+                  <div class="flex items-center justify-between mb-4">
+                    <span class="font-mono text-[10px] font-black tracking-[0.3em] uppercase" style={`color:${borderColors[i]}`}>{post.category}</span>
+                    <span class="font-mono text-[10px] text-white/40">{post.date}</span>
+                  </div>
+                  <h3 class="text-xl sm:text-2xl font-black text-white mb-4 uppercase tracking-tighter group-hover:transition-colors" style={`--glow:${borderColors[i]}`}>
+                    {post.title.replace(/ /g, '_').toUpperCase()}
+                  </h3>
+                  <p class="text-sm text-[#ababab] leading-tight font-medium italic mb-4">{post.excerpt}</p>
+                  <div class="flex flex-wrap gap-2 mb-4">
+                    {post.tags.map(tag => (
+                      <span class="px-2 py-1 bg-black/50 text-[8px] font-mono" style={`color:${borderColors[i]}99`}>#{tag}</span>
+                    ))}
+                  </div>
+                  <div class="flex items-center justify-between font-mono text-[10px] border-t border-white/10 pt-4">
+                    <span class="text-white/40">{post.readTime}</span>
+                    <span class="font-black uppercase tracking-[0.3em]" style={`color:${borderColors[i]}`}>DECRYPT_&gt;&gt;</span>
+                  </div>
+                </div>
               </div>
-              <div class="space-y-4 sm:space-y-6">
-                <span class="text-xs font-mono text-[#8eff71] block tracking-[0.5em] font-black uppercase">LOG_ID: 0x441 // INTRUSION</span>
-                <h3 class="text-3xl sm:text-5xl font-black text-white uppercase tracking-tighter x-vibrating-text group-hover:text-[#8eff71]">GHOST_KERNEL_v0</h3>
-                <p class="text-base sm:text-lg text-[#ababab] leading-snug font-medium italic">AUTONOMOUS SCRIPTS HAVE BYPASSED ALL PROTOCOLS. THE HISTORY LOGS ARE WRITING THEMSELVES NOW.</p>
-                <button class="text-sm font-black uppercase tracking-[0.6em] text-[#8eff71] border-b-4 border-[#8eff71] pb-2 hover:text-white hover:border-white transition-all">ACCESS_CORE_VOID</button>
-              </div>
-            </div>
-          </div>
-        </article>
-        <!-- Grid Feed: Slot 3 -->
-        <article class="md:col-span-5 md:col-start-4 group mt-8 sm:mt-16 relative z-10">
-          <div class="bg-black/80 p-6 x-shard-melt-intense border-2 border-[#8eff71]/30 hover:scale-125 transition-all duration-500 x-glitch-hover">
-            <div class="x-shard-inner-fractal"></div>
-            <div class="relative aspect-square mb-6 overflow-hidden x-shard-2">
-              <img alt="Colorful digital gradient glitch" class="w-full h-full object-cover contrast-[3] brightness-[0.5] group-hover:brightness-100 transition-all duration-500 scale-150 group-hover:rotate-45" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPLVawfec3WGsAyD4SFhHkIOdozKY4lf0ps1qh0kyrd4l71jFmh5tcbImTKZ_ERSzuYtEAVp9siVC0FiwHvbkgeztyyGjxc55WzA-oP3_OJsD-jd6JcQUPFbXnHhGfuR4mtgTYKMhi1qP0Iwd9gmB06jVo09y36yoTRB0m7NKolrVwEhWsg7v688Upohol7xUPpB8j-LbNhtu_uC_CthUkuwURp3TxNE0OpnG6cNyqSCb9t1cu3XVbyVsO0iSW7Ji66ibwBWtRSQ"/>
-            </div>
-            <span class="text-[10px] font-mono text-[#8eff71] mb-3 block tracking-[0.8em] uppercase text-center">DECAY_STATE_ACTIVE</span>
-            <h3 class="text-2xl font-black text-white mb-3 uppercase tracking-tighter text-center group-hover:text-[#8eff71] transition-colors">CHROME_DISSOLUTION</h3>
-          </div>
-        </article>
+            </article>
+          );
+        })}
       </div>
+
       <!-- Pagination -->
       <div class="mt-24 sm:mt-48 flex justify-center gap-4 sm:gap-6">
-        <button class="w-16 sm:w-20 h-16 sm:h-20 border-4 border-[#8eff71] text-[#8eff71] hover:bg-[#8eff71] hover:text-black transition-all x-shard-1 font-black text-xl sm:text-2xl x-vibrating-text">01</button>
-        <button class="w-20 sm:w-24 h-20 sm:h-24 border-4 border-[#ff51fa] bg-[#ff51fa] text-black flex items-center justify-center font-black text-2xl sm:text-3xl x-shard-2 shadow-[0_0_40px_rgba(255,81,250,0.8)]">02</button>
-        <button class="w-16 sm:w-20 h-16 sm:h-20 border-4 border-[#8eff71]/30 flex items-center justify-center text-[#8eff71]/40 hover:text-white hover:border-white transition-all x-shard-3 font-black text-xl sm:text-2xl">03</button>
+        <button class="w-16 sm:w-20 h-16 sm:h-20 border-4 border-[#8eff71] bg-[#8eff71] text-black font-black text-xl sm:text-2xl">01</button>
+        <button class="w-16 sm:w-20 h-16 sm:h-20 border-4 border-[#ff51fa]/30 text-[#ff51fa]/40 hover:text-white hover:border-white transition-all font-black text-xl sm:text-2xl">02</button>
         <div class="w-16 sm:w-20 h-16 sm:h-20 flex items-center justify-center text-[#8eff71]/20 tracking-[1em] font-black">...</div>
-        <button class="w-16 sm:w-20 h-16 sm:h-20 border-4 border-[#8eff71]/30 flex items-center justify-center text-[#8eff71]/40 hover:text-white hover:border-white transition-all x-shard-4 font-black text-xl sm:text-2xl">99</button>
       </div>
     </main>
   </div>
@@ -372,7 +347,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <style is:global>
-  /* ── Extreme Variant: Keyframe Animations ── */
   @keyframes x-drift {
     0%   { transform: translate(0,0) rotate(0deg) scale(1); }
     33%  { transform: translate(15px,-10px) rotate(1deg) scale(1.02); }
@@ -391,71 +365,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     0%   { background-position: 0% 0%;     filter: hue-rotate(0deg); }
     100% { background-position: 100% 100%; filter: hue-rotate(360deg); }
   }
-
-  /* ── Extreme Variant: Shard Clip-paths ── */
-  .x-shard-1 {
-    clip-path: polygon(0% 15%, 100% 0%, 85% 100%, 5% 85%);
-    animation: x-drift 7s ease-in-out infinite;
-  }
-  .x-shard-2 {
-    clip-path: polygon(10% 0%, 100% 25%, 90% 100%, 0% 75%);
-    animation: x-drift 8s ease-in-out infinite reverse;
-  }
-  .x-shard-3 {
-    clip-path: polygon(5% 5%, 95% 0%, 100% 95%, 15% 100%);
-    animation: x-drift 6s ease-in-out infinite 1s;
-  }
-  .x-shard-4 {
-    clip-path: polygon(0% 0%, 88% 12%, 100% 88%, 12% 100%);
-    animation: x-drift 9s ease-in-out infinite 0.5s;
-  }
-  .x-shard-melt-intense {
-    clip-path: polygon(2% 2%, 98% 5%, 95% 45%, 100% 48%, 92% 85%, 75% 82%, 65% 100%, 45% 88%, 25% 95%, 10% 75%, 0% 85%, 5% 50%);
-    animation: x-drift 10s ease-in-out infinite;
-  }
+  .x-shard-1 { clip-path: polygon(0% 15%, 100% 0%, 85% 100%, 5% 85%); animation: x-drift 7s ease-in-out infinite; }
+  .x-shard-2 { clip-path: polygon(10% 0%, 100% 25%, 90% 100%, 0% 75%); animation: x-drift 8s ease-in-out infinite reverse; }
+  .x-shard-3 { clip-path: polygon(5% 5%, 95% 0%, 100% 95%, 15% 100%); animation: x-drift 6s ease-in-out infinite 1s; }
+  .x-shard-4 { clip-path: polygon(0% 0%, 88% 12%, 100% 88%, 12% 100%); animation: x-drift 9s ease-in-out infinite 0.5s; }
+  .x-shard-melt-intense { clip-path: polygon(2% 2%, 98% 5%, 95% 45%, 100% 48%, 92% 85%, 75% 82%, 65% 100%, 45% 88%, 25% 95%, 10% 75%, 0% 85%, 5% 50%); animation: x-drift 10s ease-in-out infinite; }
   .x-shard-sidebar { clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%); }
-  .x-shard-footer  { clip-path: polygon(0 30%, 20% 0, 40% 25%, 60% 5%, 80% 30%, 100% 10%, 100% 100%, 0 100%); }
-
-  /* ── Extreme Variant: Vibrating Text ── */
-  .x-vibrating-text {
-    animation: vibrate-effect 0.1s infinite;
-    text-shadow: 3px 0 #ff51fa, -3px 0 #8eff71;
-  }
-
-  /* ── Extreme Variant: Fractal Background ── */
+  .x-vibrating-text { animation: vibrate-effect 0.1s infinite; text-shadow: 3px 0 #ff51fa, -3px 0 #8eff71; }
   .x-fractal-bg {
     background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCCF-Wu0arOTEDRI7pEIgN9zoNVdLKE4WsdOdqmG-mtDHqHKeMqx_pBPtjbjQ4HLpooT9zBpJxFZIdyqmNhwaR3F5bS0VU9SZlVRdaD5SIIexczbDXVJLbC3fYM2lj-LBSQE8z_t1hhuH-YwO4BAU9o7bwkQAjqbW5Q1Lla1YTPzZjwno57NJKB4OVSqJNG42o5Uyn6rRNAztZgkm42__gqzmM9KOWda7YxxqhQfjXKC-JYyYqX7MWlCNskOFkjixU_RUmSdE3msqg);
-    background-size: 200%;
-    animation: x-fractal-shift 20s linear infinite;
-    opacity: 0.2;
-    mix-blend-mode: screen;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    background-size: 200%; animation: x-fractal-shift 20s linear infinite;
+    opacity: 0.2; mix-blend-mode: screen; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
   }
-
-  /* ── Extreme Variant: Inner Fractal Overlay on Cards ── */
   .x-shard-inner-fractal {
-    position: absolute;
-    inset: 0;
+    position: absolute; inset: 0;
     background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCCF-Wu0arOTEDRI7pEIgN9zoNVdLKE4WsdOdqmG-mtDHqHKeMqx_pBPtjbjQ4HLpooT9zBpJxFZIdyqmNhwaR3F5bS0VU9SZlVRdaD5SIIexczbDXVJLbC3fYM2lj-LBSQE8z_t1hhuH-YwO4BAU9o7bwkQAjqbW5Q1Lla1YTPzZjwno57NJKB4OVSqJNG42o5Uyn6rRNAztZgkm42__gqzmM9KOWda7YxxqhQfjXKC-JYyYqX7MWlCNskOFkjixU_RUmSdE3msqg);
-    background-size: cover;
-    mix-blend-mode: overlay;
-    opacity: 0.3;
-    animation: x-fractal-shift 10s alternate infinite;
-    pointer-events: none;
+    background-size: cover; mix-blend-mode: overlay; opacity: 0.3; animation: x-fractal-shift 10s alternate infinite; pointer-events: none;
   }
-
-  /* ── Extreme Variant: Glitch Hover Effect ── */
   .x-glitch-hover { position: relative; }
   .x-glitch-hover:hover::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: inherit;
-    animation: x-glitch-anim 0.3s infinite;
-    z-index: 20;
-    mix-blend-mode: hard-light;
-    opacity: 0.8;
+    content: ""; position: absolute; inset: 0; background: inherit;
+    animation: x-glitch-anim 0.3s infinite; z-index: 20; mix-blend-mode: hard-light; opacity: 0.8;
   }
 </style>
+</BaseLayout>
