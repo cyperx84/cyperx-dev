@@ -483,5 +483,14 @@ const pageAttr = activeNav ?? 'home';
     import { initScrollAnimations } from '../scripts/scroll-animations';
     (window as any).__initScrollAnimations = initScrollAnimations;
   </script>
+
+  <!-- GSAP page transitions (layered on Astro View Transitions) -->
+  <script>
+    import { initPageTransitions } from '../scripts/page-transitions';
+    if (!(window as any).__pageTransitionsInit) {
+      (window as any).__pageTransitionsInit = true;
+      initPageTransitions();
+    }
+  </script>
 </body>
 </html>
