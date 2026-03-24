@@ -164,11 +164,10 @@ const timeline = [
   <!-- ════════════════════════════════════════
        LIGHT VARIANT
   ════════════════════════════════════════ -->
-  <div class="variant-light bg-white text-[#131313] min-h-screen">
+  <div class="variant-light bg-transparent text-[#131313] min-h-screen">
     <main class="pt-28 sm:pt-32 min-h-screen">
       <!-- Hero -->
-      <section class="relative px-4 sm:px-8 py-16 sm:py-20 flex flex-col items-center justify-center min-h-[500px] sm:min-h-[700px] bg-white/70 overflow-hidden">
-        <div class="absolute inset-0 opacity-5 grayscale contrast-200 overflow-hidden"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1280&auto=format&fit=crop" alt="" class="w-full h-full object-cover" loading="lazy" decoding="async" /></div>
+      <section class="relative px-4 sm:px-8 py-16 sm:py-20 flex flex-col items-center justify-center min-h-[500px] sm:min-h-[700px] overflow-hidden">
         <div class="relative z-10 text-center space-y-4 sm:space-y-6">
           <p class="font-mono text-[#FF51FA] tracking-[0.5em] text-sm" data-typewriter="40">{hero.tagline}</p>
           <h1 class="text-5xl sm:text-7xl lg:text-9xl font-black italic tracking-tighter glitch-text leading-none" data-reveal>{hero.title}<span class="text-[#39FF14]">.</span>{hero.subtitle}</h1>
@@ -181,7 +180,7 @@ const timeline = [
       </section>
 
       <!-- What I Build -->
-      <section class="px-4 sm:px-8 py-16 sm:py-24 space-y-8 sm:space-y-12 max-w-7xl mx-auto">
+      <section class="px-4 sm:px-8 py-16 sm:py-24 space-y-8 sm:space-y-12 max-w-7xl mx-auto bg-white/60 backdrop-blur-sm rounded-lg">
         <div class="flex justify-between items-end border-b-4 border-[#39FF14] pb-4 flex-wrap gap-4">
           <h2 class="text-3xl sm:text-5xl font-black italic tracking-tighter text-[#131313]" data-typewriter="30">WHAT_I_BUILD</h2>
           <span class="font-mono text-[#FF51FA] text-sm">[{sections.length}_ACTIVE_DOMAINS]</span>
@@ -216,7 +215,7 @@ const timeline = [
       </section>
 
       <!-- Timeline -->
-      <section class="px-4 sm:px-8 py-16 sm:py-24 max-w-4xl mx-auto">
+      <section class="px-4 sm:px-8 py-16 sm:py-24 max-w-4xl mx-auto bg-white/60 backdrop-blur-sm rounded-lg">
         <div class="mb-12 text-center">
           <h2 class="text-3xl sm:text-5xl font-black italic tracking-tighter text-[#131313] mb-2">RECENT_BUILDS</h2>
           <p class="font-mono text-xs text-[#131313]/40">LATEST FROM THE WORKSHOP</p>
@@ -250,7 +249,7 @@ const timeline = [
       </section>
 
       <!-- About — Editorial Style -->
-      <section class="px-4 sm:px-8 py-16 sm:py-24 max-w-5xl mx-auto" data-reveal>
+      <section class="px-4 sm:px-8 py-16 sm:py-24 max-w-5xl mx-auto bg-white/60 backdrop-blur-sm rounded-lg" data-reveal>
         <div class="flex justify-between items-end border-b-4 border-[#FF51FA] pb-4 mb-12 flex-wrap gap-4">
           <h2 class="text-3xl sm:text-5xl font-black italic tracking-tighter text-[#131313]" data-typewriter="30">ABOUT</h2>
           <span class="font-mono text-[#FF51FA] text-sm">{about.handle}</span>
