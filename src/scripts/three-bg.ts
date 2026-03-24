@@ -64,7 +64,7 @@ function buildDarkScene(w: number, h: number): SceneBundle {
     wireframe: true,
     vertexColors: true,
     transparent: true,
-    opacity: 0.07,
+    opacity: 0.04,
     blending: THREE.AdditiveBlending,
     depthWrite: false,
   });
@@ -74,59 +74,6 @@ function buildDarkScene(w: number, h: number): SceneBundle {
   scene.add(gridMesh);
 
   const origPos = new Float32Array((gridGeo.attributes.position as THREE.BufferAttribute).array);
-
-  // Floating wireframe shapes — glowing on black
-  interface FloatingShape {
-    mesh: THREE.Mesh;
-    baseY: number;
-    phase: number;
-    rotSpeed: THREE.Vector3;
-    floatSpeed: number;
-    floatAmp: number;
-  }
-  const shapes: FloatingShape[] = [];
-  const shapeColors = [0x39FF14, 0xFF51FA, 0xAC89FF, 0x39FF14, 0xFF51FA, 0xAC89FF, 0x39FF14, 0xFF51FA, 0xAC89FF];
-  const geometries = [
-    () => new THREE.OctahedronGeometry(3, 0),
-    () => new THREE.TetrahedronGeometry(2.5, 0),
-    () => new THREE.IcosahedronGeometry(2.5, 0),
-    () => new THREE.BoxGeometry(3, 3, 3),
-    () => new THREE.OctahedronGeometry(2, 1),
-    () => new THREE.TorusGeometry(2.5, 0.7, 6, 8),
-    () => new THREE.DodecahedronGeometry(2.5, 0),
-    () => new THREE.CylinderGeometry(0, 3, 4, 4),
-    () => new THREE.TorusKnotGeometry(1.8, 0.5, 32, 6),
-  ];
-
-  for (let i = 0; i < 9; i++) {
-    const g = geometries[i]();
-    const m = new THREE.MeshBasicMaterial({
-      color: shapeColors[i],
-      wireframe: true,
-      transparent: true,
-      opacity: 0.12,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-    });
-    const mesh = new THREE.Mesh(g, m);
-    const x = (Math.random() - 0.5) * 100;
-    const y = Math.random() * 25 + 5;
-    const z = (Math.random() - 0.5) * 50 - 10;
-    mesh.position.set(x, y, z);
-    scene.add(mesh);
-    shapes.push({
-      mesh,
-      baseY: y,
-      phase: Math.random() * Math.PI * 2,
-      rotSpeed: new THREE.Vector3(
-        (Math.random() - 0.5) * 0.5,
-        (Math.random() - 0.5) * 0.7,
-        (Math.random() - 0.5) * 0.4,
-      ),
-      floatSpeed: 0.2 + Math.random() * 0.5,
-      floatAmp: 3 + Math.random() * 5,
-    });
-  }
 
   // Vertical accent lines — glowing pillars
   const accentLines: THREE.Line[] = [];
@@ -187,30 +134,18 @@ function buildDarkScene(w: number, h: number): SceneBundle {
     pos.needsUpdate = true;
     rippleStrength *= 0.98;
 
-    // Grid opacity pulse — breathing glow + scroll boost
-    gridMat.opacity = 0.06 + Math.sin(t * 0.15) * 0.02 + opacityBoost;
-
-    // Float + rotate shapes — scroll makes them spin faster
-    const rotBoost = 1.0 + sv * 3.0;
-    for (const s of shapes) {
-      s.mesh.position.y = s.baseY + Math.sin(t * s.floatSpeed * 0.4 + s.phase) * s.floatAmp;
-      s.mesh.rotation.x += s.rotSpeed.x * 0.004 * rotBoost;
-      s.mesh.rotation.y += s.rotSpeed.y * 0.004 * rotBoost;
-      s.mesh.rotation.z += s.rotSpeed.z * 0.004 * rotBoost;
-      const m = s.mesh.material as THREE.MeshBasicMaterial;
-      m.opacity = 0.10 + Math.sin(t * 0.4 + s.phase) * 0.05 + opacityBoost;
-    }
+    // Grid opacity pulse — breathing glow + scroll boost (dimmer baseline)
+    gridMat.opacity = 0.04 + Math.sin(t * 0.15) * 0.015 + opacityBoost;
 
     // Accent line shimmer
     for (let i = 0; i < accentLines.length; i++) {
       const m = accentLines[i].material as THREE.LineBasicMaterial;
-      m.opacity = 0.03 + Math.sin(t * 0.2 + i * 1.2) * 0.02 + opacityBoost * 0.5;
+      m.opacity = 0.02 + Math.sin(t * 0.2 + i * 1.2) * 0.015 + opacityBoost * 0.5;
     }
   };
 
   const dispose = () => {
     gridGeo.dispose(); gridMat.dispose();
-    for (const s of shapes) { s.mesh.geometry.dispose(); (s.mesh.material as THREE.Material).dispose(); }
     for (const l of accentLines) { l.geometry.dispose(); (l.material as THREE.Material).dispose(); }
   };
   return { scene, camera, dispose, onMouse, tick };
