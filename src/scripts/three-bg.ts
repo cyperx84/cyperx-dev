@@ -1,7 +1,7 @@
 /**
  * three-bg.ts — CyperX.dev Three.js background scenes
  * One file handles all 3 themes with distinct visual personalities.
- * Dark: particle field | Light: wireframe grid | Extreme: morphing icosahedron
+ * Dark: wireframe grid (glowing) | Light: wireframe grid (soft) | Extreme: morphing icosahedron
  */
 import * as THREE from 'three';
 
@@ -34,190 +34,174 @@ function noise(x: number, y: number, z: number): number {
   );
 }
 
-// ── DARK: Network Constellation ────────────────────────────────────────────
+// ── DARK: Wireframe Grid (dark variant of light mesh) ──────────────────────
 function buildDarkScene(w: number, h: number): SceneBundle {
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(60, w / h, 0.1, 1000);
-  camera.position.z = 60;
+  const camera = new THREE.PerspectiveCamera(55, w / h, 0.1, 1000);
+  camera.position.set(0, 25, 70);
+  camera.lookAt(0, -5, 0);
 
-  const COUNT = 1400;
-  const LINK_DIST = 12;
-  const MAX_LINKS = 2400;
-  const positions = new Float32Array(COUNT * 3);
-  const colors = new Float32Array(COUNT * 3);
-  const sizes = new Float32Array(COUNT);
-  const velocities = new Float32Array(COUNT * 3);
-  const phases = new Float32Array(COUNT); // per-particle phase for pulsing
+  // Ground grid — green-to-pink gradient, additive glow on black
+  const SEGS = 50;
+  const gridGeo = new THREE.PlaneGeometry(180, 140, SEGS, SEGS);
+  gridGeo.rotateX(-Math.PI / 2.5);
 
-  const green  = new THREE.Color('#39FF14');
-  const pink   = new THREE.Color('#FF51FA');
-  const purple = new THREE.Color('#AC89FF');
-  const palette = [green, pink, purple];
+  const gridVertCount = (SEGS + 1) * (SEGS + 1);
+  const gridColors = new Float32Array(gridVertCount * 3);
+  const greenC = new THREE.Color('#39FF14');
+  const pinkC  = new THREE.Color('#FF51FA');
+  const purpC  = new THREE.Color('#AC89FF');
+  for (let i = 0; i < gridVertCount; i++) {
+    const t = i / gridVertCount;
+    const c = t < 0.5
+      ? new THREE.Color().lerpColors(greenC, pinkC, t * 2)
+      : new THREE.Color().lerpColors(pinkC, purpC, (t - 0.5) * 2);
+    gridColors[i * 3] = c.r; gridColors[i * 3 + 1] = c.g; gridColors[i * 3 + 2] = c.b;
+  }
+  gridGeo.setAttribute('color', new THREE.BufferAttribute(gridColors, 3));
 
-  for (let i = 0; i < COUNT; i++) {
-    positions[i * 3]     = (Math.random() - 0.5) * 140;
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 90;
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 50;
-    velocities[i * 3]     = (Math.random() - 0.5) * 0.03;
-    velocities[i * 3 + 1] = Math.random() * 0.05 + 0.01;
-    velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.015;
-    sizes[i] = 0.6 + Math.random() * 2.0;
-    phases[i] = Math.random() * Math.PI * 2;
-    const c = palette[Math.floor(Math.random() * palette.length)];
-    colors[i * 3]     = c.r;
-    colors[i * 3 + 1] = c.g;
-    colors[i * 3 + 2] = c.b;
+  const gridMat = new THREE.MeshBasicMaterial({
+    wireframe: true,
+    vertexColors: true,
+    transparent: true,
+    opacity: 0.18,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+  });
+
+  const gridMesh = new THREE.Mesh(gridGeo, gridMat);
+  gridMesh.position.y = -15;
+  scene.add(gridMesh);
+
+  const origPos = new Float32Array((gridGeo.attributes.position as THREE.BufferAttribute).array);
+
+  // Floating wireframe shapes — glowing on black
+  interface FloatingShape {
+    mesh: THREE.Mesh;
+    baseY: number;
+    phase: number;
+    rotSpeed: THREE.Vector3;
+    floatSpeed: number;
+    floatAmp: number;
+  }
+  const shapes: FloatingShape[] = [];
+  const shapeColors = [0x39FF14, 0xFF51FA, 0xAC89FF, 0x39FF14, 0xFF51FA, 0xAC89FF, 0x39FF14, 0xFF51FA, 0xAC89FF];
+  const geometries = [
+    () => new THREE.OctahedronGeometry(3, 0),
+    () => new THREE.TetrahedronGeometry(2.5, 0),
+    () => new THREE.IcosahedronGeometry(2.5, 0),
+    () => new THREE.BoxGeometry(3, 3, 3),
+    () => new THREE.OctahedronGeometry(2, 1),
+    () => new THREE.TorusGeometry(2.5, 0.7, 6, 8),
+    () => new THREE.DodecahedronGeometry(2.5, 0),
+    () => new THREE.CylinderGeometry(0, 3, 4, 4),
+    () => new THREE.TorusKnotGeometry(1.8, 0.5, 32, 6),
+  ];
+
+  for (let i = 0; i < 9; i++) {
+    const g = geometries[i]();
+    const m = new THREE.MeshBasicMaterial({
+      color: shapeColors[i],
+      wireframe: true,
+      transparent: true,
+      opacity: 0.35,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+    const mesh = new THREE.Mesh(g, m);
+    const x = (Math.random() - 0.5) * 100;
+    const y = Math.random() * 25 + 5;
+    const z = (Math.random() - 0.5) * 50 - 10;
+    mesh.position.set(x, y, z);
+    scene.add(mesh);
+    shapes.push({
+      mesh,
+      baseY: y,
+      phase: Math.random() * Math.PI * 2,
+      rotSpeed: new THREE.Vector3(
+        (Math.random() - 0.5) * 0.5,
+        (Math.random() - 0.5) * 0.7,
+        (Math.random() - 0.5) * 0.4,
+      ),
+      floatSpeed: 0.2 + Math.random() * 0.5,
+      floatAmp: 3 + Math.random() * 5,
+    });
   }
 
-  const geo = new THREE.BufferGeometry();
-  geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  geo.setAttribute('color',    new THREE.BufferAttribute(colors, 3));
-  geo.setAttribute('size',     new THREE.BufferAttribute(sizes, 1));
-
-  const mat = new THREE.PointsMaterial({
-    size: 1.2,
-    vertexColors: true,
-    transparent: true,
-    opacity: 0.7,
-    sizeAttenuation: true,
-    blending: THREE.AdditiveBlending,
-    depthWrite: false,
-  });
-
-  const points = new THREE.Points(geo, mat);
-  scene.add(points);
-
-  // Connecting lines between nearby particles
-  const linePositions = new Float32Array(MAX_LINKS * 6);
-  const lineColors = new Float32Array(MAX_LINKS * 6);
-  const lineGeo = new THREE.BufferGeometry();
-  lineGeo.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
-  lineGeo.setAttribute('color',    new THREE.BufferAttribute(lineColors, 3));
-  lineGeo.setDrawRange(0, 0);
-
-  const lineMat = new THREE.LineBasicMaterial({
-    vertexColors: true,
-    transparent: true,
-    opacity: 0.25,
-    blending: THREE.AdditiveBlending,
-    depthWrite: false,
-  });
-  const lines = new THREE.LineSegments(lineGeo, lineMat);
-  scene.add(lines);
-
-  // Hub nodes — larger glowing points
-  const HUB_COUNT = 8;
-  const hubGeo = new THREE.BufferGeometry();
-  const hubPos = new Float32Array(HUB_COUNT * 3);
-  const hubCol = new Float32Array(HUB_COUNT * 3);
-  for (let i = 0; i < HUB_COUNT; i++) {
-    hubPos[i * 3]     = (Math.random() - 0.5) * 100;
-    hubPos[i * 3 + 1] = (Math.random() - 0.5) * 60;
-    hubPos[i * 3 + 2] = (Math.random() - 0.5) * 30;
-    const c = palette[i % palette.length];
-    hubCol[i * 3] = c.r; hubCol[i * 3 + 1] = c.g; hubCol[i * 3 + 2] = c.b;
+  // Vertical accent lines — glowing pillars
+  const accentLines: THREE.Line[] = [];
+  for (let i = 0; i < 7; i++) {
+    const lg = new THREE.BufferGeometry();
+    const x = (Math.random() - 0.5) * 120;
+    const z = -20 - Math.random() * 40;
+    const pts = [new THREE.Vector3(x, -25, z), new THREE.Vector3(x, 50, z)];
+    lg.setFromPoints(pts);
+    const lm = new THREE.LineBasicMaterial({
+      color: i % 3 === 0 ? 0x39FF14 : i % 3 === 1 ? 0xFF51FA : 0xAC89FF,
+      transparent: true,
+      opacity: 0.08,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+    const line = new THREE.Line(lg, lm);
+    scene.add(line);
+    accentLines.push(line);
   }
-  hubGeo.setAttribute('position', new THREE.BufferAttribute(hubPos, 3));
-  hubGeo.setAttribute('color',    new THREE.BufferAttribute(hubCol, 3));
-  const hubMat = new THREE.PointsMaterial({
-    size: 4,
-    vertexColors: true,
-    transparent: true,
-    opacity: 0.9,
-    sizeAttenuation: true,
-    blending: THREE.AdditiveBlending,
-    depthWrite: false,
-  });
-  const hubs = new THREE.Points(hubGeo, hubMat);
-  scene.add(hubs);
 
-  let mx = 0, my = 0;
-  const onMouse = (x: number, y: number) => { mx = x; my = y; };
+  let rippleX = 0, rippleY = 0, rippleStrength = 0;
+
+  const onMouse = (x: number, y: number) => {
+    rippleX = x * 90;
+    rippleY = y * 70;
+    rippleStrength = 1;
+  };
 
   const tick = (t: number) => {
-    const pos = geo.attributes.position as THREE.BufferAttribute;
+    // Grid undulation — more aggressive than light theme
+    const pos = gridGeo.attributes.position as THREE.BufferAttribute;
     const arr = pos.array as Float32Array;
 
-    // Pulse hub sizes
-    hubMat.size = 3.5 + Math.sin(t * 2) * 1.5;
-
-    // Pulse particle opacity
-    mat.opacity = 0.55 + Math.sin(t * 1.5) * 0.15;
-
-    for (let i = 0; i < COUNT; i++) {
-      arr[i * 3]     += velocities[i * 3];
-      arr[i * 3 + 1] += velocities[i * 3 + 1];
-      arr[i * 3 + 2] += velocities[i * 3 + 2];
-
-      // Mouse repulsion (push away from cursor for organic feel)
-      const worldMx = mx * 70;
-      const worldMy = -my * 45;
-      const dx = arr[i * 3] - worldMx;
-      const dy = arr[i * 3 + 1] - worldMy;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 20 && dist > 0.1) {
-        const force = (20 - dist) * 0.003;
-        arr[i * 3]     += (dx / dist) * force;
-        arr[i * 3 + 1] += (dy / dist) * force;
+    for (let i = 0; i < arr.length / 3; i++) {
+      const ox = origPos[i * 3];
+      const oz = origPos[i * 3 + 2];
+      let y = Math.sin(ox * 0.05 + t * 0.7) * 4.5
+            + Math.cos(oz * 0.07 + t * 0.5) * 3.5
+            + Math.sin((ox + oz) * 0.03 + t * 0.3) * 2.0
+            + Math.sin(ox * 0.12 + oz * 0.08 + t * 1.2) * 1.2;
+      // Mouse ripple — stronger on dark
+      if (rippleStrength > 0.01) {
+        const dist = Math.sqrt((ox - rippleX) ** 2 + (oz - rippleY) ** 2);
+        y += Math.sin(dist * 0.18 - t * 6) * Math.exp(-dist * 0.015) * 7 * rippleStrength;
       }
-
-      // Gentle sine drift on z
-      arr[i * 3 + 2] += Math.sin(t + phases[i]) * 0.01;
-
-      // Wrap
-      if (arr[i * 3 + 1] > 50)   arr[i * 3 + 1] = -50;
-      if (arr[i * 3 + 1] < -50)  arr[i * 3 + 1] = 50;
-      if (arr[i * 3]     > 75)   arr[i * 3]     = -75;
-      if (arr[i * 3]     < -75)  arr[i * 3]     = 75;
-      if (arr[i * 3 + 2] > 30)   arr[i * 3 + 2] = -30;
-      if (arr[i * 3 + 2] < -30)  arr[i * 3 + 2] = 30;
+      arr[i * 3 + 1] = y;
     }
     pos.needsUpdate = true;
+    rippleStrength *= 0.993;
 
-    // Update connecting lines (spatial proximity)
-    let lineIdx = 0;
-    const lp = lineGeo.attributes.position as THREE.BufferAttribute;
-    const lc = lineGeo.attributes.color as THREE.BufferAttribute;
-    const lpArr = lp.array as Float32Array;
-    const lcArr = lc.array as Float32Array;
+    // Grid opacity pulse — breathing glow
+    gridMat.opacity = 0.15 + Math.sin(t * 0.4) * 0.06;
 
-    // Only check a subset each frame for performance
-    const step = Math.max(1, Math.floor(COUNT / 600));
-    for (let i = 0; i < COUNT && lineIdx < MAX_LINKS; i += step) {
-      for (let j = i + 1; j < COUNT && lineIdx < MAX_LINKS; j += step) {
-        const dx = arr[i * 3] - arr[j * 3];
-        const dy = arr[i * 3 + 1] - arr[j * 3 + 1];
-        const dz = arr[i * 3 + 2] - arr[j * 3 + 2];
-        const d2 = dx * dx + dy * dy + dz * dz;
-        if (d2 < LINK_DIST * LINK_DIST) {
-          const base = lineIdx * 6;
-          lpArr[base]     = arr[i * 3];
-          lpArr[base + 1] = arr[i * 3 + 1];
-          lpArr[base + 2] = arr[i * 3 + 2];
-          lpArr[base + 3] = arr[j * 3];
-          lpArr[base + 4] = arr[j * 3 + 1];
-          lpArr[base + 5] = arr[j * 3 + 2];
-          // Fade by distance
-          const alpha = 1 - Math.sqrt(d2) / LINK_DIST;
-          lcArr[base]     = colors[i * 3] * alpha;
-          lcArr[base + 1] = colors[i * 3 + 1] * alpha;
-          lcArr[base + 2] = colors[i * 3 + 2] * alpha;
-          lcArr[base + 3] = colors[j * 3] * alpha;
-          lcArr[base + 4] = colors[j * 3 + 1] * alpha;
-          lcArr[base + 5] = colors[j * 3 + 2] * alpha;
-          lineIdx++;
-        }
-      }
+    // Float + rotate shapes
+    for (const s of shapes) {
+      s.mesh.position.y = s.baseY + Math.sin(t * s.floatSpeed + s.phase) * s.floatAmp;
+      s.mesh.rotation.x += s.rotSpeed.x * 0.012;
+      s.mesh.rotation.y += s.rotSpeed.y * 0.012;
+      s.mesh.rotation.z += s.rotSpeed.z * 0.012;
+      const m = s.mesh.material as THREE.MeshBasicMaterial;
+      m.opacity = 0.25 + Math.sin(t * 0.7 + s.phase) * 0.15;
     }
-    lineGeo.setDrawRange(0, lineIdx * 2);
-    lp.needsUpdate = true;
-    lc.needsUpdate = true;
+
+    // Accent line shimmer
+    for (let i = 0; i < accentLines.length; i++) {
+      const m = accentLines[i].material as THREE.LineBasicMaterial;
+      m.opacity = 0.06 + Math.sin(t * 0.35 + i * 1.2) * 0.04;
+    }
   };
 
   const dispose = () => {
-    geo.dispose(); mat.dispose();
-    lineGeo.dispose(); lineMat.dispose();
-    hubGeo.dispose(); hubMat.dispose();
+    gridGeo.dispose(); gridMat.dispose();
+    for (const s of shapes) { s.mesh.geometry.dispose(); (s.mesh.material as THREE.Material).dispose(); }
+    for (const l of accentLines) { l.geometry.dispose(); (l.material as THREE.Material).dispose(); }
   };
   return { scene, camera, dispose, onMouse, tick };
 }
