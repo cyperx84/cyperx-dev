@@ -435,11 +435,12 @@ export function initBulletHoles() {
   document.addEventListener('touchstart', onShoot, { passive: true });
   window.addEventListener('resize', () => resizeCanvas(), { passive: true });
 
-  // Re-attach canvas after Astro View Transition swaps
+  // On page swap: clear holes (fresh page = fresh canvas) and re-attach
   document.addEventListener('astro:after-swap', () => {
+    clearBulletHoles();
     if (canvas && !document.getElementById('bullet-canvas')) {
       document.body.appendChild(canvas);
-      resizeCanvas();
     }
+    resizeCanvas();
   });
 }
