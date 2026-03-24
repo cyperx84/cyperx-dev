@@ -307,18 +307,15 @@ const timeline = [
   <!-- ════════════════════════════════════════
        EXTREME VARIANT
   ════════════════════════════════════════ -->
-  <div class="variant-extreme min-h-screen" style="background:#000; color:#fff;">
+  <div class="variant-extreme min-h-screen" style="background:transparent; color:#fff;">
     <main class="relative pt-28 sm:pt-40 pb-20 px-4 sm:px-6 max-w-7xl mx-auto min-h-screen overflow-hidden">
       <!-- Hero -->
       <section class="relative py-16 sm:py-24 flex flex-col items-center justify-center text-center">
-        <div class="absolute inset-0 w-full h-full opacity-40 pointer-events-none -z-10 bg-gradient-to-br from-[#8eff71] via-[#ff51fa] to-[#ac89ff]">
-          <img alt="Fractal" class="w-full h-full object-cover melting-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwcbab-5YhH-iky9sU2ZHl12P86KeGKWIEHxmHrSlWPlvkj237y_G9mJ821eOet1Y3IOgz9lezVu1WxjCqiFBC3FC02XcGpM3FYpVj0wvdyoDGhX7K80NrLUbvckTvjxgYCCdxeRqt-3xvAwdPY1MirjpCUjxawgAjbZkT-St7S91UBNrDUs_Z2Dt1Zz79xi8lFAs708RyBPuP4WaWxpIKkjJY-ySDg8eQDee-S4DhLcdbu49VuDZ0Td0z4gDfSCBPhZRx6wzmlNg" loading="lazy" />
-        </div>
         <p class="font-mono text-[#8eff71] tracking-[0.5em] text-sm sm:text-lg mb-4 relative z-10" data-typewriter="40">{hero.tagline}</p>
         <h1 class="text-5xl sm:text-7xl lg:text-[14rem] font-black tracking-tighter mb-6 glitch-text-extreme uppercase italic leading-[0.8] relative z-10 text-white">
           {hero.title}<br/><span class="text-[#8eff71]">{hero.subtitle}</span>
         </h1>
-        <p class="max-w-2xl text-white font-mono text-base sm:text-xl tracking-wider mb-10 sm:mb-16 bg-black/90 p-6 sm:p-10 backdrop-blur-3xl border-4 sm:border-8 border-[#8eff71] uppercase font-bold relative z-10">
+        <p class="max-w-2xl text-white font-mono text-base sm:text-xl tracking-wider mb-10 sm:mb-16 bg-black/60 p-6 sm:p-10 backdrop-blur-sm border-4 sm:border-8 border-[#8eff71] uppercase font-bold relative z-10">
           {hero.description}
         </p>
         <div class="flex flex-wrap justify-center gap-6 sm:gap-12 relative z-10">
@@ -334,7 +331,7 @@ const timeline = [
           const colors = ["#8eff71", "#ff51fa", "#ac89ff"];
           const masks = ["acid-mask-1", "acid-mask-3", "acid-mask-2"];
           return (
-            <a href={s.href} class={`${spans[i]} bg-black/80 backdrop-blur-md relative z-${10 + i * 10} ${masks[i]} glitch-border-vibrate block no-underline hover:scale-[1.02] transition-transform`}>
+            <a href={s.href} class={`${spans[i]} bg-black/70 backdrop-blur-sm relative z-${10 + i * 10} ${masks[i]} glitch-border-vibrate block no-underline hover:scale-[1.02] transition-transform`}>
               <div class="p-4 border-b-4" style={`background:${colors[i]}20; border-color:${colors[i]}`}>
                 <span class="text-lg sm:text-xl font-black uppercase tracking-[0.5em] italic" style={`color:${colors[i]}`}>{s.title.toUpperCase()}</span>
               </div>
