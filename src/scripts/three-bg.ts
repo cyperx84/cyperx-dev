@@ -4,6 +4,7 @@
  * Dark: wireframe grid (glowing) | Light: wireframe grid (soft) | Extreme: wireframe grid (rainbow chaos)
  */
 import * as THREE from 'three';
+import { EffectComposer, RenderPass, UnrealBloomPass, ShaderPass, RGBShiftShader } from 'three-stdlib';
 
 // Reusable Color object — avoids GC pressure in hot loops
 const tmpColor = new THREE.Color();
@@ -24,6 +25,25 @@ interface SceneBundle {
 // ── State ──────────────────────────────────────────────────────────────────
 let renderer: THREE.WebGLRenderer | null = null;
 let current: SceneBundle | null = null;
+let composer: EffectComposer | null = null;
+let bloomPass: UnrealBloomPass | null = null;
+let chromaticPass: ShaderPass | null = null;
+
+// Bloom settings per theme
+const BLOOM_CONFIG: Record<Theme, { strength: number; radius: number; threshold: number }> = {
+  dark:    { strength: 0.6, radius: 0.4, threshold: 0.1 },
+  light:   { strength: 0.3, radius: 0.3, threshold: 0.3 },
+  extreme: { strength: 1.2, radius: 0.6, threshold: 0.0 },
+  unknown: { strength: 0.5, radius: 0.4, threshold: 0.1 },
+};
+
+// RGB shift (chromatic aberration) amount per theme
+const CHROMATIC_CONFIG: Record<Theme, number> = {
+  dark: 0.0015,
+  light: 0.0008,
+  extreme: 0.004,
+  unknown: 0.0015,
+};
 let animId: number = 0;
 let canvas: HTMLCanvasElement | null = null;
 let activeTheme: Theme = 'unknown';
@@ -574,7 +594,53 @@ function animate(t: number) {
 
   const ts = t * 0.001; // seconds
   current.tick(ts);
-  renderer.render(current.scene, current.camera);
+
+  // Subtle scroll-reactive chromatic aberration — intensifies when scrolling
+  if (chromaticPass) {
+    const sv = Math.min(Math.abs(scrollVelocity), 1500);
+    chromaticPass.uniforms['amount'].value = CHROMATIC_CONFIG[activeTheme] + sv * 0.000005;
+  }
+
+  // Render through post-processing pipeline
+  if (composer) {
+    composer.render();
+  } else {
+    renderer.render(current.scene, current.camera);
+  }
+}
+
+// ── Set up post-processing composer ────────────────────────────────────────
+function setupComposer(scene: THREE.Scene, camera: THREE.Camera, theme: Theme) {
+  if (!renderer) return;
+
+  // Skip post-processing on mobile for performance
+  if (isMobileDevice) {
+    composer = null;
+    bloomPass = null;
+    chromaticPass = null;
+    return;
+  }
+
+  composer = new EffectComposer(renderer);
+
+  const renderPass = new RenderPass(scene, camera);
+  composer.addPass(renderPass);
+
+  // Bloom — glow on bright wireframe elements
+  const bc = BLOOM_CONFIG[theme];
+  bloomPass = new UnrealBloomPass(
+    new THREE.Vector2(window.innerWidth, window.innerHeight),
+    bc.strength,
+    bc.radius,
+    bc.threshold,
+  );
+  composer.addPass(bloomPass);
+
+  // Chromatic aberration (RGB shift) — subtle, increases with scroll
+  chromaticPass = new ShaderPass(RGBShiftShader);
+  chromaticPass.uniforms['amount'].value = CHROMATIC_CONFIG[theme];
+  chromaticPass.uniforms['angle'].value = 0.0;
+  composer.addPass(chromaticPass);
 }
 
 // ── Swap scene on theme change ─────────────────────────────────────────────
@@ -583,6 +649,7 @@ function swapScene(theme: Theme) {
   activeTheme = theme;
   if (current) { current.dispose(); current = null; }
   current = buildScene(theme);
+  if (current) setupComposer(current.scene, current.camera, theme);
 }
 
 // ── Detect current theme ───────────────────────────────────────────────────
@@ -600,12 +667,16 @@ function onResize() {
   const w = window.innerWidth;
   const h = window.innerHeight;
   renderer.setSize(w, h);
-  // Rebuild scene so camera aspect updates correctly
+  isMobileDevice = w < 768;
+  renderer.setPixelRatio(isMobileDevice ? 1.0 : Math.min(window.devicePixelRatio, 1.5));
+  // Rebuild scene + composer so camera aspect updates correctly
   if (current) {
     current.dispose();
     current = null;
   }
   current = buildScene(activeTheme);
+  if (current) setupComposer(current.scene, current.camera, activeTheme);
+  if (composer) composer.setSize(w, h);
 }
 
 // ── Init ───────────────────────────────────────────────────────────────────
