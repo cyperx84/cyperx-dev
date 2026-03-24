@@ -300,6 +300,13 @@ function onShoot(e: MouseEvent | TouchEvent) {
 
   const theme = getTheme();
 
+  // Show reset button
+  const resetBtn = document.getElementById('reset-bullets-btn');
+  if (resetBtn) {
+    resetBtn.style.opacity = '1';
+    resetBtn.style.pointerEvents = 'auto';
+  }
+
   // Create hole
   const hole: BulletHole = {
     x: x * window.devicePixelRatio,
@@ -327,6 +334,13 @@ function onResize() {
   canvas.height = window.innerHeight * window.devicePixelRatio;
   canvas.style.width = window.innerWidth + 'px';
   canvas.style.height = window.innerHeight + 'px';
+}
+
+// Clear all holes + particles
+export function clearBulletHoles() {
+  holes = [];
+  particles = [];
+  if (ctx && canvas) ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 // Init
