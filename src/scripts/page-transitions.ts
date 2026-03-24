@@ -104,11 +104,15 @@ function animateIn() {
 
 // ── Wire up Astro lifecycle ──
 export function initPageTransitions() {
+  let hasNavigated = false;
+
   // Before navigation — animate wrapper out, then let Astro proceed
   document.addEventListener('astro:before-preparation', (e: any) => {
     const from = new URL(e.from);
     const to = new URL(e.to);
     if (from.pathname === to.pathname) return;
+
+    hasNavigated = true;
 
     const originalLoader = e.loader;
     e.loader = async () => {
@@ -117,8 +121,9 @@ export function initPageTransitions() {
     };
   });
 
-  // After page loads — animate wrapper in
+  // After page loads — animate wrapper in (only on client-side nav, not first load)
   document.addEventListener('astro:page-load', () => {
+    if (!hasNavigated) return; // Skip first load — content is already visible
     requestAnimationFrame(() => animateIn());
   });
 }

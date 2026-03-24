@@ -95,6 +95,12 @@ function initSplitHeadings() {
   const headings = document.querySelectorAll<HTMLElement>('[data-split-text]');
 
   headings.forEach((heading) => {
+    // Already in viewport — skip animation
+    const rect = heading.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 1.1 && !heading.dataset.splitDone) {
+      heading.dataset.splitDone = '1';
+      return;
+    }
     if (heading.dataset.splitDone) return;
     heading.dataset.splitDone = '1';
 
