@@ -235,7 +235,7 @@ function buildLightScene(w: number, h: number): SceneBundle {
     wireframe: true,
     vertexColors: true,
     transparent: true,
-    opacity: 0.12,
+    opacity: 0.35,
   });
 
   const gridMesh = new THREE.Mesh(gridGeo, gridMat);
@@ -271,7 +271,7 @@ function buildLightScene(w: number, h: number): SceneBundle {
       color: shapeColors[i],
       wireframe: true,
       transparent: true,
-      opacity: 0.3,
+      opacity: 0.45,
     });
     const mesh = new THREE.Mesh(g, m);
     const x = (Math.random() - 0.5) * 80;
@@ -341,7 +341,7 @@ function buildLightScene(w: number, h: number): SceneBundle {
     rippleStrength *= 0.985;
 
     // Grid opacity pulse
-    gridMat.opacity = 0.1 + Math.sin(t * 0.3) * 0.03;
+    gridMat.opacity = 0.3 + Math.sin(t * 0.2) * 0.08;
 
     // Float + rotate shapes
     for (const s of shapes) {

@@ -125,7 +125,7 @@ body {
 }
 
 .theme-dark body   { background: transparent; color: #e2e2e2; }
-.theme-light body  { background: #ffffff; color: #131313; }
+.theme-light body  { background: rgba(255,255,255,0.92); color: #131313; }
 .theme-extreme body { background: transparent; color: #ffffff; }
 
 ::selection {
