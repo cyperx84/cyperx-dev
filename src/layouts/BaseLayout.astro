@@ -162,12 +162,12 @@ const pageAttr = activeNav ?? 'home';
     <div class="flex items-center gap-3">
       <button
         id="theme-toggle"
-        class="theme-toggle-btn bg-[#39FF14] text-black px-4 sm:px-6 py-2 font-black italic text-xs sm:text-sm transition-all relative overflow-hidden"
-        style="clip-path: polygon(10% 0,100% 0,90% 100%,0 100%)"
+        class="theme-toggle-btn relative w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center rounded-lg transition-all duration-300 overflow-hidden group"
         aria-label="Cycle theme"
         onclick="(function(){var T=['extreme','dark','light'];var c=localStorage.getItem('cyperx-theme')||'extreme';var n=T[(T.indexOf(c)+1)%T.length];document.documentElement.className='theme-'+n;localStorage.setItem('cyperx-theme',n);})()"
       >
-        <span class="toggle-icon inline-block mr-1">⚡</span><span class="toggle-label">TRIPP_MODE</span>
+        <span class="theme-toggle-glow absolute inset-0 rounded-lg"></span>
+        <span class="toggle-icon relative z-10 text-lg sm:text-xl leading-none theme-toggle-icon">⚡</span>
       </button>
       <!-- Mobile hamburger -->
       <button id="mobile-menu-btn" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Menu">
@@ -240,11 +240,6 @@ const pageAttr = activeNav ?? 'home';
   <!-- ── Theme Toggle + Mobile Menu + Animations Script ── -->
   <script is:inline>
     const THEMES = ['extreme', 'dark', 'light'];
-    const THEME_LABELS = {
-      extreme: 'TRIPP_MODE',
-      dark: 'VOID_MODE',
-      light: 'CLEAN_MODE',
-    };
     const THEME_ICONS = {
       extreme: '⚡',
       dark: '💀',
@@ -255,14 +250,12 @@ const pageAttr = activeNav ?? 'home';
       var html = document.documentElement;
       html.className = 'theme-' + theme;
       localStorage.setItem('cyperx-theme', theme);
-      try { updateToggleLabel(theme); } catch(e) {}
+      try { updateToggleIcon(theme); } catch(e) {}
       try { updateScrollProgress(); } catch(e) {}
     }
 
-    function updateToggleLabel(theme) {
-      const label = document.querySelector('.toggle-label');
+    function updateToggleIcon(theme) {
       const icon = document.querySelector('.toggle-icon');
-      if (label) label.textContent = THEME_LABELS[theme] || 'TRIPP_MODE';
       if (icon) icon.textContent = THEME_ICONS[theme] || '⚡';
     }
 

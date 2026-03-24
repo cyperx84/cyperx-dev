@@ -1072,27 +1072,93 @@ a[href="/projects/personal-os"] {
   100% { transform: scale(3); opacity: 0; }
 }
 
+/* ── Theme Toggle: Anomaly Button ── */
 .theme-toggle-btn {
   position: relative;
   overflow: hidden;
-}
-.theme-toggle-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(57,255,20,0.3);
-}
-.theme-toggle-btn:active {
-  transform: translateY(1px);
+  cursor: pointer;
+  background: transparent;
+  border: none;
 }
 
-.toggle-ripple {
+.theme-toggle-glow {
+  background: conic-gradient(from var(--glow-angle, 0deg), #39FF14, #FF51FA, #AC89FF, #39FF14);
+  opacity: 0.6;
+  animation: glow-rotate 3s linear infinite, glow-pulse 2s ease-in-out infinite;
+}
+
+.theme-toggle-btn::after {
+  content: '';
   position: absolute;
-  top: 50%; left: 50%;
-  width: 20px; height: 20px;
-  margin-top: -10px; margin-left: -10px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.4);
-  animation: toggle-ripple-anim 0.5s ease forwards;
-  pointer-events: none;
+  inset: 2px;
+  border-radius: 6px;
+  z-index: 5;
+}
+
+/* Per-theme inner bg */
+.theme-dark .theme-toggle-btn::after { background: #1a1a1a; }
+.theme-light .theme-toggle-btn::after { background: #f0f0f0; }
+.theme-extreme .theme-toggle-btn::after { background: #000; }
+
+/* Per-theme glow intensity */
+.theme-dark .theme-toggle-glow {
+  background: conic-gradient(from var(--glow-angle, 0deg), #39FF14, #FF51FA, #39FF14);
+  opacity: 0.5;
+  animation: glow-rotate 4s linear infinite, glow-pulse 3s ease-in-out infinite;
+}
+.theme-light .theme-toggle-glow {
+  background: conic-gradient(from var(--glow-angle, 0deg), #FF51FA, #AC89FF, #FF51FA);
+  opacity: 0.4;
+  animation: glow-rotate 5s linear infinite, glow-pulse 4s ease-in-out infinite;
+}
+.theme-extreme .theme-toggle-glow {
+  background: conic-gradient(from var(--glow-angle, 0deg), #8eff71, #ff51fa, #ac89ff, #ff0, #00f0ff, #8eff71);
+  opacity: 0.85;
+  animation: glow-rotate 1.5s linear infinite, glow-pulse 1s ease-in-out infinite;
+}
+
+/* Icon style */
+.theme-toggle-icon {
+  filter: drop-shadow(0 0 4px currentColor);
+}
+.theme-extreme .theme-toggle-icon {
+  filter: drop-shadow(0 0 8px #8eff71) drop-shadow(0 0 16px #ff51fa);
+  animation: icon-breathe 1.5s ease-in-out infinite;
+}
+.theme-dark .theme-toggle-icon {
+  filter: drop-shadow(0 0 6px #39FF14);
+  animation: icon-breathe 3s ease-in-out infinite;
+}
+.theme-light .theme-toggle-icon {
+  filter: drop-shadow(0 0 3px #FF51FA);
+  animation: icon-breathe 4s ease-in-out infinite;
+}
+
+@keyframes glow-rotate {
+  to { --glow-angle: 360deg; }
+}
+@keyframes glow-pulse {
+  0%, 100% { opacity: var(--pulse-min, 0.4); transform: scale(1); }
+  50% { opacity: var(--pulse-max, 0.8); transform: scale(1.05); }
+}
+@keyframes icon-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+/* Allow custom property animation */
+@property --glow-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.theme-toggle-btn:hover .theme-toggle-glow {
+  opacity: 1;
+  transform: scale(1.1);
+}
+.theme-toggle-btn:active {
+  transform: scale(0.92);
 }
 
 @keyframes icon-spin-anim {
