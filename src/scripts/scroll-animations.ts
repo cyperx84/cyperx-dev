@@ -46,6 +46,15 @@ function initReveals() {
     const parent = el.closest('.variant-dark, .variant-light, .variant-extreme');
     if (parent && getComputedStyle(parent).display === 'none') return;
     if (el.dataset.gsapDone) return;
+    // Skip cards inside stagger grids — handled by initStaggerCards
+    if (el.closest('[data-stagger-grid]')) return;
+
+    // Already in viewport — show immediately, no animation flicker
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 1.1) {
+      el.dataset.gsapDone = '1';
+      return;
+    }
 
     const variant = el.dataset.reveal || 'slide-up';
 
@@ -143,8 +152,18 @@ function initStaggerCards() {
   const grids = document.querySelectorAll<HTMLElement>('[data-stagger-grid]');
 
   grids.forEach((grid) => {
-    const cards = grid.children;
+    const cards = Array.from(grid.children) as HTMLElement[];
     if (!cards.length) return;
+
+    // Check if grid is already in or above the viewport
+    const rect = grid.getBoundingClientRect();
+    const inView = rect.top < window.innerHeight * 1.1;
+
+    if (inView) {
+      // Already visible — skip animation entirely, no flicker
+      cards.forEach(c => { c.dataset.gsapDone = '1'; });
+      return;
+    }
 
     gsap.from(cards, {
       opacity: 0,
@@ -161,6 +180,7 @@ function initStaggerCards() {
       },
       onComplete: () => {
         gsap.set(cards, { clearProps: 'all' });
+        cards.forEach(c => { c.dataset.gsapDone = '1'; });
       },
     });
   });
