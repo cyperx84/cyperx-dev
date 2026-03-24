@@ -155,7 +155,6 @@ const pageAttr = activeNav ?? 'home';
       CYPERX<span class="logo-dot">.</span>DEV
     </a>
     <nav class="hidden md:flex gap-8 lg:gap-10 font-['Space_Grotesk'] uppercase tracking-tighter italic">
-      <a class={`nav-link hover:text-[#FF51FA] transition-all duration-150 ${activeNav === 'home' ? 'active' : ''}`} href="/">HOME</a>
       <a class={`nav-link hover:text-[#FF51FA] transition-all duration-150 ${activeNav === 'blog' ? 'active' : ''}`} href="/blog">BLOG</a>
       <a class={`nav-link hover:text-[#FF51FA] transition-all duration-150 ${activeNav === 'projects' ? 'active' : ''}`} href="/projects">PROJECTS</a>
       <a class={`nav-link hover:text-[#FF51FA] transition-all duration-150 ${activeNav === 'about' ? 'active' : ''}`} href="/about">ABOUT</a>
@@ -210,7 +209,7 @@ const pageAttr = activeNav ?? 'home';
   <div id="mobile-menu" class="mobile-menu md:hidden fixed top-0 left-0 right-0 z-[55] transition-transform duration-300 ease-out" style="transform:translateY(-100%)">
     <div class="mobile-menu-inner pt-20 pb-8 px-6 flex flex-col gap-1 shadow-2xl">
       {[
-        ['home','HOME','/'],
+
         ['terminal','BLOG','/blog'],
         ['shield','PROJECTS','/projects'],
         ['person','ABOUT','/about']

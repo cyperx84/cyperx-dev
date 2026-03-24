@@ -427,12 +427,7 @@ const nextPost = currentIndex < posts.length - 1 ? posts[currentIndex + 1] : nul
     border: 1px solid rgba(57,255,20,0.3);
     position: relative;
   }
-  .prose-dark :not(pre) > code::after {
-    content: '▌';
-    color: #39FF14;
-    animation: blink-cursor 0.7s step-end infinite;
-    font-size: 0.75em;
-  }
+  .prose-dark :not(pre) > code::after { display: none; }
   .prose-dark pre {
     background: #000 !important;
     border: 1px solid rgba(57,255,20,0.2);
