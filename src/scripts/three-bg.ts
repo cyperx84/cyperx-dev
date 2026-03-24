@@ -153,40 +153,40 @@ function buildDarkScene(w: number, h: number): SceneBundle {
   const onMouse = (x: number, y: number) => {
     rippleX = x * 90;
     rippleY = y * 70;
-    rippleStrength = 1;
+    rippleStrength = 0.6;
   };
 
   const tick = (t: number) => {
-    // Grid undulation — more aggressive than light theme
+    // Grid undulation — gentle rolling waves
     const pos = gridGeo.attributes.position as THREE.BufferAttribute;
     const arr = pos.array as Float32Array;
 
     for (let i = 0; i < arr.length / 3; i++) {
       const ox = origPos[i * 3];
       const oz = origPos[i * 3 + 2];
-      let y = Math.sin(ox * 0.05 + t * 0.7) * 4.5
-            + Math.cos(oz * 0.07 + t * 0.5) * 3.5
-            + Math.sin((ox + oz) * 0.03 + t * 0.3) * 2.0
-            + Math.sin(ox * 0.12 + oz * 0.08 + t * 1.2) * 1.2;
-      // Mouse ripple — stronger on dark
+      let y = Math.sin(ox * 0.05 + t * 0.35) * 3.5
+            + Math.cos(oz * 0.07 + t * 0.25) * 2.8
+            + Math.sin((ox + oz) * 0.03 + t * 0.15) * 1.5
+            + Math.sin(ox * 0.12 + oz * 0.08 + t * 0.6) * 0.8;
+      // Mouse ripple — smooth
       if (rippleStrength > 0.01) {
         const dist = Math.sqrt((ox - rippleX) ** 2 + (oz - rippleY) ** 2);
-        y += Math.sin(dist * 0.18 - t * 6) * Math.exp(-dist * 0.015) * 7 * rippleStrength;
+        y += Math.sin(dist * 0.12 - t * 2.5) * Math.exp(-dist * 0.02) * 4 * rippleStrength;
       }
       arr[i * 3 + 1] = y;
     }
     pos.needsUpdate = true;
-    rippleStrength *= 0.993;
+    rippleStrength *= 0.985;
 
     // Grid opacity pulse — breathing glow
-    gridMat.opacity = 0.15 + Math.sin(t * 0.4) * 0.06;
+    gridMat.opacity = 0.15 + Math.sin(t * 0.25) * 0.04;
 
     // Float + rotate shapes
     for (const s of shapes) {
-      s.mesh.position.y = s.baseY + Math.sin(t * s.floatSpeed + s.phase) * s.floatAmp;
-      s.mesh.rotation.x += s.rotSpeed.x * 0.012;
-      s.mesh.rotation.y += s.rotSpeed.y * 0.012;
-      s.mesh.rotation.z += s.rotSpeed.z * 0.012;
+      s.mesh.position.y = s.baseY + Math.sin(t * s.floatSpeed * 0.6 + s.phase) * s.floatAmp;
+      s.mesh.rotation.x += s.rotSpeed.x * 0.006;
+      s.mesh.rotation.y += s.rotSpeed.y * 0.006;
+      s.mesh.rotation.z += s.rotSpeed.z * 0.006;
       const m = s.mesh.material as THREE.MeshBasicMaterial;
       m.opacity = 0.25 + Math.sin(t * 0.7 + s.phase) * 0.15;
     }
@@ -316,38 +316,38 @@ function buildLightScene(w: number, h: number): SceneBundle {
   const onMouse = (x: number, y: number) => {
     rippleX = x * 80;
     rippleY = y * 60;
-    rippleStrength = 1;
+    rippleStrength = 0.5;
   };
 
   const tick = (t: number) => {
-    // Grid undulation — stronger waves
+    // Grid undulation — gentle waves
     const pos = gridGeo.attributes.position as THREE.BufferAttribute;
     const arr = pos.array as Float32Array;
 
     for (let i = 0; i < arr.length / 3; i++) {
       const ox = origPos[i * 3];
       const oz = origPos[i * 3 + 2];
-      let y = Math.sin(ox * 0.06 + t * 0.6) * 3.5
-            + Math.cos(oz * 0.08 + t * 0.4) * 2.5
-            + Math.sin((ox + oz) * 0.04 + t * 0.25) * 1.5;
-      // Mouse ripple
+      let y = Math.sin(ox * 0.06 + t * 0.3) * 2.5
+            + Math.cos(oz * 0.08 + t * 0.2) * 1.8
+            + Math.sin((ox + oz) * 0.04 + t * 0.12) * 1.0;
+      // Mouse ripple — smooth
       if (rippleStrength > 0.01) {
         const dist = Math.sqrt((ox - rippleX) ** 2 + (oz - rippleY) ** 2);
-        y += Math.sin(dist * 0.2 - t * 5) * Math.exp(-dist * 0.02) * 5 * rippleStrength;
+        y += Math.sin(dist * 0.15 - t * 2) * Math.exp(-dist * 0.025) * 3 * rippleStrength;
       }
       arr[i * 3 + 1] = y;
     }
     pos.needsUpdate = true;
-    rippleStrength *= 0.995; // slow decay
+    rippleStrength *= 0.985;
 
     // Grid opacity pulse
-    gridMat.opacity = 0.1 + Math.sin(t * 0.5) * 0.04;
+    gridMat.opacity = 0.1 + Math.sin(t * 0.3) * 0.03;
 
     // Float + rotate shapes
     for (const s of shapes) {
-      s.mesh.position.y = s.baseY + Math.sin(t * s.floatSpeed + s.phase) * s.floatAmp;
-      s.mesh.rotation.x += s.rotSpeed.x * 0.01;
-      s.mesh.rotation.y += s.rotSpeed.y * 0.01;
+      s.mesh.position.y = s.baseY + Math.sin(t * s.floatSpeed * 0.6 + s.phase) * s.floatAmp;
+      s.mesh.rotation.x += s.rotSpeed.x * 0.005;
+      s.mesh.rotation.y += s.rotSpeed.y * 0.005;
       s.mesh.rotation.z += s.rotSpeed.z * 0.01;
       // Pulse opacity
       const m = s.mesh.material as THREE.MeshBasicMaterial;
@@ -490,65 +490,65 @@ function buildExtremeScene(w: number, h: number): SceneBundle {
   const onMouse = (x: number, y: number) => {
     rippleX = x * 100;
     rippleY = y * 80;
-    rippleStrength = 1.5; // extra strong
+    rippleStrength = 0.8;
   };
 
   const tick = (t: number) => {
-    // Grid undulation — chaotic layered waves
+    // Grid undulation — layered waves (calmer)
     const pos = gridGeo.attributes.position as THREE.BufferAttribute;
     const arr = pos.array as Float32Array;
 
     for (let i = 0; i < arr.length / 3; i++) {
       const ox = origPos[i * 3];
       const oz = origPos[i * 3 + 2];
-      let y = Math.sin(ox * 0.04 + t * 0.9) * 5.5
-            + Math.cos(oz * 0.06 + t * 0.6) * 4.0
-            + Math.sin((ox + oz) * 0.03 + t * 0.35) * 3.0
-            + Math.sin(ox * 0.15 + t * 2.0) * 1.5
-            + Math.cos(oz * 0.12 + t * 1.6) * 1.2;
-      // Mouse ripple — massive
+      let y = Math.sin(ox * 0.04 + t * 0.45) * 4.5
+            + Math.cos(oz * 0.06 + t * 0.3) * 3.2
+            + Math.sin((ox + oz) * 0.03 + t * 0.18) * 2.2
+            + Math.sin(ox * 0.15 + t * 0.9) * 1.0
+            + Math.cos(oz * 0.12 + t * 0.7) * 0.8;
+      // Mouse ripple — still strong for extreme but smoother
       if (rippleStrength > 0.01) {
         const dist = Math.sqrt((ox - rippleX) ** 2 + (oz - rippleY) ** 2);
-        y += Math.sin(dist * 0.15 - t * 8) * Math.exp(-dist * 0.012) * 10 * rippleStrength;
+        y += Math.sin(dist * 0.12 - t * 3) * Math.exp(-dist * 0.015) * 6 * rippleStrength;
       }
       arr[i * 3 + 1] = y;
     }
     pos.needsUpdate = true;
-    rippleStrength *= 0.99;
+    rippleStrength *= 0.985;
 
-    // Rainbow cycle the grid colors
+    // Rainbow cycle the grid colors — slower rotation
     const colorAttr = gridGeo.attributes.color as THREE.BufferAttribute;
     const cArr = colorAttr.array as Float32Array;
     for (let i = 0; i < gridVertCount; i++) {
-      const hue = ((i / gridVertCount) * 360 + t * 30) % 360;
+      const hue = ((i / gridVertCount) * 360 + t * 12) % 360;
       const c = new THREE.Color().setHSL(hue / 360, 1.0, 0.5);
       cArr[i * 3] = c.r; cArr[i * 3 + 1] = c.g; cArr[i * 3 + 2] = c.b;
     }
     colorAttr.needsUpdate = true;
 
     // Grid opacity pulse
-    gridMat.opacity = 0.18 + Math.sin(t * 0.6) * 0.08;
+    gridMat.opacity = 0.18 + Math.sin(t * 0.35) * 0.06;
 
     // Float, rotate, drift shapes + rainbow cycle their colors
     for (let si = 0; si < shapes.length; si++) {
       const s = shapes[si];
-      s.mesh.position.y = s.baseY + Math.sin(t * s.floatSpeed + s.phase) * s.floatAmp;
-      s.mesh.position.x = s.baseX + Math.sin(t * s.driftSpeed + s.phase) * 10;
-      s.mesh.rotation.x += s.rotSpeed.x * 0.015;
-      s.mesh.rotation.y += s.rotSpeed.y * 0.015;
-      s.mesh.rotation.z += s.rotSpeed.z * 0.015;
+      s.mesh.position.y = s.baseY + Math.sin(t * s.floatSpeed * 0.5 + s.phase) * s.floatAmp;
+      s.mesh.position.x = s.baseX + Math.sin(t * s.driftSpeed * 0.5 + s.phase) * 10;
+      s.mesh.rotation.x += s.rotSpeed.x * 0.007;
+      s.mesh.rotation.y += s.rotSpeed.y * 0.007;
+      s.mesh.rotation.z += s.rotSpeed.z * 0.007;
       const m = s.mesh.material as THREE.MeshBasicMaterial;
-      m.opacity = 0.3 + Math.sin(t * 0.9 + s.phase) * 0.18;
-      // Rainbow cycle each shape
-      const hue = ((si / shapes.length) * 360 + t * 50) % 360;
+      m.opacity = 0.3 + Math.sin(t * 0.5 + s.phase) * 0.15;
+      // Rainbow cycle each shape — slower
+      const hue = ((si / shapes.length) * 360 + t * 20) % 360;
       m.color.setHSL(hue / 360, 1.0, 0.55);
     }
 
     // Accent line shimmer + color cycle
     for (let i = 0; i < accentLines.length; i++) {
       const m = accentLines[i].material as THREE.LineBasicMaterial;
-      m.opacity = 0.07 + Math.sin(t * 0.5 + i * 0.9) * 0.05;
-      const hue = ((i / accentLines.length) * 360 + t * 40) % 360;
+      m.opacity = 0.07 + Math.sin(t * 0.3 + i * 0.9) * 0.04;
+      const hue = ((i / accentLines.length) * 360 + t * 15) % 360;
       m.color.setHSL(hue / 360, 1.0, 0.5);
     }
   };
