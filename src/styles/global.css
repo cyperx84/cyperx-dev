@@ -1374,10 +1374,15 @@ section,
   will-change: transform;
 }
 
-/* data-reveal elements — hint compositor during animation */
+/* data-reveal elements — start hidden in CSS to prevent CLS */
 [data-reveal] {
+  opacity: 0;
+  transform: translateY(30px);
   will-change: transform, opacity;
 }
+[data-reveal="slide-left"] { transform: translateX(-40px); }
+[data-reveal="slide-right"] { transform: translateX(40px); }
+[data-reveal="scale"] { transform: scale(0.9); }
 
 /* Remove will-change after animation completes to free memory */
 [data-reveal][data-gsap-done] {

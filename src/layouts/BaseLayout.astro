@@ -465,8 +465,8 @@ const pageAttr = activeNav ?? 'home';
     // Init — works for both initial load and Astro client-side navigations
     function initAll() {
       initTypewriters();
-      // GSAP ScrollTrigger handles reveals + parallax
-      import('../scripts/scroll-animations').then(m => m.initScrollAnimations());
+      // GSAP ScrollTrigger handles reveals + parallax (loaded from bundled script below)
+      if (window.__initScrollAnimations) window.__initScrollAnimations();
       initFooterTypewriter();
       initMobileMenu();
       // Re-apply theme from localStorage (in case of client nav)
@@ -476,6 +476,12 @@ const pageAttr = activeNav ?? 'home';
 
     document.addEventListener('DOMContentLoaded', initAll);
     document.addEventListener('astro:page-load', initAll);
+  </script>
+
+  <!-- Bundled script for GSAP scroll animations (Astro processes imports) -->
+  <script>
+    import { initScrollAnimations } from '../scripts/scroll-animations';
+    (window as any).__initScrollAnimations = initScrollAnimations;
   </script>
 </body>
 </html>
