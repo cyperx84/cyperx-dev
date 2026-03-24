@@ -247,13 +247,17 @@ const pageAttr = activeNav ?? 'home';
     }
   </script>
 
-  <!-- ── Bullet Holes (deferred) ── -->
+  <!-- ── Bullet Holes (deferred, survives View Transitions) ── -->
   <script>
     import { initBulletHoles, clearBulletHoles } from '../scripts/bullet-holes';
-    if (!(window as any).__bulletInit) {
-      (window as any).__bulletInit = true;
-      document.addEventListener('DOMContentLoaded', () => { initBulletHoles(); });
+    // Init on first load + every View Transition page swap
+    function bootBullets() { initBulletHoles(); }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', bootBullets, { once: true });
+    } else {
+      bootBullets();
     }
+    document.addEventListener('astro:page-load', bootBullets);
     (window as any).__clearBulletHoles = clearBulletHoles;
   </script>
 
