@@ -64,7 +64,7 @@ function buildDarkScene(w: number, h: number): SceneBundle {
     wireframe: true,
     vertexColors: true,
     transparent: true,
-    opacity: 0.18,
+    opacity: 0.07,
     blending: THREE.AdditiveBlending,
     depthWrite: false,
   });
@@ -104,7 +104,7 @@ function buildDarkScene(w: number, h: number): SceneBundle {
       color: shapeColors[i],
       wireframe: true,
       transparent: true,
-      opacity: 0.35,
+      opacity: 0.12,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
     });
@@ -153,48 +153,48 @@ function buildDarkScene(w: number, h: number): SceneBundle {
   const onMouse = (x: number, y: number) => {
     rippleX = x * 90;
     rippleY = y * 70;
-    rippleStrength = 0.6;
+    rippleStrength = 0.35;
   };
 
   const tick = (t: number) => {
-    // Grid undulation — gentle rolling waves
+    // Grid undulation — slow ambient drift
     const pos = gridGeo.attributes.position as THREE.BufferAttribute;
     const arr = pos.array as Float32Array;
 
     for (let i = 0; i < arr.length / 3; i++) {
       const ox = origPos[i * 3];
       const oz = origPos[i * 3 + 2];
-      let y = Math.sin(ox * 0.05 + t * 0.35) * 3.5
-            + Math.cos(oz * 0.07 + t * 0.25) * 2.8
-            + Math.sin((ox + oz) * 0.03 + t * 0.15) * 1.5
-            + Math.sin(ox * 0.12 + oz * 0.08 + t * 0.6) * 0.8;
-      // Mouse ripple — smooth
+      let y = Math.sin(ox * 0.05 + t * 0.15) * 2.5
+            + Math.cos(oz * 0.07 + t * 0.1) * 2.0
+            + Math.sin((ox + oz) * 0.03 + t * 0.07) * 1.0
+            + Math.sin(ox * 0.12 + oz * 0.08 + t * 0.25) * 0.5;
+      // Mouse ripple — gentle
       if (rippleStrength > 0.01) {
         const dist = Math.sqrt((ox - rippleX) ** 2 + (oz - rippleY) ** 2);
-        y += Math.sin(dist * 0.12 - t * 2.5) * Math.exp(-dist * 0.02) * 4 * rippleStrength;
+        y += Math.sin(dist * 0.08 - t * 1.2) * Math.exp(-dist * 0.025) * 2.5 * rippleStrength;
       }
       arr[i * 3 + 1] = y;
     }
     pos.needsUpdate = true;
-    rippleStrength *= 0.985;
+    rippleStrength *= 0.98;
 
     // Grid opacity pulse — breathing glow
-    gridMat.opacity = 0.15 + Math.sin(t * 0.25) * 0.04;
+    gridMat.opacity = 0.06 + Math.sin(t * 0.15) * 0.02;
 
     // Float + rotate shapes
     for (const s of shapes) {
-      s.mesh.position.y = s.baseY + Math.sin(t * s.floatSpeed * 0.6 + s.phase) * s.floatAmp;
-      s.mesh.rotation.x += s.rotSpeed.x * 0.006;
-      s.mesh.rotation.y += s.rotSpeed.y * 0.006;
-      s.mesh.rotation.z += s.rotSpeed.z * 0.006;
+      s.mesh.position.y = s.baseY + Math.sin(t * s.floatSpeed * 0.4 + s.phase) * s.floatAmp;
+      s.mesh.rotation.x += s.rotSpeed.x * 0.004;
+      s.mesh.rotation.y += s.rotSpeed.y * 0.004;
+      s.mesh.rotation.z += s.rotSpeed.z * 0.004;
       const m = s.mesh.material as THREE.MeshBasicMaterial;
-      m.opacity = 0.25 + Math.sin(t * 0.7 + s.phase) * 0.15;
+      m.opacity = 0.10 + Math.sin(t * 0.4 + s.phase) * 0.05;
     }
 
     // Accent line shimmer
     for (let i = 0; i < accentLines.length; i++) {
       const m = accentLines[i].material as THREE.LineBasicMaterial;
-      m.opacity = 0.06 + Math.sin(t * 0.35 + i * 1.2) * 0.04;
+      m.opacity = 0.03 + Math.sin(t * 0.2 + i * 1.2) * 0.02;
     }
   };
 
