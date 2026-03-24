@@ -112,7 +112,7 @@
 /* ── Base ── */
 *, *::before, *::after { box-sizing: border-box; }
 
-html { overflow-x: hidden; }
+html { overflow-x: hidden; background: #000; }
 
 body {
   font-family: "Space Grotesk", sans-serif;
@@ -121,9 +121,9 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.theme-dark body   { background: #131313; color: #e2e2e2; }
-.theme-light body  { background: #ffffff; color: #131313; }
-.theme-extreme body { background: #000000; color: #ffffff; }
+.theme-dark body   { background: transparent; color: #e2e2e2; }
+.theme-light body  { background: transparent; color: #131313; }
+.theme-extreme body { background: transparent; color: #ffffff; }
 
 ::selection {
   background: #39FF14;
