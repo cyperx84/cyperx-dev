@@ -4,7 +4,7 @@ import { ClientRouter } from 'astro:transitions';
 
 interface Props {
   title?: string;
-  activeNav?: 'home' | 'blog' | 'projects';
+  activeNav?: 'home' | 'blog' | 'projects' | 'about' | 'datablock' | 'fragments' | 'manifesto' | '';
 }
 const { title = 'CYPERX.DEV', activeNav } = Astro.props;
 const pageAttr = activeNav ?? 'home';
@@ -29,6 +29,17 @@ const pageAttr = activeNav ?? 'home';
   </script>
   <meta name="description" content="CyperX — builder, breaker, automator. AI agent infrastructure, distributed fleets, and tools that compound over time." />
   <meta name="theme-color" content="#131313" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content="CyperX — builder, breaker, automator. AI agent infrastructure, distributed fleets, and tools that compound over time." />
+  <meta property="og:url" content={Astro.url.href} />
+  <meta property="og:site_name" content="CyperX.dev" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@cyper_x_" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content="CyperX — builder, breaker, automator. AI agent infrastructure, distributed fleets, and tools that compound over time." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <!-- Preload critical local fonts -->
@@ -206,9 +217,9 @@ const pageAttr = activeNav ?? 'home';
       <p class="footer-tagline font-mono text-[10px] uppercase tracking-widest">SYSTEM ENTROPY: 99.9% | STABLE BEYOND VOID</p>
     </div>
     <div class="flex gap-6 sm:gap-8 font-mono text-[10px] uppercase tracking-widest">
-      {['TERMINAL','REACH_OUT','LEGAL_VOID'].map(l => (
-        <a class="footer-link transition-all" href="#">{l}</a>
-      ))}
+      <a class="footer-link transition-all" href="/about">ABOUT</a>
+      <a class="footer-link transition-all" href="https://github.com/cyperx84" target="_blank" rel="noopener">GITHUB</a>
+      <a class="footer-link transition-all" href="https://x.com/cyper_x_" target="_blank" rel="noopener">X</a>
     </div>
     <div class="footer-copy font-mono text-[10px]"><span class="footer-rights" data-typewriter="60">© NO_RIGHTS_RESERVED</span></div>
   </footer>
