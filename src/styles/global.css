@@ -113,6 +113,17 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 html { overflow-x: hidden; overscroll-behavior: none; }
+
+/* Lenis smooth scroll (inlined from lenis/dist/lenis.css) */
+html.lenis, html.lenis body { height: auto; }
+.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch],
+.lenis [data-lenis-prevent-vertical],
+.lenis [data-lenis-prevent-horizontal] { overscroll-behavior: contain; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
+.lenis.lenis-autoToggle { transition-property: overflow; transition-duration: 1ms; transition-behavior: allow-discrete; }
 html.theme-dark    { background: #0a0a0a; }
 html.theme-light   { background: #f5f5f5; }
 html.theme-extreme { background: #000; }
@@ -1337,4 +1348,57 @@ footer {
 .prose-extreme h2,
 .prose-extreme h3 {
   font-family: var(--font-lazer);
+}
+
+/* ── Performance Optimizations ── */
+
+/* Canvas layers — promote to own compositor layer */
+#three-bg,
+#cursor-canvas {
+  will-change: transform;
+  contain: strict;
+}
+
+/* Sections — contain layout recalcs */
+section,
+.variant-dark,
+.variant-light,
+.variant-extreme {
+  contain: layout style;
+}
+
+/* Hero sections — prevent CLS with min-height */
+.shard-hero,
+.parallax-hero {
+  contain: layout style;
+  will-change: transform;
+}
+
+/* data-reveal elements — hint compositor during animation */
+[data-reveal] {
+  will-change: transform, opacity;
+}
+
+/* Remove will-change after animation completes to free memory */
+[data-reveal][data-gsap-done] {
+  will-change: auto;
+}
+
+/* Reduce paint from infinite animations when not in viewport */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Fonts — ensure swap to prevent invisible text */
+.material-symbols-outlined {
+  font-display: swap;
+}
+
+/* Image optimization */
+img {
+  content-visibility: auto;
 }

@@ -5,6 +5,12 @@
  */
 import * as THREE from 'three';
 
+// Reusable Color object — avoids GC pressure in hot loops
+const tmpColor = new THREE.Color();
+
+// Mobile detection for reduced geometry
+const isMobileGeo = typeof window !== 'undefined' && window.innerWidth < 768;
+
 // ── Types ──────────────────────────────────────────────────────────────────
 type Theme = 'dark' | 'light' | 'extreme' | 'unknown';
 interface SceneBundle {
@@ -42,7 +48,7 @@ function buildDarkScene(w: number, h: number): SceneBundle {
   camera.lookAt(0, -5, 0);
 
   // Ground grid — green-to-pink gradient, additive glow on black
-  const SEGS = 50;
+  const SEGS = isMobileGeo ? 25 : 50;
   const gridGeo = new THREE.PlaneGeometry(180, 140, SEGS, SEGS);
   gridGeo.rotateX(-Math.PI / 2.5);
 
@@ -159,7 +165,7 @@ function buildLightScene(w: number, h: number): SceneBundle {
   camera.lookAt(0, -5, 0);
 
   // Ground grid — more visible, colored
-  const SEGS = 40;
+  const SEGS = isMobileGeo ? 20 : 40;
   const gridGeo = new THREE.PlaneGeometry(160, 120, SEGS, SEGS);
   gridGeo.rotateX(-Math.PI / 2.5);
 
@@ -331,7 +337,7 @@ function buildExtremeScene(w: number, h: number): SceneBundle {
   camera.lookAt(0, -5, 0);
 
   // Rainbow cycling grid — denser, wilder
-  const SEGS = 60;
+  const SEGS = isMobileGeo ? 30 : 60;
   const gridGeo = new THREE.PlaneGeometry(200, 160, SEGS, SEGS);
   gridGeo.rotateX(-Math.PI / 2.5);
 
@@ -479,14 +485,14 @@ function buildExtremeScene(w: number, h: number): SceneBundle {
     pos.needsUpdate = true;
     rippleStrength *= 0.985;
 
-    // Rainbow cycle the grid colors — faster when scrolling
+    // Rainbow cycle the grid colors — faster when scrolling (reuse single Color)
     const colorSpeed = 12 + sv * 30;
     const colorAttr = gridGeo.attributes.color as THREE.BufferAttribute;
     const cArr = colorAttr.array as Float32Array;
     for (let i = 0; i < gridVertCount; i++) {
       const hue = ((i / gridVertCount) * 360 + t * colorSpeed) % 360;
-      const c = new THREE.Color().setHSL(hue / 360, 1.0, 0.5);
-      cArr[i * 3] = c.r; cArr[i * 3 + 1] = c.g; cArr[i * 3 + 2] = c.b;
+      tmpColor.setHSL(hue / 360, 1.0, 0.5);
+      cArr[i * 3] = tmpColor.r; cArr[i * 3 + 1] = tmpColor.g; cArr[i * 3 + 2] = tmpColor.b;
     }
     colorAttr.needsUpdate = true;
 
@@ -504,17 +510,17 @@ function buildExtremeScene(w: number, h: number): SceneBundle {
       s.mesh.rotation.z += s.rotSpeed.z * 0.007 * rotBoost;
       const m = s.mesh.material as THREE.MeshBasicMaterial;
       m.opacity = 0.3 + Math.sin(t * 0.5 + s.phase) * 0.15 + opacityBoost;
-      // Rainbow cycle each shape — faster when scrolling
-      const hue = ((si / shapes.length) * 360 + t * (20 + sv * 40)) % 360;
-      m.color.setHSL(hue / 360, 1.0, 0.55);
+      // Rainbow cycle each shape — faster when scrolling (reuse tmpColor)
+      tmpColor.setHSL(((si / shapes.length) * 360 + t * (20 + sv * 40)) % 360 / 360, 1.0, 0.55);
+      m.color.copy(tmpColor);
     }
 
     // Accent line shimmer + color cycle
     for (let i = 0; i < accentLines.length; i++) {
       const m = accentLines[i].material as THREE.LineBasicMaterial;
       m.opacity = 0.07 + Math.sin(t * 0.3 + i * 0.9) * 0.04 + opacityBoost * 0.5;
-      const hue = ((i / accentLines.length) * 360 + t * 15) % 360;
-      m.color.setHSL(hue / 360, 1.0, 0.5);
+      tmpColor.setHSL(((i / accentLines.length) * 360 + t * 15) % 360 / 360, 1.0, 0.5);
+      m.color.copy(tmpColor);
     }
   };
 
@@ -548,16 +554,27 @@ export function setScrollData(velocity: number, progress: number) {
   scrollProgress = progress;
 }
 
-// ── Animation loop ─────────────────────────────────────────────────────────
+// ── Animation loop (throttled on mobile) ───────────────────────────────────
+let lastFrameTime = 0;
+const TARGET_FPS_MOBILE = 30;
+const FRAME_INTERVAL_MOBILE = 1000 / TARGET_FPS_MOBILE;
+let isMobileDevice = false;
+
 function animate(t: number) {
-  if (!isVisible || !renderer || !current) {
-    animId = requestAnimationFrame(animate);
-    return;
+  animId = requestAnimationFrame(animate);
+
+  if (!isVisible || !renderer || !current) return;
+
+  // Throttle to 30fps on mobile to save battery/GPU
+  if (isMobileDevice) {
+    const delta = t - lastFrameTime;
+    if (delta < FRAME_INTERVAL_MOBILE) return;
+    lastFrameTime = t - (delta % FRAME_INTERVAL_MOBILE);
   }
+
   const ts = t * 0.001; // seconds
   current.tick(ts);
   renderer.render(current.scene, current.camera);
-  animId = requestAnimationFrame(animate);
 }
 
 // ── Swap scene on theme change ─────────────────────────────────────────────
@@ -602,7 +619,9 @@ export function initThreeBg() {
     antialias: false,
     powerPreference: 'low-power',
   });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  // Cap DPR: 1.0 on mobile (< 768px), 1.5 on desktop — saves massive GPU work
+  isMobileDevice = window.innerWidth < 768;
+  renderer.setPixelRatio(isMobileDevice ? 1.0 : Math.min(window.devicePixelRatio, 1.5));
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setClearColor(0x000000, 0);
 

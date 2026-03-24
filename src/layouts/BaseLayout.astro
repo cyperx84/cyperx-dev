@@ -31,12 +31,19 @@ const pageAttr = activeNav ?? 'home';
   <meta name="theme-color" content="#131313" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Preload critical local fonts -->
+  <link rel="preload" href="/fonts/ZedMonoNFM-Bold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/MonaspaceRadon-ExtraBold.woff2" as="font" type="font/woff2" crossorigin />
+  <!-- Space Grotesk — render-blocking (primary display font) -->
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&display=swap" as="style" />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&display=swap" rel="stylesheet" />
+  <!-- JetBrains Mono — deferred (mono/code only) -->
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" /></noscript>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" /></noscript>
+
+  <!-- Material Symbols — deferred, only ~8 icons used -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_forward,construction,format_quote,hub,leak_add,open_in_new,radar,terminal&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_forward,construction,format_quote,hub,leak_add,open_in_new,radar,terminal&display=swap" rel="stylesheet" /></noscript>
   <ClientRouter />
   <style is:global>
     /* ── Page Transition: Glitch Wipe ── */
@@ -224,14 +231,15 @@ const pageAttr = activeNav ?? 'home';
 
   <!-- ── Lenis Smooth Scroll + Three.js Background ── -->
   <script>
-    import Lenis from 'lenis';
-    import 'lenis/dist/lenis.css';
+    let lenis: any = null;
+    let threeBgModule: any = null;
 
-    let lenis: Lenis | null = null;
-
-    function initLenis() {
+    async function initLenis() {
       // Destroy previous instance on page transitions
       if (lenis) { lenis.destroy(); lenis = null; }
+
+      // Dynamic import — doesn't block FCP
+      const { default: Lenis } = await import('lenis');
 
       lenis = new Lenis({
         lerp: 0.08,
@@ -239,13 +247,18 @@ const pageAttr = activeNav ?? 'home';
         overscroll: false,
       });
 
+      // Cache the three-bg module reference to avoid repeated dynamic imports per scroll event
+      if (!threeBgModule) {
+        threeBgModule = await import('../scripts/three-bg');
+      }
+
       // Feed scroll velocity into Three.js scene
       lenis.on('scroll', (e: any) => {
-        import('../scripts/three-bg').then(m => {
+        if (threeBgModule) {
           const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
           const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
-          m.setScrollData(e.velocity, progress);
-        });
+          threeBgModule.setScrollData(e.velocity, progress);
+        }
       });
 
       // Connect Lenis to GSAP ScrollTrigger
@@ -272,15 +285,15 @@ const pageAttr = activeNav ?? 'home';
   <script>
     if (!(window as any).__threeBgInit) {
       (window as any).__threeBgInit = true;
-      // Defer Three.js load until after first paint
+      // Defer Three.js load well after FCP to avoid blocking main thread
+      const loadThree = () => {
+        import('../scripts/three-bg').then(m => m.initThreeBg());
+      };
       if ('requestIdleCallback' in window) {
-        (window as any).requestIdleCallback(() => {
-          import('../scripts/three-bg').then(m => m.initThreeBg());
-        });
+        // Wait for idle after a short delay to let FCP + LCP complete
+        setTimeout(() => (window as any).requestIdleCallback(loadThree, { timeout: 3000 }), 200);
       } else {
-        setTimeout(() => {
-          import('../scripts/three-bg').then(m => m.initThreeBg());
-        }, 100);
+        setTimeout(loadThree, 500);
       }
     }
   </script>
