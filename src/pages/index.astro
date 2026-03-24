@@ -1,6 +1,33 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
+const about = {
+  name: "Chris",
+  handle: "@cyperx",
+  location: "Brisbane, AU",
+  role: "Builder & Systems Thinker",
+  bio: "I build tools, agents, and systems that compound over time. Most of what I ship is infrastructure — things that make the next thing easier to build. My stack is AI agents on Apple Silicon, Obsidian as an operating system, and whatever language gets the job done fastest.",
+  principles: [
+    "Ship daily, refine weekly",
+    "Build for models 6 months out",
+    "If it doesn't compound, don't build it",
+    "Agents are teammates, not tools",
+  ],
+  stack: [
+    { label: "HARDWARE", value: "M4 Mac Mini / Apple Silicon" },
+    { label: "AGENTS", value: "Claude Code / Codex / Gemini / OpenCode" },
+    { label: "INFRA", value: "OpenClaw Gateway / Discord / Tailscale" },
+    { label: "KNOWLEDGE", value: "Obsidian / QMD / Flywheel" },
+    { label: "LANGUAGES", value: "TypeScript / Go / Rust / Python" },
+    { label: "EDITOR", value: "Neovim + Ghostty + tmux" },
+  ],
+  links: [
+    { label: "GITHUB", href: "https://github.com/cyperx84", icon: "code" },
+    { label: "DISCORD", href: "https://discord.gg/clawd", icon: "forum" },
+    { label: "X", href: "https://x.com/cyperx84", icon: "alternate_email" },
+  ],
+};
+
 const hero = {
   tagline: "BUILDER // BREAKER // AUTOMATOR",
   title: "CYPERX",
@@ -128,6 +155,64 @@ const timeline = [
           </a>
         </div>
       </section>
+
+      <!-- About — Terminal Style -->
+      <section class="max-w-4xl mx-auto" data-reveal>
+        <div class="mb-8 sm:mb-12 flex items-baseline gap-4 flex-wrap">
+          <h2 class="text-3xl sm:text-5xl font-black italic text-[#AC89FF] tracking-tighter" data-typewriter="30">ABOUT</h2>
+          <div class="h-[2px] flex-grow bg-gradient-to-r from-[#AC89FF]/50 to-transparent"></div>
+        </div>
+        <div class="bg-[#0e0e0e] border border-[#39FF14]/20 p-6 sm:p-10 font-mono text-sm sm:text-base relative overflow-hidden shard-card-2">
+          <!-- Terminal chrome -->
+          <div class="flex items-center gap-2 mb-6 pb-4 border-b border-[#39FF14]/10">
+            <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+            <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+            <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+            <span class="ml-4 text-xs text-[#39FF14]/40">cyperx@m4-mac-mini ~ % cat about.md</span>
+          </div>
+          <!-- Identity -->
+          <div class="space-y-1 mb-6">
+            <p><span class="text-[#39FF14]">name:</span> <span class="text-[#e2e2e2]">{about.name}</span></p>
+            <p><span class="text-[#39FF14]">handle:</span> <span class="text-[#FF51FA]">{about.handle}</span></p>
+            <p><span class="text-[#39FF14]">location:</span> <span class="text-[#e2e2e2]">{about.location}</span></p>
+            <p><span class="text-[#39FF14]">role:</span> <span class="text-[#AC89FF]">{about.role}</span></p>
+          </div>
+          <!-- Bio -->
+          <div class="mb-6">
+            <p class="text-[#39FF14]/60 mb-1"># bio</p>
+            <p class="text-[#baccb0] leading-relaxed">{about.bio}</p>
+          </div>
+          <!-- Principles -->
+          <div class="mb-6">
+            <p class="text-[#FF51FA]/60 mb-2"># principles</p>
+            {about.principles.map((p) => (
+              <p class="text-[#e2e2e2]"><span class="text-[#FF51FA]">→</span> {p}</p>
+            ))}
+          </div>
+          <!-- Stack -->
+          <div class="mb-6">
+            <p class="text-[#AC89FF]/60 mb-2"># stack</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-1">
+              {about.stack.map((s) => (
+                <p><span class="text-[#AC89FF]">{s.label}:</span> <span class="text-[#e2e2e2]/70">{s.value}</span></p>
+              ))}
+            </div>
+          </div>
+          <!-- Links -->
+          <div class="flex flex-wrap gap-4 pt-4 border-t border-[#39FF14]/10">
+            {about.links.map((l) => (
+              <a href={l.href} target="_blank" rel="noopener" class="flex items-center gap-2 text-[#39FF14] hover:text-[#FF51FA] transition-colors no-underline">
+                <span class="material-symbols-outlined text-lg">{l.icon}</span>
+                <span class="text-xs tracking-widest">{l.label}</span>
+              </a>
+            ))}
+          </div>
+          <!-- Blinking cursor -->
+          <div class="mt-4">
+            <span class="text-[#39FF14] animate-pulse">█</span>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 
@@ -220,6 +305,57 @@ const timeline = [
         </div>
       </section>
 
+      <!-- About — Editorial Style -->
+      <section class="px-4 sm:px-8 py-16 sm:py-24 max-w-5xl mx-auto" data-reveal>
+        <div class="flex justify-between items-end border-b-4 border-[#FF51FA] pb-4 mb-12 flex-wrap gap-4">
+          <h2 class="text-3xl sm:text-5xl font-black italic tracking-tighter text-[#131313]" data-typewriter="30">ABOUT</h2>
+          <span class="font-mono text-[#FF51FA] text-sm">{about.handle}</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12">
+          <!-- Main column -->
+          <div class="md:col-span-7 space-y-6">
+            <div class="space-y-1">
+              <h3 class="text-2xl sm:text-3xl font-black italic text-[#131313]">{about.name}</h3>
+              <p class="text-[#FF51FA] font-mono text-sm">{about.role} · {about.location}</p>
+            </div>
+            <p class="text-[#131313]/80 text-base sm:text-lg leading-relaxed">{about.bio}</p>
+            <div class="pt-4 border-t border-[#131313]/10">
+              <h4 class="font-mono text-xs text-[#131313]/40 mb-3 tracking-widest">PRINCIPLES</h4>
+              <div class="space-y-2">
+                {about.principles.map((p, i) => (
+                  <div class="flex items-start gap-3">
+                    <span class="font-black text-[#39FF14] text-lg leading-none">{String(i + 1).padStart(2, '0')}</span>
+                    <p class="text-[#131313]/80 text-sm sm:text-base">{p}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <!-- Sidebar -->
+          <div class="md:col-span-5 space-y-6">
+            <div class="bg-[#f8f8f8] p-6 sm:p-8" style="clip-path: polygon(0 0,100% 0,95% 100%,5% 95%)">
+              <h4 class="font-mono text-xs text-[#131313]/40 mb-4 tracking-widest">STACK</h4>
+              <div class="space-y-3">
+                {about.stack.map((s) => (
+                  <div>
+                    <span class="font-mono text-[10px] text-[#FF51FA] tracking-widest">{s.label}</span>
+                    <p class="text-sm text-[#131313]/80">{s.value}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-4">
+              {about.links.map((l) => (
+                <a href={l.href} target="_blank" rel="noopener" class="flex items-center gap-2 bg-[#131313] text-white px-4 py-2 text-xs font-mono tracking-widest hover:bg-[#FF51FA] transition-colors no-underline">
+                  <span class="material-symbols-outlined text-sm">{l.icon}</span>
+                  {l.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <div class="h-16 sm:h-24"></div>
     </main>
   </div>
@@ -292,6 +428,71 @@ const timeline = [
               </a>
             );
           })}
+        </div>
+      </section>
+
+      <!-- About — Glitched Style -->
+      <section class="mt-32 sm:mt-60 relative" data-reveal>
+        <div class="absolute inset-0 bg-gradient-to-br from-[#8eff71]/5 via-[#ff51fa]/5 to-[#ac89ff]/5 pointer-events-none"></div>
+        <div class="border-t-8 border-b-8 border-[#8eff71] py-16 sm:py-24 relative overflow-hidden">
+          <!-- Scanline overlay -->
+          <div class="absolute inset-0 pointer-events-none opacity-10" style="background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(142,255,113,0.1) 2px, rgba(142,255,113,0.1) 4px)"></div>
+
+          <div class="max-w-5xl mx-auto px-6 sm:px-12 relative z-10">
+            <h2 class="text-5xl sm:text-7xl lg:text-9xl font-black italic uppercase tracking-tighter text-white glitch-text-extreme mb-12 sm:mb-20">ABOUT</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 sm:gap-16">
+              <!-- Left: Identity + Bio -->
+              <div class="space-y-8">
+                <div class="bg-black/80 border-4 border-[#8eff71] p-6 sm:p-8 glitch-border-vibrate">
+                  <div class="font-mono text-lg sm:text-xl space-y-2">
+                    <p><span class="text-[#8eff71] font-black">$</span> whoami</p>
+                    <p class="text-3xl sm:text-4xl font-black italic text-white">{about.name}</p>
+                    <p class="text-[#ff51fa] text-lg">{about.handle}</p>
+                    <p class="text-white/50 text-sm">{about.location} · {about.role}</p>
+                  </div>
+                </div>
+                <div class="bg-black/60 border-l-4 border-[#ff51fa] p-6 sm:p-8">
+                  <p class="text-white/80 font-mono text-sm sm:text-base leading-relaxed">{about.bio}</p>
+                </div>
+                <!-- Links -->
+                <div class="flex flex-wrap gap-4">
+                  {about.links.map((l) => (
+                    <a href={l.href} target="_blank" rel="noopener" class="flex items-center gap-2 bg-[#8eff71] text-black px-5 py-3 font-black text-sm uppercase tracking-widest hover:bg-[#ff51fa] hover:text-white transition-all hover:scale-110 no-underline shadow-[4px_4px_0_#ff51fa] hover:shadow-[4px_4px_0_#8eff71]">
+                      <span class="material-symbols-outlined text-lg">{l.icon}</span>
+                      {l.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <!-- Right: Principles + Stack -->
+              <div class="space-y-8">
+                <div class="bg-black/80 border-4 border-[#ff51fa] p-6 sm:p-8 glitch-border-vibrate">
+                  <h3 class="text-2xl sm:text-3xl font-black italic text-[#ff51fa] mb-6 uppercase">PRINCIPLES</h3>
+                  <div class="space-y-4">
+                    {about.principles.map((p, i) => (
+                      <div class="flex items-start gap-4">
+                        <span class="text-[#8eff71] font-black text-2xl sm:text-3xl font-mono leading-none">{String(i + 1).padStart(2, '0')}</span>
+                        <p class="text-white font-mono text-sm sm:text-base uppercase tracking-wider font-bold">{p}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div class="bg-black/80 border-4 border-[#ac89ff] p-6 sm:p-8 glitch-border-vibrate">
+                  <h3 class="text-2xl sm:text-3xl font-black italic text-[#ac89ff] mb-6 uppercase">STACK</h3>
+                  <div class="space-y-3">
+                    {about.stack.map((s) => (
+                      <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
+                        <span class="text-[#ac89ff] font-mono text-xs tracking-[0.3em] font-bold min-w-[100px]">{s.label}</span>
+                        <span class="text-white/70 font-mono text-sm">{s.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
