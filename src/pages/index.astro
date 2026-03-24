@@ -73,12 +73,12 @@ const timeline = [
   <!-- ════════════════════════════════════════
        DARK VARIANT
   ════════════════════════════════════════ -->
-  <div class="variant-dark bg-[#131313] text-[#e2e2e2] min-h-screen">
+  <div class="variant-dark bg-[#131313]/80 text-[#e2e2e2] min-h-screen">
     <main class="pt-28 sm:pt-32 pb-20 px-4 sm:px-6 max-w-7xl mx-auto space-y-24 sm:space-y-40">
       <!-- Hero -->
       <section class="relative">
-        <div class="shard-hero w-full h-[400px] sm:h-[600px] lg:h-[716px] relative bg-[#0e0e0e] overflow-hidden">
-          <div class="absolute inset-0 bg-gradient-to-br from-[#131313] via-[#1a0a2e] to-[#0a1a0a] opacity-80"></div>
+        <div class="shard-hero w-full h-[400px] sm:h-[600px] lg:h-[716px] relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-br from-[#131313]/60 via-[#1a0a2e]/40 to-[#0a1a0a]/30"></div>
           <div class="absolute inset-0 flex items-center justify-center p-6 sm:p-12">
             <div class="text-center z-10">
               <p class="font-mono text-[#39FF14] text-xs sm:text-sm tracking-[0.5em] mb-4" data-typewriter="40">{hero.tagline}</p>
@@ -156,63 +156,7 @@ const timeline = [
         </div>
       </section>
 
-      <!-- About — Terminal Style -->
-      <section id="about" class="max-w-4xl mx-auto" data-reveal>
-        <div class="mb-8 sm:mb-12 flex items-baseline gap-4 flex-wrap">
-          <h2 class="text-3xl sm:text-5xl font-black italic text-[#AC89FF] tracking-tighter" data-typewriter="30">ABOUT</h2>
-          <div class="h-[2px] flex-grow bg-gradient-to-r from-[#AC89FF]/50 to-transparent"></div>
-        </div>
-        <div class="bg-[#0e0e0e] border border-[#39FF14]/20 p-6 sm:p-10 font-mono text-sm sm:text-base relative overflow-hidden shard-card-2">
-          <!-- Terminal chrome -->
-          <div class="flex items-center gap-2 mb-6 pb-4 border-b border-[#39FF14]/10">
-            <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
-            <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
-            <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
-            <span class="ml-4 text-xs text-[#39FF14]/40">cyperx@m4-mac-mini ~ % cat about.md</span>
-          </div>
-          <!-- Identity -->
-          <div class="space-y-1 mb-6">
-            <p><span class="text-[#39FF14]">name:</span> <span class="text-[#e2e2e2]">{about.name}</span></p>
-            <p><span class="text-[#39FF14]">handle:</span> <span class="text-[#FF51FA]">{about.handle}</span></p>
-            <p><span class="text-[#39FF14]">location:</span> <span class="text-[#e2e2e2]">{about.location}</span></p>
-            <p><span class="text-[#39FF14]">role:</span> <span class="text-[#AC89FF]">{about.role}</span></p>
-          </div>
-          <!-- Bio -->
-          <div class="mb-6">
-            <p class="text-[#39FF14]/60 mb-1"># bio</p>
-            <p class="text-[#baccb0] leading-relaxed">{about.bio}</p>
-          </div>
-          <!-- Principles -->
-          <div class="mb-6">
-            <p class="text-[#FF51FA]/60 mb-2"># principles</p>
-            {about.principles.map((p) => (
-              <p class="text-[#e2e2e2]"><span class="text-[#FF51FA]">→</span> {p}</p>
-            ))}
-          </div>
-          <!-- Stack -->
-          <div class="mb-6">
-            <p class="text-[#AC89FF]/60 mb-2"># stack</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-1">
-              {about.stack.map((s) => (
-                <p><span class="text-[#AC89FF]">{s.label}:</span> <span class="text-[#e2e2e2]/70">{s.value}</span></p>
-              ))}
-            </div>
-          </div>
-          <!-- Links -->
-          <div class="flex flex-wrap gap-4 pt-4 border-t border-[#39FF14]/10">
-            {about.links.map((l) => (
-              <a href={l.href} target="_blank" rel="noopener" class="flex items-center gap-2 text-[#39FF14] hover:text-[#FF51FA] transition-colors no-underline">
-                <span class="material-symbols-outlined text-lg">{l.icon}</span>
-                <span class="text-xs tracking-widest">{l.label}</span>
-              </a>
-            ))}
-          </div>
-          <!-- Blinking cursor -->
-          <div class="mt-4">
-            <span class="text-[#39FF14] animate-pulse">█</span>
-          </div>
-        </div>
-      </section>
+      <!-- About section moved to /about -->
     </main>
   </div>
 
@@ -223,7 +167,7 @@ const timeline = [
   <div class="variant-light bg-white text-[#131313] min-h-screen">
     <main class="pt-28 sm:pt-32 min-h-screen">
       <!-- Hero -->
-      <section class="relative px-4 sm:px-8 py-16 sm:py-20 flex flex-col items-center justify-center min-h-[500px] sm:min-h-[700px] bg-white overflow-hidden">
+      <section class="relative px-4 sm:px-8 py-16 sm:py-20 flex flex-col items-center justify-center min-h-[500px] sm:min-h-[700px] bg-white/70 overflow-hidden">
         <div class="absolute inset-0 opacity-5 grayscale contrast-200 overflow-hidden"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1280&auto=format&fit=crop" alt="" class="w-full h-full object-cover" loading="lazy" decoding="async" /></div>
         <div class="relative z-10 text-center space-y-4 sm:space-y-6">
           <p class="font-mono text-[#FF51FA] tracking-[0.5em] text-sm" data-typewriter="40">{hero.tagline}</p>
