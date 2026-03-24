@@ -170,7 +170,7 @@ const pageAttr = activeNav ?? 'home';
         <span class="toggle-icon inline-block mr-1">⚡</span><span class="toggle-label">TRIPP_MODE</span>
       </button>
       <!-- Mobile hamburger -->
-      <button id="mobile-menu-btn" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Menu" transition:persist>
+      <button id="mobile-menu-btn" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Menu">
         <span class="hamburger-line w-6 h-0.5 bg-[#39FF14] transition-all duration-300"></span>
         <span class="hamburger-line w-6 h-0.5 bg-[#39FF14] transition-all duration-300"></span>
         <span class="hamburger-line w-6 h-0.5 bg-[#39FF14] transition-all duration-300"></span>
@@ -196,7 +196,7 @@ const pageAttr = activeNav ?? 'home';
   </footer>
 
   <!-- ── Mobile Slide-Down Menu ── -->
-  <div id="mobile-menu" class="mobile-menu md:hidden fixed top-0 left-0 right-0 z-[55] transition-transform duration-300 ease-out" style="transform:translateY(-100%)" transition:persist>
+  <div id="mobile-menu" class="mobile-menu md:hidden fixed top-0 left-0 right-0 z-[55] transition-transform duration-300 ease-out" style="transform:translateY(-100%)">
     <div class="mobile-menu-inner pt-20 pb-8 px-6 flex flex-col gap-1 shadow-2xl">
       {[
         ['home','HOME','/'],
