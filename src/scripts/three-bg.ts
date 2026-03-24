@@ -90,7 +90,7 @@ function buildDarkScene(w: number, h: number): SceneBundle {
     wireframe: true,
     vertexColors: true,
     transparent: true,
-    opacity: 0.14,
+    opacity: 0.07,
     blending: THREE.AdditiveBlending,
     depthWrite: false,
   });
@@ -112,7 +112,7 @@ function buildDarkScene(w: number, h: number): SceneBundle {
     const lm = new THREE.LineBasicMaterial({
       color: i % 3 === 0 ? 0x39FF14 : i % 3 === 1 ? 0xFF51FA : 0xAC89FF,
       transparent: true,
-      opacity: 0.18,
+      opacity: 0.08,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
     });
@@ -160,13 +160,13 @@ function buildDarkScene(w: number, h: number): SceneBundle {
     pos.needsUpdate = true;
     rippleStrength *= 0.98;
 
-    // Grid opacity pulse — breathing glow + scroll boost
-    gridMat.opacity = 0.14 + Math.sin(t * 0.15) * 0.04 + opacityBoost;
+    // Grid opacity pulse — subtle breathing + scroll boost
+    gridMat.opacity = 0.07 + Math.sin(t * 0.15) * 0.02 + opacityBoost;
 
     // Accent line shimmer
     for (let i = 0; i < accentLines.length; i++) {
       const m = accentLines[i].material as THREE.LineBasicMaterial;
-      m.opacity = 0.12 + Math.sin(t * 0.2 + i * 1.2) * 0.06 + opacityBoost * 0.5;
+      m.opacity = 0.05 + Math.sin(t * 0.2 + i * 1.2) * 0.03 + opacityBoost * 0.5;
     }
   };
 
