@@ -227,9 +227,10 @@ const pageAttr = activeNav ?? 'home';
 
   <!-- ── Mobile Slide-Down Menu ── -->
   <div id="mobile-menu" class="mobile-menu md:hidden fixed top-0 left-0 right-0 z-[55] transition-transform duration-300 ease-out" style="transform:translateY(-100%)">
-    <div class="mobile-menu-inner pt-20 pb-8 px-6 flex flex-col gap-1 shadow-2xl">
+    <div class="mobile-menu-inner pt-16 pb-8 px-6 flex flex-col gap-1 shadow-2xl">
+      <!-- Close button -->
+      <button id="mobile-menu-close" class="absolute top-5 right-5 w-10 h-10 flex items-center justify-center text-2xl font-black opacity-60 hover:opacity-100 transition-opacity" aria-label="Close menu">✕</button>
       {[
-
         ['terminal','BLOG','/blog'],
         ['shield','PROJECTS','/projects'],
         ['person','ABOUT','/about']
@@ -366,22 +367,26 @@ const pageAttr = activeNav ?? 'home';
     function initMobileMenu() {
       var menuBtn = document.getElementById('mobile-menu-btn');
       var menu = document.getElementById('mobile-menu');
+      var closeBtn = document.getElementById('mobile-menu-close');
       if (!menuBtn || !menu) return;
       // Reset state
       menu.style.transform = 'translateY(-100%)';
       menuBtn.classList.remove('menu-open');
       var open = false;
-      menuBtn.onclick = function() {
+      function closeMenu() {
+        open = false;
+        menu.style.transform = 'translateY(-100%)';
+        menuBtn.classList.remove('menu-open');
+      }
+      function toggleMenu() {
         open = !open;
         menu.style.transform = open ? 'translateY(0)' : 'translateY(-100%)';
         menuBtn.classList.toggle('menu-open', open);
-      };
+      }
+      menuBtn.onclick = toggleMenu;
+      if (closeBtn) closeBtn.onclick = closeMenu;
       menu.querySelectorAll('a').forEach(function(a) {
-        a.onclick = function() {
-          open = false;
-          menu.style.transform = 'translateY(-100%)';
-          menuBtn.classList.remove('menu-open');
-        };
+        a.onclick = closeMenu;
       });
     }
     initMobileMenu();
