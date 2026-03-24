@@ -195,8 +195,10 @@ const pageAttr = activeNav ?? 'home';
     </div>
   </header>
 
-  <!-- ── Page Content ── -->
-  <slot />
+  <!-- ── Page Content (GSAP transition wrapper) ── -->
+  <div id="page-content">
+    <slot />
+  </div>
 
   <!-- ── Unified Footer ── -->
   <footer class="site-footer w-full py-10 sm:py-12 px-6 sm:px-10 flex flex-col md:flex-row justify-between items-end gap-4 relative z-10 bg-black/90 backdrop-blur-md">

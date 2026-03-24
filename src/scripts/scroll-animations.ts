@@ -69,6 +69,8 @@ function initReveals() {
         once: true,
       },
       onComplete: () => {
+        // Clear all inline styles so page transitions don't inherit stale values
+        gsap.set(el, { clearProps: 'all' });
         el.dataset.gsapDone = '1';
         if (isExtreme) {
           el.classList.add('reveal-glitch');
@@ -156,6 +158,9 @@ function initStaggerCards() {
         start: 'top 85%',
         toggleActions: 'play none none none',
         once: true,
+      },
+      onComplete: () => {
+        gsap.set(cards, { clearProps: 'all' });
       },
     });
   });

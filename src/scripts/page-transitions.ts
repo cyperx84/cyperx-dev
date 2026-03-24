@@ -1,13 +1,9 @@
 /**
  * GSAP Page Transitions — layered on Astro View Transitions.
  *
- * Flow:
- *   1. User clicks link
- *   2. astro:before-preparation → GSAP animates content OUT
- *   3. Astro View Transition snapshot + CSS animation (existing glitch/slice/chaos)
- *   4. astro:page-load → GSAP animates content IN
- *
- * Does NOT replace View Transitions — enhances them.
+ * Strategy: animate a SINGLE wrapper (#page-content) in/out.
+ * Individual element animations are handled by scroll-animations.ts.
+ * This avoids conflicts where both systems fight over the same elements.
  */
 import { gsap } from 'gsap';
 
@@ -20,161 +16,100 @@ function getTheme(): Theme {
   return 'dark';
 }
 
-// ── Selectors for animatable content ──
-const CONTENT_SELECTOR = [
-  'main > section',
-  '.shard-hero',
-  '.parallax-hero',
-  'article',
-  '[data-reveal]',
-  '[data-stagger-grid] > *',
-  '.site-footer',
-].join(', ');
-
-// Don't animate persistent elements
-const PERSIST_IDS = ['three-bg', 'cursor-canvas', 'scroll-progress', 'crt-layer', 'mobile-menu'];
-
-function getAnimatableElements(): HTMLElement[] {
-  const els = Array.from(document.querySelectorAll<HTMLElement>(CONTENT_SELECTOR));
-  return els.filter(el => {
-    if (PERSIST_IDS.includes(el.id)) return false;
-    // Skip hidden theme variants
-    const parent = el.closest('.variant-dark, .variant-light, .variant-extreme');
-    if (parent && getComputedStyle(parent).display === 'none') return false;
-    return true;
-  });
+function getWrapper(): HTMLElement | null {
+  return document.getElementById('page-content');
 }
 
-// ── Exit animations (before page swap) ──
+// ── Exit animation (before page swap) ──
 function animateOut(): Promise<void> {
+  const wrapper = getWrapper();
+  if (!wrapper) return Promise.resolve();
+
   const theme = getTheme();
-  const els = getAnimatableElements();
-
-  if (!els.length) return Promise.resolve();
-
-  // Kill any running entrance animations
-  els.forEach(el => gsap.killTweensOf(el));
 
   return new Promise((resolve) => {
-    const tl = gsap.timeline({
-      onComplete: resolve,
-      defaults: { ease: 'power2.in' },
-    });
+    const tl = gsap.timeline({ onComplete: resolve });
 
     switch (theme) {
       case 'dark':
-        // Glitch scatter — elements fly in random directions
-        tl.to(els, {
+        tl.to(wrapper, {
           opacity: 0,
-          y: () => gsap.utils.random(-30, 30),
-          x: () => gsap.utils.random(-15, 15),
-          scale: 0.97,
+          y: -15,
           filter: 'blur(3px)',
-          stagger: { each: 0.02, from: 'center' },
-          duration: 0.25,
+          duration: 0.2,
+          ease: 'power2.in',
         });
         break;
 
       case 'light':
-        // Clean slide down + fade
-        tl.to(els, {
+        tl.to(wrapper, {
           opacity: 0,
-          y: 30,
-          stagger: { each: 0.02, from: 'start' },
+          y: 20,
           duration: 0.2,
+          ease: 'power2.in',
         });
         break;
 
       case 'extreme':
-        // Chaotic scatter — each element warps differently
-        tl.to(els, {
+        tl.to(wrapper, {
           opacity: 0,
-          y: () => gsap.utils.random(-50, 50),
-          x: () => gsap.utils.random(-30, 30),
-          rotation: () => gsap.utils.random(-5, 5),
-          scale: () => gsap.utils.random(0.85, 1.1),
-          filter: 'blur(4px) hue-rotate(90deg)',
-          stagger: { each: 0.015, from: 'random' },
-          duration: 0.3,
+          scale: 0.97,
+          rotation: gsap.utils.random(-1.5, 1.5),
+          filter: 'blur(4px) hue-rotate(60deg)',
+          duration: 0.25,
+          ease: 'power2.in',
         });
         break;
     }
   });
 }
 
-// ── Entrance animations (after page swap) ──
+// ── Entrance animation (after page swap) ──
 function animateIn() {
+  const wrapper = getWrapper();
+  if (!wrapper) return;
+
   const theme = getTheme();
-  const els = getAnimatableElements();
 
-  if (!els.length) return;
-
-  // Reset any leftover inline styles from exit
-  gsap.set(els, { clearProps: 'all' });
-
-  // Small delay to let Astro View Transition finish + DOM settle
-  const tl = gsap.timeline({
-    delay: 0.1,
-    defaults: { ease: 'power3.out' },
-  });
+  // Ensure wrapper starts hidden
+  gsap.killTweensOf(wrapper);
 
   switch (theme) {
     case 'dark':
-      // Elements materialize from glitch positions
-      gsap.set(els, { opacity: 0, y: 25, filter: 'blur(2px)' });
-      tl.to(els, {
-        opacity: 1,
-        y: 0,
-        filter: 'blur(0px)',
-        stagger: { each: 0.04, from: 'start' },
-        duration: 0.5,
-      });
+      gsap.fromTo(wrapper,
+        { opacity: 0, y: 20, filter: 'blur(3px)' },
+        { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.4, ease: 'power3.out', delay: 0.05,
+          onComplete: () => gsap.set(wrapper, { clearProps: 'all' }) }
+      );
       break;
 
     case 'light':
-      // Clean rise from below
-      gsap.set(els, { opacity: 0, y: 40 });
-      tl.to(els, {
-        opacity: 1,
-        y: 0,
-        stagger: { each: 0.05, from: 'start' },
-        duration: 0.5,
-      });
+      gsap.fromTo(wrapper,
+        { opacity: 0, y: 25 },
+        { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out', delay: 0.05,
+          onComplete: () => gsap.set(wrapper, { clearProps: 'all' }) }
+      );
       break;
 
     case 'extreme':
-      // Chaotic assembly — pieces snap into place
-      gsap.set(els, {
-        opacity: 0,
-        y: () => gsap.utils.random(-40, 40),
-        x: () => gsap.utils.random(-20, 20),
-        rotation: () => gsap.utils.random(-3, 3),
-        scale: 0.95,
-      });
-      tl.to(els, {
-        opacity: 1,
-        y: 0,
-        x: 0,
-        rotation: 0,
-        scale: 1,
-        stagger: { each: 0.03, from: 'edges' },
-        duration: 0.45,
-        ease: 'back.out(1.2)',
-      });
+      gsap.fromTo(wrapper,
+        { opacity: 0, scale: 1.03, y: -10, filter: 'blur(3px) hue-rotate(60deg)' },
+        { opacity: 1, scale: 1, y: 0, rotation: 0, filter: 'blur(0px) hue-rotate(0deg)',
+          duration: 0.4, ease: 'back.out(1.1)', delay: 0.05,
+          onComplete: () => gsap.set(wrapper, { clearProps: 'all' }) }
+      );
       break;
   }
 }
 
 // ── Wire up Astro lifecycle ──
 export function initPageTransitions() {
-  // Before navigation — animate content out, then let Astro proceed
+  // Before navigation — animate wrapper out, then let Astro proceed
   document.addEventListener('astro:before-preparation', (e: any) => {
-    // Don't block same-page hash links
     const from = new URL(e.from);
     const to = new URL(e.to);
     if (from.pathname === to.pathname) return;
 
-    // Tell Astro to wait for our animation
     const originalLoader = e.loader;
     e.loader = async () => {
       await animateOut();
@@ -182,11 +117,8 @@ export function initPageTransitions() {
     };
   });
 
-  // After page loads — animate content in
+  // After page loads — animate wrapper in
   document.addEventListener('astro:page-load', () => {
-    // Slight RAF delay so scroll-animations don't conflict
-    requestAnimationFrame(() => {
-      animateIn();
-    });
+    requestAnimationFrame(() => animateIn());
   });
 }
