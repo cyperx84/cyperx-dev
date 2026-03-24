@@ -1,0 +1,44 @@
+# CyperX.dev
+
+> Builder, breaker, automator. AI agent infrastructure, distributed fleets, and tools that compound over time.
+
+## About
+
+CyperX is Chris — a builder based in Brisbane, Australia. This site covers AI agent infrastructure, distributed fleet architecture, knowledge management systems, and building tools that compound.
+
+## Tech Stack
+
+- Astro v6 + Three.js + Tailwind CSS + TypeScript
+- AI Fleet: Claude Code, Codex CLI, Gemini CLI, OpenCode
+- Infrastructure: OpenClaw Gateway, Discord, Tailscale mesh
+- Knowledge: Obsidian vault, QMD, Flywheel system
+- Languages: TypeScript, Go, Rust, Python
+
+## Content
+
+### Blog Posts
+
+- [Why I Gave My AI Agent Root Access](/blog/ai-agent-root-access)
+- [The Obsidian Vault as Operating System](/blog/obsidian-vault-os)
+- [Fleet Architecture: Running 4 AI Agents on a Mac Mini](/blog/fleet-architecture-mac-mini)
+- [Token Economics: Spending $0.47/day on AI That Actually Works](/blog/token-economics)
+- [Building in Public When the Public Doesn't Exist Yet](/blog/building-in-public)
+- [Tailscale Mesh + Agent Army = Distributed Brain](/blog/tailscale-agent-mesh)
+
+### Projects
+
+- [OpenClaw Fleet](/projects/openclaw-fleet) — AI agent orchestration platform
+- [Fleet TUI](/projects/fleet-tui) — Terminal UI for fleet management
+- [CyperX.dev](/projects/cyperx-dev) — This site (Three.js + Astro)
+- [Personal OS](/projects/personal-os) — Knowledge management system
+- [Voice Forge](/projects/voice-forge) — Voice cloning pipeline
+- [Changelogs.info](/projects/changelogs-info) — AI coding tool changelog tracker
+
+## Links
+
+- GitHub: https://github.com/cyperx84
+- X: https://x.com/cyper_x_
+
+## Detailed Version
+
+For full content and context, see: https://cyperx.dev/llms-full.txt

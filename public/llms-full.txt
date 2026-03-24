@@ -1,0 +1,97 @@
+# CyperX.dev — Full Content for LLMs
+
+> Builder, breaker, automator. AI agent infrastructure, distributed fleets, and tools that compound over time.
+
+## About
+
+CyperX is Chris — a builder based in Brisbane, Australia. This site covers AI agent infrastructure, distributed fleet architecture, knowledge management systems, and building tools that compound.
+
+### Tech Stack
+- **Site:** Astro v6 + Three.js + Tailwind CSS + TypeScript
+- **AI Fleet:** Claude Code, Codex CLI, Gemini CLI, OpenCode
+- **Infrastructure:** OpenClaw Gateway, Discord, Tailscale mesh
+- **Knowledge:** Obsidian vault, QMD, Flywheel system
+- **Languages:** TypeScript, Go, Rust, Python
+- **Hardware:** M4 Mac Mini (primary), M1 Mac Mini (secondary)
+
+### Principles
+1. Build tools that compound over time
+2. Automate what's boring, think about what's interesting
+3. Ship fast, fix forward
+4. Open-source by default
+
+---
+
+## Blog Posts
+
+### Why I Gave My AI Agent Root Access
+**Date:** 2026.03.18 | **Category:** SYSTEMS | **Tags:** AI, AGENTS, INFRASTRUCTURE
+**URL:** https://cyperx.dev/blog/ai-agent-root-access
+
+Everyone told me it was insane. They were right. But the productivity gains from letting an autonomous agent manage my infrastructure changed everything about how I build. Full shell access to OpenClaw — git, file ops, Discord, cron, process management. Guard rails: approval model for destructive ops, explicit instructions, SOUL.md constraints, reversibility preference. Every incident was a human instruction error, not agent failure. Cognitive overhead of infrastructure management dropped significantly.
+
+### The Obsidian Vault as Operating System
+**Date:** 2026.03.02 | **Category:** KNOWLEDGE | **Tags:** OBSIDIAN, PKM, AUTOMATION
+**URL:** https://cyperx.dev/blog/obsidian-vault-os
+
+Your note-taking app is a shitty operating system. Here's how I turned mine into an actual one. Pipeline: Ideas → PRDs → Builds → Ship. Flat structure over folders — wikilinks + tags solve organization without folder decision overhead. Vault constitution (09-vault-constitution.md) defines rules for YAML frontmatter, atomic notes, wikilinks. AI agents read the vault as shared state — the vault IS the brief. Structure compounds: month one is overhead, month six pays off, month twelve is genuinely transformative.
+
+### Fleet Architecture: Running 4 AI Agents on a Mac Mini
+**Date:** 2026.02.26 | **Category:** BUILDS | **Tags:** AGENTS, MACOS, DISTRIBUTED
+**URL:** https://cyperx.dev/blog/fleet-architecture-mac-mini
+
+Four archetypes: Generalist (Claw/Main — claude-sonnet, broadest access), Builder (Claude Code, bypassPermissions, fast coding), Researcher (deep research, multi-source synthesis), Ops (monitoring, GLM-5 Turbo, cheap and reliable). Discord as control plane — each agent has its own channel. Inter-agent communication via sessions. Vault as shared state. Fallback chain: GLM-5 Turbo → OpenRouter → Sonnet → Opus. M4 Mac Mini handles all four without breaking a sweat.
+
+### Token Economics: Spending $0.47/day on AI That Actually Works
+**Date:** 2026.02.14 | **Category:** OPTIMIZATION | **Tags:** LLM, OPTIMIZATION, COST
+**URL:** https://cyperx.dev/blog/token-economics
+
+Daily breakdown: Ops ~$0.02, Main ~$0.20, Research ~$0.15, Builder ~$0.10. Total ~$0.47/day (~$14/month). Smart model routing is the secret — GLM-5 Turbo handles 60% of tasks. Context length is the main cost driver. Context-efficient agent design: ops summarizes vs retains, builder gets clean context per task, researcher chunks documents. API + smart routing beats subscriptions for programmatic use.
+
+### Building in Public When the Public Doesn't Exist Yet
+**Date:** 2026.01.28 | **Category:** THOUGHTS | **Tags:** PHILOSOPHY, BUILDING, FUTURE
+**URL:** https://cyperx.dev/blog/building-in-public
+
+The audience for human-AI collaboration infrastructure is ~400 people worldwide. Building for the other 8 billion who'll need it in 18 months. Infrastructure > apps. Rails built now will serve future models. Small audience, high signal beats large audience with low retention. Building in public forces clarity and precision even without external validation.
+
+### Tailscale Mesh + Agent Army = Distributed Brain
+**Date:** 2026.01.12 | **Category:** INFRASTRUCTURE | **Tags:** NETWORKING, AGENTS, TAILSCALE
+**URL:** https://cyperx.dev/blog/tailscale-agent-mesh
+
+Three machines (M4 Mac Mini, M1 Mac Mini, MacBook Pro Linux), one tailnet. Each runs OpenClaw gateway. Agents communicate via session bus routed through tailnet. Sub-10ms latency on LAN, <50ms over internet. Stable Tailscale IPs eliminate DNS/NAT issues. Distributed brain: multiple intelligence instances working different tasks, coordinating when needed.
+
+---
+
+## Projects
+
+### OpenClaw Fleet
+AI agent orchestration platform. Multi-agent management, session isolation, model routing, Discord integration.
+**URL:** https://cyperx.dev/projects/openclaw-fleet
+
+### Fleet TUI
+Terminal UI for agent fleet management. Real-time monitoring, dispatch controls, status dashboard.
+**URL:** https://cyperx.dev/projects/fleet-tui
+
+### CyperX.dev
+This website. Astro v6, Three.js backgrounds, three visual themes (dark/light/extreme), GSAP scroll animations.
+**URL:** https://cyperx.dev/projects/cyperx-dev
+
+### Personal OS
+Knowledge management system built on Obsidian. Vault constitution, AI agent integration, learning flywheel.
+**URL:** https://cyperx.dev/projects/personal-os
+
+### Voice Forge
+Voice cloning pipeline. Local TTS with Chatterbox, custom voice models.
+**URL:** https://cyperx.dev/projects/voice-forge
+
+### Changelogs.info
+AI coding tool changelog tracker. Monitors Claude Code, Codex CLI, Gemini CLI, OpenCode releases.
+**URL:** https://cyperx.dev/projects/changelogs-info
+
+---
+
+## Links
+
+- **GitHub:** https://github.com/cyperx84
+- **X:** https://x.com/cyper_x_
+- **Site:** https://cyperx.dev
