@@ -1086,67 +1086,78 @@ a[href="/projects/personal-os"] {
 
 .theme-toggle-glow {
   background: conic-gradient(from var(--glow-angle, 0deg), #39FF14, #FF51FA, #AC89FF, #39FF14);
-  opacity: 0.6;
-  animation: glow-rotate 3s linear infinite, glow-pulse 2s ease-in-out infinite;
+  opacity: 0.7;
+  animation: glow-rotate 2.5s linear infinite, glow-pulse 2s ease-in-out infinite;
 }
 
 .theme-toggle-btn::after {
   content: '';
   position: absolute;
-  inset: 2px;
-  border-radius: 6px;
+  inset: 2.5px;
+  border-radius: 10px;
   z-index: 5;
 }
 
 /* Per-theme inner bg */
-.theme-dark .theme-toggle-btn::after { background: #1a1a1a; }
+.theme-dark .theme-toggle-btn::after { background: #0e0e0e; }
 .theme-light .theme-toggle-btn::after { background: #f0f0f0; }
 .theme-extreme .theme-toggle-btn::after { background: #000; }
 
 /* Per-theme glow intensity */
 .theme-dark .theme-toggle-glow {
-  background: conic-gradient(from var(--glow-angle, 0deg), #39FF14, #FF51FA, #39FF14);
-  opacity: 0.5;
-  animation: glow-rotate 4s linear infinite, glow-pulse 3s ease-in-out infinite;
+  background: conic-gradient(from var(--glow-angle, 0deg), #39FF14, #FF51FA, #AC89FF, #39FF14);
+  opacity: 0.7;
+  animation: glow-rotate 2.5s linear infinite, glow-pulse 2s ease-in-out infinite;
 }
 .theme-light .theme-toggle-glow {
-  background: conic-gradient(from var(--glow-angle, 0deg), #FF51FA, #AC89FF, #FF51FA);
-  opacity: 0.4;
-  animation: glow-rotate 5s linear infinite, glow-pulse 4s ease-in-out infinite;
+  background: conic-gradient(from var(--glow-angle, 0deg), #FF51FA, #AC89FF, #39FF14, #FF51FA);
+  opacity: 0.6;
+  animation: glow-rotate 3s linear infinite, glow-pulse 2.5s ease-in-out infinite;
 }
 .theme-extreme .theme-toggle-glow {
   background: conic-gradient(from var(--glow-angle, 0deg), #8eff71, #ff51fa, #ac89ff, #ff0, #00f0ff, #8eff71);
-  opacity: 0.85;
-  animation: glow-rotate 1.5s linear infinite, glow-pulse 1s ease-in-out infinite;
+  opacity: 1;
+  animation: glow-rotate 1s linear infinite, glow-pulse 0.8s ease-in-out infinite;
 }
 
-/* Icon style */
+/* Icon style — bigger skull, strong glow */
 .theme-toggle-icon {
-  filter: drop-shadow(0 0 4px currentColor);
+  font-size: 1.4rem;
+  filter: drop-shadow(0 0 6px currentColor);
+  animation: skull-float 3s ease-in-out infinite;
 }
 .theme-extreme .theme-toggle-icon {
-  filter: drop-shadow(0 0 8px #8eff71) drop-shadow(0 0 16px #ff51fa);
-  animation: icon-breathe 1.5s ease-in-out infinite;
+  font-size: 1.6rem;
+  filter: drop-shadow(0 0 10px #8eff71) drop-shadow(0 0 20px #ff51fa) drop-shadow(0 0 30px #ac89ff);
+  animation: skull-glitch 2s ease-in-out infinite, skull-float 1.5s ease-in-out infinite;
 }
 .theme-dark .theme-toggle-icon {
-  filter: drop-shadow(0 0 6px #39FF14);
-  animation: icon-breathe 3s ease-in-out infinite;
+  font-size: 1.4rem;
+  filter: drop-shadow(0 0 8px #39FF14) drop-shadow(0 0 16px #39FF14);
+  animation: skull-float 2.5s ease-in-out infinite;
 }
 .theme-light .theme-toggle-icon {
-  filter: drop-shadow(0 0 3px #FF51FA);
-  animation: icon-breathe 4s ease-in-out infinite;
+  font-size: 1.4rem;
+  filter: drop-shadow(0 0 6px #FF51FA) drop-shadow(0 0 12px #AC89FF);
+  animation: skull-float 3s ease-in-out infinite;
 }
 
 @keyframes glow-rotate {
   to { --glow-angle: 360deg; }
 }
 @keyframes glow-pulse {
-  0%, 100% { opacity: var(--pulse-min, 0.4); transform: scale(1); }
-  50% { opacity: var(--pulse-max, 0.8); transform: scale(1.05); }
+  0%, 100% { opacity: var(--pulse-min, 0.5); transform: scale(1); }
+  50% { opacity: var(--pulse-max, 1); transform: scale(1.12); }
 }
-@keyframes icon-breathe {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
+@keyframes skull-float {
+  0%, 100% { transform: scale(1) translateY(0); }
+  50% { transform: scale(1.1) translateY(-1.5px); }
+}
+@keyframes skull-glitch {
+  0%, 90%, 100% { transform: scale(1) translateX(0); }
+  92% { transform: scale(1.15) translateX(-2px) skewX(-5deg); }
+  94% { transform: scale(0.95) translateX(2px) skewX(5deg); }
+  96% { transform: scale(1.1) translateX(-1px); }
 }
 
 /* Allow custom property animation */
@@ -1156,14 +1167,26 @@ a[href="/projects/personal-os"] {
   inherits: false;
 }
 
+.theme-toggle-btn:hover {
+  transform: scale(1.15);
+}
 .theme-toggle-btn:hover .theme-toggle-glow {
   opacity: 1;
-  transform: scale(1.1);
+  transform: scale(1.2);
+}
+.theme-toggle-btn:hover .theme-toggle-icon {
+  animation: skull-bounce 0.4s ease-out;
 }
 .theme-toggle-btn:active {
-  transform: scale(0.92);
+  transform: scale(0.9);
 }
 
+@keyframes skull-bounce {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.35) rotate(-10deg); }
+  70% { transform: scale(0.9) rotate(5deg); }
+  100% { transform: scale(1.1) rotate(0deg); }
+}
 @keyframes icon-spin-anim {
   0%   { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }

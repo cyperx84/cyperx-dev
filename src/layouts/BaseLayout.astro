@@ -162,12 +162,12 @@ const pageAttr = activeNav ?? 'home';
     <div class="flex items-center gap-3">
       <button
         id="theme-toggle"
-        class="theme-toggle-btn relative w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center rounded-lg transition-all duration-300 overflow-hidden group"
+        class="theme-toggle-btn relative w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-xl transition-all duration-300 overflow-hidden group"
         aria-label="Cycle theme"
         onclick="(function(){var T=['extreme','dark','light'];var c=localStorage.getItem('cyperx-theme')||'extreme';var n=T[(T.indexOf(c)+1)%T.length];document.documentElement.className='theme-'+n;localStorage.setItem('cyperx-theme',n);})()"
       >
         <span class="theme-toggle-glow absolute inset-0 rounded-lg"></span>
-        <span class="toggle-icon relative z-10 text-lg sm:text-xl leading-none theme-toggle-icon">⚡</span>
+        <span class="toggle-icon relative z-10 text-lg sm:text-xl leading-none theme-toggle-icon">💀</span>
       </button>
       <!-- Mobile hamburger -->
       <!-- Reset bullet holes -->
@@ -266,9 +266,9 @@ const pageAttr = activeNav ?? 'home';
   <script is:inline>
     const THEMES = ['extreme', 'dark', 'light'];
     const THEME_ICONS = {
-      extreme: '⚡',
+      extreme: '💀',
       dark: '💀',
-      light: '☀️',
+      light: '💀',
     };
 
     function applyTheme(theme) {
