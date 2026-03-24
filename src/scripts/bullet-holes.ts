@@ -270,17 +270,12 @@ function drawParticle(c: CanvasRenderingContext2D, p: Particle) {
 // ── Resize canvas to cover full document ──
 function resizeCanvas() {
   if (!canvas) return;
-  // Temporarily collapse canvas so it doesn't inflate scrollHeight measurement
-  const prevH = canvas.style.height;
-  canvas.style.height = '0px';
-  const w = Math.max(document.documentElement.scrollWidth, window.innerWidth);
-  const h = Math.max(document.documentElement.scrollHeight, window.innerHeight);
-  canvas.style.height = prevH;
+  // Fixed canvas = viewport-sized (no scroll inflation)
+  const w = window.innerWidth;
+  const h = window.innerHeight;
   if (canvas.width !== w || canvas.height !== h) {
     canvas.width = w;
     canvas.height = h;
-    canvas.style.width = w + 'px';
-    canvas.style.height = h + 'px';
   }
 }
 
@@ -299,8 +294,12 @@ function animate() {
   applyShake();
 
   const dpr = window.devicePixelRatio || 1;
+  // Canvas is fixed (viewport-space); holes/particles stored in page-space.
+  // Offset drawing by current scroll to project page→viewport coords.
+  const sx = window.scrollX;
+  const sy = window.scrollY;
 
-  // Draw holes (compositing pre-rendered bitmaps in page space)
+  // Draw holes (compositing pre-rendered bitmaps)
   let writeIdx = 0;
   for (let i = 0; i < holes.length; i++) {
     const h = holes[i];
@@ -315,14 +314,14 @@ function animate() {
 
     ctx.globalAlpha = h.opacity;
     const drawSize = h.bitmapSize / dpr;
-    ctx.drawImage(h.bitmap, h.x - drawSize / 2, h.y - drawSize / 2, drawSize, drawSize);
+    ctx.drawImage(h.bitmap, (h.x - sx) - drawSize / 2, (h.y - sy) - drawSize / 2, drawSize, drawSize);
 
     if (writeIdx !== i) holes[writeIdx] = h;
     writeIdx++;
   }
   holes.length = writeIdx;
 
-  // Update + draw particles (also in page space)
+  // Update + draw particles (also stored in page-space)
   let pWrite = 0;
   for (let i = 0; i < particles.length; i++) {
     const p = particles[i];
@@ -333,7 +332,11 @@ function animate() {
     p.rotation += p.rotSpeed;
     p.life -= p.decay;
     if (p.life <= 0) continue;
+    // Offset particle position by scroll for viewport drawing
+    const origX = p.x, origY = p.y;
+    p.x -= sx; p.y -= sy;
     drawParticle(ctx, p);
+    p.x = origX; p.y = origY;
     if (pWrite !== i) particles[pWrite] = p;
     pWrite++;
   }
@@ -426,8 +429,9 @@ export function initBulletHoles() {
 
   canvas = document.createElement('canvas');
   canvas.id = 'bullet-canvas';
-  // position:absolute so it lives in document flow and scrolls with content
-  canvas.style.cssText = 'position:absolute;top:0;left:0;pointer-events:none;z-index:40;';
+  // Fixed canvas — never inflates page scroll height.
+  // Holes are stored in page-space coords; we offset by scroll when drawing.
+  canvas.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:40;';
   document.body.appendChild(canvas);
 
   ctx = canvas.getContext('2d');
