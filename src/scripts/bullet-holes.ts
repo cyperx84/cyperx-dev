@@ -52,8 +52,8 @@ let initialized = false;
 
 // ── Config ──
 const MAX_HOLES = 30;
-const HOLE_PERSIST_S = 8;      // seconds before fade starts
-const HOLE_FADE_S = 2;         // seconds to fade out
+const HOLE_PERSIST_S = 15;     // seconds before fade starts
+const HOLE_FADE_S = 3;         // seconds to fade out
 const HOLE_FADE_RATE = 1 / (HOLE_FADE_S * 60); // per frame at 60fps
 const PARTICLE_COUNT = { normal: 14, extreme: 22 };
 const SHAKE_PX = 6;
@@ -74,9 +74,9 @@ const PALETTES: Record<Theme, string[]> = {
 };
 
 const HOLE_STYLE: Record<Theme, { fill: string; stroke: string; crack: string; glow: number }> = {
-  dark: { fill: '#0a0a0a', stroke: '#39FF14', crack: 'rgba(57,255,20,0.5)', glow: 8 },
-  light: { fill: '#333', stroke: '#FF51FA', crack: 'rgba(255,81,250,0.4)', glow: 6 },
-  extreme: { fill: '#000', stroke: '#8eff71', crack: 'rgba(255,81,250,0.55)', glow: 12 },
+  dark: { fill: '#0a0a0a', stroke: '#39FF14', crack: 'rgba(57,255,20,0.6)', glow: 12 },
+  light: { fill: '#333', stroke: '#FF51FA', crack: 'rgba(255,81,250,0.5)', glow: 10 },
+  extreme: { fill: '#000', stroke: '#8eff71', crack: 'rgba(255,81,250,0.65)', glow: 16 },
 };
 
 // ── Screen shake (CSS transform, no reflow) ──
@@ -108,7 +108,7 @@ function bakeCracks(theme: Theme): BakedCrack[] {
   const cracks: BakedCrack[] = [];
   for (let i = 0; i < count; i++) {
     const angle = (Math.PI * 2 / count) * i + (Math.random() - 0.5) * 0.6;
-    const length = 12 + Math.random() * (theme === 'extreme' ? 45 : 28);
+    const length = 20 + Math.random() * (theme === 'extreme' ? 60 : 40);
     const steps = 3 + (Math.random() * 2 | 0);
     const points: { x: number; y: number }[] = [{ x: 0, y: 0 }];
     for (let s = 1; s <= steps; s++) {
@@ -142,7 +142,7 @@ function bakeCracks(theme: Theme): BakedCrack[] {
 function renderHoleBitmap(theme: Theme): { bitmap: HTMLCanvasElement; size: number } {
   const style = HOLE_STYLE[theme];
   const cracks = bakeCracks(theme);
-  const radius = 3 + Math.random() * 2;
+  const radius = 5 + Math.random() * 3;
 
   // Determine bounds
   let maxR = radius + 4;
