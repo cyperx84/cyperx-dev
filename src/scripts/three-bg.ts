@@ -1,7 +1,7 @@
 /**
  * three-bg.ts — CyperX.dev Three.js background scenes
  * One file handles all 3 themes with distinct visual personalities.
- * Dark: wireframe grid (glowing) | Light: wireframe grid (soft) | Extreme: morphing icosahedron
+ * Dark: wireframe grid (glowing) | Light: wireframe grid (soft) | Extreme: wireframe grid (rainbow chaos)
  */
 import * as THREE from 'three';
 
@@ -369,65 +369,195 @@ function buildLightScene(w: number, h: number): SceneBundle {
   return { scene, camera, dispose, onMouse, tick };
 }
 
-// ── EXTREME: Morphing Icosahedron ──────────────────────────────────────────
+// ── EXTREME: Chaotic Rainbow Wireframe Grid ────────────────────────────────
 function buildExtremeScene(w: number, h: number): SceneBundle {
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(60, w / h, 0.1, 1000);
-  camera.position.z = 40;
+  const camera = new THREE.PerspectiveCamera(55, w / h, 0.1, 1000);
+  camera.position.set(0, 30, 65);
+  camera.lookAt(0, -5, 0);
 
-  const geo = new THREE.IcosahedronGeometry(12, 3);
-  const mat = new THREE.MeshBasicMaterial({
-    color: 0x8eff71,
+  // Rainbow cycling grid — denser, wilder
+  const SEGS = 60;
+  const gridGeo = new THREE.PlaneGeometry(200, 160, SEGS, SEGS);
+  gridGeo.rotateX(-Math.PI / 2.5);
+
+  const gridVertCount = (SEGS + 1) * (SEGS + 1);
+  const gridColors = new Float32Array(gridVertCount * 3);
+  // Initial rainbow spread
+  for (let i = 0; i < gridVertCount; i++) {
+    const hue = (i / gridVertCount) * 360;
+    const c = new THREE.Color().setHSL(hue / 360, 1.0, 0.5);
+    gridColors[i * 3] = c.r; gridColors[i * 3 + 1] = c.g; gridColors[i * 3 + 2] = c.b;
+  }
+  gridGeo.setAttribute('color', new THREE.BufferAttribute(gridColors, 3));
+
+  const gridMat = new THREE.MeshBasicMaterial({
     wireframe: true,
+    vertexColors: true,
     transparent: true,
-    opacity: 0.4,
+    opacity: 0.22,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
   });
 
-  const mesh = new THREE.Mesh(geo, mat);
-  scene.add(mesh);
+  const gridMesh = new THREE.Mesh(gridGeo, gridMat);
+  gridMesh.position.y = -15;
+  scene.add(gridMesh);
 
-  // Store original vertices
-  const origPos = new Float32Array((geo.attributes.position as THREE.BufferAttribute).array);
+  const origPos = new Float32Array((gridGeo.attributes.position as THREE.BufferAttribute).array);
 
-  // Color targets
-  const colors = [
-    new THREE.Color('#8eff71'),
-    new THREE.Color('#ff51fa'),
-    new THREE.Color('#ac89ff'),
+  // More floating shapes — chaotic
+  interface FloatingShape {
+    mesh: THREE.Mesh;
+    baseY: number;
+    baseX: number;
+    phase: number;
+    rotSpeed: THREE.Vector3;
+    floatSpeed: number;
+    floatAmp: number;
+    driftSpeed: number;
+  }
+  const shapes: FloatingShape[] = [];
+  const geometries = [
+    () => new THREE.IcosahedronGeometry(3.5, 1),
+    () => new THREE.OctahedronGeometry(3, 0),
+    () => new THREE.TorusKnotGeometry(2.5, 0.8, 48, 8),
+    () => new THREE.TetrahedronGeometry(3, 0),
+    () => new THREE.DodecahedronGeometry(3, 0),
+    () => new THREE.TorusGeometry(3, 0.8, 8, 12),
+    () => new THREE.BoxGeometry(3.5, 3.5, 3.5),
+    () => new THREE.CylinderGeometry(0, 3.5, 5, 5),
+    () => new THREE.OctahedronGeometry(2.5, 2),
+    () => new THREE.IcosahedronGeometry(2, 2),
+    () => new THREE.TorusKnotGeometry(2, 0.6, 32, 4, 3, 2),
+    () => new THREE.SphereGeometry(2.5, 8, 6),
   ];
 
-  let mx = 0, my = 0;
-  const onMouse = (x: number, y: number) => { mx = x; my = y; };
+  for (let i = 0; i < 12; i++) {
+    const g = geometries[i]();
+    const m = new THREE.MeshBasicMaterial({
+      color: new THREE.Color().setHSL((i / 12), 1.0, 0.55),
+      wireframe: true,
+      transparent: true,
+      opacity: 0.4,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+    const mesh = new THREE.Mesh(g, m);
+    const x = (Math.random() - 0.5) * 120;
+    const y = Math.random() * 30 + 5;
+    const z = (Math.random() - 0.5) * 60 - 10;
+    mesh.position.set(x, y, z);
+    scene.add(mesh);
+    shapes.push({
+      mesh,
+      baseY: y,
+      baseX: x,
+      phase: Math.random() * Math.PI * 2,
+      rotSpeed: new THREE.Vector3(
+        (Math.random() - 0.5) * 1.2,
+        (Math.random() - 0.5) * 1.5,
+        (Math.random() - 0.5) * 0.8,
+      ),
+      floatSpeed: 0.3 + Math.random() * 0.8,
+      floatAmp: 4 + Math.random() * 7,
+      driftSpeed: (Math.random() - 0.5) * 0.3,
+    });
+  }
 
-  const tick = (t: number) => {
-    // Morph vertices
-    const pos = geo.attributes.position as THREE.BufferAttribute;
-    const arr = pos.array as Float32Array;
-    for (let i = 0; i < arr.length / 3; i++) {
-      const ox = origPos[i * 3];
-      const oy = origPos[i * 3 + 1];
-      const oz = origPos[i * 3 + 2];
-      const n = noise(ox * 0.1 + t * 0.3, oy * 0.1, oz * 0.1);
-      const pulse = 1 + n * 0.25 + Math.sin(t * 1.5) * 0.08;
-      arr[i * 3]     = ox * pulse;
-      arr[i * 3 + 1] = oy * pulse;
-      arr[i * 3 + 2] = oz * pulse;
-    }
-    pos.needsUpdate = true;
+  // Accent lines — more, rainbow
+  const accentLines: THREE.Line[] = [];
+  for (let i = 0; i < 10; i++) {
+    const lg = new THREE.BufferGeometry();
+    const x = (Math.random() - 0.5) * 140;
+    const z = -20 - Math.random() * 50;
+    const pts = [new THREE.Vector3(x, -30, z), new THREE.Vector3(x, 60, z)];
+    lg.setFromPoints(pts);
+    const lm = new THREE.LineBasicMaterial({
+      color: new THREE.Color().setHSL(i / 10, 1.0, 0.5),
+      transparent: true,
+      opacity: 0.1,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+    const line = new THREE.Line(lg, lm);
+    scene.add(line);
+    accentLines.push(line);
+  }
 
-    // Rotate — slight mouse influence
-    mesh.rotation.y = t * 0.15 + mx * 0.3;
-    mesh.rotation.x = t * 0.07 + my * 0.2;
-    mesh.rotation.z = t * 0.05;
+  let rippleX = 0, rippleY = 0, rippleStrength = 0;
 
-    // Cycle colors every ~5 seconds
-    const ci  = Math.floor((t / 5) % colors.length);
-    const ci2 = (ci + 1) % colors.length;
-    const f   = (t / 5) % 1;
-    mat.color.lerpColors(colors[ci], colors[ci2], f);
+  const onMouse = (x: number, y: number) => {
+    rippleX = x * 100;
+    rippleY = y * 80;
+    rippleStrength = 1.5; // extra strong
   };
 
-  const dispose = () => { geo.dispose(); mat.dispose(); };
+  const tick = (t: number) => {
+    // Grid undulation — chaotic layered waves
+    const pos = gridGeo.attributes.position as THREE.BufferAttribute;
+    const arr = pos.array as Float32Array;
+
+    for (let i = 0; i < arr.length / 3; i++) {
+      const ox = origPos[i * 3];
+      const oz = origPos[i * 3 + 2];
+      let y = Math.sin(ox * 0.04 + t * 0.9) * 5.5
+            + Math.cos(oz * 0.06 + t * 0.6) * 4.0
+            + Math.sin((ox + oz) * 0.03 + t * 0.35) * 3.0
+            + Math.sin(ox * 0.15 + t * 2.0) * 1.5
+            + Math.cos(oz * 0.12 + t * 1.6) * 1.2;
+      // Mouse ripple — massive
+      if (rippleStrength > 0.01) {
+        const dist = Math.sqrt((ox - rippleX) ** 2 + (oz - rippleY) ** 2);
+        y += Math.sin(dist * 0.15 - t * 8) * Math.exp(-dist * 0.012) * 10 * rippleStrength;
+      }
+      arr[i * 3 + 1] = y;
+    }
+    pos.needsUpdate = true;
+    rippleStrength *= 0.99;
+
+    // Rainbow cycle the grid colors
+    const colorAttr = gridGeo.attributes.color as THREE.BufferAttribute;
+    const cArr = colorAttr.array as Float32Array;
+    for (let i = 0; i < gridVertCount; i++) {
+      const hue = ((i / gridVertCount) * 360 + t * 30) % 360;
+      const c = new THREE.Color().setHSL(hue / 360, 1.0, 0.5);
+      cArr[i * 3] = c.r; cArr[i * 3 + 1] = c.g; cArr[i * 3 + 2] = c.b;
+    }
+    colorAttr.needsUpdate = true;
+
+    // Grid opacity pulse
+    gridMat.opacity = 0.18 + Math.sin(t * 0.6) * 0.08;
+
+    // Float, rotate, drift shapes + rainbow cycle their colors
+    for (let si = 0; si < shapes.length; si++) {
+      const s = shapes[si];
+      s.mesh.position.y = s.baseY + Math.sin(t * s.floatSpeed + s.phase) * s.floatAmp;
+      s.mesh.position.x = s.baseX + Math.sin(t * s.driftSpeed + s.phase) * 10;
+      s.mesh.rotation.x += s.rotSpeed.x * 0.015;
+      s.mesh.rotation.y += s.rotSpeed.y * 0.015;
+      s.mesh.rotation.z += s.rotSpeed.z * 0.015;
+      const m = s.mesh.material as THREE.MeshBasicMaterial;
+      m.opacity = 0.3 + Math.sin(t * 0.9 + s.phase) * 0.18;
+      // Rainbow cycle each shape
+      const hue = ((si / shapes.length) * 360 + t * 50) % 360;
+      m.color.setHSL(hue / 360, 1.0, 0.55);
+    }
+
+    // Accent line shimmer + color cycle
+    for (let i = 0; i < accentLines.length; i++) {
+      const m = accentLines[i].material as THREE.LineBasicMaterial;
+      m.opacity = 0.07 + Math.sin(t * 0.5 + i * 0.9) * 0.05;
+      const hue = ((i / accentLines.length) * 360 + t * 40) % 360;
+      m.color.setHSL(hue / 360, 1.0, 0.5);
+    }
+  };
+
+  const dispose = () => {
+    gridGeo.dispose(); gridMat.dispose();
+    for (const s of shapes) { s.mesh.geometry.dispose(); (s.mesh.material as THREE.Material).dispose(); }
+    for (const l of accentLines) { l.geometry.dispose(); (l.material as THREE.Material).dispose(); }
+  };
   return { scene, camera, dispose, onMouse, tick };
 }
 
