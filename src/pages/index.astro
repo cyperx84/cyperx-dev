@@ -102,7 +102,7 @@ const timeline = [
           <h2 class="text-3xl sm:text-5xl font-black italic text-[#39FF14] tracking-tighter" data-typewriter="30">WHAT_I_BUILD</h2>
           <div class="h-[2px] flex-grow bg-gradient-to-r from-[#39FF14]/50 to-transparent"></div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-0 relative">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-0 relative" data-stagger-grid>
           {sections.map((s, i) => {
             const bgs = ["bg-[#2a2a2a]", "bg-[#353535]", "bg-[#1f1f1f]"];
             const colors = ["#39FF14", "#FF51FA", "#AC89FF"];
@@ -184,7 +184,7 @@ const timeline = [
           <h2 class="text-3xl sm:text-5xl font-black italic tracking-tighter text-[#131313]" data-typewriter="30">WHAT_I_BUILD</h2>
           <span class="font-mono text-[#FF51FA] text-sm">[{sections.length}_ACTIVE_DOMAINS]</span>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8" data-stagger-grid>
           {sections.map((s, i) => {
             const spans = ["md:col-span-8", "md:col-span-4", "md:col-span-12"];
             const clipPaths = [
@@ -216,7 +216,7 @@ const timeline = [
       <!-- Timeline -->
       <section class="px-4 sm:px-8 py-16 sm:py-24 max-w-4xl mx-auto bg-white/60 backdrop-blur-sm rounded-lg">
         <div class="mb-12 text-center">
-          <h2 class="text-3xl sm:text-5xl font-black italic tracking-tighter text-[#131313] mb-2">RECENT_BUILDS</h2>
+          <h2 class="text-3xl sm:text-5xl font-black italic tracking-tighter text-[#131313] mb-2" data-split-text>RECENT_BUILDS</h2>
           <p class="font-mono text-xs text-[#131313]/40">LATEST FROM THE WORKSHOP</p>
         </div>
         <div class="space-y-8">
@@ -253,7 +253,7 @@ const timeline = [
           <h2 class="text-3xl sm:text-5xl font-black italic tracking-tighter text-[#131313]" data-typewriter="30">ABOUT</h2>
           <span class="font-mono text-[#FF51FA] text-sm">{about.handle}</span>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12" data-stagger-grid>
           <!-- Main column -->
           <div class="md:col-span-7 space-y-6">
             <div class="space-y-1">
@@ -324,7 +324,7 @@ const timeline = [
       </section>
 
       <!-- What I Build -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-16 mt-20 sm:mt-40 relative">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-16 mt-20 sm:mt-40 relative" data-stagger-grid>
         {sections.map((s, i) => {
           const spans = ["md:col-span-8", "md:col-span-4 md:-ml-8 md:mt-20", "md:col-span-12"];
           const colors = ["#8eff71", "#ff51fa", "#ac89ff"];

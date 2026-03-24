@@ -248,12 +248,10 @@ const pageAttr = activeNav ?? 'home';
         });
       });
 
-      // Lenis RAF loop
-      function raf(time: number) {
-        lenis?.raf(time);
-        requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
+      // Connect Lenis to GSAP ScrollTrigger
+      import('../scripts/scroll-animations').then(m => {
+        m.connectLenis(lenis);
+      });
     }
 
     // Init on first load
@@ -418,84 +416,8 @@ const pageAttr = activeNav ?? 'home';
       });
     }
 
-    // ── Staggered Scroll Reveal ──
-    function initScrollReveal() {
-      const isExtreme = document.documentElement.classList.contains('theme-extreme');
-
-      // Only target data-reveal elements inside the VISIBLE variant
-      const allReveals = document.querySelectorAll('[data-reveal]');
-      
-      allReveals.forEach((el, idx) => {
-        if (el.dataset.revealDone) return;
-        
-        // Skip elements inside hidden variants (display:none parents)
-        const parent = el.closest('.variant-dark, .variant-light, .variant-extreme');
-        if (parent && getComputedStyle(parent).display === 'none') return;
-
-        const variant = el.dataset.reveal || 'slide-up';
-
-        // Set initial hidden state via inline styles
-        el.style.opacity = '0';
-
-        if (variant === 'slide-left') {
-          el.style.transform = 'translateX(-40px)';
-        } else if (variant === 'slide-right') {
-          el.style.transform = 'translateX(40px)';
-        } else if (variant === 'scale') {
-          el.style.transform = 'scale(0.85)';
-        } else {
-          el.style.transform = 'translateY(40px)';
-        }
-
-        // Stagger delay based on sibling index
-        const siblings = el.parentElement ? Array.from(el.parentElement.querySelectorAll('[data-reveal]')) : [];
-        const siblingIdx = siblings.indexOf(el);
-        const delay = siblingIdx >= 0 ? siblingIdx * 80 : idx * 60;
-
-        function reveal() {
-          if (el.dataset.revealDone) return;
-          el.dataset.revealDone = '1';
-          requestAnimationFrame(() => {
-            el.style.transition = `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}ms`;
-            el.style.opacity = '1';
-            el.style.transform = 'none';
-            if (isExtreme) {
-              el.classList.add('reveal-glitch');
-              setTimeout(() => el.classList.remove('reveal-glitch'), 300);
-            }
-          });
-        }
-
-        // Check if already in viewport
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-          // Already visible — reveal with a small delay for stagger effect
-          setTimeout(reveal, 50 + delay);
-        } else {
-          // Not yet visible — use IntersectionObserver
-          const obs = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting) {
-              reveal();
-              obs.disconnect();
-            }
-          }, { threshold: 0.05 });
-          obs.observe(el);
-        }
-      });
-    }
-
-    // ── Hero Parallax ──
-    function initParallax() {
-      const heroes = document.querySelectorAll('.parallax-hero, .shard-hero');
-      if (!heroes.length) return;
-      window.addEventListener('scroll', () => {
-        if (document.hidden) return;
-        const scrollY = window.scrollY;
-        heroes.forEach(el => {
-          el.style.transform = `translateY(${scrollY * 0.1}px)`;
-        });
-      }, { passive: true });
-    }
+    // ── Scroll Reveal + Parallax (powered by GSAP ScrollTrigger) ──
+    // Handled by scroll-animations.ts — connected to Lenis above
 
     // ── Footer typewriter re-trigger on scroll into view ──
     function initFooterTypewriter() {
@@ -530,8 +452,8 @@ const pageAttr = activeNav ?? 'home';
     // Init — works for both initial load and Astro client-side navigations
     function initAll() {
       initTypewriters();
-      initScrollReveal();
-      initParallax();
+      // GSAP ScrollTrigger handles reveals + parallax
+      import('../scripts/scroll-animations').then(m => m.initScrollAnimations());
       initFooterTypewriter();
       initMobileMenu();
       // Re-apply theme from localStorage (in case of client nav)

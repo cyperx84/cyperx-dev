@@ -49,7 +49,7 @@ const rest = posts.slice(1);
       </article>
 
       <!-- Post Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12" data-stagger-grid>
         {rest.map((post, i) => {
           const spans = [
             "md:col-span-4",
@@ -144,7 +144,7 @@ const rest = posts.slice(1);
       </article>
 
       <!-- Post Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6" data-stagger-grid>
         {rest.map((post, i) => {
           const spans = ["md:col-span-5", "md:col-span-7", "md:col-span-7", "md:col-span-5", "md:col-span-6"];
           const clipPaths = [
@@ -247,7 +247,7 @@ const rest = posts.slice(1);
       </article>
 
       <!-- Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12 items-start">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12 items-start" data-stagger-grid>
         {rest.map((post, i) => {
           const spans = ["md:col-span-4", "md:col-span-8", "md:col-span-6", "md:col-span-6", "md:col-span-5"];
           const borderColors = ["#ff51fa", "#8eff71", "#ac89ff", "#ff51fa", "#8eff71"];
