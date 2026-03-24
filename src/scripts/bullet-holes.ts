@@ -65,13 +65,13 @@ function getTheme(): Theme {
 
 const PALETTES: Record<Theme, string[]> = {
   dark: ['#39FF14', '#2bcc10', '#1a8a0a', '#FF51FA', '#fff'],
-  light: ['#FF51FA', '#AC89FF', '#39FF14', '#131313', '#888'],
+  light: ['#FF51FA', '#D946EF', '#AC89FF', '#7C3AED', '#131313'],
   extreme: ['#8eff71', '#ff51fa', '#ac89ff', '#00f0ff', '#ff0', '#f30'],
 };
 
 const HOLE_STYLE: Record<Theme, { fill: string; stroke: string; crack: string; glow: number }> = {
   dark: { fill: '#0a0a0a', stroke: '#39FF14', crack: 'rgba(57,255,20,0.6)', glow: 12 },
-  light: { fill: '#333', stroke: '#FF51FA', crack: 'rgba(255,81,250,0.5)', glow: 10 },
+  light: { fill: '#1a1a1a', stroke: '#FF51FA', crack: 'rgba(255,81,250,0.85)', glow: 16 },
   extreme: { fill: '#000', stroke: '#8eff71', crack: 'rgba(255,81,250,0.65)', glow: 16 },
 };
 
