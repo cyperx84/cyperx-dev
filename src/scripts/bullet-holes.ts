@@ -355,7 +355,7 @@ function ensureRunning() {
 // ── Handle click/tap — convert to page-space coords ──
 function onShoot(e: MouseEvent | TouchEvent) {
   const target = e.target as HTMLElement;
-  if (target.closest('a, button, input, select, textarea, [role="button"]')) return;
+  if (target.closest('a, button, input, select, textarea, [role="button"], .site-header, #mobile-menu')) return;
 
   let clientX: number, clientY: number;
   if ('touches' in e) {
@@ -423,7 +423,7 @@ export function initBulletHoles() {
   canvas = document.createElement('canvas');
   canvas.id = 'bullet-canvas';
   // position:absolute so it lives in document flow and scrolls with content
-  canvas.style.cssText = 'position:absolute;top:0;left:0;pointer-events:none;z-index:9999;';
+  canvas.style.cssText = 'position:absolute;top:0;left:0;pointer-events:none;z-index:40;';
   document.body.appendChild(canvas);
 
   ctx = canvas.getContext('2d');
