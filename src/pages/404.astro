@@ -2,198 +2,83 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="💀 404 — SIGNAL_LOST" activeNav="">
-
-  <style>
-    /* 404-specific styles */
-    @keyframes glitch-404 {
-      0%   { text-shadow: 4px 0 #FF51FA, -4px 0 #39FF14; transform: translate(0); }
-      10%  { text-shadow: -6px 2px #FF51FA, 6px -2px #39FF14; transform: translate(-3px, 1px); }
-      20%  { text-shadow: 4px 0 #FF51FA, -4px 0 #39FF14; transform: translate(0); }
-      30%  { text-shadow: 8px 0 #AC89FF, -8px 0 #FF51FA; transform: translate(4px, -2px); clip-path: inset(20% 0 60% 0); }
-      31%  { clip-path: inset(0); transform: translate(0); }
-      60%  { text-shadow: -5px 3px #39FF14, 5px -3px #FF51FA; transform: translate(-2px, 0); }
-      70%  { text-shadow: 4px 0 #FF51FA, -4px 0 #39FF14; transform: translate(0); }
-      85%  { text-shadow: -3px 0 #AC89FF, 3px 0 #FF51FA; transform: translate(2px, 1px); }
-      100% { text-shadow: 4px 0 #FF51FA, -4px 0 #39FF14; transform: translate(0); }
-    }
-
-    @keyframes signal-scan {
-      0%   { transform: translateY(-100%); opacity: 0; }
-      10%  { opacity: 0.4; }
-      90%  { opacity: 0.4; }
-      100% { transform: translateY(100vh); opacity: 0; }
-    }
-
-    @keyframes static-flicker {
-      0%, 100% { opacity: 0.03; }
-      50%       { opacity: 0.07; }
-    }
-
-    @keyframes subtitle-blink {
-      0%, 49% { opacity: 1; }
-      50%, 100% { opacity: 0; }
-    }
-
-    .error-404-text {
-      animation: glitch-404 3s infinite ease-in-out;
-      font-size: clamp(6rem, 22vw, 18rem);
-      font-weight: 900;
-      font-style: italic;
-      letter-spacing: -0.04em;
-      line-height: 1;
-      font-family: 'Space Grotesk', sans-serif;
-    }
-
-    .theme-dark .error-404-text   { color: #e2e2e2; }
-    .theme-light .error-404-text  { color: #131313; }
-    .theme-extreme .error-404-text { color: #fff; }
-
-    .signal-lost {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: clamp(1.2rem, 4vw, 2.5rem);
-      text-transform: uppercase;
-      letter-spacing: 0.3em;
-      font-weight: 700;
-    }
-
-    .theme-dark .signal-lost   { color: #39FF14; }
-    .theme-light .signal-lost  { color: #FF51FA; }
-    .theme-extreme .signal-lost { color: #8eff71; animation: subtitle-blink 1s step-end infinite; }
-
-    .noise-bg-404 {
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-      background-size: 200px 200px;
-      animation: static-flicker 0.2s infinite steps(1);
-      pointer-events: none;
-      z-index: 0;
-      mix-blend-mode: overlay;
-    }
-
-    .scan-line {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(to right, transparent, rgba(57,255,20,0.6), transparent);
-      animation: signal-scan 4s linear infinite;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .error-page-content {
-      position: relative;
-      z-index: 10;
-    }
-
-    .ascii-404 {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: clamp(0.35rem, 1.2vw, 0.8rem);
-      line-height: 1.15;
-      white-space: pre;
-      user-select: none;
-    }
-
-    .theme-dark .ascii-404   { color: #39FF14; opacity: 0.6; }
-    .theme-light .ascii-404  { color: #FF51FA; opacity: 0.5; }
-    .theme-extreme .ascii-404 { color: #8eff71; opacity: 0.7; }
-
-    .return-btn {
-      display: inline-block;
-      padding: 1rem 2.5rem;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 900;
-      font-style: italic;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      font-size: 1.1rem;
-      text-decoration: none;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-      clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .theme-dark .return-btn {
-      background: #39FF14;
-      color: #000;
-      box-shadow: 0 0 30px rgba(57,255,20,0.3);
-    }
-    .theme-light .return-btn {
-      background: #FF51FA;
-      color: #fff;
-      box-shadow: 0 0 30px rgba(255,81,250,0.3);
-    }
-    .theme-extreme .return-btn {
-      background: #8eff71;
-      color: #000;
-      box-shadow: 0 0 50px rgba(142,255,113,0.5), 20px 20px 0 #ff51fa;
-    }
-
-    .return-btn:hover {
-      transform: translateY(-3px) scale(1.04);
-    }
-    .return-btn:active {
-      transform: translateY(1px) scale(0.98);
-    }
-
-    .corrupt-lines {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
-      opacity: 0.4;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-    .theme-dark .corrupt-lines   { color: #FF51FA; }
-    .theme-light .corrupt-lines  { color: #AC89FF; }
-    .theme-extreme .corrupt-lines { color: #ff51fa; }
-  </style>
-
-  <!-- Noise + scan line -->
-  <div class="noise-bg-404" aria-hidden="true"></div>
-  <div class="scan-line" aria-hidden="true"></div>
-
-  <main class="min-h-screen flex items-center justify-center pt-24 pb-16 px-4">
-    <div class="error-page-content flex flex-col items-center gap-6 sm:gap-10 text-center max-w-4xl w-full">
-
-      <!-- Big 404 -->
-      <div class="relative">
-        <div class="error-404-text select-none">404</div>
-        <!-- Glitch layer -->
-        <div class="error-404-text select-none absolute inset-0 opacity-40" style="clip-path:inset(40% 0 45% 0); animation: glitch-404 3s infinite ease-in-out 0.1s;" aria-hidden="true">404</div>
+<BaseLayout title="404 — CYPERX.DEV" activeNav="">
+  <!-- Dark variant -->
+  <div class="variant-dark bg-transparent min-h-[80vh] flex items-center justify-center px-4">
+    <div class="text-center space-y-8 max-w-lg">
+      <div class="text-[120px] sm:text-[180px] font-black italic font-['Space_Grotesk'] leading-none tracking-tighter text-[#39FF14]/20">404</div>
+      <div class="space-y-3 -mt-12 relative">
+        <h1 class="text-3xl sm:text-5xl font-black italic font-['Space_Grotesk'] tracking-tighter text-white">SIGNAL_LOST</h1>
+        <p class="font-mono text-sm text-white/50">The requested resource has been consumed by the void.</p>
       </div>
-
-      <!-- SIGNAL_LOST -->
-      <div class="signal-lost">SIGNAL_LOST</div>
-
-      <!-- Corrupt data lines -->
-      <div class="corrupt-lines space-y-1">
-        <div>▓▓▓ NAVIGATION_FAILED :: SECTOR_CORRUPT ▓▓▓</div>
-        <div>░░░ REALITY_PTR: NULL :: RETURN: UNDEFINED ░░░</div>
-        <div>███ 0x404 NOT_FOUND :: VOID_STATE: ACTIVE ███</div>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+        <a href="/" class="inline-flex items-center gap-2 bg-[#39FF14] text-black px-6 py-3 font-black text-sm uppercase tracking-widest hover:bg-[#FF51FA] hover:text-white transition-all no-underline">
+          <span class="material-symbols-outlined text-lg">arrow_forward</span>
+          RETURN_HOME
+        </a>
+        <a href="/blog" class="inline-flex items-center gap-2 border border-white/20 text-white/60 px-6 py-3 font-mono text-sm uppercase tracking-widest hover:border-[#39FF14] hover:text-[#39FF14] transition-all no-underline">
+          READ_BLOG
+        </a>
       </div>
+      <p class="font-mono text-[10px] text-white/20 pt-8">ERR::RESOURCE_NOT_FOUND // ENTROPY_NOMINAL</p>
+    </div>
+  </div>
 
-      <!-- ASCII art -->
-      <pre class="ascii-404" aria-hidden="true">
- _____ ___ _  _   _ _    ___  ___ _____
-/ ____|   \  \| | | |  | / _ \/ __||_   _|
-\__ \| |) | .` | |_| | |_) | (__ | |   
-|___/|___/|_|\_|\___/|____/ \___||_|   
-      </pre>
-
-      <!-- Return link -->
-      <a href="/" class="return-btn" data-reveal="scale">
-        ← RETURN_TO_BASE
-      </a>
-
-      <!-- Status codes -->
-      <div class="font-mono text-[10px] opacity-30 uppercase tracking-widest">
-        ERR_PAGE_NOT_FOUND &nbsp;|&nbsp; STATUS: 404 &nbsp;|&nbsp; REBOOT_RECOMMENDED
+  <!-- Light variant -->
+  <div class="variant-light bg-white min-h-[80vh] flex items-center justify-center px-4">
+    <div class="text-center space-y-8 max-w-lg">
+      <div class="text-[120px] sm:text-[180px] font-black italic font-['Space_Grotesk'] leading-none tracking-tighter text-[#FF51FA]/15">404</div>
+      <div class="space-y-3 -mt-12 relative">
+        <h1 class="text-3xl sm:text-5xl font-black italic font-['Space_Grotesk'] tracking-tighter text-[#131313]">Page Not Found</h1>
+        <p class="text-[#131313]/50 text-base">This page doesn't exist — yet.</p>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+        <a href="/" class="inline-flex items-center gap-2 bg-[#131313] text-white px-6 py-3 font-black text-sm uppercase tracking-widest hover:bg-[#FF51FA] transition-all no-underline">
+          <span class="material-symbols-outlined text-lg">arrow_forward</span>
+          Go Home
+        </a>
+        <a href="/blog" class="inline-flex items-center gap-2 border-2 border-[#131313]/20 text-[#131313]/60 px-6 py-3 font-mono text-sm uppercase tracking-widest hover:border-[#FF51FA] hover:text-[#FF51FA] transition-all no-underline">
+          Read Blog
+        </a>
       </div>
     </div>
-  </main>
+  </div>
 
+  <!-- Extreme variant -->
+  <div class="variant-extreme min-h-[80vh] flex items-center justify-center px-4" style="background:transparent">
+    <div class="text-center space-y-8 max-w-lg">
+      <div class="text-[120px] sm:text-[180px] font-black italic font-['Space_Grotesk'] leading-none tracking-tighter glitch-text-404" data-text="404">404</div>
+      <div class="space-y-3 -mt-12 relative">
+        <h1 class="text-3xl sm:text-5xl font-black italic font-['Space_Grotesk'] tracking-tighter text-white glitch-border-vibrate inline-block px-4 py-2">VOID_BREACH</h1>
+        <p class="font-mono text-sm text-white/50">Reality fragmented. This node doesn't exist in this timeline.</p>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+        <a href="/" class="inline-flex items-center gap-2 bg-[#39FF14] text-black px-6 py-3 font-black text-sm uppercase tracking-widest hover:bg-[#FF51FA] hover:text-white transition-all no-underline shadow-[0_0_20px_rgba(57,255,20,0.4)]">
+          <span class="material-symbols-outlined text-lg">arrow_forward</span>
+          ESCAPE_VOID
+        </a>
+        <a href="/projects" class="inline-flex items-center gap-2 border border-[#39FF14]/30 text-[#39FF14]/60 px-6 py-3 font-mono text-sm uppercase tracking-widest hover:border-[#FF51FA] hover:text-[#FF51FA] transition-all no-underline">
+          VIEW_PROJECTS
+        </a>
+      </div>
+      <p class="font-mono text-[10px] text-white/15 pt-8">TIMELINE::FRACTURED // BREACH_LVL::CRITICAL // ENTROPY::MAX</p>
+    </div>
+  </div>
 </BaseLayout>
+
+<style>
+  .glitch-text-404 {
+    color: #39FF14;
+    text-shadow:
+      2px 2px #FF51FA,
+      -2px -2px #00f0ff,
+      4px 0 #FF51FA;
+    animation: glitch404 2s infinite;
+  }
+  @keyframes glitch404 {
+    0%, 90%, 100% { text-shadow: 2px 2px #FF51FA, -2px -2px #00f0ff, 4px 0 #FF51FA; transform: none; }
+    92% { text-shadow: -4px 2px #FF51FA, 3px -2px #00f0ff, -2px 0 #39FF14; transform: translate(3px, -2px); }
+    94% { text-shadow: 3px -3px #FF51FA, -2px 4px #00f0ff, 5px 1px #39FF14; transform: translate(-2px, 3px); }
+    96% { text-shadow: -2px 3px #FF51FA, 4px -1px #00f0ff, -3px 2px #39FF14; transform: translate(1px, -1px); }
+  }
+</style>
