@@ -237,6 +237,15 @@ const pageAttr = activeNav ?? 'home';
     }
   </script>
 
+  <!-- ── Bullet Holes (deferred) ── -->
+  <script>
+    import { initBulletHoles } from '../scripts/bullet-holes';
+    if (!(window as any).__bulletInit) {
+      (window as any).__bulletInit = true;
+      document.addEventListener('DOMContentLoaded', () => { initBulletHoles(); });
+    }
+  </script>
+
   <!-- ── Theme Toggle + Mobile Menu + Animations Script ── -->
   <script is:inline>
     const THEMES = ['extreme', 'dark', 'light'];
