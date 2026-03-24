@@ -270,8 +270,12 @@ function drawParticle(c: CanvasRenderingContext2D, p: Particle) {
 // ── Resize canvas to cover full document ──
 function resizeCanvas() {
   if (!canvas) return;
+  // Temporarily collapse canvas so it doesn't inflate scrollHeight measurement
+  const prevH = canvas.style.height;
+  canvas.style.height = '0px';
   const w = Math.max(document.documentElement.scrollWidth, window.innerWidth);
   const h = Math.max(document.documentElement.scrollHeight, window.innerHeight);
+  canvas.style.height = prevH;
   if (canvas.width !== w || canvas.height !== h) {
     canvas.width = w;
     canvas.height = h;
