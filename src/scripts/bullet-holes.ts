@@ -1,12 +1,8 @@
 /**
- * bullet-holes.ts — Shoot the website
+ * bullet-holes.ts — Shoot the website (page-space edition)
  *
- * Performance-first approach:
- * - Holes are pre-rendered to offscreen canvases (drawn once, composited each frame)
- * - Crack geometry is baked at creation time (no per-frame randomness)
- * - Animation loop auto-stops when idle (no particles, no fading holes)
- * - Swap-and-pop removal instead of splice
- * - Reduced particle count, shorter lifetimes, capped holes
+ * Holes are placed in document space (absolute positioned) so they scroll with content.
+ * Pre-rendered to offscreen canvases. Auto-stopping animation loop.
  */
 
 type Theme = 'dark' | 'light' | 'extreme';
@@ -17,9 +13,9 @@ interface BakedCrack {
 }
 
 interface BulletHole {
-  x: number;        // screen-space (not DPR-scaled)
+  x: number;        // page-space (includes scroll offset)
   y: number;
-  bitmap: HTMLCanvasElement;  // pre-rendered hole
+  bitmap: HTMLCanvasElement;
   bitmapSize: number;
   opacity: number;
   createdAt: number;
@@ -34,11 +30,11 @@ interface Particle {
   size: number;
   color: string;
   life: number;
-  decay: number;    // life lost per frame
+  decay: number;
   gravity: number;
   rotation: number;
   rotSpeed: number;
-  shape: 0 | 1 | 2; // circle, shard, spark
+  shape: 0 | 1 | 2;
 }
 
 // ── State ──
@@ -52,12 +48,12 @@ let initialized = false;
 
 // ── Config ──
 const MAX_HOLES = 30;
-const HOLE_PERSIST_S = 15;     // seconds before fade starts
-const HOLE_FADE_S = 3;         // seconds to fade out
-const HOLE_FADE_RATE = 1 / (HOLE_FADE_S * 60); // per frame at 60fps
+const HOLE_PERSIST_S = 6;
+const HOLE_FADE_S = 1.5;
+const HOLE_FADE_RATE = 1 / (HOLE_FADE_S * 60);
 const PARTICLE_COUNT = { normal: 14, extreme: 22 };
-const SHAKE_PX = 6;
-const SHAKE_MS = 120;
+const SHAKE_PX = 5;
+const SHAKE_FRAMES = 6;
 
 // ── Theme helpers ──
 function getTheme(): Theme {
@@ -79,30 +75,26 @@ const HOLE_STYLE: Record<Theme, { fill: string; stroke: string; crack: string; g
   extreme: { fill: '#000', stroke: '#8eff71', crack: 'rgba(255,81,250,0.65)', glow: 16 },
 };
 
-// ── Screen shake (CSS transform, no reflow) ──
-let shaking = false;
+// ── Screen shake — shake the canvas only, not <html> (avoids navbar flash) ──
+let shakeRemaining = 0;
 function screenShake(intensity: number) {
-  if (shaking) return;
-  shaking = true;
-  const el = document.documentElement;
-  const start = performance.now();
-  const tick = (t: number) => {
-    const elapsed = t - start;
-    if (elapsed > SHAKE_MS) {
-      el.style.transform = '';
-      shaking = false;
-      return;
-    }
-    const decay = 1 - elapsed / SHAKE_MS;
-    const x = (Math.random() - 0.5) * SHAKE_PX * intensity * decay;
-    const y = (Math.random() - 0.5) * SHAKE_PX * intensity * decay;
-    el.style.transform = `translate(${x}px,${y}px)`;
-    requestAnimationFrame(tick);
-  };
-  requestAnimationFrame(tick);
+  shakeRemaining = Math.ceil(SHAKE_FRAMES * intensity);
 }
 
-// ── Bake crack geometry (deterministic after creation) ──
+function applyShake() {
+  if (!canvas) return;
+  if (shakeRemaining > 0) {
+    const decay = shakeRemaining / SHAKE_FRAMES;
+    const x = (Math.random() - 0.5) * SHAKE_PX * decay;
+    const y = (Math.random() - 0.5) * SHAKE_PX * decay;
+    canvas.style.transform = `translate(${x}px,${y}px)`;
+    shakeRemaining--;
+  } else {
+    canvas.style.transform = '';
+  }
+}
+
+// ── Bake crack geometry ──
 function bakeCracks(theme: Theme): BakedCrack[] {
   const count = theme === 'extreme' ? 7 + (Math.random() * 5 | 0) : 4 + (Math.random() * 3 | 0);
   const cracks: BakedCrack[] = [];
@@ -144,7 +136,6 @@ function renderHoleBitmap(theme: Theme): { bitmap: HTMLCanvasElement; size: numb
   const cracks = bakeCracks(theme);
   const radius = 5 + Math.random() * 3;
 
-  // Determine bounds
   let maxR = radius + 4;
   for (const c of cracks) {
     for (const p of c.points) {
@@ -167,17 +158,13 @@ function renderHoleBitmap(theme: Theme): { bitmap: HTMLCanvasElement; size: numb
   off.width = size;
   off.height = size;
   const c = off.getContext('2d')!;
-  const cx = size / 2;
-  const cy = size / 2;
   c.scale(dpr, dpr);
-  const cxs = (maxR + padding);
-  const cys = (maxR + padding);
+  const cxs = maxR + padding;
+  const cys = maxR + padding;
 
-  // Glow (drawn once, not per frame)
   c.shadowColor = style.stroke;
   c.shadowBlur = style.glow;
 
-  // Cracks
   c.strokeStyle = style.crack;
   c.lineWidth = theme === 'extreme' ? 1.8 : 1.2;
   c.lineCap = 'round';
@@ -201,7 +188,6 @@ function renderHoleBitmap(theme: Theme): { bitmap: HTMLCanvasElement; size: numb
     }
   }
 
-  // Outer ring
   c.shadowBlur = 0;
   c.beginPath();
   c.arc(cxs, cys, radius + 1.5, 0, Math.PI * 2);
@@ -209,13 +195,11 @@ function renderHoleBitmap(theme: Theme): { bitmap: HTMLCanvasElement; size: numb
   c.lineWidth = 0.8;
   c.stroke();
 
-  // Inner hole
   c.beginPath();
   c.arc(cxs, cys, radius, 0, Math.PI * 2);
   c.fillStyle = style.fill;
   c.fill();
 
-  // Inner glow ring
   c.beginPath();
   c.arc(cxs, cys, radius - 0.8, 0, Math.PI * 2);
   c.strokeStyle = style.stroke;
@@ -227,7 +211,7 @@ function renderHoleBitmap(theme: Theme): { bitmap: HTMLCanvasElement; size: numb
   return { bitmap: off, size };
 }
 
-// ── Spawn debris particles ──
+// ── Spawn debris ──
 function spawnDebris(x: number, y: number, theme: Theme) {
   const colors = PALETTES[theme];
   const count = theme === 'extreme' ? PARTICLE_COUNT.extreme : PARTICLE_COUNT.normal;
@@ -241,7 +225,7 @@ function spawnDebris(x: number, y: number, theme: Theme) {
       size: 0.8 + Math.random() * (theme === 'extreme' ? 3.5 : 2.5),
       color: colors[Math.random() * colors.length | 0],
       life: 1,
-      decay: 1 / ((0.3 + Math.random() * 0.5) * 60), // frames to die
+      decay: 1 / ((0.3 + Math.random() * 0.5) * 60),
       gravity: 0.12,
       rotation: Math.random() * Math.PI * 2,
       rotSpeed: (Math.random() - 0.5) * 0.25,
@@ -250,18 +234,14 @@ function spawnDebris(x: number, y: number, theme: Theme) {
   }
 }
 
-// ── Draw particle (inline, no save/restore for perf) ──
 function drawParticle(c: CanvasRenderingContext2D, p: Particle) {
   c.globalAlpha = p.life;
   c.fillStyle = p.color;
-
   if (p.shape === 0) {
-    // circle
     c.beginPath();
     c.arc(p.x, p.y, p.size, 0, Math.PI * 2);
     c.fill();
   } else if (p.shape === 1) {
-    // shard
     c.save();
     c.translate(p.x, p.y);
     c.rotate(p.rotation);
@@ -274,7 +254,6 @@ function drawParticle(c: CanvasRenderingContext2D, p: Particle) {
     c.fill();
     c.restore();
   } else {
-    // spark line
     c.save();
     c.translate(p.x, p.y);
     c.rotate(p.rotation);
@@ -288,19 +267,36 @@ function drawParticle(c: CanvasRenderingContext2D, p: Particle) {
   }
 }
 
-// ── Animation loop — auto-stops when idle ──
+// ── Resize canvas to cover full document ──
+function resizeCanvas() {
+  if (!canvas) return;
+  const w = Math.max(document.documentElement.scrollWidth, window.innerWidth);
+  const h = Math.max(document.documentElement.scrollHeight, window.innerHeight);
+  if (canvas.width !== w || canvas.height !== h) {
+    canvas.width = w;
+    canvas.height = h;
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+  }
+}
+
+// ── Animation loop ──
 function animate() {
   if (!ctx || !canvas) { running = false; return; }
 
   const now = Date.now();
-  const hasParticles = particles.length > 0;
   let hasFading = false;
+
+  // Resize to match document (content might have changed height)
+  resizeCanvas();
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+  applyShake();
+
   const dpr = window.devicePixelRatio || 1;
 
-  // Draw holes (just compositing pre-rendered bitmaps)
+  // Draw holes (compositing pre-rendered bitmaps in page space)
   let writeIdx = 0;
   for (let i = 0; i < holes.length; i++) {
     const h = holes[i];
@@ -309,7 +305,7 @@ function animate() {
     if (age > HOLE_PERSIST_S) {
       h.fading = true;
       h.opacity -= HOLE_FADE_RATE;
-      if (h.opacity <= 0) continue; // skip dead hole (don't copy to writeIdx)
+      if (h.opacity <= 0) continue;
       hasFading = true;
     }
 
@@ -322,7 +318,7 @@ function animate() {
   }
   holes.length = writeIdx;
 
-  // Update + draw particles
+  // Update + draw particles (also in page space)
   let pWrite = 0;
   for (let i = 0; i < particles.length; i++) {
     const p = particles[i];
@@ -341,10 +337,7 @@ function animate() {
 
   ctx.globalAlpha = 1;
 
-  // Stop loop if nothing to animate
-  if (particles.length === 0 && !hasFading) {
-    // Still need to redraw static holes if any exist, but can stop the loop
-    // Re-draw one final static frame
+  if (particles.length === 0 && !hasFading && shakeRemaining <= 0) {
     running = false;
     return;
   }
@@ -359,35 +352,39 @@ function ensureRunning() {
   }
 }
 
-// ── Handle click/tap ──
+// ── Handle click/tap — convert to page-space coords ──
 function onShoot(e: MouseEvent | TouchEvent) {
   const target = e.target as HTMLElement;
   if (target.closest('a, button, input, select, textarea, [role="button"]')) return;
 
-  let x: number, y: number;
+  let clientX: number, clientY: number;
   if ('touches' in e) {
     const t = e.touches[0];
     if (!t) return;
-    x = t.clientX;
-    y = t.clientY;
+    clientX = t.clientX;
+    clientY = t.clientY;
   } else {
-    x = e.clientX;
-    y = e.clientY;
+    clientX = e.clientX;
+    clientY = e.clientY;
   }
+
+  // Convert viewport coords to page-space coords
+  const x = clientX + window.scrollX;
+  const y = clientY + window.scrollY;
 
   const theme = getTheme();
 
-  // Show reset button
   const resetBtn = document.getElementById('reset-bullets-btn');
   if (resetBtn) {
     resetBtn.style.opacity = '1';
     resetBtn.style.pointerEvents = 'auto';
   }
 
-  // Pre-render hole bitmap
+  // Ensure canvas covers the full page (may have grown due to dynamic content)
+  resizeCanvas();
+
   const { bitmap, size } = renderHoleBitmap(theme);
 
-  // Evict oldest if at cap
   if (holes.length >= MAX_HOLES) holes.shift();
 
   holes.push({
@@ -404,19 +401,6 @@ function onShoot(e: MouseEvent | TouchEvent) {
   ensureRunning();
 }
 
-// ── Resize ──
-function onResize() {
-  if (!canvas) return;
-  const w = window.innerWidth;
-  const h = window.innerHeight;
-  canvas.width = w;
-  canvas.height = h;
-  canvas.style.width = w + 'px';
-  canvas.style.height = h + 'px';
-  // Redraw static holes after resize
-  if (holes.length > 0) ensureRunning();
-}
-
 // ── Public API ──
 export function clearBulletHoles() {
   holes.length = 0;
@@ -427,34 +411,35 @@ export function clearBulletHoles() {
 }
 
 export function initBulletHoles() {
-  // Prevent double-init (View Transitions re-run scripts)
   if (initialized) {
-    // Re-attach to new DOM if canvas was removed by page swap
     if (!document.getElementById('bullet-canvas') && canvas) {
       document.body.appendChild(canvas);
     }
+    resizeCanvas();
     return;
   }
   initialized = true;
 
   canvas = document.createElement('canvas');
   canvas.id = 'bullet-canvas';
-  canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;';
+  // position:absolute so it lives in document flow and scrolls with content
+  canvas.style.cssText = 'position:absolute;top:0;left:0;pointer-events:none;z-index:9999;';
   document.body.appendChild(canvas);
 
   ctx = canvas.getContext('2d');
   if (!ctx) return;
 
-  onResize();
+  resizeCanvas();
 
   document.addEventListener('click', onShoot, { passive: true });
   document.addEventListener('touchstart', onShoot, { passive: true });
-  window.addEventListener('resize', onResize, { passive: true });
+  window.addEventListener('resize', () => resizeCanvas(), { passive: true });
 
   // Re-attach canvas after Astro View Transition swaps
   document.addEventListener('astro:after-swap', () => {
     if (canvas && !document.getElementById('bullet-canvas')) {
       document.body.appendChild(canvas);
+      resizeCanvas();
     }
   });
 }
