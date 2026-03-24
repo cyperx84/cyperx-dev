@@ -157,17 +157,26 @@ function buildDarkScene(w: number, h: number): SceneBundle {
   };
 
   const tick = (t: number) => {
-    // Grid undulation — slow ambient drift
+    // Scroll-reactive boost — waves intensify when scrolling
+    const sv = Math.min(Math.abs(scrollVelocity) * 0.3, 1.0);
+    const waveBoost = 1.0 + sv * 2.0;
+    const opacityBoost = sv * 0.06;
+
+    // Camera tilt reacts to scroll velocity
+    camera.position.y = 25 + scrollVelocity * 0.008;
+    camera.rotation.x = -0.35 + scrollVelocity * 0.0003;
+
+    // Grid undulation — slow ambient drift, boosted by scroll
     const pos = gridGeo.attributes.position as THREE.BufferAttribute;
     const arr = pos.array as Float32Array;
 
     for (let i = 0; i < arr.length / 3; i++) {
       const ox = origPos[i * 3];
       const oz = origPos[i * 3 + 2];
-      let y = Math.sin(ox * 0.05 + t * 0.15) * 2.5
+      let y = (Math.sin(ox * 0.05 + t * 0.15) * 2.5
             + Math.cos(oz * 0.07 + t * 0.1) * 2.0
             + Math.sin((ox + oz) * 0.03 + t * 0.07) * 1.0
-            + Math.sin(ox * 0.12 + oz * 0.08 + t * 0.25) * 0.5;
+            + Math.sin(ox * 0.12 + oz * 0.08 + t * 0.25) * 0.5) * waveBoost;
       // Mouse ripple — gentle
       if (rippleStrength > 0.01) {
         const dist = Math.sqrt((ox - rippleX) ** 2 + (oz - rippleY) ** 2);
@@ -178,23 +187,24 @@ function buildDarkScene(w: number, h: number): SceneBundle {
     pos.needsUpdate = true;
     rippleStrength *= 0.98;
 
-    // Grid opacity pulse — breathing glow
-    gridMat.opacity = 0.06 + Math.sin(t * 0.15) * 0.02;
+    // Grid opacity pulse — breathing glow + scroll boost
+    gridMat.opacity = 0.06 + Math.sin(t * 0.15) * 0.02 + opacityBoost;
 
-    // Float + rotate shapes
+    // Float + rotate shapes — scroll makes them spin faster
+    const rotBoost = 1.0 + sv * 3.0;
     for (const s of shapes) {
       s.mesh.position.y = s.baseY + Math.sin(t * s.floatSpeed * 0.4 + s.phase) * s.floatAmp;
-      s.mesh.rotation.x += s.rotSpeed.x * 0.004;
-      s.mesh.rotation.y += s.rotSpeed.y * 0.004;
-      s.mesh.rotation.z += s.rotSpeed.z * 0.004;
+      s.mesh.rotation.x += s.rotSpeed.x * 0.004 * rotBoost;
+      s.mesh.rotation.y += s.rotSpeed.y * 0.004 * rotBoost;
+      s.mesh.rotation.z += s.rotSpeed.z * 0.004 * rotBoost;
       const m = s.mesh.material as THREE.MeshBasicMaterial;
-      m.opacity = 0.10 + Math.sin(t * 0.4 + s.phase) * 0.05;
+      m.opacity = 0.10 + Math.sin(t * 0.4 + s.phase) * 0.05 + opacityBoost;
     }
 
     // Accent line shimmer
     for (let i = 0; i < accentLines.length; i++) {
       const m = accentLines[i].material as THREE.LineBasicMaterial;
-      m.opacity = 0.03 + Math.sin(t * 0.2 + i * 1.2) * 0.02;
+      m.opacity = 0.03 + Math.sin(t * 0.2 + i * 1.2) * 0.02 + opacityBoost * 0.5;
     }
   };
 
@@ -320,16 +330,25 @@ function buildLightScene(w: number, h: number): SceneBundle {
   };
 
   const tick = (t: number) => {
-    // Grid undulation — gentle waves
+    // Scroll-reactive boost
+    const sv = Math.min(Math.abs(scrollVelocity) * 0.3, 1.0);
+    const waveBoost = 1.0 + sv * 1.5;
+    const opacityBoost = sv * 0.08;
+
+    // Camera tilt reacts to scroll
+    camera.position.y = 25 + scrollVelocity * 0.006;
+    camera.rotation.x = -0.35 + scrollVelocity * 0.0002;
+
+    // Grid undulation — gentle waves, boosted by scroll
     const pos = gridGeo.attributes.position as THREE.BufferAttribute;
     const arr = pos.array as Float32Array;
 
     for (let i = 0; i < arr.length / 3; i++) {
       const ox = origPos[i * 3];
       const oz = origPos[i * 3 + 2];
-      let y = Math.sin(ox * 0.06 + t * 0.3) * 2.5
+      let y = (Math.sin(ox * 0.06 + t * 0.3) * 2.5
             + Math.cos(oz * 0.08 + t * 0.2) * 1.8
-            + Math.sin((ox + oz) * 0.04 + t * 0.12) * 1.0;
+            + Math.sin((ox + oz) * 0.04 + t * 0.12) * 1.0) * waveBoost;
       // Mouse ripple — smooth
       if (rippleStrength > 0.01) {
         const dist = Math.sqrt((ox - rippleX) ** 2 + (oz - rippleY) ** 2);
@@ -340,24 +359,24 @@ function buildLightScene(w: number, h: number): SceneBundle {
     pos.needsUpdate = true;
     rippleStrength *= 0.985;
 
-    // Grid opacity pulse
-    gridMat.opacity = 0.3 + Math.sin(t * 0.2) * 0.08;
+    // Grid opacity pulse + scroll boost
+    gridMat.opacity = 0.3 + Math.sin(t * 0.2) * 0.08 + opacityBoost;
 
-    // Float + rotate shapes
+    // Float + rotate shapes — scroll makes them spin faster
+    const rotBoost = 1.0 + sv * 2.5;
     for (const s of shapes) {
       s.mesh.position.y = s.baseY + Math.sin(t * s.floatSpeed * 0.6 + s.phase) * s.floatAmp;
-      s.mesh.rotation.x += s.rotSpeed.x * 0.005;
-      s.mesh.rotation.y += s.rotSpeed.y * 0.005;
-      s.mesh.rotation.z += s.rotSpeed.z * 0.01;
-      // Pulse opacity
+      s.mesh.rotation.x += s.rotSpeed.x * 0.005 * rotBoost;
+      s.mesh.rotation.y += s.rotSpeed.y * 0.005 * rotBoost;
+      s.mesh.rotation.z += s.rotSpeed.z * 0.01 * rotBoost;
       const m = s.mesh.material as THREE.MeshBasicMaterial;
-      m.opacity = 0.2 + Math.sin(t * 0.8 + s.phase) * 0.12;
+      m.opacity = 0.2 + Math.sin(t * 0.8 + s.phase) * 0.12 + opacityBoost;
     }
 
     // Accent line opacity shimmer
     for (let i = 0; i < accentLines.length; i++) {
       const m = accentLines[i].material as THREE.LineBasicMaterial;
-      m.opacity = 0.04 + Math.sin(t * 0.3 + i * 1.5) * 0.03;
+      m.opacity = 0.04 + Math.sin(t * 0.3 + i * 1.5) * 0.03 + opacityBoost * 0.5;
     }
   };
 
@@ -494,18 +513,27 @@ function buildExtremeScene(w: number, h: number): SceneBundle {
   };
 
   const tick = (t: number) => {
-    // Grid undulation — layered waves (calmer)
+    // Scroll-reactive boost — extreme goes harder
+    const sv = Math.min(Math.abs(scrollVelocity) * 0.3, 1.0);
+    const waveBoost = 1.0 + sv * 2.5;
+    const opacityBoost = sv * 0.1;
+
+    // Camera tilt — aggressive on extreme
+    camera.position.y = 30 + scrollVelocity * 0.01;
+    camera.rotation.x = -0.4 + scrollVelocity * 0.0004;
+
+    // Grid undulation — layered waves, boosted by scroll
     const pos = gridGeo.attributes.position as THREE.BufferAttribute;
     const arr = pos.array as Float32Array;
 
     for (let i = 0; i < arr.length / 3; i++) {
       const ox = origPos[i * 3];
       const oz = origPos[i * 3 + 2];
-      let y = Math.sin(ox * 0.04 + t * 0.45) * 4.5
+      let y = (Math.sin(ox * 0.04 + t * 0.45) * 4.5
             + Math.cos(oz * 0.06 + t * 0.3) * 3.2
             + Math.sin((ox + oz) * 0.03 + t * 0.18) * 2.2
             + Math.sin(ox * 0.15 + t * 0.9) * 1.0
-            + Math.cos(oz * 0.12 + t * 0.7) * 0.8;
+            + Math.cos(oz * 0.12 + t * 0.7) * 0.8) * waveBoost;
       // Mouse ripple — still strong for extreme but smoother
       if (rippleStrength > 0.01) {
         const dist = Math.sqrt((ox - rippleX) ** 2 + (oz - rippleY) ** 2);
@@ -516,38 +544,40 @@ function buildExtremeScene(w: number, h: number): SceneBundle {
     pos.needsUpdate = true;
     rippleStrength *= 0.985;
 
-    // Rainbow cycle the grid colors — slower rotation
+    // Rainbow cycle the grid colors — faster when scrolling
+    const colorSpeed = 12 + sv * 30;
     const colorAttr = gridGeo.attributes.color as THREE.BufferAttribute;
     const cArr = colorAttr.array as Float32Array;
     for (let i = 0; i < gridVertCount; i++) {
-      const hue = ((i / gridVertCount) * 360 + t * 12) % 360;
+      const hue = ((i / gridVertCount) * 360 + t * colorSpeed) % 360;
       const c = new THREE.Color().setHSL(hue / 360, 1.0, 0.5);
       cArr[i * 3] = c.r; cArr[i * 3 + 1] = c.g; cArr[i * 3 + 2] = c.b;
     }
     colorAttr.needsUpdate = true;
 
-    // Grid opacity pulse
-    gridMat.opacity = 0.18 + Math.sin(t * 0.35) * 0.06;
+    // Grid opacity pulse + scroll boost
+    gridMat.opacity = 0.18 + Math.sin(t * 0.35) * 0.06 + opacityBoost;
 
-    // Float, rotate, drift shapes + rainbow cycle their colors
+    // Float, rotate, drift shapes — scroll cranks rotation
+    const rotBoost = 1.0 + sv * 4.0;
     for (let si = 0; si < shapes.length; si++) {
       const s = shapes[si];
       s.mesh.position.y = s.baseY + Math.sin(t * s.floatSpeed * 0.5 + s.phase) * s.floatAmp;
       s.mesh.position.x = s.baseX + Math.sin(t * s.driftSpeed * 0.5 + s.phase) * 10;
-      s.mesh.rotation.x += s.rotSpeed.x * 0.007;
-      s.mesh.rotation.y += s.rotSpeed.y * 0.007;
-      s.mesh.rotation.z += s.rotSpeed.z * 0.007;
+      s.mesh.rotation.x += s.rotSpeed.x * 0.007 * rotBoost;
+      s.mesh.rotation.y += s.rotSpeed.y * 0.007 * rotBoost;
+      s.mesh.rotation.z += s.rotSpeed.z * 0.007 * rotBoost;
       const m = s.mesh.material as THREE.MeshBasicMaterial;
-      m.opacity = 0.3 + Math.sin(t * 0.5 + s.phase) * 0.15;
-      // Rainbow cycle each shape — slower
-      const hue = ((si / shapes.length) * 360 + t * 20) % 360;
+      m.opacity = 0.3 + Math.sin(t * 0.5 + s.phase) * 0.15 + opacityBoost;
+      // Rainbow cycle each shape — faster when scrolling
+      const hue = ((si / shapes.length) * 360 + t * (20 + sv * 40)) % 360;
       m.color.setHSL(hue / 360, 1.0, 0.55);
     }
 
     // Accent line shimmer + color cycle
     for (let i = 0; i < accentLines.length; i++) {
       const m = accentLines[i].material as THREE.LineBasicMaterial;
-      m.opacity = 0.07 + Math.sin(t * 0.3 + i * 0.9) * 0.04;
+      m.opacity = 0.07 + Math.sin(t * 0.3 + i * 0.9) * 0.04 + opacityBoost * 0.5;
       const hue = ((i / accentLines.length) * 360 + t * 15) % 360;
       m.color.setHSL(hue / 360, 1.0, 0.5);
     }
@@ -572,6 +602,15 @@ function buildScene(theme: Theme): SceneBundle | null {
     case 'extreme': return buildExtremeScene(w, h);
     default:        return buildDarkScene(w, h);
   }
+}
+
+// ── Scroll velocity (fed by Lenis) ─────────────────────────────────────────
+export let scrollVelocity = 0;
+export let scrollProgress = 0;
+
+export function setScrollData(velocity: number, progress: number) {
+  scrollVelocity = velocity;
+  scrollProgress = progress;
 }
 
 // ── Animation loop ─────────────────────────────────────────────────────────

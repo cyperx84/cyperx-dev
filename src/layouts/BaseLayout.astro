@@ -222,6 +222,54 @@ const pageAttr = activeNav ?? 'home';
     </div>
   </div>
 
+  <!-- ── Lenis Smooth Scroll + Three.js Background ── -->
+  <script>
+    import Lenis from 'lenis';
+    import 'lenis/dist/lenis.css';
+
+    let lenis: Lenis | null = null;
+
+    function initLenis() {
+      // Destroy previous instance on page transitions
+      if (lenis) { lenis.destroy(); lenis = null; }
+
+      lenis = new Lenis({
+        lerp: 0.08,
+        smoothWheel: true,
+        overscroll: false,
+      });
+
+      // Feed scroll velocity into Three.js scene
+      lenis.on('scroll', (e: any) => {
+        import('../scripts/three-bg').then(m => {
+          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+          const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+          m.setScrollData(e.velocity, progress);
+        });
+      });
+
+      // Lenis RAF loop
+      function raf(time: number) {
+        lenis?.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+    }
+
+    // Init on first load
+    if (!(window as any).__lenisInit) {
+      (window as any).__lenisInit = true;
+      initLenis();
+    }
+    // Re-init on Astro page transitions
+    document.addEventListener('astro:page-load', () => {
+      initLenis();
+    });
+
+    // Expose for cleanup
+    (window as any).__lenisInstance = () => lenis;
+  </script>
+
   <!-- ── Three.js Background (lazy loaded — not render critical) ── -->
   <script>
     if (!(window as any).__threeBgInit) {

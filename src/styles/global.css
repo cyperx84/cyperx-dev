@@ -912,10 +912,8 @@ body .hover-card {
    NEW POLISH — cursor, sparkle, scroll progress, micro-interactions
    ══════════════════════════════════════════════════════════════════════════ */
 
-/* ── Smooth Scroll ── */
-html {
-  scroll-behavior: smooth;
-}
+/* ── Smooth Scroll (handled by Lenis) ── */
+/* html { scroll-behavior: smooth; } — disabled, Lenis takes over */
 
 /* ── Custom Cursor — hide native, show canvas cursor ── */
 @media (hover: hover) and (pointer: fine) {
