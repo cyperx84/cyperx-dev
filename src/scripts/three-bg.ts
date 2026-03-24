@@ -135,9 +135,9 @@ function buildDarkScene(w: number, h: number): SceneBundle {
     const waveBoost = 1.0 + sv * 2.0;
     const opacityBoost = sv * 0.06;
 
-    // Camera tilt reacts to scroll velocity
-    camera.position.y = 25 + scrollVelocity * 0.008;
-    camera.rotation.x = -0.35 + scrollVelocity * 0.0003;
+    // Camera tilt reacts to scroll — gentle, not jarring
+    camera.position.y = 25 + scrollVelocity * 0.003;
+    camera.rotation.x = -0.35 + scrollVelocity * 0.0001;
 
     // Grid undulation — slow ambient drift, boosted by scroll
     const pos = gridGeo.attributes.position as THREE.BufferAttribute;
@@ -570,7 +570,8 @@ export let scrollVelocity = 0;
 export let scrollProgress = 0;
 
 export function setScrollData(velocity: number, progress: number) {
-  scrollVelocity = velocity;
+  // Clamp velocity to prevent wild camera/grid jumps
+  scrollVelocity = Math.max(-300, Math.min(300, velocity));
   scrollProgress = progress;
 }
 
