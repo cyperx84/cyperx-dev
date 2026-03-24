@@ -373,11 +373,6 @@ function loop() {
 
 export function initCursor() {
   const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-  if (isTouch) {
-    // Still init sparkles on touch?  No — brief spec says desktop only.
-    // But we still wire click sparkles for desktop-only path.
-    return;
-  }
 
   canvas = document.getElementById('cursor-canvas') as HTMLCanvasElement;
   if (!canvas) return;
@@ -385,6 +380,28 @@ export function initCursor() {
   resize();
   window.addEventListener('resize', resize);
 
+  // MutationObserver for theme changes
+  new MutationObserver(() => {
+    trail.length = 0;
+    ambientSparks.length = 0;
+  }).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+  if (isTouch) {
+    // Touch devices: sparkle bursts on tap only (no custom cursor/trail)
+    document.addEventListener('touchstart', (e) => {
+      if (document.hidden) return;
+      for (let i = 0; i < e.changedTouches.length; i++) {
+        const touch = e.changedTouches[i];
+        spawnClickParticles(touch.clientX, touch.clientY);
+      }
+    }, { passive: true });
+
+    // Start animation loop for particles
+    loop();
+    return;
+  }
+
+  // Desktop: full cursor + trail + click sparkles
   window.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
@@ -408,12 +425,6 @@ export function initCursor() {
   document.addEventListener('click', (e) => {
     if (!document.hidden) spawnClickParticles(e.clientX, e.clientY);
   });
-
-  // MutationObserver for theme changes
-  new MutationObserver(() => {
-    trail.length = 0;
-    ambientSparks.length = 0;
-  }).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
   loop();
 }
