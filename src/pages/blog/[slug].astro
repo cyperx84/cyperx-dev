@@ -370,6 +370,44 @@ const nextPost = currentIndex < posts.length - 1 ? posts[currentIndex + 1] : nul
     font-weight: 800;
   }
 
+  /* ══════════════════════════════════════════
+     IMAGE STYLES (inline markdown images)
+  ══════════════════════════════════════════ */
+
+  .prose-dark img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    margin: 2rem 0;
+    border: 1px solid rgba(57,255,20,0.3);
+    filter: saturate(0.8) contrast(1.1);
+  }
+
+  .prose-light img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    margin: 2rem 0;
+    border-radius: 4px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+
+  @keyframes img-border-cycle {
+    0%   { border-color: #8eff71; box-shadow: 0 0 12px rgba(142,255,113,0.2); }
+    33%  { border-color: #ff51fa; box-shadow: 0 0 12px rgba(255,81,250,0.2); }
+    66%  { border-color: #ac89ff; box-shadow: 0 0 12px rgba(172,137,255,0.2); }
+    100% { border-color: #8eff71; box-shadow: 0 0 12px rgba(142,255,113,0.2); }
+  }
+  .prose-extreme img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    margin: 2rem 0;
+    border: 2px solid #8eff71;
+    animation: img-border-cycle 4s linear infinite;
+    filter: saturate(1.2) contrast(1.1);
+  }
+
   /* Extreme animations (copied from blog.astro) */
   @keyframes x-drift {
     0%   { transform: translate(0,0) rotate(0deg) scale(1); }
