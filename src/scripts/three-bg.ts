@@ -625,14 +625,13 @@ function animate(t: number) {
 }
 
 // ── CSS bloom approximation (replaces EffectComposer/UnrealBloomPass) ──────
-const CSS_BLOOM: Record<Theme, string> = {
-  dark:    'blur(0.5px) brightness(1.15)',
-  light:   'blur(0.3px) brightness(1.08)',
-  extreme: 'blur(0.8px) brightness(1.3)',
-  unknown: 'blur(0.5px) brightness(1.15)',
+const CSS_BLOOM: Record<string, string> = {
+  dark:    'blur(0px) brightness(1.25)',
+  extreme: 'blur(0px) brightness(1.4)',
+  light:   'blur(0px) brightness(1.0)',
 };
 function applyCSSBloom(el: HTMLCanvasElement, theme: Theme) {
-  el.style.filter = CSS_BLOOM[theme];
+  el.style.filter = CSS_BLOOM[theme] ?? CSS_BLOOM.dark;
 }
 
 // ── Swap scene on theme change ─────────────────────────────────────────────
@@ -661,7 +660,7 @@ function onResize() {
   renderer.setSize(w, h);
   isMobileDevice = w < 768;
   renderer.setPixelRatio(isMobileDevice ? 1.0 : Math.min(window.devicePixelRatio, 1.5));
-  // Rebuild scene + composer so camera aspect updates correctly
+  // Rebuild scene so camera aspect updates correctly
   if (current) {
     current.dispose();
     current = null;

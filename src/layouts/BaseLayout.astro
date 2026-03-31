@@ -337,41 +337,29 @@ const pageAttr = activeNav ?? 'home';
         // Wait for idle after a short delay to let FCP + LCP complete
         (window as any).requestIdleCallback(loadThree, { timeout: 3000 });
       } else {
-        setTimeout(loadThree, 2000);
+        setTimeout(loadThree, 3000);
       }
     }
   </script>
 
-  <!-- ── Cursor + Sparkle Effects (idle — decorative, non-critical) ── -->
+  <!-- ── Cursor + Bullet Holes (idle — decorative, non-critical) ── -->
   <script>
-    import { initCursor } from '../scripts/cursor';
-    if (!(window as any).__cursorInit) {
+    const runCursor = () => import('../scripts/cursor').then(m => m.initCursor?.() ?? m.default?.());
+    const runBulletHoles = () => import('../scripts/bullet-holes').then(m => m.initBulletHoles?.() ?? m.default?.());
+
+    if (!(window as any).__cursorInit || !(window as any).__bulletsInit) {
       (window as any).__cursorInit = true;
-      // Purely decorative — defer to idle so it doesn't compete with LCP/FCP
-      if ('requestIdleCallback' in window) {
-        (window as any).requestIdleCallback(initCursor, { timeout: 2000 });
-      } else {
-        setTimeout(initCursor, 500);
-      }
-    }
-  </script>
-
-  <!-- ── Bullet Holes (idle — decorative, survives View Transitions) ── -->
-  <script>
-    import { initBulletHoles, clearBulletHoles } from '../scripts/bullet-holes';
-    const bootBullets = () => initBulletHoles();
-    if (!(window as any).__bulletsInit) {
       (window as any).__bulletsInit = true;
-      // Purely decorative — defer to idle to avoid blocking main thread at paint time
+      // Purely decorative — defer both to a single idle callback so they don't compete with LCP/FCP
       if ('requestIdleCallback' in window) {
-        (window as any).requestIdleCallback(bootBullets, { timeout: 3000 });
+        requestIdleCallback(() => { runCursor(); runBulletHoles(); }, { timeout: 2000 });
       } else {
-        setTimeout(bootBullets, 1000);
+        setTimeout(() => { runCursor(); runBulletHoles(); }, 500);
       }
     }
     // Re-init on every Astro page transition (already past initial paint by then)
-    document.addEventListener('astro:page-load', bootBullets);
-    (window as any).__clearBulletHoles = clearBulletHoles;
+    document.addEventListener('astro:page-load', runBulletHoles);
+    (window as any).__clearBulletHoles = () => import('../scripts/bullet-holes').then(m => m.clearBulletHoles());
   </script>
 
   <!-- ── Theme Toggle + Mobile Menu + Animations Script ── -->

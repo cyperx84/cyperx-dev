@@ -344,7 +344,7 @@ function animate() {
 
   ctx.globalAlpha = 1;
 
-  if (particles.length === 0 && !hasFading && shakeRemaining <= 0) {
+  if (particles.length === 0 && holes.length === 0 && shakeRemaining <= 0) {
     running = false;
     return;
   }
