@@ -4,6 +4,7 @@ slug: "ai-agent-root-access"
 date: "2026.03.18"
 excerpt: "Everyone told me it was insane. They were right. But the productivity gains from letting an autonomous agent manage my infrastructure changed everything about how I build."
 tags: ["AI", "AGENTS", "INFRASTRUCTURE"]
+heroImage: "/images/blog/ai-agent-root-access.jpg"
 readTime: "8 min"
 category: "SYSTEMS"
 signal: 94
