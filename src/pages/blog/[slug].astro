@@ -22,8 +22,17 @@ const { Content } = await render(post);
 const currentIndex = posts.findIndex(p => p.data.slug === post.data.slug);
 const prevPost = currentIndex > 0 ? posts[currentIndex - 1] : null;
 const nextPost = currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null;
+
+const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
 ---
-<BaseLayout title={`CYPERX.DEV // ${post.data.title.toUpperCase()}`} activeNav="blog">
+<BaseLayout
+  title={`CYPERX.DEV // ${post.data.title.toUpperCase()}`}
+  activeNav="blog"
+  ogTitle={post.data.title}
+  ogDescription={post.data.excerpt}
+  ogImage={postOgImage}
+  ogType="article"
+>
 
   <!-- ════════════════════════════════════════
        DARK VARIANT

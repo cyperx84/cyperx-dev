@@ -5,8 +5,30 @@ import { ClientRouter } from 'astro:transitions';
 interface Props {
   title?: string;
   activeNav?: 'home' | 'blog' | 'projects' | 'about' | 'datablock' | 'fragments' | 'manifesto' | '';
+  description?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  ogType?: string;
 }
-const { title = 'CYPERX.DEV', activeNav } = Astro.props;
+const {
+  title = 'CYPERX.DEV',
+  activeNav,
+  description,
+  ogTitle,
+  ogDescription,
+  ogImage,
+  ogType,
+} = Astro.props;
+
+const defaultDescription = 'CyperX — builder, breaker, automator. AI agent infrastructure, distributed fleets, and tools that compound over time.';
+const defaultOgImage = 'https://cyperx.dev/og-image.png';
+
+const resolvedDescription = description ?? defaultDescription;
+const resolvedOgTitle = ogTitle ?? title;
+const resolvedOgDescription = ogDescription ?? defaultDescription;
+const resolvedOgImage = ogImage ?? defaultOgImage;
+const resolvedOgType = ogType ?? 'website';
 const pageAttr = activeNav ?? 'home';
 ---
 <!doctype html>
@@ -27,25 +49,27 @@ const pageAttr = activeNav ?? 'home';
       e.newDocument.documentElement.className = 'theme-' + t;
     });
   </script>
-  <meta name="description" content="CyperX — builder, breaker, automator. AI agent infrastructure, distributed fleets, and tools that compound over time." />
+  <meta name="description" content={resolvedDescription} />
   <meta name="theme-color" content="#131313" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="canonical" href={Astro.url.href} />
   <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content="CyperX — builder, breaker, automator. AI agent infrastructure, distributed fleets, and tools that compound over time." />
+  <meta property="og:type" content={resolvedOgType} />
+  <meta property="og:title" content={resolvedOgTitle} />
+  <meta property="og:description" content={resolvedOgDescription} />
   <meta property="og:url" content={Astro.url.href} />
   <meta property="og:site_name" content="CyperX.dev" />
-  <meta property="og:image" content="https://cyperx.dev/og-image.png" />
+  <meta property="og:image" content={resolvedOgImage} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@cyper_x_" />
-  <meta name="twitter:title" content={title} />
-  <meta name="twitter:description" content="CyperX — builder, breaker, automator. AI agent infrastructure, distributed fleets, and tools that compound over time." />
-  <meta name="twitter:image" content="https://cyperx.dev/og-image.png" />
+  <meta name="twitter:title" content={resolvedOgTitle} />
+  <meta name="twitter:description" content={resolvedOgDescription} />
+  <meta name="twitter:image" content={resolvedOgImage} />
+  <slot name="head" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <!-- Preload critical local fonts -->
@@ -311,9 +335,9 @@ const pageAttr = activeNav ?? 'home';
       };
       if ('requestIdleCallback' in window) {
         // Wait for idle after a short delay to let FCP + LCP complete
-        setTimeout(() => (window as any).requestIdleCallback(loadThree, { timeout: 3000 }), 200);
+        (window as any).requestIdleCallback(loadThree, { timeout: 3000 });
       } else {
-        setTimeout(loadThree, 500);
+        setTimeout(loadThree, 2000);
       }
     }
   </script>
