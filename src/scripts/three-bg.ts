@@ -54,7 +54,7 @@ function buildDarkScene(w: number, h: number): SceneBundle {
   camera.lookAt(0, 0, 0);
 
   // ── Particle field — drifting embers ──
-  const COUNT = isMobileGeo ? 48 : 120;
+  const COUNT = isMobileGeo ? 36 : 80;
   const positions = new Float32Array(COUNT * 3);
   const colors    = new Float32Array(COUNT * 3);
   const sizes     = new Float32Array(COUNT);
@@ -107,7 +107,7 @@ function buildDarkScene(w: number, h: number): SceneBundle {
   scene.add(points);
 
   // ── Connection lines between nearby particles ──
-  const MAX_LINES = isMobileGeo ? 24 : 72;
+  const MAX_LINES = isMobileGeo ? 18 : 48;
   const CONNECT_DIST = 25;
   const linePositions = new Float32Array(MAX_LINES * 6); // 2 verts × 3 comps
   const lineColors    = new Float32Array(MAX_LINES * 6);
