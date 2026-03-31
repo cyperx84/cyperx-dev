@@ -1320,6 +1320,12 @@ footer {
   font-family: var(--font-lazer);
   letter-spacing: 0.05em;
 }
+@media (max-width: 639px) {
+  .theme-extreme h1 {
+    letter-spacing: -0.04em;
+    font-size: 7vw;
+  }
+}
 
 /* All themes: ZedMono for inline code and code blocks */
 code, pre, .code-text, kbd {
