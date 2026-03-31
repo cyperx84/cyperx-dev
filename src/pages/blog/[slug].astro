@@ -385,6 +385,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
 
   .prose-dark img {
     width: 100%;
+    aspect-ratio: 16 / 9; /* reserve space before load — prevents CLS */
     max-height: 400px;
     object-fit: cover;
     margin: 2rem 0;
@@ -394,6 +395,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
 
   .prose-light img {
     width: 100%;
+    aspect-ratio: 16 / 9; /* reserve space before load — prevents CLS */
     max-height: 400px;
     object-fit: cover;
     margin: 2rem 0;
@@ -409,6 +411,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
   }
   .prose-extreme img {
     width: 100%;
+    aspect-ratio: 16 / 9; /* reserve space before load — prevents CLS */
     max-height: 400px;
     object-fit: cover;
     margin: 2rem 0;

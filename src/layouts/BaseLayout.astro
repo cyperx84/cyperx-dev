@@ -331,7 +331,7 @@ const pageAttr = activeNav ?? 'home';
       (window as any).__threeBgInit = true;
       // Defer Three.js load well after FCP to avoid blocking main thread
       const loadThree = () => {
-        import('../scripts/three-bg').then(m => m.initThreeBg());
+        import(/* @vite-ignore */ '../scripts/three-bg').then(m => m.initThreeBg());
       };
       if ('requestIdleCallback' in window) {
         // Wait for idle after a short delay to let FCP + LCP complete
@@ -342,25 +342,34 @@ const pageAttr = activeNav ?? 'home';
     }
   </script>
 
-  <!-- ── Cursor + Sparkle Effects (deferred) ── -->
+  <!-- ── Cursor + Sparkle Effects (idle — decorative, non-critical) ── -->
   <script>
     import { initCursor } from '../scripts/cursor';
     if (!(window as any).__cursorInit) {
       (window as any).__cursorInit = true;
-      document.addEventListener('DOMContentLoaded', () => { initCursor(); });
+      // Purely decorative — defer to idle so it doesn't compete with LCP/FCP
+      if ('requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(initCursor, { timeout: 2000 });
+      } else {
+        setTimeout(initCursor, 500);
+      }
     }
   </script>
 
-  <!-- ── Bullet Holes (deferred, survives View Transitions) ── -->
+  <!-- ── Bullet Holes (idle — decorative, survives View Transitions) ── -->
   <script>
     import { initBulletHoles, clearBulletHoles } from '../scripts/bullet-holes';
-    // Init on first load + every View Transition page swap
-    function bootBullets() { initBulletHoles(); }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', bootBullets, { once: true });
-    } else {
-      bootBullets();
+    const bootBullets = () => initBulletHoles();
+    if (!(window as any).__bulletsInit) {
+      (window as any).__bulletsInit = true;
+      // Purely decorative — defer to idle to avoid blocking main thread at paint time
+      if ('requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(bootBullets, { timeout: 3000 });
+      } else {
+        setTimeout(bootBullets, 1000);
+      }
     }
+    // Re-init on every Astro page transition (already past initial paint by then)
     document.addEventListener('astro:page-load', bootBullets);
     (window as any).__clearBulletHoles = clearBulletHoles;
   </script>

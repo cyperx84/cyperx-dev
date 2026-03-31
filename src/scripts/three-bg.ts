@@ -4,7 +4,6 @@
  * Dark: wireframe grid (glowing) | Light: wireframe grid (soft) | Extreme: wireframe grid (rainbow chaos)
  */
 import * as THREE from 'three';
-import { EffectComposer, RenderPass, UnrealBloomPass, ShaderPass, RGBShiftShader } from 'three-stdlib';
 
 // Reusable Color object — avoids GC pressure in hot loops
 const tmpColor = new THREE.Color();
@@ -25,25 +24,6 @@ interface SceneBundle {
 // ── State ──────────────────────────────────────────────────────────────────
 let renderer: THREE.WebGLRenderer | null = null;
 let current: SceneBundle | null = null;
-let composer: EffectComposer | null = null;
-let bloomPass: UnrealBloomPass | null = null;
-let chromaticPass: ShaderPass | null = null;
-
-// Bloom settings per theme
-const BLOOM_CONFIG: Record<Theme, { strength: number; radius: number; threshold: number }> = {
-  dark:    { strength: 0.6, radius: 0.4, threshold: 0.1 },
-  light:   { strength: 0.3, radius: 0.3, threshold: 0.3 },
-  extreme: { strength: 1.2, radius: 0.6, threshold: 0.0 },
-  unknown: { strength: 0.5, radius: 0.4, threshold: 0.1 },
-};
-
-// RGB shift (chromatic aberration) amount per theme
-const CHROMATIC_CONFIG: Record<Theme, number> = {
-  dark: 0.0015,
-  light: 0.0008,
-  extreme: 0.004,
-  unknown: 0.0015,
-};
 let animId: number = 0;
 let canvas: HTMLCanvasElement | null = null;
 let activeTheme: Theme = 'unknown';
@@ -74,7 +54,7 @@ function buildDarkScene(w: number, h: number): SceneBundle {
   camera.lookAt(0, 0, 0);
 
   // ── Particle field — drifting embers ──
-  const COUNT = isMobileGeo ? 80 : 200;
+  const COUNT = isMobileGeo ? 48 : 120;
   const positions = new Float32Array(COUNT * 3);
   const colors    = new Float32Array(COUNT * 3);
   const sizes     = new Float32Array(COUNT);
@@ -127,7 +107,7 @@ function buildDarkScene(w: number, h: number): SceneBundle {
   scene.add(points);
 
   // ── Connection lines between nearby particles ──
-  const MAX_LINES = isMobileGeo ? 40 : 120;
+  const MAX_LINES = isMobileGeo ? 24 : 72;
   const CONNECT_DIST = 25;
   const linePositions = new Float32Array(MAX_LINES * 6); // 2 verts × 3 comps
   const lineColors    = new Float32Array(MAX_LINES * 6);
@@ -641,52 +621,18 @@ function animate(t: number) {
   const ts = t * 0.001; // seconds
   current.tick(ts);
 
-  // Subtle scroll-reactive chromatic aberration — intensifies when scrolling
-  if (chromaticPass) {
-    const sv = Math.min(Math.abs(scrollVelocity), 1500);
-    chromaticPass.uniforms['amount'].value = CHROMATIC_CONFIG[activeTheme] + sv * 0.000005;
-  }
-
-  // Render through post-processing pipeline
-  if (composer) {
-    composer.render();
-  } else {
-    renderer.render(current.scene, current.camera);
-  }
+  renderer.render(current.scene, current.camera);
 }
 
-// ── Set up post-processing composer ────────────────────────────────────────
-function setupComposer(scene: THREE.Scene, camera: THREE.Camera, theme: Theme) {
-  if (!renderer) return;
-
-  // Skip post-processing on mobile for performance
-  if (isMobileDevice) {
-    composer = null;
-    bloomPass = null;
-    chromaticPass = null;
-    return;
-  }
-
-  composer = new EffectComposer(renderer);
-
-  const renderPass = new RenderPass(scene, camera);
-  composer.addPass(renderPass);
-
-  // Bloom — glow on bright wireframe elements
-  const bc = BLOOM_CONFIG[theme];
-  bloomPass = new UnrealBloomPass(
-    new THREE.Vector2(window.innerWidth, window.innerHeight),
-    bc.strength,
-    bc.radius,
-    bc.threshold,
-  );
-  composer.addPass(bloomPass);
-
-  // Chromatic aberration (RGB shift) — subtle, increases with scroll
-  chromaticPass = new ShaderPass(RGBShiftShader);
-  chromaticPass.uniforms['amount'].value = CHROMATIC_CONFIG[theme];
-  chromaticPass.uniforms['angle'].value = 0.0;
-  composer.addPass(chromaticPass);
+// ── CSS bloom approximation (replaces EffectComposer/UnrealBloomPass) ──────
+const CSS_BLOOM: Record<Theme, string> = {
+  dark:    'blur(0.5px) brightness(1.15)',
+  light:   'blur(0.3px) brightness(1.08)',
+  extreme: 'blur(0.8px) brightness(1.3)',
+  unknown: 'blur(0.5px) brightness(1.15)',
+};
+function applyCSSBloom(el: HTMLCanvasElement, theme: Theme) {
+  el.style.filter = CSS_BLOOM[theme];
 }
 
 // ── Swap scene on theme change ─────────────────────────────────────────────
@@ -695,7 +641,7 @@ function swapScene(theme: Theme) {
   activeTheme = theme;
   if (current) { current.dispose(); current = null; }
   current = buildScene(theme);
-  if (current) setupComposer(current.scene, current.camera, theme);
+  if (current && canvas) applyCSSBloom(canvas, theme);
 }
 
 // ── Detect current theme ───────────────────────────────────────────────────
@@ -721,8 +667,6 @@ function onResize() {
     current = null;
   }
   current = buildScene(activeTheme);
-  if (current) setupComposer(current.scene, current.camera, activeTheme);
-  if (composer) composer.setSize(w, h);
 }
 
 // ── Init ───────────────────────────────────────────────────────────────────
@@ -741,6 +685,9 @@ export function initThreeBg() {
   renderer.setPixelRatio(isMobileDevice ? 1.0 : Math.min(window.devicePixelRatio, 1.5));
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setClearColor(0x000000, 0);
+
+  // Apply CSS bloom approximation immediately (no GPU post-processing needed)
+  applyCSSBloom(canvas, detectTheme());
 
   // Build initial scene
   activeTheme = 'unknown';
