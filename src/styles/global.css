@@ -184,8 +184,13 @@ body {
   text-shadow: 2px 0 #FF51FA, -2px 0 #39FF14;
 }
 .glitch-text-extreme {
-  text-shadow: 4px 0 #ff51fa, -4px 0 #8eff71, 0 4px #ac89ff;
+  text-shadow: 2px 0 #ff51fa, -2px 0 #8eff71, 0 2px #ac89ff;
   animation: psychedelic-melt 6s ease-in-out infinite;
+}
+@media (min-width: 640px) {
+  .glitch-text-extreme {
+    text-shadow: 4px 0 #ff51fa, -4px 0 #8eff71, 0 4px #ac89ff;
+  }
 }
 .glitch-text-animated {
   animation: chaos-glitch 6s infinite ease-in-out alternate-reverse;
@@ -675,12 +680,22 @@ body {
 
 /* ── Psychedelic Melt (slow trippy text) ── */
 @keyframes psychedelic-melt {
-  0%   { text-shadow: 4px 0 #ff51fa, -4px 0 #8eff71, 0 4px #ac89ff; filter: hue-rotate(0deg); transform: skew(0); }
-  20%  { text-shadow: -6px 3px #00ffff, 6px -3px #ff00ff, 0 6px #ac89ff; filter: hue-rotate(40deg); transform: skew(-0.5deg); }
-  40%  { text-shadow: 5px -2px #ff51fa, -5px 4px #39FF14, 3px 0 #ac89ff; filter: hue-rotate(80deg); transform: skew(0.3deg) scaleY(1.005); }
-  60%  { text-shadow: -4px 0 #00ffff, 7px 2px #ff51fa, -2px -5px #8eff71; filter: hue-rotate(120deg); transform: skew(-0.3deg); }
-  80%  { text-shadow: 3px 4px #ac89ff, -6px -1px #39FF14, 0 -4px #ff51fa; filter: hue-rotate(160deg); transform: skew(0.5deg) scaleY(0.998); }
-  100% { text-shadow: 4px 0 #ff51fa, -4px 0 #8eff71, 0 4px #ac89ff; filter: hue-rotate(0deg); transform: skew(0); }
+  0%   { text-shadow: 2px 0 #ff51fa, -2px 0 #8eff71, 0 2px #ac89ff; filter: hue-rotate(0deg); transform: skew(0); }
+  20%  { text-shadow: -3px 2px #00ffff, 3px -2px #ff00ff, 0 3px #ac89ff; filter: hue-rotate(40deg); transform: skew(-0.5deg); }
+  40%  { text-shadow: 3px -1px #ff51fa, -3px 2px #39FF14, 2px 0 #ac89ff; filter: hue-rotate(80deg); transform: skew(0.3deg) scaleY(1.005); }
+  60%  { text-shadow: -2px 0 #00ffff, 4px 1px #ff51fa, -1px -3px #8eff71; filter: hue-rotate(120deg); transform: skew(-0.3deg); }
+  80%  { text-shadow: 2px 2px #ac89ff, -3px -1px #39FF14, 0 -2px #ff51fa; filter: hue-rotate(160deg); transform: skew(0.5deg) scaleY(0.998); }
+  100% { text-shadow: 2px 0 #ff51fa, -2px 0 #8eff71, 0 2px #ac89ff; filter: hue-rotate(0deg); transform: skew(0); }
+}
+@media (min-width: 640px) {
+  @keyframes psychedelic-melt {
+    0%   { text-shadow: 4px 0 #ff51fa, -4px 0 #8eff71, 0 4px #ac89ff; filter: hue-rotate(0deg); transform: skew(0); }
+    20%  { text-shadow: -6px 3px #00ffff, 6px -3px #ff00ff, 0 6px #ac89ff; filter: hue-rotate(40deg); transform: skew(-0.5deg); }
+    40%  { text-shadow: 5px -2px #ff51fa, -5px 4px #39FF14, 3px 0 #ac89ff; filter: hue-rotate(80deg); transform: skew(0.3deg) scaleY(1.005); }
+    60%  { text-shadow: -4px 0 #00ffff, 7px 2px #ff51fa, -2px -5px #8eff71; filter: hue-rotate(120deg); transform: skew(-0.3deg); }
+    80%  { text-shadow: 3px 4px #ac89ff, -6px -1px #39FF14, 0 -4px #ff51fa; filter: hue-rotate(160deg); transform: skew(0.5deg) scaleY(0.998); }
+    100% { text-shadow: 4px 0 #ff51fa, -4px 0 #8eff71, 0 4px #ac89ff; filter: hue-rotate(0deg); transform: skew(0); }
+  }
 }
 
 /* ── Liquid Warp (slow card morphing) ── */
