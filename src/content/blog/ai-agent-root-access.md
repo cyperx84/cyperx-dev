@@ -10,6 +10,8 @@ category: "SYSTEMS"
 signal: 94
 ---
 
+![AI agent with root access — neon neural network dissolving into terminal code](/images/blog/ai-agent-root-access.jpg)
+
 Everyone told me it was insane. My mate in Sydney literally said "you're going to nuke your machine." He wasn't wrong to worry.
 
 I gave OpenClaw — my main agent, the one I talk to every day — full shell access. Not sandboxed. Not read-only. Full. It can run git commands, edit files, manage cron jobs, send Discord messages, and yes, it can `rm -rf` something if it's having a bad day.
@@ -27,6 +29,8 @@ Day to day, the agent is doing stuff I used to do manually:
 - Process management — checking what's running, restarting services, reading logs.
 
 That's not hypothetical. That's the actual daily usage.
+
+![Root shell — cascading green terminal text, cracked screen fractures revealing purple light](/images/blog/ai-agent-root-access-mid.jpg)
 
 ## What went wrong
 
@@ -63,3 +67,5 @@ Is it risky? Yeah, a bit. But the risk is proportional to the quality of your in
 I'm not telling you to do this. I'm telling you why I did it, what happened, and what I'd do differently. If you're building with agents, you're going to have to figure out your own risk tolerance. Mine is higher than most. That's a deliberate choice.
 
 The machines have root. The machines are behaving. For now, that's enough.
+
+![AI integrated into infrastructure — glowing network nodes, server racks dissolving into digital particles](/images/blog/ai-agent-root-access-end.jpg)
