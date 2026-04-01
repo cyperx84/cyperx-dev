@@ -304,10 +304,15 @@ const pageAttr = activeNav ?? 'home';
         }
       });
 
-      // Connect Lenis to GSAP ScrollTrigger
-      import('../scripts/scroll-animations').then(m => {
-        m.connectLenis(lenis);
-      });
+      // Connect Lenis to GSAP ScrollTrigger — only after scroll-animations is loaded
+      const connectWhenReady = () => {
+        if ((window as any).__scrollAnimationsModule) {
+          (window as any).__scrollAnimationsModule.connectLenis(lenis);
+        } else {
+          setTimeout(connectWhenReady, 200);
+        }
+      };
+      setTimeout(connectWhenReady, 300);
     }
 
     // Init on first load
@@ -450,28 +455,21 @@ const pageAttr = activeNav ?? 'home';
         if (el.dataset.twDone) return;
         el.dataset.twDone = '1';
         const text = el.textContent;
-        // Reserve space with invisible text to prevent CLS
+        el.textContent = '';
         el.style.visibility = 'visible';
-        el.style.color = 'transparent';
         let i = 0;
         const speed = parseInt(el.dataset.typewriter) || 50;
 
         function type() {
           if (i < text.length) {
-            el.textContent = text.substring(0, i + 1);
-            el.style.color = '';
+            el.textContent += text.charAt(i);
             i++;
             setTimeout(type, speed);
           }
         }
 
         const obs = new IntersectionObserver(entries => {
-          if (entries[0].isIntersecting) {
-            el.textContent = '';
-            el.style.color = '';
-            type();
-            obs.disconnect();
-          }
+          if (entries[0].isIntersecting) { type(); obs.disconnect(); }
         }, { threshold: 0.3 });
         obs.observe(el);
       });
@@ -526,18 +524,39 @@ const pageAttr = activeNav ?? 'home';
     document.addEventListener('astro:page-load', initAll);
   </script>
 
-  <!-- Bundled script for GSAP scroll animations (Astro processes imports) -->
+  <!-- GSAP scroll animations — deferred past LCP via idle callback -->
   <script>
-    import { initScrollAnimations } from '../scripts/scroll-animations';
-    (window as any).__initScrollAnimations = initScrollAnimations;
+    const loadScrollAnimations = () => {
+      import('../scripts/scroll-animations').then(m => {
+        (window as any).__scrollAnimationsModule = m;
+        (window as any).__initScrollAnimations = m.initScrollAnimations;
+        m.initScrollAnimations();
+      });
+    };
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadScrollAnimations, { timeout: 2500 });
+    } else {
+      setTimeout(loadScrollAnimations, 500);
+    }
+    document.addEventListener('astro:page-load', () => {
+      if ((window as any).__initScrollAnimations) (window as any).__initScrollAnimations();
+    });
   </script>
 
-  <!-- GSAP page transitions (layered on Astro View Transitions) -->
+  <!-- GSAP page transitions — deferred, not critical for LCP -->
   <script>
-    import { initPageTransitions } from '../scripts/page-transitions';
-    if (!(window as any).__pageTransitionsInit) {
-      (window as any).__pageTransitionsInit = true;
-      initPageTransitions();
+    const loadPageTransitions = () => {
+      import('../scripts/page-transitions').then(m => {
+        if (!(window as any).__pageTransitionsInit) {
+          (window as any).__pageTransitionsInit = true;
+          m.initPageTransitions();
+        }
+      });
+    };
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadPageTransitions, { timeout: 3000 });
+    } else {
+      setTimeout(loadPageTransitions, 800);
     }
   </script>
 </body>
