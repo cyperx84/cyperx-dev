@@ -76,8 +76,9 @@ const pageAttr = activeNav ?? 'home';
   <link rel="preload" href="/fonts/ZedMonoNFM-Bold.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/MonaspaceRadon-ExtraBold.woff2" as="font" type="font/woff2" crossorigin />
   <!-- Space Grotesk — render-blocking (primary display font, used in LCP hero h1) -->
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&display=swap" as="style" />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&display=swap" rel="stylesheet" />
+  <!-- display=optional: use fallback if not cached — eliminates CLS from font swap -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&display=optional" as="style" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&display=optional" rel="stylesheet" />
   <!-- JetBrains Mono — deferred (mono/code only) -->
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" /></noscript>
