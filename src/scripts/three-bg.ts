@@ -3,10 +3,39 @@
  * One file handles all 3 themes with distinct visual personalities.
  * Dark: wireframe grid (glowing) | Light: wireframe grid (soft) | Extreme: wireframe grid (rainbow chaos)
  */
-import * as THREE from 'three';
+import {
+  AdditiveBlending,
+  BoxGeometry,
+  BufferAttribute,
+  BufferGeometry,
+  Camera,
+  Color,
+  CylinderGeometry,
+  DodecahedronGeometry,
+  IcosahedronGeometry,
+  Line,
+  LineBasicMaterial,
+  LineSegments,
+  Material,
+  Mesh,
+  MeshBasicMaterial,
+  OctahedronGeometry,
+  OrthographicCamera,
+  PerspectiveCamera,
+  PlaneGeometry,
+  Points,
+  PointsMaterial,
+  Scene,
+  SphereGeometry,
+  TetrahedronGeometry,
+  TorusGeometry,
+  TorusKnotGeometry,
+  Vector3,
+  WebGLRenderer,
+} from 'three';
 
 // Reusable Color object — avoids GC pressure in hot loops
-const tmpColor = new THREE.Color();
+const tmpColor = new Color();
 
 // Mobile detection for reduced geometry
 const isMobileGeo = typeof window !== 'undefined' && window.innerWidth < 768;
@@ -14,15 +43,15 @@ const isMobileGeo = typeof window !== 'undefined' && window.innerWidth < 768;
 // ── Types ──────────────────────────────────────────────────────────────────
 type Theme = 'dark' | 'light' | 'extreme' | 'unknown';
 interface SceneBundle {
-  scene: THREE.Scene;
-  camera: THREE.Camera;
+  scene: Scene;
+  camera: Camera;
   dispose: () => void;
   onMouse: (x: number, y: number) => void;
   tick: (t: number) => void;
 }
 
 // ── State ──────────────────────────────────────────────────────────────────
-let renderer: THREE.WebGLRenderer | null = null;
+let renderer: WebGLRenderer | null = null;
 let current: SceneBundle | null = null;
 let animId: number = 0;
 let canvas: HTMLCanvasElement | null = null;
@@ -42,12 +71,12 @@ function noise(x: number, y: number, z: number): number {
 
 // ── DARK: Wireframe Grid (dark variant of light mesh) ──────────────────────
 function buildDarkScene(w: number, h: number): SceneBundle {
-  const scene = new THREE.Scene();
+  const scene = new Scene();
 
   // Orthographic camera — no perspective distortion, no scroll-reactive movement
   const aspect = w / h;
   const frustum = 60;
-  const camera = new THREE.OrthographicCamera(
+  const camera = new OrthographicCamera(
     -frustum * aspect, frustum * aspect, frustum, -frustum, 0.1, 500
   );
   camera.position.set(0, 0, 100);
@@ -61,9 +90,9 @@ function buildDarkScene(w: number, h: number): SceneBundle {
   const velocities: { vx: number; vy: number; phase: number }[] = [];
 
   const palette = [
-    new THREE.Color('#39FF14'),
-    new THREE.Color('#FF51FA'),
-    new THREE.Color('#AC89FF'),
+    new Color('#39FF14'),
+    new Color('#FF51FA'),
+    new Color('#AC89FF'),
   ];
 
   const spread = frustum * aspect;
@@ -88,22 +117,22 @@ function buildDarkScene(w: number, h: number): SceneBundle {
     });
   }
 
-  const particleGeo = new THREE.BufferGeometry();
-  particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  particleGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-  particleGeo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+  const particleGeo = new BufferGeometry();
+  particleGeo.setAttribute('position', new BufferAttribute(positions, 3));
+  particleGeo.setAttribute('color', new BufferAttribute(colors, 3));
+  particleGeo.setAttribute('size', new BufferAttribute(sizes, 1));
 
-  const particleMat = new THREE.PointsMaterial({
+  const particleMat = new PointsMaterial({
     vertexColors: true,
     transparent: true,
     opacity: 0.35,
-    blending: THREE.AdditiveBlending,
+    blending: AdditiveBlending,
     depthWrite: false,
     sizeAttenuation: true,
     size: 2.5,
   });
 
-  const points = new THREE.Points(particleGeo, particleMat);
+  const points = new Points(particleGeo, particleMat);
   scene.add(points);
 
   // ── Connection lines between nearby particles ──
@@ -111,19 +140,19 @@ function buildDarkScene(w: number, h: number): SceneBundle {
   const CONNECT_DIST = 25;
   const linePositions = new Float32Array(MAX_LINES * 6); // 2 verts × 3 comps
   const lineColors    = new Float32Array(MAX_LINES * 6);
-  const lineGeo = new THREE.BufferGeometry();
-  lineGeo.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
-  lineGeo.setAttribute('color', new THREE.BufferAttribute(lineColors, 3));
+  const lineGeo = new BufferGeometry();
+  lineGeo.setAttribute('position', new BufferAttribute(linePositions, 3));
+  lineGeo.setAttribute('color', new BufferAttribute(lineColors, 3));
   lineGeo.setDrawRange(0, 0);
 
-  const lineMat = new THREE.LineBasicMaterial({
+  const lineMat = new LineBasicMaterial({
     vertexColors: true,
     transparent: true,
     opacity: 0.12,
-    blending: THREE.AdditiveBlending,
+    blending: AdditiveBlending,
     depthWrite: false,
   });
-  const lineSegments = new THREE.LineSegments(lineGeo, lineMat);
+  const lineSegments = new LineSegments(lineGeo, lineMat);
   scene.add(lineSegments);
 
   let mouseX = 0, mouseY = 0;
@@ -134,7 +163,7 @@ function buildDarkScene(w: number, h: number): SceneBundle {
   };
 
   const tick = (t: number) => {
-    const pos = particleGeo.attributes.position as THREE.BufferAttribute;
+    const pos = particleGeo.attributes.position as BufferAttribute;
     const arr = pos.array as Float32Array;
 
     // Drift particles
@@ -165,9 +194,9 @@ function buildDarkScene(w: number, h: number): SceneBundle {
     particleMat.opacity = 0.25 + Math.sin(t * 0.2) * 0.1;
 
     // Update connection lines (nearest-neighbour pairs)
-    const lp = lineGeo.attributes.position as THREE.BufferAttribute;
+    const lp = lineGeo.attributes.position as BufferAttribute;
     const la = lp.array as Float32Array;
-    const lc = lineGeo.attributes.color as THREE.BufferAttribute;
+    const lc = lineGeo.attributes.color as BufferAttribute;
     const lcArr = lc.array as Float32Array;
     let lineIdx = 0;
 
@@ -204,72 +233,72 @@ function buildDarkScene(w: number, h: number): SceneBundle {
 
 // ── LIGHT: Geometric Landscape ─────────────────────────────────────────────
 function buildLightScene(w: number, h: number): SceneBundle {
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(55, w / h, 0.1, 1000);
+  const scene = new Scene();
+  const camera = new PerspectiveCamera(55, w / h, 0.1, 1000);
   camera.position.set(0, 25, 70);
   camera.lookAt(0, -5, 0);
 
   // Ground grid — more visible, colored
   const SEGS = isMobileGeo ? 20 : 40;
-  const gridGeo = new THREE.PlaneGeometry(160, 120, SEGS, SEGS);
+  const gridGeo = new PlaneGeometry(160, 120, SEGS, SEGS);
   gridGeo.rotateX(-Math.PI / 2.5);
 
   // Vertex colors for the grid — gradient from pink to purple
   const gridVertCount = (SEGS + 1) * (SEGS + 1);
   const gridColors = new Float32Array(gridVertCount * 3);
-  const pinkC  = new THREE.Color('#FF51FA');
-  const purpC  = new THREE.Color('#AC89FF');
-  const greenC = new THREE.Color('#39FF14');
+  const pinkC  = new Color('#FF51FA');
+  const purpC  = new Color('#AC89FF');
+  const greenC = new Color('#39FF14');
   for (let i = 0; i < gridVertCount; i++) {
     const t = i / gridVertCount;
-    const c = new THREE.Color().lerpColors(pinkC, purpC, t);
+    const c = new Color().lerpColors(pinkC, purpC, t);
     gridColors[i * 3] = c.r; gridColors[i * 3 + 1] = c.g; gridColors[i * 3 + 2] = c.b;
   }
-  gridGeo.setAttribute('color', new THREE.BufferAttribute(gridColors, 3));
+  gridGeo.setAttribute('color', new BufferAttribute(gridColors, 3));
 
-  const gridMat = new THREE.MeshBasicMaterial({
+  const gridMat = new MeshBasicMaterial({
     wireframe: true,
     vertexColors: true,
     transparent: true,
     opacity: 0.35,
   });
 
-  const gridMesh = new THREE.Mesh(gridGeo, gridMat);
+  const gridMesh = new Mesh(gridGeo, gridMat);
   gridMesh.position.y = -15;
   scene.add(gridMesh);
 
-  const origPos = new Float32Array((gridGeo.attributes.position as THREE.BufferAttribute).array);
+  const origPos = new Float32Array((gridGeo.attributes.position as BufferAttribute).array);
 
   // Floating geometric shapes
   interface FloatingShape {
-    mesh: THREE.Mesh;
+    mesh: Mesh;
     baseY: number;
     phase: number;
-    rotSpeed: THREE.Vector3;
+    rotSpeed: Vector3;
     floatSpeed: number;
     floatAmp: number;
   }
   const shapes: FloatingShape[] = [];
   const shapeColors = [0xFF51FA, 0xAC89FF, 0x39FF14, 0xFF51FA, 0xAC89FF, 0x39FF14, 0xFF51FA];
   const geometries = [
-    () => new THREE.OctahedronGeometry(2.5, 0),
-    () => new THREE.TetrahedronGeometry(2.2, 0),
-    () => new THREE.IcosahedronGeometry(2, 0),
-    () => new THREE.BoxGeometry(2.5, 2.5, 2.5),
-    () => new THREE.OctahedronGeometry(1.8, 1),
-    () => new THREE.TorusGeometry(2, 0.6, 6, 8),
-    () => new THREE.DodecahedronGeometry(2, 0),
+    () => new OctahedronGeometry(2.5, 0),
+    () => new TetrahedronGeometry(2.2, 0),
+    () => new IcosahedronGeometry(2, 0),
+    () => new BoxGeometry(2.5, 2.5, 2.5),
+    () => new OctahedronGeometry(1.8, 1),
+    () => new TorusGeometry(2, 0.6, 6, 8),
+    () => new DodecahedronGeometry(2, 0),
   ];
 
   for (let i = 0; i < 7; i++) {
     const g = geometries[i]();
-    const m = new THREE.MeshBasicMaterial({
+    const m = new MeshBasicMaterial({
       color: shapeColors[i],
       wireframe: true,
       transparent: true,
       opacity: 0.45,
     });
-    const mesh = new THREE.Mesh(g, m);
+    const mesh = new Mesh(g, m);
     const x = (Math.random() - 0.5) * 80;
     const y = Math.random() * 20 + 5;
     const z = (Math.random() - 0.5) * 40 - 10;
@@ -279,7 +308,7 @@ function buildLightScene(w: number, h: number): SceneBundle {
       mesh,
       baseY: y,
       phase: Math.random() * Math.PI * 2,
-      rotSpeed: new THREE.Vector3(
+      rotSpeed: new Vector3(
         (Math.random() - 0.5) * 0.4,
         (Math.random() - 0.5) * 0.6,
         (Math.random() - 0.5) * 0.3,
@@ -290,19 +319,19 @@ function buildLightScene(w: number, h: number): SceneBundle {
   }
 
   // Vertical accent lines
-  const accentLines: THREE.Line[] = [];
+  const accentLines: Line[] = [];
   for (let i = 0; i < 5; i++) {
-    const lg = new THREE.BufferGeometry();
+    const lg = new BufferGeometry();
     const x = (Math.random() - 0.5) * 100;
     const z = -20 - Math.random() * 30;
-    const pts = [new THREE.Vector3(x, -20, z), new THREE.Vector3(x, 40, z)];
+    const pts = [new Vector3(x, -20, z), new Vector3(x, 40, z)];
     lg.setFromPoints(pts);
-    const lm = new THREE.LineBasicMaterial({
+    const lm = new LineBasicMaterial({
       color: i % 2 === 0 ? 0xFF51FA : 0x39FF14,
       transparent: true,
       opacity: 0.06,
     });
-    const line = new THREE.Line(lg, lm);
+    const line = new Line(lg, lm);
     scene.add(line);
     accentLines.push(line);
   }
@@ -326,7 +355,7 @@ function buildLightScene(w: number, h: number): SceneBundle {
     camera.rotation.x = -0.35 + scrollVelocity * 0.0002;
 
     // Grid undulation — gentle waves, boosted by scroll
-    const pos = gridGeo.attributes.position as THREE.BufferAttribute;
+    const pos = gridGeo.attributes.position as BufferAttribute;
     const arr = pos.array as Float32Array;
 
     for (let i = 0; i < arr.length / 3; i++) {
@@ -355,35 +384,35 @@ function buildLightScene(w: number, h: number): SceneBundle {
       s.mesh.rotation.x += s.rotSpeed.x * 0.005 * rotBoost;
       s.mesh.rotation.y += s.rotSpeed.y * 0.005 * rotBoost;
       s.mesh.rotation.z += s.rotSpeed.z * 0.01 * rotBoost;
-      const m = s.mesh.material as THREE.MeshBasicMaterial;
+      const m = s.mesh.material as MeshBasicMaterial;
       m.opacity = 0.2 + Math.sin(t * 0.8 + s.phase) * 0.12 + opacityBoost;
     }
 
     // Accent line opacity shimmer
     for (let i = 0; i < accentLines.length; i++) {
-      const m = accentLines[i].material as THREE.LineBasicMaterial;
+      const m = accentLines[i].material as LineBasicMaterial;
       m.opacity = 0.04 + Math.sin(t * 0.3 + i * 1.5) * 0.03 + opacityBoost * 0.5;
     }
   };
 
   const dispose = () => {
     gridGeo.dispose(); gridMat.dispose();
-    for (const s of shapes) { s.mesh.geometry.dispose(); (s.mesh.material as THREE.Material).dispose(); }
-    for (const l of accentLines) { l.geometry.dispose(); (l.material as THREE.Material).dispose(); }
+    for (const s of shapes) { s.mesh.geometry.dispose(); (s.mesh.material as Material).dispose(); }
+    for (const l of accentLines) { l.geometry.dispose(); (l.material as Material).dispose(); }
   };
   return { scene, camera, dispose, onMouse, tick };
 }
 
 // ── EXTREME: Chaotic Rainbow Wireframe Grid ────────────────────────────────
 function buildExtremeScene(w: number, h: number): SceneBundle {
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(55, w / h, 0.1, 1000);
+  const scene = new Scene();
+  const camera = new PerspectiveCamera(55, w / h, 0.1, 1000);
   camera.position.set(0, 30, 65);
   camera.lookAt(0, -5, 0);
 
   // Rainbow cycling grid — denser, wilder
   const SEGS = isMobileGeo ? 30 : 60;
-  const gridGeo = new THREE.PlaneGeometry(200, 160, SEGS, SEGS);
+  const gridGeo = new PlaneGeometry(200, 160, SEGS, SEGS);
   gridGeo.rotateX(-Math.PI / 2.5);
 
   const gridVertCount = (SEGS + 1) * (SEGS + 1);
@@ -391,64 +420,64 @@ function buildExtremeScene(w: number, h: number): SceneBundle {
   // Initial rainbow spread
   for (let i = 0; i < gridVertCount; i++) {
     const hue = (i / gridVertCount) * 360;
-    const c = new THREE.Color().setHSL(hue / 360, 1.0, 0.5);
+    const c = new Color().setHSL(hue / 360, 1.0, 0.5);
     gridColors[i * 3] = c.r; gridColors[i * 3 + 1] = c.g; gridColors[i * 3 + 2] = c.b;
   }
-  gridGeo.setAttribute('color', new THREE.BufferAttribute(gridColors, 3));
+  gridGeo.setAttribute('color', new BufferAttribute(gridColors, 3));
 
-  const gridMat = new THREE.MeshBasicMaterial({
+  const gridMat = new MeshBasicMaterial({
     wireframe: true,
     vertexColors: true,
     transparent: true,
     opacity: 0.22,
-    blending: THREE.AdditiveBlending,
+    blending: AdditiveBlending,
     depthWrite: false,
   });
 
-  const gridMesh = new THREE.Mesh(gridGeo, gridMat);
+  const gridMesh = new Mesh(gridGeo, gridMat);
   gridMesh.position.y = -15;
   scene.add(gridMesh);
 
-  const origPos = new Float32Array((gridGeo.attributes.position as THREE.BufferAttribute).array);
+  const origPos = new Float32Array((gridGeo.attributes.position as BufferAttribute).array);
 
   // More floating shapes — chaotic
   interface FloatingShape {
-    mesh: THREE.Mesh;
+    mesh: Mesh;
     baseY: number;
     baseX: number;
     phase: number;
-    rotSpeed: THREE.Vector3;
+    rotSpeed: Vector3;
     floatSpeed: number;
     floatAmp: number;
     driftSpeed: number;
   }
   const shapes: FloatingShape[] = [];
   const geometries = [
-    () => new THREE.IcosahedronGeometry(3.5, 1),
-    () => new THREE.OctahedronGeometry(3, 0),
-    () => new THREE.TorusKnotGeometry(2.5, 0.8, 48, 8),
-    () => new THREE.TetrahedronGeometry(3, 0),
-    () => new THREE.DodecahedronGeometry(3, 0),
-    () => new THREE.TorusGeometry(3, 0.8, 8, 12),
-    () => new THREE.BoxGeometry(3.5, 3.5, 3.5),
-    () => new THREE.CylinderGeometry(0, 3.5, 5, 5),
-    () => new THREE.OctahedronGeometry(2.5, 2),
-    () => new THREE.IcosahedronGeometry(2, 2),
-    () => new THREE.TorusKnotGeometry(2, 0.6, 32, 4, 3, 2),
-    () => new THREE.SphereGeometry(2.5, 8, 6),
+    () => new IcosahedronGeometry(3.5, 1),
+    () => new OctahedronGeometry(3, 0),
+    () => new TorusKnotGeometry(2.5, 0.8, 48, 8),
+    () => new TetrahedronGeometry(3, 0),
+    () => new DodecahedronGeometry(3, 0),
+    () => new TorusGeometry(3, 0.8, 8, 12),
+    () => new BoxGeometry(3.5, 3.5, 3.5),
+    () => new CylinderGeometry(0, 3.5, 5, 5),
+    () => new OctahedronGeometry(2.5, 2),
+    () => new IcosahedronGeometry(2, 2),
+    () => new TorusKnotGeometry(2, 0.6, 32, 4, 3, 2),
+    () => new SphereGeometry(2.5, 8, 6),
   ];
 
   for (let i = 0; i < 12; i++) {
     const g = geometries[i]();
-    const m = new THREE.MeshBasicMaterial({
-      color: new THREE.Color().setHSL((i / 12), 1.0, 0.55),
+    const m = new MeshBasicMaterial({
+      color: new Color().setHSL((i / 12), 1.0, 0.55),
       wireframe: true,
       transparent: true,
       opacity: 0.4,
-      blending: THREE.AdditiveBlending,
+      blending: AdditiveBlending,
       depthWrite: false,
     });
-    const mesh = new THREE.Mesh(g, m);
+    const mesh = new Mesh(g, m);
     const x = (Math.random() - 0.5) * 120;
     const y = Math.random() * 30 + 5;
     const z = (Math.random() - 0.5) * 60 - 10;
@@ -459,7 +488,7 @@ function buildExtremeScene(w: number, h: number): SceneBundle {
       baseY: y,
       baseX: x,
       phase: Math.random() * Math.PI * 2,
-      rotSpeed: new THREE.Vector3(
+      rotSpeed: new Vector3(
         (Math.random() - 0.5) * 1.2,
         (Math.random() - 0.5) * 1.5,
         (Math.random() - 0.5) * 0.8,
@@ -471,21 +500,21 @@ function buildExtremeScene(w: number, h: number): SceneBundle {
   }
 
   // Accent lines — more, rainbow
-  const accentLines: THREE.Line[] = [];
+  const accentLines: Line[] = [];
   for (let i = 0; i < 10; i++) {
-    const lg = new THREE.BufferGeometry();
+    const lg = new BufferGeometry();
     const x = (Math.random() - 0.5) * 140;
     const z = -20 - Math.random() * 50;
-    const pts = [new THREE.Vector3(x, -30, z), new THREE.Vector3(x, 60, z)];
+    const pts = [new Vector3(x, -30, z), new Vector3(x, 60, z)];
     lg.setFromPoints(pts);
-    const lm = new THREE.LineBasicMaterial({
-      color: new THREE.Color().setHSL(i / 10, 1.0, 0.5),
+    const lm = new LineBasicMaterial({
+      color: new Color().setHSL(i / 10, 1.0, 0.5),
       transparent: true,
       opacity: 0.1,
-      blending: THREE.AdditiveBlending,
+      blending: AdditiveBlending,
       depthWrite: false,
     });
-    const line = new THREE.Line(lg, lm);
+    const line = new Line(lg, lm);
     scene.add(line);
     accentLines.push(line);
   }
@@ -509,7 +538,7 @@ function buildExtremeScene(w: number, h: number): SceneBundle {
     camera.rotation.x = -0.4 + scrollVelocity * 0.0004;
 
     // Grid undulation — layered waves, boosted by scroll
-    const pos = gridGeo.attributes.position as THREE.BufferAttribute;
+    const pos = gridGeo.attributes.position as BufferAttribute;
     const arr = pos.array as Float32Array;
 
     for (let i = 0; i < arr.length / 3; i++) {
@@ -532,7 +561,7 @@ function buildExtremeScene(w: number, h: number): SceneBundle {
 
     // Rainbow cycle the grid colors — faster when scrolling (reuse single Color)
     const colorSpeed = 12 + sv * 30;
-    const colorAttr = gridGeo.attributes.color as THREE.BufferAttribute;
+    const colorAttr = gridGeo.attributes.color as BufferAttribute;
     const cArr = colorAttr.array as Float32Array;
     for (let i = 0; i < gridVertCount; i++) {
       const hue = ((i / gridVertCount) * 360 + t * colorSpeed) % 360;
@@ -553,7 +582,7 @@ function buildExtremeScene(w: number, h: number): SceneBundle {
       s.mesh.rotation.x += s.rotSpeed.x * 0.007 * rotBoost;
       s.mesh.rotation.y += s.rotSpeed.y * 0.007 * rotBoost;
       s.mesh.rotation.z += s.rotSpeed.z * 0.007 * rotBoost;
-      const m = s.mesh.material as THREE.MeshBasicMaterial;
+      const m = s.mesh.material as MeshBasicMaterial;
       m.opacity = 0.3 + Math.sin(t * 0.5 + s.phase) * 0.15 + opacityBoost;
       // Rainbow cycle each shape — faster when scrolling (reuse tmpColor)
       tmpColor.setHSL(((si / shapes.length) * 360 + t * (20 + sv * 40)) % 360 / 360, 1.0, 0.55);
@@ -562,7 +591,7 @@ function buildExtremeScene(w: number, h: number): SceneBundle {
 
     // Accent line shimmer + color cycle
     for (let i = 0; i < accentLines.length; i++) {
-      const m = accentLines[i].material as THREE.LineBasicMaterial;
+      const m = accentLines[i].material as LineBasicMaterial;
       m.opacity = 0.07 + Math.sin(t * 0.3 + i * 0.9) * 0.04 + opacityBoost * 0.5;
       tmpColor.setHSL(((i / accentLines.length) * 360 + t * 15) % 360 / 360, 1.0, 0.5);
       m.color.copy(tmpColor);
@@ -571,8 +600,8 @@ function buildExtremeScene(w: number, h: number): SceneBundle {
 
   const dispose = () => {
     gridGeo.dispose(); gridMat.dispose();
-    for (const s of shapes) { s.mesh.geometry.dispose(); (s.mesh.material as THREE.Material).dispose(); }
-    for (const l of accentLines) { l.geometry.dispose(); (l.material as THREE.Material).dispose(); }
+    for (const s of shapes) { s.mesh.geometry.dispose(); (s.mesh.material as Material).dispose(); }
+    for (const l of accentLines) { l.geometry.dispose(); (l.material as Material).dispose(); }
   };
   return { scene, camera, dispose, onMouse, tick };
 }
@@ -673,7 +702,7 @@ export function initThreeBg() {
   canvas = document.getElementById('three-bg') as HTMLCanvasElement;
   if (!canvas) return;
 
-  renderer = new THREE.WebGLRenderer({
+  renderer = new WebGLRenderer({
     canvas,
     alpha: true,
     antialias: false,
