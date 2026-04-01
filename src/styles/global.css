@@ -5,6 +5,22 @@
 
 /* ── Custom Font Faces ── */
 
+/* Space Grotesk — self-hosted (eliminates Google Fonts RTT) */
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('/fonts/space-grotesk-v22-latin-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: optional;
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('/fonts/space-grotesk-v22-latin-700.woff2') format('woff2');
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: optional;
+}
+
 /* Lazer84 — retro 80s brush (headlines in extreme mode) */
 @font-face {
   font-family: 'Lazer84';
