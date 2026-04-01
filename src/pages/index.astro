@@ -115,7 +115,7 @@ const timeline = [
                 <p class="text-sm opacity-70 font-mono leading-relaxed mb-4 sm:mb-6">{s.description}</p>
                 <div class="flex items-baseline gap-2">
                   <span class="text-2xl font-black" style={`color:${colors[i]}`}>{s.stat}</span>
-                  <span class="font-mono text-[10px] opacity-40">{s.statLabel}</span>
+                  <span class="font-mono text-[10px] opacity-60">{s.statLabel}</span>
                 </div>
               </a>
             );
@@ -127,7 +127,7 @@ const timeline = [
       <section class="max-w-4xl mx-auto">
         <div class="mb-12 sm:mb-20 text-center">
           <h2 class="text-3xl sm:text-5xl font-black italic text-[#FF51FA] tracking-tighter mb-2" data-typewriter="30">RECENT_BUILDS</h2>
-          <p class="font-mono text-xs opacity-40">LATEST FROM THE WORKSHOP</p>
+          <p class="font-mono text-xs opacity-60">LATEST FROM THE WORKSHOP</p>
         </div>
         <div class="space-y-16 sm:space-y-24 relative">
           <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-[1px] bg-gradient-to-b from-[#39FF14] via-[#FF51FA] to-[#AC89FF] opacity-20"></div>
@@ -338,7 +338,7 @@ const timeline = [
                 <div class="flex gap-4 items-center">
                   <span class="material-symbols-outlined text-4xl" style={`color:${colors[i]}`}>{s.icon}</span>
                   <span class="text-3xl sm:text-4xl font-black italic">{s.stat}</span>
-                  <span class="text-xs opacity-40">{s.statLabel}</span>
+                  <span class="text-xs opacity-60">{s.statLabel}</span>
                 </div>
                 <p class="text-white/80">{s.description}</p>
               </div>
