@@ -57,6 +57,21 @@ const particles: Particle[] = [];
 const ambientSparks: AmbientSpark[] = [];
 let sparkTimer = 0;
 
+// Idle detection — pause rAF loop when nothing to draw (saves CPU/GPU)
+let loopRunning = false;
+let idleFrames = 0;
+const IDLE_THRESHOLD = 90; // ~1.5s at 60fps before pausing
+let lastMouseX = -500;
+let lastMouseY = -500;
+
+function wakeLoop() {
+  idleFrames = 0;
+  if (!loopRunning) {
+    loopRunning = true;
+    animId = requestAnimationFrame(loop);
+  }
+}
+
 // ─────────────── Helpers ───────────────
 
 function getTheme(): 'dark' | 'light' | 'extreme' {
@@ -76,19 +91,19 @@ function resize() {
 
 function drawCursorDark() {
   if (!ctx) return;
+  // Draw trail without per-dot shadowBlur (major perf win)
+  ctx.save();
+  ctx.fillStyle = '#39FF14';
   for (let i = 0; i < trail.length; i++) {
     const dot = trail[i];
     const t = (i + 1) / trail.length;
-    ctx.save();
     ctx.globalAlpha = dot.opacity * t * 0.8;
-    ctx.shadowColor = '#39FF14';
-    ctx.shadowBlur = 8 * t;
     ctx.beginPath();
     ctx.arc(dot.x, dot.y, Math.max(0.5, dot.size * (0.2 + t * 0.8)), 0, Math.PI * 2);
-    ctx.fillStyle = '#39FF14';
     ctx.fill();
-    ctx.restore();
   }
+  ctx.restore();
+  // Main cursor dot with single shadowBlur
   ctx.save();
   ctx.shadowColor = '#39FF14';
   ctx.shadowBlur = 18;
@@ -136,34 +151,33 @@ function drawCursorLight() {
 function drawCursorExtreme() {
   if (!ctx) return;
 
+  // Draw trail without per-dot shadowBlur (major compositing savings)
+  ctx.save();
   for (let i = 0; i < trail.length; i++) {
     const dot = trail[i];
     const t = (i + 1) / trail.length;
     const hue = (dot.hue) % 360;
-    ctx.save();
     ctx.globalAlpha = dot.opacity * t * 0.85;
-    ctx.shadowColor = `hsl(${hue},100%,60%)`;
-    ctx.shadowBlur = 10 * t;
+    ctx.fillStyle = `hsl(${hue},100%,60%)`;
     ctx.beginPath();
     ctx.arc(dot.x, dot.y, Math.max(0.5, dot.size * (0.2 + t * 0.8)), 0, Math.PI * 2);
-    ctx.fillStyle = `hsl(${hue},100%,60%)`;
     ctx.fill();
-    ctx.restore();
   }
+  ctx.restore();
 
+  // Ambient sparks — batch without per-spark shadowBlur
+  ctx.save();
   for (const s of ambientSparks) {
     const alpha = s.life / s.maxLife;
-    ctx.save();
     ctx.globalAlpha = alpha * 0.9;
     ctx.fillStyle = `hsl(${s.hue},100%,70%)`;
-    ctx.shadowColor = `hsl(${s.hue},100%,70%)`;
-    ctx.shadowBlur = 4;
     ctx.beginPath();
     ctx.arc(s.x, s.y, s.size * (0.3 + alpha * 0.7), 0, Math.PI * 2);
     ctx.fill();
-    ctx.restore();
   }
+  ctx.restore();
 
+  // Main cursor dot — single shadowBlur
   const mainHue = hueOffset % 360;
   ctx.save();
   ctx.shadowColor = `hsl(${mainHue},100%,60%)`;
@@ -316,12 +330,31 @@ function loop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   if (document.hidden) {
-    animId = requestAnimationFrame(loop);
+    // Pause loop when tab is hidden — wakeLoop() restarts on visibility change
+    loopRunning = false;
     return;
   }
 
   const theme = getTheme();
   hueOffset += 1.2;
+
+  // Check if mouse moved
+  const mouseMoved = mouseX !== lastMouseX || mouseY !== lastMouseY;
+  lastMouseX = mouseX;
+  lastMouseY = mouseY;
+
+  const hasActivity = mouseMoved || particles.length > 0 || ambientSparks.length > 0;
+
+  if (hasActivity) {
+    idleFrames = 0;
+  } else {
+    idleFrames++;
+    if (idleFrames > IDLE_THRESHOLD) {
+      // Nothing to draw — pause the loop to save CPU/GPU
+      loopRunning = false;
+      return;
+    }
+  }
 
   // Update trail
   trail.unshift({ x: mouseX, y: mouseY, opacity: 0.9, size: 5, hue: hueOffset });
@@ -386,6 +419,11 @@ export function initCursor() {
     ambientSparks.length = 0;
   }).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
+  // Wake loop on visibility change
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) wakeLoop();
+  });
+
   if (isTouch) {
     // Touch devices: sparkle bursts on tap only (no custom cursor/trail)
     document.addEventListener('touchstart', (e) => {
@@ -394,10 +432,10 @@ export function initCursor() {
         const touch = e.changedTouches[i];
         spawnClickParticles(touch.clientX, touch.clientY);
       }
+      wakeLoop();
     }, { passive: true });
 
-    // Start animation loop for particles
-    loop();
+    // Don't start loop — it will wake on first touch
     return;
   }
 
@@ -405,6 +443,7 @@ export function initCursor() {
   window.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
+    wakeLoop();
   });
 
   // Interactive element hover detection for light ring
@@ -423,8 +462,11 @@ export function initCursor() {
 
   // Click sparkles
   document.addEventListener('click', (e) => {
-    if (!document.hidden) spawnClickParticles(e.clientX, e.clientY);
+    if (!document.hidden) {
+      spawnClickParticles(e.clientX, e.clientY);
+      wakeLoop();
+    }
   });
 
-  loop();
+  wakeLoop();
 }
