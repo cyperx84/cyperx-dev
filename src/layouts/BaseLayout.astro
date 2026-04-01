@@ -430,35 +430,20 @@ const pageAttr = activeNav ?? 'home';
       const pct = total > 0 ? (scrolled / total) * 100 : 0;
       bar.style.width = pct + '%';
 
+      // Theme colors set via CSS classes, no per-frame JS needed
       const theme = localStorage.getItem('cyperx-theme') || 'extreme';
       if (theme === 'dark') {
         bar.style.background = 'linear-gradient(to right, #39FF14, #FF51FA)';
       } else if (theme === 'light') {
         bar.style.background = 'linear-gradient(to right, #FF51FA, #AC89FF)';
       } else {
-        // extreme: animated rainbow — use inline keyframe via CSS var
-        bar.style.background = `linear-gradient(to right, hsl(${(Date.now()/30)%360},100%,60%), hsl(${((Date.now()/30)+120)%360},100%,60%), hsl(${((Date.now()/30)+240)%360},100%,60%))`;
+        // Extreme: use CSS @property animation (no JS rAF loop needed)
+        bar.style.background = '';
+        bar.classList.add('scroll-rainbow');
       }
     }
 
     window.addEventListener('scroll', updateScrollProgress, { passive: true });
-
-    // Animate rainbow on extreme — only run rAF loop when extreme theme is active
-    var _rainbowRaf = null;
-    function animateRainbow() {
-      var theme = localStorage.getItem('cyperx-theme') || 'extreme';
-      if (theme === 'extreme') {
-        updateScrollProgress();
-        _rainbowRaf = requestAnimationFrame(animateRainbow);
-      } else {
-        _rainbowRaf = null;
-      }
-    }
-    // Start/restart rainbow loop on theme change
-    new MutationObserver(function() {
-      if (!_rainbowRaf) animateRainbow();
-    }).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-    animateRainbow();
 
     // ── Typewriter effect ──
     function initTypewriters() {
@@ -466,21 +451,28 @@ const pageAttr = activeNav ?? 'home';
         if (el.dataset.twDone) return;
         el.dataset.twDone = '1';
         const text = el.textContent;
-        el.textContent = '';
+        // Reserve space with invisible text to prevent CLS
         el.style.visibility = 'visible';
+        el.style.color = 'transparent';
         let i = 0;
         const speed = parseInt(el.dataset.typewriter) || 50;
 
         function type() {
           if (i < text.length) {
-            el.textContent += text.charAt(i);
+            el.textContent = text.substring(0, i + 1);
+            el.style.color = '';
             i++;
             setTimeout(type, speed);
           }
         }
 
         const obs = new IntersectionObserver(entries => {
-          if (entries[0].isIntersecting) { type(); obs.disconnect(); }
+          if (entries[0].isIntersecting) {
+            el.textContent = '';
+            el.style.color = '';
+            type();
+            obs.disconnect();
+          }
         }, { threshold: 0.3 });
         obs.observe(el);
       });
