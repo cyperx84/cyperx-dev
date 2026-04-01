@@ -50,19 +50,9 @@
   font-display: swap;
 }
 
-/* Metric-matched fallback for Space Grotesk — prevents CLS on font swap */
-@font-face {
-  font-family: 'Space Grotesk Fallback';
-  src: local('Arial');
-  size-adjust: 105%;
-  ascent-override: 98%;
-  descent-override: 25%;
-  line-gap-override: 0%;
-}
-
 @theme {
   /* ── Fonts ── */
-  --font-display: "Space Grotesk", "Space Grotesk Fallback", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
   --font-mono: "ZedMono NFM", "JetBrains Mono", "IBM Plex Mono", monospace;
   --font-lazer: "Lazer84", "Space Grotesk", cursive;
   --font-radon: "Monaspace Radon", "Space Grotesk", sans-serif;
