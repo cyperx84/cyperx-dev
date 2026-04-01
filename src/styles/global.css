@@ -1447,3 +1447,14 @@ footer {
 img {
   content-visibility: auto;
 }
+
+/* Scroll progress rainbow — pure CSS, no JS rAF needed */
+@keyframes scroll-rainbow-shift {
+  0%   { background: linear-gradient(to right, hsl(0,100%,60%), hsl(120,100%,60%), hsl(240,100%,60%)); }
+  33%  { background: linear-gradient(to right, hsl(120,100%,60%), hsl(240,100%,60%), hsl(360,100%,60%)); }
+  66%  { background: linear-gradient(to right, hsl(240,100%,60%), hsl(360,100%,60%), hsl(480,100%,60%)); }
+  100% { background: linear-gradient(to right, hsl(360,100%,60%), hsl(480,100%,60%), hsl(600,100%,60%)); }
+}
+.scroll-rainbow {
+  animation: scroll-rainbow-shift 4s linear infinite;
+}
