@@ -9,6 +9,15 @@ export default defineConfig({
   site: 'https://cyperx.dev',
   integrations: [sitemap()],
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    build: {
+      rollupOptions: {
+        external: ['three'],
+        output: {
+          globals: { three: 'THREE' },
+          paths: { three: 'https://esm.sh/three@0.183.2' },
+        },
+      },
+    },
   }
 });

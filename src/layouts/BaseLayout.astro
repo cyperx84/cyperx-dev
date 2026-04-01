@@ -34,6 +34,10 @@ const pageAttr = activeNav ?? 'home';
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- importmap: three.js loaded from CDN, not bundled (498KB → 10KB in our bundle) -->
+  <script type="importmap">
+    {"imports":{"three":"https://esm.sh/three@0.183.2","three/":"https://esm.sh/three@0.183.2/"}}
+  </script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
