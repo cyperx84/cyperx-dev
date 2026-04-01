@@ -75,9 +75,10 @@ const pageAttr = activeNav ?? 'home';
   <!-- Preload critical local fonts -->
   <link rel="preload" href="/fonts/ZedMonoNFM-Bold.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/MonaspaceRadon-ExtraBold.woff2" as="font" type="font/woff2" crossorigin />
-  <!-- Space Grotesk — render-blocking (primary display font) -->
+  <!-- Space Grotesk — deferred (primary display font, swap prevents FOIT) -->
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&display=swap" as="style" />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&display=swap" rel="stylesheet" /></noscript>
   <!-- JetBrains Mono — deferred (mono/code only) -->
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" /></noscript>
@@ -291,13 +292,12 @@ const pageAttr = activeNav ?? 'home';
         overscroll: false,
       });
 
-      // Cache the three-bg module reference to avoid repeated dynamic imports per scroll event
-      if (!threeBgModule) {
-        threeBgModule = await import('../scripts/three-bg');
-      }
-
-      // Feed scroll velocity into Three.js scene
+      // Feed scroll velocity into Three.js scene (lazy — waits for three-bg to load via idle callback)
       lenis.on('scroll', (e: any) => {
+        if (!threeBgModule) {
+          // Check if three-bg was loaded by the idle callback; cache ref if so
+          threeBgModule = (window as any).__threeBgModule || null;
+        }
         if (threeBgModule) {
           const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
           const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
@@ -331,7 +331,10 @@ const pageAttr = activeNav ?? 'home';
       (window as any).__threeBgInit = true;
       // Defer Three.js load well after FCP to avoid blocking main thread
       const loadThree = () => {
-        import(/* @vite-ignore */ '../scripts/three-bg').then(m => m.initThreeBg());
+        import(/* @vite-ignore */ '../scripts/three-bg').then(m => {
+          (window as any).__threeBgModule = m;
+          m.initThreeBg();
+        });
       };
       if ('requestIdleCallback' in window) {
         // Wait for idle after a short delay to let FCP + LCP complete
@@ -440,12 +443,21 @@ const pageAttr = activeNav ?? 'home';
 
     window.addEventListener('scroll', updateScrollProgress, { passive: true });
 
-    // Animate rainbow on extreme
+    // Animate rainbow on extreme — only run rAF loop when extreme theme is active
+    var _rainbowRaf = null;
     function animateRainbow() {
-      const theme = localStorage.getItem('cyperx-theme') || 'extreme';
-      if (theme === 'extreme') updateScrollProgress();
-      requestAnimationFrame(animateRainbow);
+      var theme = localStorage.getItem('cyperx-theme') || 'extreme';
+      if (theme === 'extreme') {
+        updateScrollProgress();
+        _rainbowRaf = requestAnimationFrame(animateRainbow);
+      } else {
+        _rainbowRaf = null;
+      }
     }
+    // Start/restart rainbow loop on theme change
+    new MutationObserver(function() {
+      if (!_rainbowRaf) animateRainbow();
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
     animateRainbow();
 
     // ── Typewriter effect ──
