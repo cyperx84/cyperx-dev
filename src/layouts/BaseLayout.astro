@@ -456,6 +456,9 @@ const pageAttr = activeNav ?? 'home';
         if (el.dataset.twDone) return;
         el.dataset.twDone = '1';
         const text = el.textContent;
+        // Reserve height before clearing to prevent CLS
+        const rect = el.getBoundingClientRect();
+        if (rect.height > 0) el.style.minHeight = rect.height + 'px';
         el.textContent = '';
         el.style.visibility = 'visible';
         let i = 0;
