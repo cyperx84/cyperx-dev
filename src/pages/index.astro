@@ -590,6 +590,40 @@ const posts = allPosts
   .variant-extreme .x-vibrating-text {
     animation: x-vibrate 10s ease-in-out infinite;
   }
+
+  /* ── Extreme theme: unhinged clip-paths on everything ── */
+  .variant-extreme .project-card {
+    clip-path: polygon(0 3%, 93% 0, 100% 92%, 7% 100%) !important;
+  }
+  .variant-extreme .project-card:nth-child(2) {
+    clip-path: polygon(5% 0, 98% 2%, 95% 98%, 2% 100%) !important;
+  }
+  .variant-extreme .project-card:nth-child(3) {
+    clip-path: polygon(2% 0, 100% 3%, 98% 100%, 0 97%) !important;
+  }
+  .variant-extreme .blog-card {
+    clip-path: polygon(0 2%, 96% 0, 100% 97%, 4% 100%) !important;
+    animation: x-card-pulse 6s ease-in-out infinite;
+  }
+  @keyframes x-card-pulse {
+    0%,100% { filter: drop-shadow(0 0 8px #39FF1444); }
+    50% { filter: drop-shadow(0 0 18px #FF51FA88) drop-shadow(0 0 4px #8eff7144); }
+  }
+  /* Extreme: scanline overlay on cards */
+  .variant-extreme .project-card::before {
+    content: '';
+    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,255,0,0.03) 3px, rgba(0,255,0,0.03) 4px);
+  }
+  /* Extreme: images get a glitch-tint overlay */
+  .variant-extreme .jag-img {
+    animation: x-img-tint 7s ease-in-out infinite !important;
+  }
+  @keyframes x-img-tint {
+    0%,100% { filter: saturate(1.2) brightness(1); }
+    33%  { filter: saturate(1.8) hue-rotate(15deg) brightness(1.1); }
+    66%  { filter: saturate(0.9) hue-rotate(-10deg) brightness(0.95); }
+  }
   @keyframes x-vibrate {
     0%, 88%, 100% { text-shadow: none; }
     90% { text-shadow: 4px 0 #ff51fa, -4px 0 #8eff71; }
@@ -752,6 +786,28 @@ const posts = allPosts
     }, { threshold: 0.05 });
     obs.observe(section);
   });
+
+  // ── Extreme theme: boost animation intensity ──
+  (function() {
+    function isExtreme() {
+      const root = document.documentElement;
+      return root.dataset.theme === 'extreme' || root.classList.contains('theme-extreme') ||
+             !!document.querySelector('.variant-extreme')?.offsetParent;
+    }
+    if (!isExtreme()) return;
+    // Add extra CSS class to push extreme animations further
+    document.body.classList.add('x-mode-active');
+    // Speed up all jag stroke animations
+    document.querySelectorAll<SVGElement>('.jag-stroke-outer,.jag-stroke-inner,.card-jag-outer,.card-jag-inner')
+      .forEach(el => { el.style.animationDuration = '1.5s'; });
+    // Random subtle positional drift on each card continuously
+    const driftCards = Array.from(document.querySelectorAll<HTMLElement>('.variant-extreme .project-card, .variant-extreme .blog-card'));
+    driftCards.forEach((card, i) => {
+      const delay = i * 0.4;
+      const dur = 3.5 + (i % 3) * 0.8;
+      card.style.animation = (card.style.animation || '') + `, x-float-drift ${dur}s ${delay}s ease-in-out infinite`;
+    });
+  })();
 
   // ── Starfield canvas (extreme variant) ──
   const canvas = document.getElementById('starfield') as HTMLCanvasElement | null;

@@ -565,5 +565,96 @@ const pageAttr = activeNav ?? 'home';
       setTimeout(loadPageTransitions, 800);
     }
   </script>
+
+  <!-- ── Global image fade-in observer ── -->
+  <script>
+    (function() {
+      function initImageFade() {
+        const imgs = document.querySelectorAll('img:not([data-no-fade])');
+        imgs.forEach(img => {
+          const el = img as HTMLImageElement;
+          if (el.complete && el.naturalWidth > 0) {
+            el.classList.add('img-loaded');
+          } else {
+            el.classList.add('img-pending');
+            el.addEventListener('load', function() {
+              el.classList.remove('img-pending');
+              el.classList.add('img-loaded');
+            }, { once: true });
+            el.addEventListener('error', function() {
+              el.classList.remove('img-pending');
+            }, { once: true });
+          }
+        });
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initImageFade);
+      } else {
+        initImageFade();
+      }
+    })();
+  </script>
+
+  <!-- ── Back to Top Button ── -->
+  <button id="back-to-top" aria-label="Back to top"
+    style="position:fixed; bottom:1.5rem; right:1.5rem; z-index:9000; opacity:0; pointer-events:none; transition:opacity 0.3s, transform 0.3s; transform:translateY(20px);">
+  </button>
+  <style>
+    #back-to-top {
+      width: 52px; height: 52px;
+      background: #39FF14;
+      color: #000;
+      border: none;
+      cursor: pointer;
+      font-size: 1.4rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      clip-path: polygon(10% 0%, 90% 5%, 100% 85%, 95% 100%, 5% 95%, 0% 15%);
+      transition: opacity 0.3s, transform 0.3s, background 0.2s, clip-path 0.3s;
+      box-shadow: 0 0 18px #39FF1466;
+    }
+    #back-to-top:hover {
+      background: #FF51FA;
+      clip-path: polygon(5% 5%, 95% 0%, 100% 90%, 90% 100%, 0% 95%, 5% 10%);
+      box-shadow: 0 0 28px #FF51FA88;
+      transform: translateY(-4px) !important;
+    }
+    #back-to-top.visible {
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      transform: translateY(0) !important;
+    }
+    /* Extreme theme variant */
+    .variant-extreme-active #back-to-top {
+      background: #8eff71;
+      box-shadow: 0 0 24px #8eff7188, 0 0 48px #ff51fa44;
+    }
+  </style>
+  <script>
+    (function() {
+      const btn = document.getElementById('back-to-top');
+      if (!btn) return;
+      btn.innerHTML = '&#8593;';
+      let ticking = false;
+      window.addEventListener('scroll', function() {
+        if (!ticking) {
+          requestAnimationFrame(function() {
+            if (window.scrollY > 400) {
+              btn.classList.add('visible');
+            } else {
+              btn.classList.remove('visible');
+            }
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
+      btn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
+  </script>
 </body>
 </html>
