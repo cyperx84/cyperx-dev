@@ -62,22 +62,25 @@ const posts = allPosts
           <a href="/projects" class="font-mono text-[10px] text-[#e2e2e2]/40 hover:text-[#39FF14] tracking-widest transition-colors">ALL →</a>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+        <div class="relative grid grid-cols-1 md:grid-cols-3 gap-0">
           {projects.map((p, i) => {
             const accent = ["#39FF14", "#FF51FA", "#AC89FF"][i];
+            const shapes = ["x-shard-1", "shard-card-2", "x-shard-3"];
+            const offsets = ["", "md:mt-10 md:-ml-6 z-30", "md:mt-24 md:-ml-4 z-10"];
+            const zs = ["z-20", "z-30", "z-10"];
             return (
-              <a href={`/projects/${p.slug}`} class="project-card group block no-underline x-shard-sidebar hover:scale-[1.02] transition-transform" style={`background:#0e0e0e; border-left:3px solid ${accent};`}>
+              <a href={`/projects/${p.slug}`} class={`project-card group block no-underline ${shapes[i]} ${offsets[i]} ${zs[i]} hover:scale-[1.03] transition-transform relative`} style={`background:#0e0e0e;`}>
                 {p.image && (
                   <div class="overflow-hidden" style="height:160px;">
-                    <img src={p.image} alt={p.name} style={`width:100%; height:100%; object-fit:cover; opacity:0.7; transition:opacity 0.4s,transform 0.6s; display:block;`} class="group-hover:opacity-90 group-hover:scale-105" />
+                    <img src={p.image} alt={p.name} style="width:100%; height:100%; object-fit:cover; opacity:0.7; transition:opacity 0.4s,transform 0.6s; display:block;" class="group-hover:opacity-90 group-hover:scale-105" />
                   </div>
                 )}
-                <div class="p-5 sm:p-6">
+                <div class="p-6 sm:p-7">
                   <div class="flex items-center justify-between mb-3">
                     <span class="font-mono text-[10px] px-2 py-0.5 font-black" style={`background:${accent}; color:black`}>{p.status}</span>
                     <span class="font-mono text-[10px] text-[#e2e2e2]/30">E:{p.entropy}%</span>
                   </div>
-                  <h3 class="text-lg font-black italic tracking-tight mb-2 transition-colors" style={`color:${accent}`}>{p.name}</h3>
+                  <h3 class="text-lg font-black italic tracking-tight mb-2" style={`color:${accent}`}>{p.name}</h3>
                   <p class="text-[#baccb0] text-xs leading-relaxed mb-4">{p.tagline}</p>
                   <div class="flex gap-2 flex-wrap">
                     {p.stack.slice(0, 3).map(t => (
@@ -93,15 +96,15 @@ const posts = allPosts
 
       <!-- ── STAT ROW ── -->
       <section class="px-4 sm:px-6 max-w-7xl mx-auto">
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-px bg-[#e2e2e2]/5">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
           {[
-            { n: "3", label: "LIVE PROJECTS" },
-            { n: "4", label: "AI AGENTS" },
-            { n: "M4", label: "MAC MINI" },
-            { n: "∞", label: "COMPOUNDING" },
-          ].map(s => (
-            <div class="stat-card x-shard-4 bg-[#0e0e0e] p-8 sm:p-10 text-center hover:bg-[#161616] transition-colors">
-              <div class="text-4xl sm:text-6xl font-black italic text-[#39FF14] mb-2 stat-number">{s.n}</div>
+            { n: "3", label: "LIVE PROJECTS", shape: "polygon(0 0, 92% 0, 88% 100%, 8% 100%)", mt: "" },
+            { n: "4", label: "AI AGENTS",     shape: "polygon(5% 0, 100% 8%, 95% 100%, 0 88%)", mt: "mt-4" },
+            { n: "M4", label: "MAC MINI",     shape: "polygon(0% 5%, 95% 0%, 100% 95%, 5% 100%)", mt: "" },
+            { n: "∞", label: "COMPOUNDING",  shape: "polygon(8% 0%, 100% 0%, 92% 100%, 0% 94%)", mt: "mt-8" },
+          ].map((s, i) => (
+            <div class={`stat-card bg-[#0e0e0e] p-8 sm:p-10 text-center hover:bg-[#161616] transition-colors ${s.mt}`} style={`clip-path:${s.shape};`}>
+              <div class="text-4xl sm:text-6xl font-black italic text-[#39FF14] mb-2">{s.n}</div>
               <div class="font-mono text-[10px] text-[#e2e2e2]/30 tracking-widest">{s.label}</div>
             </div>
           ))}
@@ -118,8 +121,10 @@ const posts = allPosts
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {posts.map((post, i) => {
             const accent = ["#FF51FA", "#AC89FF"][i];
+            const shapes = ["x-shard-sidebar", "x-shard-4"];
+            const offsets = ["", "mt-10 md:mt-16"];
             return (
-              <a href={`/blog/${post.data.slug}`} class="blog-card group block no-underline x-shard-3 p-6 sm:p-8 hover:scale-[1.01] transition-transform" style={`background:#0e0e0e; border-bottom:3px solid ${accent};`}>
+              <a href={`/blog/${post.data.slug}`} class={`blog-card group block no-underline ${shapes[i]} ${offsets[i]} p-6 sm:p-8 hover:scale-[1.02] transition-transform`} style={`background:#0e0e0e;`}>
                 <div class="flex items-center justify-between mb-5">
                   <span class="font-mono text-[10px] px-2 py-0.5 font-black" style={`background:${accent}20; color:${accent}; border:1px solid ${accent}40`}>{post.data.category}</span>
                   <span class="font-mono text-[10px] text-[#e2e2e2]/25">{post.data.readTime}</span>
@@ -180,11 +185,13 @@ const posts = allPosts
           <h2 class="text-3xl font-black italic tracking-tighter">PROJECTS</h2>
           <a href="/projects" class="ml-auto font-mono text-xs text-[#FF51FA] hover:text-[#39FF14] transition-colors">VIEW ALL →</a>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="relative grid grid-cols-1 md:grid-cols-3 gap-0">
           {projects.map((p, i) => {
             const accent = ["#39FF14", "#FF51FA", "#AC89FF"][i];
+            const shapes = ["shard-card-1", "x-shard-3", "shard-card-2"];
+            const offsets = ["", "md:mt-12 md:-ml-4 z-20", "md:mt-6 md:-ml-6 z-10"];
             return (
-              <a href={`/projects/${p.slug}`} class="group block no-underline x-shard-1 hover:scale-[1.02] transition-transform overflow-hidden" style={`background:white; border-bottom:4px solid ${accent}; outline:2px solid #13131310;`}>
+              <a href={`/projects/${p.slug}`} class={`group block no-underline ${shapes[i]} ${offsets[i]} hover:scale-[1.02] transition-transform overflow-hidden relative`} style={`background:white; border-top:4px solid ${accent};`}>
                 {p.image && (
                   <div style="height:140px; overflow:hidden;">
                     <img src={p.image} alt={p.name} style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s;" class="group-hover:scale-105" />
@@ -205,12 +212,12 @@ const posts = allPosts
       <section class="px-4 sm:px-6 max-w-7xl mx-auto">
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
           {[
-            { n: "3", label: "LIVE PROJECTS", c: "#39FF14" },
-            { n: "4", label: "AI AGENTS", c: "#FF51FA" },
-            { n: "M4", label: "MAC MINI", c: "#AC89FF" },
-            { n: "∞", label: "COMPOUNDING", c: "#131313" },
-          ].map(s => (
-            <div class="x-shard-sidebar p-6" style={`border:2px solid ${s.c}; background:white;`}>
+            { n: "3", label: "LIVE PROJECTS", c: "#39FF14", shape: "polygon(0 0, 92% 0, 88% 100%, 8% 100%)", mt: "" },
+            { n: "4", label: "AI AGENTS",     c: "#FF51FA", shape: "polygon(5% 0, 100% 8%, 95% 100%, 0 88%)", mt: "mt-4" },
+            { n: "M4", label: "MAC MINI",     c: "#AC89FF", shape: "polygon(0% 5%, 95% 0%, 100% 95%, 5% 100%)", mt: "" },
+            { n: "∞", label: "COMPOUNDING",  c: "#131313", shape: "polygon(8% 0%, 100% 0%, 92% 100%, 0% 94%)", mt: "mt-6" },
+          ].map((s, i) => (
+            <div class={`p-6 ${s.mt}`} style={`border:2px solid ${s.c}; background:white; clip-path:${s.shape};`}>
               <div class="text-4xl font-black italic mb-1" style={`color:${s.c}`}>{s.n}</div>
               <div class="font-mono text-[10px] text-[#131313]/50 tracking-widest">{s.label}</div>
             </div>
@@ -224,11 +231,13 @@ const posts = allPosts
           <h2 class="text-3xl font-black italic tracking-tighter">LATEST POSTS</h2>
           <a href="/blog" class="ml-auto font-mono text-xs text-[#FF51FA] hover:text-[#39FF14] transition-colors">ALL →</a>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="relative grid grid-cols-1 md:grid-cols-2 gap-0">
           {posts.map((post, i) => {
             const accent = ["#FF51FA", "#AC89FF"][i];
+            const shapes = ["x-shard-sidebar", "shard-card-3"];
+            const offsets = ["", "md:mt-14 md:-ml-4"];
             return (
-              <a href={`/blog/${post.data.slug}`} class="group block no-underline x-shard-3 p-6 hover:scale-[1.01] transition-transform" style={`background:white; border-left:4px solid ${accent}; outline:1px solid #13131310;`}>
+              <a href={`/blog/${post.data.slug}`} class={`group block no-underline ${shapes[i]} ${offsets[i]} p-6 sm:p-8 hover:scale-[1.02] transition-transform`} style={`background:white; border-left:4px solid ${accent};`}>
                 <span class="font-mono text-[10px]" style={`color:${accent}`}>{post.data.category} · {post.data.readTime}</span>
                 <h3 class="text-lg font-black italic mt-2 mb-3 group-hover:text-[#FF51FA] transition-colors">{post.data.title}</h3>
                 <p class="text-sm text-[#555] leading-relaxed">{post.data.excerpt}</p>
@@ -282,11 +291,13 @@ const posts = allPosts
           <div class="h-px flex-grow bg-[#8eff71]/10"></div>
           <a href="/projects" class="font-mono text-[10px] text-white/30 hover:text-[#8eff71] tracking-widest transition-colors">ALL →</a>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="relative grid grid-cols-1 md:grid-cols-3 gap-0">
           {projects.map((p, i) => {
             const accent = ["#8eff71", "#ff51fa", "#ac89ff"][i];
+            const shapes = ["x-shard-1", "acid-mask-1", "x-shard-melt-intense"];
+            const offsets = ["z-30", "md:mt-16 md:-ml-6 z-20", "md:mt-8 md:-ml-8 z-10"];
             return (
-              <a href={`/projects/${p.slug}`} class="group block no-underline acid-mask-1 hover:scale-[1.02] transition-transform overflow-hidden" style={`background:rgba(0,0,0,0.7); border-top:3px solid ${accent};`}>
+              <a href={`/projects/${p.slug}`} class={`group block no-underline ${shapes[i]} ${offsets[i]} hover:scale-[1.03] transition-transform overflow-hidden relative`} style={`background:rgba(0,0,0,0.75);`}>
                 {p.image && (
                   <div style="height:160px;overflow:hidden;">
                     <img src={p.image} alt={p.name} style="width:100%;height:100%;object-fit:cover;display:block;opacity:0.6;transition:opacity 0.4s,transform 0.6s;" class="group-hover:opacity-80 group-hover:scale-105" />
@@ -305,14 +316,14 @@ const posts = allPosts
 
       <!-- Stats -->
       <section class="px-4 sm:px-6 max-w-7xl mx-auto">
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/5">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[
-            { n: "3", label: "LIVE PROJECTS", c: "#8eff71" },
-            { n: "4", label: "AI AGENTS", c: "#ff51fa" },
-            { n: "M4", label: "MAC MINI", c: "#ac89ff" },
-            { n: "∞", label: "COMPOUNDING", c: "#8eff71" },
-          ].map(s => (
-            <div class="x-shard-4 bg-black/80 p-8 sm:p-10 text-center hover:bg-black/60 transition-colors">
+            { n: "3", label: "LIVE PROJECTS", c: "#8eff71", shape: "polygon(0 0, 88% 0, 82% 100%, 12% 100%)", mt: "" },
+            { n: "4", label: "AI AGENTS",     c: "#ff51fa", shape: "polygon(12% 0, 100% 5%, 88% 100%, 0 95%)", mt: "mt-6" },
+            { n: "M4", label: "MAC MINI",     c: "#ac89ff", shape: "polygon(5% 0%, 95% 8%, 100% 92%, 0% 100%)", mt: "" },
+            { n: "∞", label: "COMPOUNDING",  c: "#8eff71", shape: "polygon(0% 0%, 92% 0%, 100% 88%, 8% 100%)", mt: "mt-10" },
+          ].map((s, i) => (
+            <div class={`p-8 sm:p-10 text-center hover:bg-black/60 transition-colors ${s.mt}`} style={`clip-path:${s.shape}; background:rgba(0,0,0,0.8);`}>
               <div class="text-4xl sm:text-6xl font-black italic mb-2" style={`color:${s.c}; text-shadow:0 0 20px ${s.c}44`}>{s.n}</div>
               <div class="font-mono text-[10px] text-white/25 tracking-widest">{s.label}</div>
             </div>
@@ -327,11 +338,13 @@ const posts = allPosts
           <div class="h-px flex-grow bg-[#ff51fa]/10"></div>
           <a href="/blog" class="font-mono text-[10px] text-white/30 hover:text-[#ff51fa] tracking-widest transition-colors">ALL →</a>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="relative grid grid-cols-1 md:grid-cols-2 gap-0">
           {posts.map((post, i) => {
             const accent = ["#ff51fa", "#ac89ff"][i];
+            const shapes = ["x-shard-2", "acid-mask-2"];
+            const offsets = ["z-20", "md:mt-20 md:-ml-8 z-10"];
             return (
-              <a href={`/blog/${post.data.slug}`} class="group block no-underline acid-mask-3 p-6 sm:p-8 hover:scale-[1.01] transition-transform" style={`background:rgba(0,0,0,0.7);`}>
+              <a href={`/blog/${post.data.slug}`} class={`group block no-underline ${shapes[i]} ${offsets[i]} p-6 sm:p-8 hover:scale-[1.02] transition-transform relative`} style={`background:rgba(0,0,0,0.75);`}>
                 <div class="flex items-center justify-between mb-4">
                   <span class="font-mono text-[10px] px-2 py-0.5" style={`background:${accent}20; color:${accent}; border:1px solid ${accent}30`}>{post.data.category}</span>
                   <span class="font-mono text-[10px] text-white/25">{post.data.readTime} · S:{post.data.signal}</span>
