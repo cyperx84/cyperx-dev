@@ -5,25 +5,26 @@ const about = {
   name: "Chris",
   handle: "@cyperx",
   location: "Brisbane, AU",
-  role: "Builder & Systems Thinker",
-  bio: "I build tools, agents, and systems that compound over time. Most of what I ship is infrastructure — things that make the next thing easier to build. My stack is AI agents on Apple Silicon, Obsidian as an operating system, and whatever language gets the job done fastest.",
+  role: "Builder",
+  bio: "I build tools and systems that compound. Most of what I ship is infrastructure — the stuff that makes the next build faster. Right now that's mostly AI agents, automation pipelines, and the plumbing that keeps it all running.",
+  bio2: "I run a fleet of AI agents on an M4 Mac Mini. They live in Discord threads, ship code, do research, watch changelogs, post to socials — all day, every day. I orchestrate the whole thing from my phone.",
   principles: [
-    "Ship daily, refine weekly",
-    "Build for models 6 months out",
-    "If it doesn't compound, don't build it",
-    "Agents are teammates, not tools",
+    { text: "Ship daily, fix as you go", note: "done > perfect" },
+    { text: "Build for compound returns", note: "if it doesn't stack, skip it" },
+    { text: "Agents are teammates", note: "treat them like it" },
+    { text: "Keep it observable", note: "if you can't see it, you can't fix it" },
   ],
   stack: [
-    { label: "HARDWARE", value: "M4 Mac Mini / Apple Silicon" },
-    { label: "AGENTS", value: "Claude Code / Codex / Gemini / OpenCode" },
-    { label: "INFRA", value: "OpenClaw Gateway / Discord / Tailscale" },
-    { label: "KNOWLEDGE", value: "Obsidian / QMD / Flywheel" },
-    { label: "LANGUAGES", value: "TypeScript / Go / Rust / Python" },
-    { label: "EDITOR", value: "Neovim + Ghostty + tmux" },
+    { label: "HARDWARE", value: "M4 Mac Mini", sub: "Apple Silicon" },
+    { label: "AGENTS", value: "Claude Code · Codex · Gemini · OpenCode", sub: "OpenClaw Gateway" },
+    { label: "EDITOR", value: "Neovim + Ghostty + tmux", sub: "JetBrains Mono" },
+    { label: "KNOWLEDGE", value: "Obsidian", sub: "Personal OS" },
+    { label: "LANGUAGES", value: "TypeScript · Go · Python", sub: "Rust when I want pain" },
+    { label: "DEPLOY", value: "Cloudflare Pages · Tailscale", sub: "Wrangler CLI" },
   ],
   links: [
-    { label: "GITHUB", href: "https://github.com/cyperx84", svg: '<svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>' },
-    { label: "X", href: "https://x.com/cyperx", svg: '<svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>' },
+    { label: "GitHub", href: "https://github.com/cyperx84", svg: '<svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>' },
+    { label: "X / Twitter", href: "https://x.com/cyperx", svg: '<svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>' },
   ],
 };
 ---
@@ -34,78 +35,75 @@ const about = {
        DARK VARIANT
   ════════════════════════════════════════ -->
   <div class="variant-dark bg-transparent text-[#e2e2e2] min-h-screen">
-    <main class="relative pt-28 sm:pt-36 pb-20 px-4 sm:px-6 max-w-5xl mx-auto">
+    <main class="relative pt-28 sm:pt-36 pb-24 px-4 sm:px-6 max-w-5xl mx-auto">
 
       <!-- Hero -->
-      <section class="mb-16 sm:mb-24 text-center">
-        <p class="font-mono text-[#39FF14] text-xs sm:text-sm tracking-[0.5em] mb-4" data-typewriter="40">// ABOUT</p>
-        <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black italic tracking-tighter leading-tight pb-2 mb-4 overflow-visible" data-reveal>
-          <span class="inline-block bg-clip-text text-transparent bg-gradient-to-r from-[#39FF14] via-[#AC89FF] to-[#FF51FA] pr-2">CYPERX</span><span class="text-[#e2e2e2] opacity-80">.DEV</span>
+      <section class="about-section mb-20 sm:mb-32">
+        <p class="about-line font-mono text-[#39FF14] text-xs tracking-[0.5em] mb-6">// ABOUT</p>
+        <h1 class="about-line text-6xl sm:text-8xl lg:text-9xl font-black italic tracking-tighter leading-none pb-2 mb-6 overflow-visible">
+          <span class="block bg-clip-text text-transparent bg-gradient-to-r from-[#39FF14] via-[#AC89FF] to-[#FF51FA] pr-2">CHRIS</span>
         </h1>
-        <p class="text-[#baccb0] text-sm sm:text-base font-mono max-w-xl mx-auto">{about.role} · {about.location}</p>
+        <p class="about-line font-mono text-[#baccb0] text-sm mb-2">{about.handle} · {about.location}</p>
+        <p class="about-line font-mono text-[#39FF14] text-xs tracking-widest">{about.role.toUpperCase()}</p>
       </section>
 
-      <!-- Terminal-Style About -->
-      <section class="mb-16 sm:mb-24" data-reveal>
-        <div class="p-1" style="background:#39FF14; clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 95%)">
-          <div class="bg-[#0a0a0a] overflow-hidden" style="clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 95%)">
-            <div class="flex items-center gap-2 px-4 py-2 border-b border-[#39FF14]/10 bg-[#0a0a0a]">
-              <span class="w-3 h-3 rounded-full bg-[#FF5F56]"></span>
-              <span class="w-3 h-3 rounded-full bg-[#FFBD2E]"></span>
-              <span class="w-3 h-3 rounded-full bg-[#27C93F]"></span>
-              <span class="font-mono text-[10px] text-[#39FF14]/50 ml-2">cyperx@m4 ~</span>
+      <!-- Intro -->
+      <section class="about-section mb-20 sm:mb-28 grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-12 items-start">
+        <div class="space-y-6">
+          <p class="about-line text-xl sm:text-2xl text-[#e2e2e2] leading-relaxed font-medium">{about.bio}</p>
+          <p class="about-line text-base sm:text-lg text-[#baccb0] leading-relaxed">{about.bio2}</p>
+        </div>
+        <div class="about-line">
+          <img src="/images/about/agents.jpg" alt="Agent fleet" style="width:100%; display:block; border:1px solid #39FF1433; box-shadow: 0 0 32px #39FF1422;" />
+        </div>
+      </section>
+
+      <!-- Setup image -->
+      <section class="about-section mb-20 sm:mb-28">
+        <div class="about-line overflow-hidden" style="border-left:4px solid #39FF14;">
+          <img src="/images/about/setup.jpg" alt="The setup" style="width:100%; display:block; max-height:380px; object-fit:cover; opacity:0.85;" />
+        </div>
+        <p class="about-line font-mono text-[10px] text-[#e2e2e2]/30 mt-3 tracking-widest">THE SETUP // M4 MAC MINI · NEOVIM · TMUX · GHOSTTY</p>
+      </section>
+
+      <!-- Principles -->
+      <section class="about-section mb-20 sm:mb-28">
+        <p class="about-line font-mono text-[10px] text-[#39FF14]/60 tracking-[0.4em] mb-8">HOW_I_WORK</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {about.principles.map((p, i) => (
+            <div class="about-line p-6 bg-[#111] border border-[#e2e2e2]/5 hover:border-[#39FF14]/30 transition-colors">
+              <div class="flex items-baseline gap-3 mb-2">
+                <span class="text-[#39FF14] font-black text-3xl font-mono leading-none opacity-30">{String(i + 1).padStart(2, '0')}</span>
+                <p class="text-[#e2e2e2] font-mono text-sm font-bold">{p.text}</p>
+              </div>
+              <p class="text-[#baccb0] font-mono text-xs opacity-60 ml-10">{p.note}</p>
             </div>
-            <div class="p-6 sm:p-10 font-mono text-sm sm:text-base space-y-4">
-              <p><span class="text-[#39FF14]">$</span> whoami</p>
-              <p class="text-2xl sm:text-3xl font-black italic text-white">{about.name}</p>
-              <p class="text-[#FF51FA]">{about.handle}</p>
-              <p class="text-[#e2e2e2]/60 text-sm">{about.location} · {about.role}</p>
-              <div class="border-t border-[#39FF14]/10 my-4 pt-4">
-                <p><span class="text-[#39FF14]">$</span> cat bio.txt</p>
-                <p class="text-[#e2e2e2]/80 leading-relaxed mt-2">{about.bio}</p>
+          ))}
+        </div>
+      </section>
+
+      <!-- Stack -->
+      <section class="about-section mb-20 sm:mb-28">
+        <p class="about-line font-mono text-[10px] text-[#FF51FA]/60 tracking-[0.4em] mb-8">CURRENT_STACK</p>
+        <div class="space-y-0">
+          {about.stack.map((s, i) => (
+            <div class="about-line flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-8 py-4 border-b border-[#e2e2e2]/5 last:border-b-0 hover:bg-[#111] px-2 transition-colors">
+              <span class="text-[#AC89FF] font-mono text-[10px] tracking-[0.3em] font-bold w-32 shrink-0">{s.label}</span>
+              <div>
+                <span class="text-[#e2e2e2] font-mono text-sm">{s.value}</span>
+                {s.sub && <span class="text-[#e2e2e2]/30 font-mono text-xs ml-3">/ {s.sub}</span>}
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Principles + Stack Grid -->
-      <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 sm:mb-24">
-        <!-- Principles -->
-        <div class="p-1" style="background:#FF51FA; clip-path: polygon(2% 5%, 100% 0, 98% 95%, 0 100%)" data-reveal>
-          <div class="bg-[#0a0a0a] p-6 sm:p-8" style="clip-path: polygon(2% 5%, 100% 0, 98% 95%, 0 100%)">
-            <h2 class="text-2xl sm:text-3xl font-black italic text-[#FF51FA] mb-6 tracking-tight">PRINCIPLES</h2>
-            <div class="space-y-4">
-              {about.principles.map((p, i) => (
-                <div class="flex items-start gap-4">
-                  <span class="text-[#39FF14] font-black text-xl font-mono leading-none mt-1">{String(i + 1).padStart(2, '0')}</span>
-                  <p class="text-[#e2e2e2] font-mono text-sm">{p}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <!-- Stack -->
-        <div class="p-1" style="background:#AC89FF; clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 95%)" data-reveal>
-          <div class="bg-[#0a0a0a] p-6 sm:p-8" style="clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 95%)">
-            <h2 class="text-2xl sm:text-3xl font-black italic text-[#AC89FF] mb-6 tracking-tight">STACK</h2>
-            <div class="space-y-3">
-              {about.stack.map((s) => (
-                <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
-                  <span class="text-[#AC89FF] font-mono text-xs tracking-[0.3em] font-bold min-w-[100px]">{s.label}</span>
-                  <span class="text-[#e2e2e2]/70 font-mono text-sm">{s.value}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
       <!-- Links -->
-      <section class="flex flex-wrap justify-center gap-4 mb-16" data-reveal>
+      <section class="about-section flex flex-wrap gap-4">
         {about.links.map((l) => (
-          <a href={l.href} target="_blank" rel="noopener" class="flex items-center gap-2 bg-[#39FF14] text-black px-6 py-3 font-black text-sm uppercase tracking-widest hover:scale-105 transition-transform no-underline" style="clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 95%)">
+          <a href={l.href} target="_blank" rel="noopener"
+            class="about-line flex items-center gap-3 bg-[#39FF14] text-black px-6 py-3 font-black text-sm uppercase tracking-widest hover:scale-105 hover:bg-[#FF51FA] hover:text-white transition-all no-underline"
+            style="clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 95%)">
             <Fragment set:html={l.svg} />
             {l.label}
           </a>
@@ -119,75 +117,75 @@ const about = {
        LIGHT VARIANT
   ════════════════════════════════════════ -->
   <div class="variant-light bg-white/90 text-[#131313] min-h-screen">
-    <main class="relative pt-28 sm:pt-36 pb-20 px-4 sm:px-6 max-w-5xl mx-auto">
+    <main class="relative pt-28 sm:pt-36 pb-24 px-4 sm:px-6 max-w-5xl mx-auto">
 
       <!-- Hero -->
-      <section class="mb-16 sm:mb-24 text-center">
-        <p class="font-mono text-[#FF51FA] text-xs sm:text-sm tracking-[0.5em] mb-4" data-typewriter="40">// ABOUT</p>
-        <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black italic tracking-tighter leading-tight pb-2 mb-4 overflow-visible" data-reveal>
-          <span class="inline-block bg-clip-text text-transparent bg-gradient-to-r from-[#FF51FA] via-[#AC89FF] to-[#39FF14] pr-2">CYPERX</span><span class="text-[#131313] opacity-80">.DEV</span>
+      <section class="about-section mb-20 sm:mb-32">
+        <p class="about-line font-mono text-[#FF51FA] text-xs tracking-[0.5em] mb-6">// ABOUT</p>
+        <h1 class="about-line text-6xl sm:text-8xl lg:text-9xl font-black italic tracking-tighter leading-none pb-2 mb-6 overflow-visible">
+          <span class="block bg-clip-text text-transparent bg-gradient-to-r from-[#FF51FA] via-[#AC89FF] to-[#39FF14] pr-2">CHRIS</span>
         </h1>
-        <p class="text-[#555] text-sm sm:text-base font-mono max-w-xl mx-auto">{about.role} · {about.location}</p>
+        <p class="about-line font-mono text-[#555] text-sm mb-2">{about.handle} · {about.location}</p>
+        <p class="about-line font-mono text-[#FF51FA] text-xs tracking-widest">{about.role.toUpperCase()}</p>
       </section>
 
-      <!-- Editorial About -->
-      <section class="mb-16 sm:mb-24" data-reveal>
-        <div class="p-1" style="background:#FF51FA; clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 95%)">
-          <div class="bg-white p-8 sm:p-12" style="clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 95%)">
-            <div class="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 sm:gap-12">
-              <!-- Left: Identity -->
-              <div class="space-y-2 border-r-0 md:border-r border-[#FF51FA]/10 md:pr-8">
-                <p class="text-3xl sm:text-4xl font-black italic">{about.name}</p>
-                <p class="text-[#FF51FA] font-mono text-sm">{about.handle}</p>
-                <p class="text-[#888] text-sm">{about.location}</p>
-                <p class="text-[#888] text-sm">{about.role}</p>
+      <!-- Intro -->
+      <section class="about-section mb-20 sm:mb-28 grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-12 items-start">
+        <div class="space-y-6">
+          <p class="about-line text-xl sm:text-2xl text-[#131313] leading-relaxed font-medium">{about.bio}</p>
+          <p class="about-line text-base sm:text-lg text-[#555] leading-relaxed">{about.bio2}</p>
+        </div>
+        <div class="about-line">
+          <img src="/images/about/agents.jpg" alt="Agent fleet" style="width:100%; display:block; border:1px solid #FF51FA33; box-shadow: 0 0 32px #FF51FA11;" />
+        </div>
+      </section>
+
+      <!-- Setup image -->
+      <section class="about-section mb-20 sm:mb-28">
+        <div class="about-line overflow-hidden" style="border-left:4px solid #FF51FA;">
+          <img src="/images/about/setup.jpg" alt="The setup" style="width:100%; display:block; max-height:380px; object-fit:cover; opacity:0.85;" />
+        </div>
+        <p class="about-line font-mono text-[10px] text-[#131313]/30 mt-3 tracking-widest">THE SETUP // M4 MAC MINI · NEOVIM · TMUX · GHOSTTY</p>
+      </section>
+
+      <!-- Principles -->
+      <section class="about-section mb-20 sm:mb-28">
+        <p class="about-line font-mono text-[10px] text-[#FF51FA]/60 tracking-[0.4em] mb-8">HOW_I_WORK</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {about.principles.map((p, i) => (
+            <div class="about-line p-6 bg-[#f5f5f5] border border-[#131313]/5 hover:border-[#FF51FA]/30 transition-colors">
+              <div class="flex items-baseline gap-3 mb-2">
+                <span class="text-[#FF51FA] font-black text-3xl font-mono leading-none opacity-30">{String(i + 1).padStart(2, '0')}</span>
+                <p class="text-[#131313] font-mono text-sm font-bold">{p.text}</p>
               </div>
-              <!-- Right: Bio -->
+              <p class="text-[#555] font-mono text-xs opacity-60 ml-10">{p.note}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Stack -->
+      <section class="about-section mb-20 sm:mb-28">
+        <p class="about-line font-mono text-[10px] text-[#AC89FF]/80 tracking-[0.4em] mb-8">CURRENT_STACK</p>
+        <div class="space-y-0">
+          {about.stack.map((s, i) => (
+            <div class="about-line flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-8 py-4 border-b border-[#131313]/5 last:border-b-0 hover:bg-[#f5f5f5] px-2 transition-colors">
+              <span class="text-[#AC89FF] font-mono text-[10px] tracking-[0.3em] font-bold w-32 shrink-0">{s.label}</span>
               <div>
-                <p class="text-[#333] leading-relaxed text-base sm:text-lg">{about.bio}</p>
+                <span class="text-[#131313] font-mono text-sm">{s.value}</span>
+                {s.sub && <span class="text-[#131313]/30 font-mono text-xs ml-3">/ {s.sub}</span>}
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Principles + Stack Grid -->
-      <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 sm:mb-24">
-        <!-- Principles -->
-        <div class="p-1" style="background:#AC89FF; clip-path: polygon(2% 5%, 100% 0, 98% 95%, 0 100%)" data-reveal>
-          <div class="bg-white p-6 sm:p-8" style="clip-path: polygon(2% 5%, 100% 0, 98% 95%, 0 100%)">
-            <h2 class="text-2xl sm:text-3xl font-black italic text-[#AC89FF] mb-6 tracking-tight">PRINCIPLES</h2>
-            <div class="space-y-4">
-              {about.principles.map((p, i) => (
-                <div class="flex items-start gap-4">
-                  <span class="text-[#FF51FA] font-black text-xl font-mono leading-none mt-1">{String(i + 1).padStart(2, '0')}</span>
-                  <p class="text-[#333] font-mono text-sm">{p}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <!-- Stack -->
-        <div class="p-1" style="background:#39FF14; clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 95%)" data-reveal>
-          <div class="bg-white p-6 sm:p-8" style="clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 95%)">
-            <h2 class="text-2xl sm:text-3xl font-black italic text-[#39FF14] mb-6 tracking-tight">STACK</h2>
-            <div class="space-y-3">
-              {about.stack.map((s) => (
-                <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
-                  <span class="text-[#AC89FF] font-mono text-xs tracking-[0.3em] font-bold min-w-[100px]">{s.label}</span>
-                  <span class="text-[#555] font-mono text-sm">{s.value}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
       <!-- Links -->
-      <section class="flex flex-wrap justify-center gap-4 mb-16" data-reveal>
+      <section class="about-section flex flex-wrap gap-4">
         {about.links.map((l) => (
-          <a href={l.href} target="_blank" rel="noopener" class="flex items-center gap-2 bg-[#FF51FA] text-white px-6 py-3 font-black text-sm uppercase tracking-widest hover:scale-105 transition-transform no-underline" style="clip-path: polygon(2% 5%, 100% 0, 98% 95%, 0 100%)">
+          <a href={l.href} target="_blank" rel="noopener"
+            class="about-line flex items-center gap-3 bg-[#FF51FA] text-white px-6 py-3 font-black text-sm uppercase tracking-widest hover:scale-105 hover:bg-[#39FF14] hover:text-black transition-all no-underline"
+            style="clip-path: polygon(2% 5%, 100% 0, 98% 95%, 0 100%)">
             <Fragment set:html={l.svg} />
             {l.label}
           </a>
@@ -201,65 +199,78 @@ const about = {
        EXTREME VARIANT
   ════════════════════════════════════════ -->
   <div class="variant-extreme bg-transparent text-white min-h-screen">
-    <main class="relative pt-28 sm:pt-36 pb-20 px-4 sm:px-6 max-w-5xl mx-auto">
+    <!-- Background scan lines -->
+    <div class="x-fractal-bg pointer-events-none"></div>
+    <div class="x-scanlines pointer-events-none"></div>
+
+    <main class="relative pt-28 sm:pt-36 pb-24 px-4 sm:px-6 max-w-5xl mx-auto">
 
       <!-- Hero -->
-      <section class="mb-16 sm:mb-24 text-center">
-        <p class="font-mono text-[#8eff71] text-xs sm:text-sm tracking-[0.5em] mb-4" data-typewriter="40">// ABOUT</p>
-        <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black italic tracking-tighter leading-tight pb-2 mb-4 glitch-text-extreme" data-reveal>
-          CYPERX<span class="text-[#8eff71]">.DEV</span>
+      <section class="about-section mb-20 sm:mb-32 relative z-10">
+        <p class="about-line font-mono text-[#8eff71] text-xs tracking-[0.5em] mb-6">// ABOUT</p>
+        <h1 class="about-line text-6xl sm:text-8xl lg:text-9xl font-black italic tracking-tighter leading-none pb-2 mb-6 overflow-visible">
+          <span class="block text-white x-vibrating-text">CHRIS<span class="text-[#8eff71]">.</span></span>
         </h1>
-        <p class="text-white/60 text-sm sm:text-base font-mono max-w-xl mx-auto">{about.role} · {about.location}</p>
+        <p class="about-line font-mono text-white/50 text-sm mb-2">{about.handle} · {about.location}</p>
+        <p class="about-line font-mono text-[#8eff71] text-xs tracking-widest">{about.role.toUpperCase()}</p>
       </section>
 
-      <!-- Glitched About -->
-      <section class="mb-16 sm:mb-24" data-reveal>
-        <div class="acid-mask-1 glitch-border-vibrate bg-black/80 p-6 sm:p-10">
-          <div class="font-mono text-lg sm:text-xl space-y-2 mb-6">
-            <p><span class="text-[#8eff71] font-black">$</span> whoami</p>
-            <p class="text-3xl sm:text-4xl font-black italic text-white">{about.name}</p>
-            <p class="text-[#ff51fa] text-lg">{about.handle}</p>
-            <p class="text-white/50 text-sm">{about.location} · {about.role}</p>
-          </div>
-          <div class="border-t-4 border-[#ff51fa] pt-6">
-            <p class="text-white/80 font-mono text-sm sm:text-base leading-relaxed">{about.bio}</p>
-          </div>
+      <!-- Intro -->
+      <section class="about-section mb-20 sm:mb-28 grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-12 items-start relative z-10">
+        <div class="space-y-6">
+          <p class="about-line text-xl sm:text-2xl text-white leading-relaxed font-medium">{about.bio}</p>
+          <p class="about-line text-base sm:text-lg text-white/60 leading-relaxed">{about.bio2}</p>
+        </div>
+        <div class="about-line">
+          <img src="/images/about/agents.jpg" alt="Agent fleet" style="width:100%; display:block; border:1px solid #8eff7133; box-shadow: 0 0 32px #8eff7122;" />
         </div>
       </section>
 
-      <!-- Principles + Stack Grid -->
-      <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 sm:mb-24">
-        <!-- Principles -->
-        <div class="acid-mask-2 glitch-border-vibrate bg-black/80 p-6 sm:p-8" data-reveal>
-          <h2 class="text-2xl sm:text-3xl font-black italic text-[#ff51fa] mb-6 uppercase">PRINCIPLES</h2>
-          <div class="space-y-4">
-            {about.principles.map((p, i) => (
-              <div class="flex items-start gap-4">
-                <span class="text-[#8eff71] font-black text-2xl sm:text-3xl font-mono leading-none">{String(i + 1).padStart(2, '0')}</span>
-                <p class="text-white font-mono text-sm sm:text-base uppercase tracking-wider font-bold">{p}</p>
-              </div>
-            ))}
-          </div>
+      <!-- Setup image -->
+      <section class="about-section mb-20 sm:mb-28 relative z-10">
+        <div class="about-line overflow-hidden" style="border-left:4px solid #ff51fa;">
+          <img src="/images/about/setup.jpg" alt="The setup" style="width:100%; display:block; max-height:380px; object-fit:cover; opacity:0.8;" />
         </div>
+        <p class="about-line font-mono text-[10px] text-white/20 mt-3 tracking-widest">THE SETUP // M4 MAC MINI · NEOVIM · TMUX · GHOSTTY</p>
+      </section>
 
-        <!-- Stack -->
-        <div class="acid-mask-3 glitch-border-vibrate bg-black/80 p-6 sm:p-8" data-reveal>
-          <h2 class="text-2xl sm:text-3xl font-black italic text-[#ac89ff] mb-6 uppercase">STACK</h2>
-          <div class="space-y-3">
-            {about.stack.map((s) => (
-              <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
-                <span class="text-[#ac89ff] font-mono text-xs tracking-[0.3em] font-bold min-w-[100px]">{s.label}</span>
-                <span class="text-white/70 font-mono text-sm">{s.value}</span>
+      <!-- Principles -->
+      <section class="about-section mb-20 sm:mb-28 relative z-10">
+        <p class="about-line font-mono text-[10px] text-[#8eff71]/60 tracking-[0.4em] mb-8">HOW_I_WORK</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {about.principles.map((p, i) => (
+            <div class="about-line p-6 bg-black/60 border border-[#8eff71]/10 hover:border-[#8eff71]/40 transition-colors glitch-border-vibrate">
+              <div class="flex items-baseline gap-3 mb-2">
+                <span class="text-[#8eff71] font-black text-3xl font-mono leading-none opacity-30">{String(i + 1).padStart(2, '0')}</span>
+                <p class="text-white font-mono text-sm font-bold uppercase tracking-wider">{p.text}</p>
               </div>
-            ))}
-          </div>
+              <p class="text-white/40 font-mono text-xs ml-10">{p.note}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Stack -->
+      <section class="about-section mb-20 sm:mb-28 relative z-10">
+        <p class="about-line font-mono text-[10px] text-[#ff51fa]/60 tracking-[0.4em] mb-8">CURRENT_STACK</p>
+        <div class="space-y-0 bg-black/40">
+          {about.stack.map((s, i) => (
+            <div class="about-line flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-8 py-4 border-b border-[#8eff71]/10 last:border-b-0 hover:bg-[#8eff71]/5 px-4 transition-colors">
+              <span class="text-[#ac89ff] font-mono text-[10px] tracking-[0.3em] font-bold w-32 shrink-0">{s.label}</span>
+              <div>
+                <span class="text-white font-mono text-sm">{s.value}</span>
+                {s.sub && <span class="text-white/25 font-mono text-xs ml-3">/ {s.sub}</span>}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
       <!-- Links -->
-      <section class="flex flex-wrap justify-center gap-4 mb-16" data-reveal>
+      <section class="about-section flex flex-wrap gap-4 relative z-10">
         {about.links.map((l) => (
-          <a href={l.href} target="_blank" rel="noopener" class="flex items-center gap-2 bg-[#8eff71] text-black px-5 py-3 font-black text-sm uppercase tracking-widest hover:bg-[#ff51fa] hover:text-white transition-all hover:scale-110 no-underline shadow-[4px_4px_0_#ff51fa] hover:shadow-[4px_4px_0_#8eff71]">
+          <a href={l.href} target="_blank" rel="noopener"
+            class="about-line flex items-center gap-3 bg-[#8eff71] text-black px-6 py-3 font-black text-sm uppercase tracking-widest hover:bg-[#ff51fa] hover:text-white hover:scale-110 transition-all no-underline shadow-[4px_4px_0_#ff51fa] hover:shadow-[4px_4px_0_#8eff71]">
             <Fragment set:html={l.svg} />
             {l.label}
           </a>
@@ -270,3 +281,74 @@ const about = {
   </div>
 
 </BaseLayout>
+
+<style>
+  /* ── About scroll reveal base ── */
+  .about-line {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .about-line.al-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Stagger delay classes */
+  .about-line[data-al-delay="1"] { transition-delay: 0.08s; }
+  .about-line[data-al-delay="2"] { transition-delay: 0.16s; }
+  .about-line[data-al-delay="3"] { transition-delay: 0.24s; }
+  .about-line[data-al-delay="4"] { transition-delay: 0.32s; }
+  .about-line[data-al-delay="5"] { transition-delay: 0.40s; }
+
+  /* Extreme theme effects */
+  .variant-extreme .x-fractal-bg {
+    background: radial-gradient(ellipse at 20% 50%, #8eff7108 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, #ff51fa08 0%, transparent 60%);
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+  }
+  .variant-extreme .x-scanlines {
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 4px);
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;
+  }
+  .variant-extreme .x-vibrating-text {
+    animation: x-vibrate 8s ease-in-out infinite;
+  }
+  @keyframes x-vibrate {
+    0%, 90%, 100% { text-shadow: none; }
+    92% { text-shadow: 3px 0 #ff51fa, -3px 0 #8eff71; }
+    94% { text-shadow: -2px 0 #8eff71, 2px 0 #ff51fa; }
+    96% { text-shadow: 3px 0 #ff51fa, -3px 0 #8eff71; }
+    98% { text-shadow: none; }
+  }
+  .variant-extreme .glitch-border-vibrate {
+    animation: border-pulse 4s ease-in-out infinite;
+  }
+  @keyframes border-pulse {
+    0%, 100% { box-shadow: none; }
+    50% { box-shadow: 0 0 12px #8eff7122; }
+  }
+</style>
+
+<script>
+  // ── About page scroll reveal ──
+  // Assign stagger delays within each section
+  document.querySelectorAll('.about-section').forEach(section => {
+    const lines = section.querySelectorAll('.about-line');
+    lines.forEach((el, i) => {
+      (el as HTMLElement).dataset.alDelay = String(Math.min(i + 1, 5));
+    });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target as HTMLElement;
+        el.classList.add('al-visible');
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.about-line').forEach(el => observer.observe(el));
+</script>

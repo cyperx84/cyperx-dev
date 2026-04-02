@@ -16,6 +16,9 @@ const { project } = Astro.props;
   <!-- Scroll progress bar -->
   <div id="scroll-progress" class="fixed top-0 left-0 h-[2px] z-[9999] transition-none" style="width:0%; background:#39FF14;"></div>
 
+  <!-- Project images data for JS -->
+  <div id="project-images-data" class="hidden" data-images={JSON.stringify(project.images || [])}></div>
+
   <!-- Chapter tracker (right side dots) -->
   <nav id="chapter-tracker" class="fixed right-4 top-1/2 -translate-y-1/2 z-[100] hidden lg:flex flex-col gap-3 items-center">
   </nav>
@@ -334,6 +337,39 @@ const { project } = Astro.props;
     }
   }
   window.addEventListener('scroll', updateProgress, { passive: true });
+
+  // ── Inject project gallery images into prose at start / middle / 3/4 ──
+  const projectImages: string[] = JSON.parse(
+    document.getElementById('project-images-data')?.dataset.images || '[]'
+  );
+  if (projectImages.length >= 2) {
+    document.querySelectorAll('.storybook-prose').forEach(container => {
+      const h2s = Array.from(container.querySelectorAll('h2'));
+      const insertPoints = [
+        container.firstChild,               // start: before everything
+        h2s[Math.floor(h2s.length / 2)] || null,  // middle: mid h2
+        h2s[Math.floor(h2s.length * 0.75)] || null, // 3/4: late h2
+      ];
+      const imgs = projectImages.slice(1); // skip hero (index 0), use extras
+      insertPoints.forEach((point, idx) => {
+        const src = imgs[idx];
+        if (!src || !point) return;
+        const figure = document.createElement('figure');
+        figure.className = 'project-inline-img storybook-prose-img';
+        figure.style.cssText = 'margin:2.5rem 0; overflow:hidden;';
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = `Project image ${idx + 2}`;
+        img.style.cssText = 'width:100%; display:block; max-height:340px; object-fit:cover;';
+        figure.appendChild(img);
+        if (point === container.firstChild) {
+          container.insertBefore(figure, container.firstChild);
+        } else {
+          (point as Element).parentNode?.insertBefore(figure, point as Element);
+        }
+      });
+    });
+  }
 
   // ── Storybook scroll reveal ──
   const proseContainers = document.querySelectorAll('.storybook-prose');

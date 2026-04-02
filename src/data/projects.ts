@@ -9,6 +9,7 @@ export interface Project {
   statusColor: string;
   entropy: number;
   image?: string;
+  images?: string[];
   links: {
     github: string | null;
     live: string | null;
@@ -20,6 +21,11 @@ export const projects: Project[] = [
     name: "CyperX.dev",
     slug: "cyperx-dev",
     image: "/images/projects/cyperx-dev.jpg",
+    images: [
+      "/images/projects/cyperx-dev.jpg",
+      "/images/projects/cyperx-dev-2.jpg",
+      "/images/projects/cyperx-dev-3.jpg",
+    ],
     tagline: "Personal site. Three themes. Zero restraint.",
     description: "Neo-brutalist personal site built with Astro. Dark, light, and extreme theme variants. Scroll effects, glitch aesthetics, liquid shard layouts.",
     longDescription: `<p>This is the site you're on right now. Three themes, zero compromise, and a deliberate rejection of every safe design choice in the developer portfolio playbook.</p>
@@ -66,6 +72,12 @@ export const projects: Project[] = [
     name: "Dotfiles",
     slug: "dotfiles",
     image: "/images/projects/dotfiles.jpg",
+    images: [
+      "/images/projects/dotfiles.jpg",
+      "/images/projects/dotfiles-1.jpg",
+      "/images/projects/dotfiles-2.jpg",
+      "/images/projects/dotfiles-3.jpg",
+    ],
     tagline: "The machine as a living document.",
     description: "A decade of accumulated configuration managed via GNU Stow. Neovim, zsh, tmux, git, macOS defaults — wired to reproduce a working dev environment on fresh hardware in under an hour.",
     longDescription: `<p>A decade of configuration decisions, accumulated one dotfile at a time, managed through GNU Stow and designed to reproduce a fully functional development environment on fresh hardware in under an hour. This isn't a backup — it's infrastructure as code for the personal machine.</p>
@@ -111,6 +123,12 @@ export const projects: Project[] = [
     name: "Changelogs.info",
     slug: "changelogs-info",
     image: "/images/projects/changelogs-info.jpg",
+    images: [
+      "/images/projects/changelogs-info.jpg",
+      "/images/projects/changelogs-1.jpg",
+      "/images/projects/changelogs-2.jpg",
+      "/images/projects/changelogs-3.jpg",
+    ],
     tagline: "Release notes for tools that ship too fast to track.",
     description: "Changelog aggregation for AI coding tools — Claude Code, Codex, Gemini CLI, OpenCode. Cheatsheets, config references, and what actually changed in each version.",
     longDescription: `<p>AI coding tools ship at a pace that makes tracking changes genuinely difficult. Claude Code drops a new version and the changelog is buried in a GitHub release. Codex updates land without fanfare. Gemini CLI changes flags between versions and the only documentation is a commit message. Changelogs.info exists because I got tired of checking four different repos every week to find out what broke or what's new.</p>
