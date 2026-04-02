@@ -13,7 +13,7 @@ On March 31, 2026, someone noticed that the Claude Code npm package (v2.1.88) sh
 
 I've read through it. Here's what matters if you build agent systems — or if you just want to know how one of the most sophisticated AI products in production actually works under the hood.
 
-![Claude Code source map leak — 512K lines of TypeScript exposed in a single npm package](/images/blog/claude-code-1.jpg)
+![Claude Code source map leak — 512K lines of TypeScript exposed in a single npm package](/images/blog/claude-code-1.webp)
 
 ---
 
@@ -87,7 +87,7 @@ When `CLAUDE_CODE_COORDINATOR_MODE` is set to 1, Claude Code switches from being
 
 Here's the surprising part: **the orchestration algorithm is a prompt, not code.** The coordinator doesn't have a hardcoded DAG or a finite state machine written in TypeScript. It has a system prompt that tells it how to decompose work, assign it to workers, and merge results. The "algorithm" is the model following instructions.
 
-![Claude Code's multi-agent coordination architecture — prompts as orchestration](/images/blog/claude-code-2.jpg)
+![Claude Code's multi-agent coordination architecture — prompts as orchestration](/images/blog/claude-code-2.webp)
 
 This is either brilliant or terrifying depending on your perspective. On one hand, it means the coordination strategy improves every time the base model gets better — no code changes required. On the other hand, it means the coordination is fundamentally non-deterministic in a way that traditional orchestration systems aren't. For a coding assistant, the tradeoff makes sense.
 
@@ -101,7 +101,7 @@ Instead of planning locally, ULTRAPLAN spins up a remote Claude Code Runtime (CC
 
 When the plan is complete, a sentinel string `__ULTRAPLAN_TELEPORT_LOCAL__` is embedded in the output. When the local agent encounters this sentinel, it "teleports" the plan result back into the local context and begins execution. It's essentially a remote procedure call where the procedure is "think really hard about this problem."
 
-![ULTRAPLAN and the terminal rendering pipeline — game-engine techniques in a CLI tool](/images/blog/claude-code-3.jpg)
+![ULTRAPLAN and the terminal rendering pipeline — game-engine techniques in a CLI tool](/images/blog/claude-code-3.webp)
 
 The architecture implication: Anthropic is treating model capability as a tiered resource. You don't use the most expensive model for every step. You use a cheaper model for the agent loop and escalate to the expensive one only when the problem demands deep planning. This is cost-aware agent design at the infrastructure level.
 
