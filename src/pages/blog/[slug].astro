@@ -56,7 +56,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
           <span>·</span>
           <span class="text-[#39FF14]">SIGNAL: {post.data.signal}%</span>
         </div>
-        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-none mb-6">{post.data.title}</h1>
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-tight overflow-visible mb-6">{post.data.title}</h1>
         <p class="text-base sm:text-lg text-[#baccb0] italic mb-6">{post.data.excerpt}</p>
         <div class="flex flex-wrap gap-2">
           {post.data.tags.map(tag => (
@@ -107,7 +107,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
           <span>·</span>
           <span class="text-[#AC89FF] font-bold">{post.data.category}</span>
         </div>
-        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-none mb-6">{post.data.title}</h1>
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-tight overflow-visible mb-6">{post.data.title}</h1>
         <p class="text-base sm:text-lg text-[#131313]/70 italic mb-6 border-l-4 border-[#FF51FA] pl-4">{post.data.excerpt}</p>
         <div class="flex flex-wrap gap-2">
           {post.data.tags.map(tag => (
@@ -161,7 +161,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
           <span class="text-white/30">·</span>
           <span class="text-[#8eff71] font-black animate-pulse">SIG: {post.data.signal}%</span>
         </div>
-        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-none mb-6 x-vibrating-text">{post.data.title}</h1>
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-tight overflow-visible mb-6 x-vibrating-text">{post.data.title}</h1>
         <p class="text-base sm:text-lg text-white/70 italic mb-6">{post.data.excerpt}</p>
         <div class="flex flex-wrap gap-2">
           {post.data.tags.map(tag => (

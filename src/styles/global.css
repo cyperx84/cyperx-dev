@@ -27,7 +27,7 @@
   src: url('/fonts/Lazer84.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
 }
 
 /* ZedMono Nerd Font Mono Bold — Chris's terminal mono */
@@ -54,7 +54,7 @@
   src: url('/fonts/MonaspaceRadon-Italic.woff2') format('woff2');
   font-weight: 400;
   font-style: italic;
-  font-display: swap;
+  font-display: optional;
 }
 
 /* Monaspace Krypton ExtraBold Italic — bold-italic accent */
@@ -63,7 +63,7 @@
   src: url('/fonts/MonaspaceKrypton-ExtraBoldItalic.woff2') format('woff2');
   font-weight: 800;
   font-style: italic;
-  font-display: swap;
+  font-display: optional;
 }
 
 @theme {

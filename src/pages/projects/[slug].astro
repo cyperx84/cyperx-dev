@@ -92,7 +92,7 @@ const { project } = Astro.props;
           <span class="font-mono text-xs px-3 py-1 font-black text-white" style={`background:${project.statusColor}`}>{project.status}</span>
           <span class="font-mono text-[10px] text-[#131313]/40">ENTROPY: {project.entropy}%</span>
         </div>
-        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-none mb-4">{project.name}</h1>
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-tight overflow-visible mb-4">{project.name}</h1>
         <p class="text-[#FF51FA] font-mono text-sm italic mb-6 font-bold">{project.tagline}</p>
         <p class="text-[#131313]/70 text-base sm:text-lg border-l-4 border-[#FF51FA] pl-4">{project.description}</p>
       </header>
@@ -155,7 +155,7 @@ const { project } = Astro.props;
           <span class="font-mono text-xs px-3 py-1 font-black" style={`background:${project.statusColor}; color:black`}>{project.status}</span>
           <span class="font-mono text-[10px] text-[#ff51fa]">ENTROPY: {project.entropy}%</span>
         </div>
-        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-none mb-4 x-vibrating-text">{project.name}</h1>
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-tight overflow-visible mb-4 x-vibrating-text">{project.name}</h1>
         <p class="text-[#8eff71] font-mono text-sm italic mb-6">{project.tagline}</p>
         <p class="text-white/70 text-base sm:text-lg border-l-4 border-[#8eff71] pl-4">{project.description}</p>
       </header>
