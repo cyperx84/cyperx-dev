@@ -70,11 +70,16 @@ const posts = allPosts
             const zs = ["z-20", "z-30", "z-10"];
             return (
               <a href={`/projects/${p.slug}`} class={`project-card group block no-underline ${shapes[i]} ${offsets[i]} ${zs[i]} hover:scale-[1.03] transition-transform relative`} style={`background:#0e0e0e;`}>
+                <svg class="card-svg-border" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                  <polygon points="1,2 97,0 100,97 3,100" class="card-jag-outer" style={`stroke:${accent};`} />
+                  <polygon points="3,0 100,3 97,100 0,97" class="card-jag-inner" style={`stroke:${accent}; animation-delay:0.8s`} />
+                </svg>
                 {p.image && (
                   <div class="jag-img-wrap" style="height:160px;">
                     <img src={p.image} alt={p.name} class="jag-img group-hover:opacity-90 group-hover:scale-105" />
                     <svg class="jag-border" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                      <polygon points="2,2 98,0 96,98 4,100" class="jag-stroke" style={`stroke:${accent};`} />
+                      <polygon points="1,3 98,0 100,96 2,100" class="jag-stroke-outer" style={`stroke:${accent};`} />
+                      <polygon points="3,1 99,2 97,99 0,98" class="jag-stroke-inner" style={`stroke:${accent}; animation-delay:${i*0.3}s`} />
                     </svg>
                   </div>
                 )}
@@ -127,7 +132,11 @@ const posts = allPosts
             const shapes = ["x-shard-sidebar", "x-shard-4"];
             const offsets = ["", "mt-10 md:mt-16"];
             return (
-              <a href={`/blog/${post.data.slug}`} class={`blog-card group block no-underline ${shapes[i]} ${offsets[i]} p-6 sm:p-8 hover:scale-[1.02] transition-transform`} style={`background:#0e0e0e;`}>
+              <a href={`/blog/${post.data.slug}`} class={`blog-card group block no-underline ${shapes[i]} ${offsets[i]} p-6 sm:p-8 hover:scale-[1.02] transition-transform relative`} style={`background:#0e0e0e;`}>
+                <svg class="card-svg-border" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                  <polygon points="2,1 100,2 98,99 0,100" class="card-jag-outer" style={`stroke:${accent};`} />
+                  <polygon points="0,3 98,0 100,98 2,100" class="card-jag-inner" style={`stroke:${accent}; animation-delay:${i*0.5}s`} />
+                </svg>
                 <div class="flex items-center justify-between mb-5">
                   <span class="font-mono text-[10px] px-2 py-0.5 font-black" style={`background:${accent}20; color:${accent}; border:1px solid ${accent}40`}>{post.data.category}</span>
                   <span class="font-mono text-[10px] text-[#e2e2e2]/25">{post.data.readTime}</span>
@@ -199,7 +208,8 @@ const posts = allPosts
                   <div class="jag-img-wrap" style="height:140px;">
                     <img src={p.image} alt={p.name} class="jag-img group-hover:scale-105" />
                     <svg class="jag-border" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                      <polygon points="3,1 97,3 99,97 1,99" class="jag-stroke" style={`stroke:${accent}; animation-delay:${i * 0.4}s`} />
+                      <polygon points="2,2 97,0 100,97 0,100" class="jag-stroke-outer" style={`stroke:${accent}; animation-delay:${i*0.5}s`} />
+                      <polygon points="4,0 100,3 96,100 1,97" class="jag-stroke-inner" style={`stroke:${accent}; animation-delay:${i*0.2}s`} />
                     </svg>
                   </div>
                 )}
@@ -308,7 +318,8 @@ const posts = allPosts
                   <div class="jag-img-wrap" style="height:160px;">
                     <img src={p.image} alt={p.name} class="jag-img jag-img-dark group-hover:opacity-80 group-hover:scale-105" />
                     <svg class="jag-border" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                      <polygon points="1,3 99,0 97,97 3,100" class="jag-stroke jag-stroke-glow" style={`stroke:${accent}; animation-delay:${i * 0.6}s`} />
+                      <polygon points="0,2 98,0 100,98 2,100" class="jag-stroke-outer" style={`stroke:${accent}; animation-delay:${i*0.4}s`} />
+                      <polygon points="3,0 100,2 97,100 0,98" class="jag-stroke-inner" style={`stroke:${accent}; filter:drop-shadow(0 0 8px ${accent}); animation-delay:${i*0.7}s`} />
                     </svg>
                   </div>
                 )}
@@ -427,98 +438,101 @@ const posts = allPosts
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* ── Section reveal ── */
-  [data-reveal-section] .project-card,
-  [data-reveal-section] .blog-card {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s, transform 0.5s;
-  }
-  [data-reveal-section].is-visible .project-card,
-  [data-reveal-section].is-visible .blog-card {
-    opacity: 1;
-    transform: none;
-  }
-  [data-reveal-section].is-visible .project-card:nth-child(2),
-  [data-reveal-section].is-visible .blog-card:nth-child(2) { transition-delay: 0.1s; }
-  [data-reveal-section].is-visible .project-card:nth-child(3) { transition-delay: 0.2s; }
-
-  /* ── Stat cards entrance ── */
-  .stat-card {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  .stat-card.is-visible {
-    opacity: 1;
-    transform: none;
-    transition: opacity 0.4s, transform 0.4s;
+  /* ── Scroll animations handled by JS ── */
+  /* Cards start hidden; JS sets opacity/transform then animates in */
+  .project-card, .blog-card, .stat-card {
+    will-change: transform, opacity;
   }
 
-  /* ── Jagged image wrappers + animated borders ── */
+  /* ── Jagged image wrappers ── */
   .jag-img-wrap {
     position: relative;
-    overflow: visible; /* let the SVG border bleed out */
+    overflow: visible;
   }
   .jag-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
     opacity: 0.72;
-    transition: opacity 0.4s, transform 0.6s;
-    /* Jagged clip on the image itself — not too aggressive */
-    clip-path: polygon(0% 2%, 97% 0%, 100% 96%, 3% 100%);
+    transition: opacity 0.4s, transform 0.7s;
+    clip-path: polygon(0% 3%, 96% 0%, 100% 95%, 4% 100%);
   }
-  .jag-img-dark { opacity: 0.6; }
+  .jag-img-dark { opacity: 0.58; }
 
-  /* SVG overlay — sits on top, pointer-events none */
+  /* SVG border — two layers, opposite direction, different speed */
   .jag-border {
     position: absolute;
-    inset: -6px;
-    width: calc(100% + 12px);
-    height: calc(100% + 12px);
+    inset: -8px;
+    width: calc(100% + 16px);
+    height: calc(100% + 16px);
     pointer-events: none;
     overflow: visible;
   }
-  .jag-stroke {
+  /* outer stroke: slow, wide gaps, marches forward */
+  .jag-stroke-outer {
     fill: none;
-    stroke-width: 1.5;
-    /* dasharray = rough perimeter / segment; offset animates forward */
-    stroke-dasharray: 8 4 14 3 6 9 11 2;
-    stroke-dashoffset: 0;
-    animation: jag-march 4s linear infinite;
-  }
-  .jag-stroke-glow {
-    filter: drop-shadow(0 0 4px currentColor);
     stroke-width: 1.2;
-    animation-duration: 3s;
+    stroke-dasharray: 18 6 4 10 22 3 8 14;
+    stroke-dashoffset: 0;
+    opacity: 0.85;
+    animation: jag-fwd 5s linear infinite;
   }
-  @keyframes jag-march {
-    0%   { stroke-dashoffset: 0; }
-    100% { stroke-dashoffset: -100; }
+  /* inner stroke: fast, tight, marches backward, glows */
+  .jag-stroke-inner {
+    fill: none;
+    stroke-width: 0.7;
+    stroke-dasharray: 4 12 2 8 6 16 3 9;
+    stroke-dashoffset: 0;
+    opacity: 0.5;
+    filter: drop-shadow(0 0 5px currentColor);
+    animation: jag-rev 3s linear infinite;
   }
+  @keyframes jag-fwd { 0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -180; } }
+  @keyframes jag-rev { 0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset:  160; } }
 
-  /* Card-level border outline — sits around the whole card, animates */
-  .project-card, .blog-card {
-    position: relative;
-  }
-  .project-card::after, .blog-card::after {
-    content: '';
+  /* ── Card SVG border (wraps whole card) ── */
+  .card-svg-border {
     position: absolute;
-    inset: -3px;
+    inset: -10px;
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
     pointer-events: none;
-    border: 0; /* use outline below instead */
-    clip-path: polygon(2% 0%, 98% 1%, 100% 97%, 1% 100%);
-    animation: card-border-pulse 6s ease-in-out infinite;
+    overflow: visible;
+    z-index: 10;
+  }
+  .card-jag-outer {
+    fill: none;
+    stroke-width: 0.8;
+    stroke-dasharray: 24 8 6 18 30 4 12 20;
+    stroke-dashoffset: 0;
     opacity: 0;
+    animation: jag-fwd 8s linear infinite;
+    transition: opacity 0.3s;
   }
-  .project-card:hover::after, .blog-card:hover::after {
-    opacity: 1;
+  .card-jag-inner {
+    fill: none;
+    stroke-width: 0.5;
+    stroke-dasharray: 6 20 3 14 8 24 4 16;
+    stroke-dashoffset: 0;
+    opacity: 0;
+    filter: drop-shadow(0 0 6px currentColor);
+    animation: jag-rev 5s linear infinite;
+    transition: opacity 0.3s;
   }
-  @keyframes card-border-pulse {
-    0%, 100% { opacity: 0; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(1.01); }
+  /* always-on idle shimmer */
+  .project-card .card-jag-outer,
+  .blog-card .card-jag-outer {
+    opacity: 0.18;
+    animation: jag-fwd 10s linear infinite;
   }
+  .project-card .card-jag-inner,
+  .blog-card .card-jag-inner {
+    opacity: 0.08;
+  }
+  /* hover: go bright */
+  .project-card:hover .card-jag-outer,
+  .blog-card:hover .card-jag-outer { opacity: 0.9; animation-duration: 4s; }
+  .project-card:hover .card-jag-inner,
+  .blog-card:hover .card-jag-inner { opacity: 0.6; animation-duration: 2.5s; }
 
   /* ── Extreme vibrate ── */
   .variant-extreme .x-vibrating-text {
@@ -534,33 +548,126 @@ const posts = allPosts
 </style>
 
 <script>
-  // ── Section reveal with IntersectionObserver ──
-  document.querySelectorAll('[data-reveal-section]').forEach(section => {
+  // ── SCROLL SYSTEM ──
+  // 1. Cards: 3D perspective flip-in from below, staggered
+  // 2. Parallax: images scroll at 0.4x speed (float effect)
+  // 3. Section headers: skew+fade slide
+  // 4. Stat numbers: count-up on reveal
+  // 5. Scroll velocity: accelerates jag-stroke speed
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // --- 1. Perspective card flip-in ---
+  document.querySelectorAll('.project-card, .blog-card').forEach((card, i) => {
+    if (!prefersReducedMotion) {
+      (card as HTMLElement).style.opacity = '0';
+      (card as HTMLElement).style.transform = 'perspective(800px) rotateX(18deg) translateY(60px)';
+      (card as HTMLElement).style.transition = `opacity 0.7s ${i*0.12}s ease-out, transform 0.7s ${i*0.12}s cubic-bezier(.17,.67,.4,1.1)`;
+    }
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) {
-          e.target.classList.add('is-visible');
+          (e.target as HTMLElement).style.opacity = '1';
+          (e.target as HTMLElement).style.transform = 'perspective(800px) rotateX(0deg) translateY(0)';
           obs.unobserve(e.target);
         }
       });
     }, { threshold: 0.1 });
-    obs.observe(section);
+    obs.observe(card);
   });
 
-  // Stat cards
-  document.querySelectorAll('.stat-card').forEach((card, i) => {
+  // --- 2. Parallax image scroll ---
+  const jagImgs = Array.from(document.querySelectorAll<HTMLElement>('.jag-img-wrap'));
+  function updateParallax() {
+    const sy = window.scrollY;
+    jagImgs.forEach(wrap => {
+      const rect = wrap.getBoundingClientRect();
+      const center = rect.top + rect.height / 2;
+      const vhCenter = window.innerHeight / 2;
+      const offset = (center - vhCenter) * 0.18;
+      const img = wrap.querySelector<HTMLElement>('img');
+      if (img) img.style.transform = `translateY(${offset}px) scale(1.1)`;
+    });
+  }
+  window.addEventListener('scroll', updateParallax, { passive: true });
+  updateParallax();
+
+  // --- 3. Section headers: skew slide ---
+  document.querySelectorAll<HTMLElement>('[data-reveal-section] .font-mono').forEach((el, i) => {
+    if (!prefersReducedMotion) {
+      el.style.opacity = '0';
+      el.style.transform = 'skewX(-8deg) translateX(-30px)';
+      el.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+    }
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) {
-          setTimeout(() => {
-            (e.target as HTMLElement).style.transitionDelay = `${i * 0.08}s`;
-            e.target.classList.add('is-visible');
-          }, i * 80);
+          (e.target as HTMLElement).style.opacity = '1';
+          (e.target as HTMLElement).style.transform = 'skewX(0) translateX(0)';
           obs.unobserve(e.target);
         }
       });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.5 });
+    obs.observe(el);
+  });
+
+  // --- 4. Stat cards + count-up ---
+  document.querySelectorAll<HTMLElement>('.stat-card').forEach((card, i) => {
+    if (!prefersReducedMotion) {
+      card.style.opacity = '0';
+      card.style.transform = `translateY(40px) rotate(${(i%2===0?1:-1)*3}deg)`;
+      card.style.transition = `opacity 0.5s ${i*0.1}s ease-out, transform 0.5s ${i*0.1}s cubic-bezier(.34,1.56,.64,1)`;
+    }
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const el = e.target as HTMLElement;
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+          // count-up for numeric values
+          const numEl = el.querySelector<HTMLElement>('div:first-child');
+          if (numEl) {
+            const raw = numEl.textContent?.trim() ?? '';
+            const n = parseInt(raw);
+            if (!isNaN(n) && n > 0 && n < 100) {
+              let cur = 0;
+              const step = () => {
+                cur++;
+                numEl.textContent = String(cur);
+                if (cur < n) setTimeout(step, 60);
+              };
+              setTimeout(step, i * 100);
+            }
+          }
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.3 });
     obs.observe(card);
+  });
+
+  // --- 5. Scroll velocity → speed up jag strokes ---
+  let lastY = window.scrollY;
+  let velocity = 0;
+  let strokeSpeedRaf = 0;
+  function updateStrokeSpeed() {
+    const curY = window.scrollY;
+    velocity = Math.abs(curY - lastY);
+    lastY = curY;
+    const speed = Math.max(0.5, 5 - velocity * 0.08); // faster scroll = lower duration = faster march
+    document.querySelectorAll<SVGElement>('.jag-stroke-outer, .jag-stroke-inner, .card-jag-outer, .card-jag-inner').forEach(el => {
+      if (velocity > 5) el.style.animationDuration = `${speed}s`;
+    });
+    strokeSpeedRaf = requestAnimationFrame(updateStrokeSpeed);
+  }
+  updateStrokeSpeed();
+
+  // --- Section reveal fallback ---
+  document.querySelectorAll('[data-reveal-section]').forEach(section => {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    obs.observe(section);
   });
 
   // ── Starfield canvas (extreme variant) ──
