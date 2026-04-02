@@ -13,6 +13,13 @@ const { project } = Astro.props;
 ---
 <BaseLayout title={`CYPERX.DEV // ${project.name.toUpperCase()}`} activeNav="projects">
 
+  <!-- Scroll progress bar -->
+  <div id="scroll-progress" class="fixed top-0 left-0 h-[2px] z-[9999] transition-none" style="width:0%; background:#39FF14;"></div>
+
+  <!-- Chapter tracker (right side dots) -->
+  <nav id="chapter-tracker" class="fixed right-4 top-1/2 -translate-y-1/2 z-[100] hidden lg:flex flex-col gap-3 items-center">
+  </nav>
+
   <!-- ════════════════════════════════════════
        DARK VARIANT
   ════════════════════════════════════════ -->
@@ -36,7 +43,7 @@ const { project } = Astro.props;
       </header>
 
       <!-- Full Description -->
-      <section class="prose-dark mb-12 sm:mb-16" set:html={project.longDescription} />
+      <section class="prose-dark storybook-prose mb-12 sm:mb-16" set:html={project.longDescription} />
 
       <!-- Tech Stack -->
       <section class="mb-10 sm:mb-12">
@@ -98,7 +105,7 @@ const { project } = Astro.props;
       </header>
 
       <!-- Full Description -->
-      <section class="prose-light mb-12 sm:mb-16" set:html={project.longDescription} />
+      <section class="prose-light storybook-prose mb-12 sm:mb-16" set:html={project.longDescription} />
 
       <!-- Tech Stack -->
       <section class="mb-10 sm:mb-12">
@@ -161,7 +168,7 @@ const { project } = Astro.props;
       </header>
 
       <!-- Full Description -->
-      <section class="prose-extreme mb-12 sm:mb-16 relative z-10" set:html={project.longDescription} />
+      <section class="prose-extreme storybook-prose mb-12 sm:mb-16 relative z-10" set:html={project.longDescription} />
 
       <!-- Tech Stack -->
       <section class="mb-10 sm:mb-12 relative z-10">
@@ -213,6 +220,74 @@ const { project } = Astro.props;
     /* Handled by blog/[slug].astro global styles */
   }
 
+  /* ══════════════════════════════════════════
+     STORYBOOK SCROLL ANIMATIONS
+  ══════════════════════════════════════════ */
+
+  /* Initial hidden state for scroll-reveal elements */
+  .storybook-prose p,
+  .storybook-prose h2,
+  .storybook-prose ul,
+  .storybook-prose li {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .storybook-prose p.sb-visible,
+  .storybook-prose ul.sb-visible,
+  .storybook-prose li.sb-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* h2 heading border reveal */
+  .storybook-prose h2 {
+    border-left: 4px solid transparent;
+    padding-left: 0.75rem;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out, border-color 0.6s ease-out 0.2s;
+  }
+  .storybook-prose h2.sb-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Dark variant h2 border */
+  .variant-dark .storybook-prose h2.sb-visible {
+    border-left-color: #39FF14;
+  }
+  /* Light variant h2 border */
+  .variant-light .storybook-prose h2.sb-visible {
+    border-left-color: #FF51FA;
+  }
+  /* Extreme variant h2 border */
+  .variant-extreme .storybook-prose h2.sb-visible {
+    border-left-color: #8eff71;
+  }
+
+  /* Chapter tracker dots */
+  #chapter-tracker .chapter-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  #chapter-tracker .chapter-dot.active {
+    width: 10px;
+    height: 10px;
+    background: #39FF14;
+    box-shadow: 0 0 8px rgba(57,255,20,0.6);
+  }
+
+  /* Scroll progress bar — variant colors handled via JS,
+     but we set extreme glow here */
+  .variant-extreme ~ #scroll-progress,
+  .variant-extreme #scroll-progress {
+    box-shadow: 0 0 8px rgba(142,255,113,0.5);
+  }
+
   @keyframes x-fractal-shift {
     0%   { background-position: 0% 0%;     filter: hue-rotate(0deg); }
     100% { background-position: 100% 100%; filter: hue-rotate(360deg); }
@@ -232,3 +307,75 @@ const { project } = Astro.props;
   }
   .x-glitch-hover { position: relative; }
 </style>
+
+<script>
+  // ── Scroll progress bar ──
+  const progressBar = document.getElementById('scroll-progress');
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (docHeight > 0 && progressBar) {
+      progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+    }
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+
+  // ── Storybook scroll reveal ──
+  const proseContainers = document.querySelectorAll('.storybook-prose');
+  proseContainers.forEach(container => {
+    const elements = container.querySelectorAll('p, h2, ul, li');
+    let delay = 0;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target as HTMLElement;
+          const stagger = parseInt(el.dataset.sbDelay || '0', 10);
+          setTimeout(() => {
+            el.classList.add('sb-visible');
+          }, stagger);
+          observer.unobserve(el);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    let sectionDelay = 0;
+    elements.forEach(el => {
+      const htmlEl = el as HTMLElement;
+      if (el.tagName === 'H2' || el.tagName === 'P' || el.tagName === 'UL') {
+        htmlEl.dataset.sbDelay = String(sectionDelay);
+        sectionDelay += 80;
+      } else if (el.tagName === 'LI') {
+        htmlEl.dataset.sbDelay = String(sectionDelay);
+        sectionDelay += 40;
+      }
+      observer.observe(el);
+    });
+  });
+
+  // ── Chapter tracker (right-side dots for h2 headings) ──
+  const tracker = document.getElementById('chapter-tracker');
+  const headings = document.querySelectorAll('.storybook-prose h2');
+  if (tracker && headings.length > 0) {
+    headings.forEach((h2, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'chapter-dot';
+      dot.title = h2.textContent || '';
+      dot.addEventListener('click', () => {
+        h2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      tracker.appendChild(dot);
+    });
+
+    const dots = tracker.querySelectorAll('.chapter-dot');
+    const headingObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const idx = Array.from(headings).indexOf(entry.target);
+          dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+        }
+      });
+    }, { threshold: 0.5, rootMargin: '-20% 0px -60% 0px' });
+
+    headings.forEach(h2 => headingObserver.observe(h2));
+  }
+</script>

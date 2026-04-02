@@ -34,6 +34,14 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
   ogType="article"
 >
 
+  <!-- Reading progress bar -->
+  <div id="blog-progress" class="fixed top-0 left-0 h-[3px] z-[9999] transition-none" style="width:0%;"></div>
+
+  <!-- Reading time indicator -->
+  <div id="reading-indicator" class="fixed top-4 right-4 z-[100] font-mono text-[10px] px-3 py-1.5 opacity-0 transition-opacity duration-300" style="background:rgba(0,0,0,0.7); color:#39FF14;">
+    0 min read
+  </div>
+
   <!-- ════════════════════════════════════════
        DARK VARIANT
   ════════════════════════════════════════ -->
@@ -66,7 +74,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
       </header>
 
       <!-- Article Body -->
-      <article class="prose-dark mb-16 sm:mb-24 text-[#e2e2e2]"><Content /></article>
+      <article class="prose-dark blog-prose mb-16 sm:mb-24 text-[#e2e2e2]"><Content /></article>
 
       <!-- Prev/Next Navigation -->
       <nav class="border-t border-[#e2e2e2]/10 pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -117,7 +125,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
       </header>
 
       <!-- Article Body -->
-      <article class="prose-light mb-16 sm:mb-24 text-[#131313]"><Content /></article>
+      <article class="prose-light blog-prose mb-16 sm:mb-24 text-[#131313]"><Content /></article>
 
       <!-- Prev/Next Navigation -->
       <nav class="border-t border-[#131313]/10 pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -171,7 +179,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
       </header>
 
       <!-- Article Body -->
-      <article class="prose-extreme mb-16 sm:mb-24 text-white relative z-10"><Content /></article>
+      <article class="prose-extreme blog-prose mb-16 sm:mb-24 text-white relative z-10"><Content /></article>
 
       <!-- Prev/Next Navigation -->
       <nav class="border-t border-white/10 pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 gap-6 relative z-10">
@@ -383,23 +391,32 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
      IMAGE STYLES (inline markdown images)
   ══════════════════════════════════════════ */
 
-  .prose-dark img {
+  /* Shared image base styles */
+  .prose-dark img,
+  .prose-light img,
+  .prose-extreme img {
     width: 100%;
-    aspect-ratio: 16 / 9; /* reserve space before load — prevents CLS */
+    border-radius: 2px;
+    margin: 2rem 0;
     max-height: 400px;
     object-fit: cover;
-    margin: 2rem 0;
+    aspect-ratio: 16 / 9;
+    transition: transform 0.3s ease;
+    cursor: zoom-in;
+  }
+  .prose-dark img:hover,
+  .prose-light img:hover,
+  .prose-extreme img:hover {
+    transform: scale(1.02);
+  }
+
+  .prose-dark img {
     border: 1px solid rgba(57,255,20,0.3);
     filter: saturate(0.8) contrast(1.1);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
   }
 
   .prose-light img {
-    width: 100%;
-    aspect-ratio: 16 / 9; /* reserve space before load — prevents CLS */
-    max-height: 400px;
-    object-fit: cover;
-    margin: 2rem 0;
-    border-radius: 4px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.1);
   }
 
@@ -410,17 +427,90 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     100% { border-color: #8eff71; box-shadow: 0 0 12px rgba(142,255,113,0.2); }
   }
   .prose-extreme img {
-    width: 100%;
-    aspect-ratio: 16 / 9; /* reserve space before load — prevents CLS */
-    max-height: 400px;
-    object-fit: cover;
-    margin: 2rem 0;
     border: 2px solid #8eff71;
     animation: img-border-cycle 4s linear infinite;
     filter: saturate(1.2) contrast(1.1);
   }
 
-  /* Extreme animations (copied from blog.astro) */
+  /* Image caption from alt text — rendered via JS below */
+  .blog-prose figure {
+    margin: 2rem 0;
+  }
+  .blog-prose figure img {
+    margin: 0;
+  }
+  .blog-prose figcaption {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    margin-top: 0.5rem;
+    opacity: 0.5;
+    text-align: center;
+  }
+
+  /* ══════════════════════════════════════════
+     BLOG SCROLL ANIMATIONS
+  ══════════════════════════════════════════ */
+
+  /* Editorial fade+scale for paragraphs */
+  .blog-prose p,
+  .blog-prose h2,
+  .blog-prose ul,
+  .blog-prose li,
+  .blog-prose blockquote,
+  .blog-prose figure,
+  .blog-prose hr {
+    opacity: 0;
+    transform: scale(0.97);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  }
+  .blog-prose .bp-visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* h2 glitch-flash on enter */
+  @keyframes glitch-flash {
+    0%   { opacity: 0; transform: scale(0.97) translate(-3px, 0); filter: hue-rotate(90deg); }
+    50%  { opacity: 0.7; transform: scale(1.01) translate(3px, 0); filter: hue-rotate(-90deg); }
+    100% { opacity: 1; transform: scale(1) translate(0, 0); filter: hue-rotate(0deg); }
+  }
+  .blog-prose h2.bp-glitch {
+    animation: glitch-flash 0.15s ease-out forwards;
+  }
+
+  /* Pull-quote style for blockquotes */
+  .blog-prose blockquote {
+    position: relative;
+    padding-left: 2.5rem;
+    font-size: 1.15rem;
+    font-style: italic;
+  }
+  .blog-prose blockquote::before {
+    content: '\201C';
+    position: absolute;
+    left: 0;
+    top: -0.25rem;
+    font-size: 3rem;
+    line-height: 1;
+    font-weight: 900;
+  }
+  .variant-dark .blog-prose blockquote::before { color: #39FF14; }
+  .variant-dark .blog-prose blockquote { border-left: 3px solid #39FF14; color: #d4f0d4; }
+  .variant-light .blog-prose blockquote::before { color: #FF51FA; }
+  .variant-light .blog-prose blockquote { border-left: 3px solid #FF51FA; color: #555; }
+  .variant-extreme .blog-prose blockquote::before { color: #8eff71; }
+  .variant-extreme .blog-prose blockquote { border-left: 3px solid #8eff71; color: rgba(255,255,255,0.85); }
+
+  /* Reading progress bar colors per variant */
+  .variant-dark ~ #blog-progress { background: #39FF14; }
+  .variant-light ~ #blog-progress { background: #FF51FA; }
+  .variant-extreme ~ #blog-progress { background: #8eff71; box-shadow: 0 0 8px rgba(142,255,113,0.5); }
+
+  /* Reading indicator variant styling */
+  .variant-light ~ #reading-indicator { background: rgba(255,255,255,0.9) !important; color: #FF51FA !important; border: 1px solid rgba(0,0,0,0.1); }
+  .variant-extreme ~ #reading-indicator { background: rgba(0,0,0,0.8) !important; color: #8eff71 !important; box-shadow: 0 0 8px rgba(142,255,113,0.3); }
+
+  /* Extreme animations */
   @keyframes x-drift {
     0%   { transform: translate(0,0) rotate(0deg) scale(1); }
     33%  { transform: translate(15px,-10px) rotate(1deg) scale(1.02); }
@@ -463,8 +553,6 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
   ══════════════════════════════════════════ */
 
   /* ── prose-dark: Terminal/Hacker ── */
-
-  /* Headings with > prefix */
   .prose-dark h2::before { content: '> '; color: #39FF14; font-family: 'JetBrains Mono', monospace; }
   .prose-dark h3::before { content: '>> '; color: #FF51FA; font-family: 'JetBrains Mono', monospace; font-size: 0.9em; }
 
@@ -476,10 +564,8 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     font-family: 'JetBrains Mono', monospace;
   }
 
-  /* Paragraph green tint */
   .prose-dark p { color: #c8e6c0; }
 
-  /* Code: black bg, green text, blinking cursor after inline */
   .prose-dark code {
     background: #000;
     color: #39FF14;
@@ -501,17 +587,6 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
   }
   .prose-dark pre code::after { display: none; }
 
-  /* Blockquotes */
-  .prose-dark blockquote {
-    border-left: 4px solid #39FF14;
-    background: rgba(57,255,20,0.04);
-    padding: 1rem 1.5rem;
-    margin: 1.5rem 0;
-    color: #d4f0d4;
-    font-style: italic;
-  }
-
-  /* Lists — left border connecting line */
   .prose-dark ul {
     border-left: 1px solid rgba(57,255,20,0.2);
     margin-left: 0.5rem;
@@ -519,7 +594,6 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
   .prose-dark ul li { color: #c8e6c0; }
   .prose-dark ul li::before { color: #39FF14; }
 
-  /* Links */
   .prose-dark a {
     color: #39FF14;
     text-decoration: none;
@@ -531,7 +605,6 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     text-shadow: 0 0 8px rgba(57,255,20,0.6);
   }
 
-  /* Horizontal rules: animated gradient line */
   @keyframes hr-scan {
     0%   { background-position: -200% 0; }
     100% { background-position: 200% 0; }
@@ -546,7 +619,6 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
   }
 
   /* ── prose-light: Magazine/Editorial ── */
-
   .prose-light h2 {
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 900;
@@ -567,7 +639,6 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     font-size: 1.05rem;
   }
 
-  /* Code: lavender bg, purple text */
   .prose-light code {
     background: #f3efff;
     color: #7c3aed;
@@ -586,18 +657,6 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     color: #5b21b6;
   }
 
-  /* Blockquotes: pink border, italic, bigger */
-  .prose-light blockquote {
-    border-left: 4px solid #FF51FA;
-    padding: 1rem 1.5rem;
-    margin: 1.5rem 0;
-    font-style: italic;
-    font-size: 1.1rem;
-    color: #555;
-    background: rgba(255,81,250,0.03);
-  }
-
-  /* Lists with indent animation on hover */
   .prose-light ul li {
     transition: padding-left 0.2s ease;
   }
@@ -606,7 +665,6 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
   }
   .prose-light ul li::before { color: #FF51FA; }
 
-  /* Links: pink → green on hover */
   .prose-light a {
     color: #FF51FA;
     text-decoration: none;
@@ -618,7 +676,6 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     border-bottom-color: #39FF14;
   }
 
-  /* Horizontal rules: thin pink with center dot */
   .prose-light hr {
     border: none;
     position: relative;
@@ -641,8 +698,6 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
   }
 
   /* ── prose-extreme: Acid/Psychedelic ── */
-
-  /* Headings: neon green, glow, slight vibrate */
   @keyframes prose-heading-vibrate {
     0%, 100% { transform: translate(0); text-shadow: 0 0 10px rgba(142,255,113,0.7), 0 0 30px rgba(142,255,113,0.3); }
     25%  { transform: translate(0.5px, -0.5px); text-shadow: 2px 0 #ff51fa, -2px 0 #8eff71, 0 0 20px rgba(142,255,113,0.5); }
@@ -658,13 +713,11 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     text-shadow: 0 0 10px rgba(255,81,250,0.5);
   }
 
-  /* Paragraphs: white, 0.85 opacity, subtle glow */
   .prose-extreme p {
     color: rgba(255,255,255,0.85);
     text-shadow: 0 0 20px rgba(255,255,255,0.05);
   }
 
-  /* Code: animated border cycling, dark bg */
   @keyframes code-border-cycle {
     0%   { border-color: #8eff71; box-shadow: 0 0 8px rgba(142,255,113,0.3); }
     33%  { border-color: #ff51fa; box-shadow: 0 0 8px rgba(255,81,250,0.3); }
@@ -691,35 +744,22 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     box-shadow: none;
   }
 
-  /* Blockquotes: cycling border */
   @keyframes blockquote-border-cycle {
-    0%   { border-color: #8eff71; background: rgba(142,255,113,0.04); }
-    33%  { border-color: #ff51fa; background: rgba(255,81,250,0.04); }
-    66%  { border-color: #ac89ff; background: rgba(172,137,255,0.04); }
-    100% { border-color: #8eff71; background: rgba(142,255,113,0.04); }
+    0%   { border-color: #8eff71; }
+    33%  { border-color: #ff51fa; }
+    66%  { border-color: #ac89ff; }
+    100% { border-color: #8eff71; }
   }
-  .prose-extreme blockquote {
-    border-left: 4px solid #8eff71;
-    padding: 1rem 1.5rem;
-    margin: 1.5rem 0;
+  .variant-extreme .blog-prose blockquote {
     animation: blockquote-border-cycle 4s linear infinite;
-    font-style: italic;
-    color: rgba(255,255,255,0.8);
   }
 
-  /* Lists: neon glow, stagger delay */
   .prose-extreme ul li { color: rgba(255,255,255,0.7); }
   .prose-extreme ul li::before {
     color: #8eff71;
     text-shadow: 0 0 8px rgba(142,255,113,0.8);
   }
-  .prose-extreme ul li:nth-child(1) { animation-delay: 0s; }
-  .prose-extreme ul li:nth-child(2) { animation-delay: 0.1s; }
-  .prose-extreme ul li:nth-child(3) { animation-delay: 0.2s; }
-  .prose-extreme ul li:nth-child(4) { animation-delay: 0.3s; }
-  .prose-extreme ul li:nth-child(5) { animation-delay: 0.4s; }
 
-  /* Links: rainbow underline + hue cycle on hover */
   @keyframes rainbow-underline {
     0%   { background-position: 0% 0%; }
     100% { background-position: 200% 0%; }
@@ -746,7 +786,6 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     animation: link-hue-cycle 1s linear infinite;
   }
 
-  /* Horizontal rules: thick animated gradient */
   @keyframes hr-extreme-move {
     0%   { background-position: 0% 50%; }
     50%  { background-position: 100% 50%; }
@@ -762,3 +801,66 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     opacity: 0.7;
   }
 </style>
+
+<script>
+  // ── Reading progress bar ──
+  const progressBar = document.getElementById('blog-progress');
+  const readingIndicator = document.getElementById('reading-indicator');
+
+  function updateBlogProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (docHeight > 0 && progressBar) {
+      const pct = scrollTop / docHeight;
+      progressBar.style.width = (pct * 100) + '%';
+
+      // Update reading time indicator
+      if (readingIndicator) {
+        const readTimeEl = document.querySelector('header .flex span:nth-child(3)');
+        const readTimeText = readTimeEl?.textContent || '10 MIN';
+        const totalMin = parseInt(readTimeText) || 10;
+        const currentMin = Math.ceil(pct * totalMin);
+        readingIndicator.textContent = currentMin + ' / ' + totalMin + ' min';
+        readingIndicator.style.opacity = scrollTop > 100 ? '1' : '0';
+      }
+    }
+  }
+  window.addEventListener('scroll', updateBlogProgress, { passive: true });
+
+  // ── Blog editorial scroll reveal ──
+  const blogProseContainers = document.querySelectorAll('.blog-prose');
+  blogProseContainers.forEach(container => {
+    const elements = container.querySelectorAll('p, h2, ul, li, blockquote, figure, hr');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target as HTMLElement;
+          if (el.tagName === 'H2') {
+            // Glitch-flash for headings
+            el.classList.add('bp-glitch');
+          } else {
+            el.classList.add('bp-visible');
+          }
+          observer.unobserve(el);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    elements.forEach(el => observer.observe(el));
+  });
+
+  // ── Wrap images in figures with captions from alt text ──
+  document.querySelectorAll('.blog-prose img').forEach(img => {
+    const imgEl = img as HTMLImageElement;
+    const alt = imgEl.getAttribute('alt');
+    if (alt && imgEl.parentElement?.tagName !== 'FIGURE') {
+      const figure = document.createElement('figure');
+      const caption = document.createElement('figcaption');
+      caption.textContent = alt;
+      imgEl.parentElement?.insertBefore(figure, imgEl);
+      figure.appendChild(imgEl);
+      figure.appendChild(caption);
+    }
+  });
+</script>

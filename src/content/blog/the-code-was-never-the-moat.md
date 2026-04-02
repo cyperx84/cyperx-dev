@@ -15,6 +15,8 @@ This is the second time they've done this. The first was February 2025. Same exa
 
 And this time, the internet was ready.
 
+![The npm source map that shipped Anthropic's entire codebase to the world](/images/blog/moat-1.jpg)
+
 Within days, clean-room rewrites started landing on GitHub. Claw Code, a Python reimplementation, hit 105,000 stars. ClaURST appeared in Rust. Someone spun up an open multi-agent framework based directly on the architecture they'd just read. Not clones. Not forks. Complete rewrites in different languages, built from the architectural patterns exposed in that source code. Rebuilt fast, too. We're talking days, not months.
 
 512K lines rewritten in days.
@@ -62,6 +64,8 @@ Here's why: clean-room rewrites in different programming languages are not copyr
 
 The legal framework simply cannot keep up with what LLMs have made possible. DMCA takedown notices assume that copying requires effort. That reproducing a product means someone sat down and typed out a derivative work. But when an LLM can ingest 512K lines of TypeScript and emit equivalent Python in an afternoon, the distinction between "copying" and "understanding and reimplementing" becomes meaningless.
 
+![Clean-room rewrites landing on GitHub within days of the leak](/images/blog/moat-2.jpg)
+
 Anthropic's lawyers are fighting the last war. The weapons in this war are prompt engineering and architecture translation, and no DMCA notice can stop someone from reading a source map and describing the patterns they saw.
 
 This is going to happen again. To OpenAI. To Google. To every company shipping agent tooling. And the rewrites will keep coming, in Rust and Go and Python and whatever language some developer at 2 AM decides to use. Each one legally untouchable. Each one a functional equivalent built on the same architectural truths.
@@ -93,6 +97,8 @@ Architecture-first thinking wins. The patterns are now commodity knowledge. Thre
 This is actually great news if you're a builder. You don't need to reverse-engineer what the big labs are doing. You don't need to guess at architectures. The blueprints are leaking out — sometimes through source maps, sometimes through papers, sometimes through the products themselves. The competitive advantage isn't in knowing the pattern. Everyone knows the pattern. The advantage is in execution speed, taste, and knowing which problems are worth solving.
 
 Claude Code hit $2.5B ARR. That's not because the code is secret. It's because Anthropic got distribution, got Claude-as-a-model into developers' hands, and built a product that solves a real problem. The code leaking doesn't erase $2.5B in revenue. The customers don't leave because someone posted a Python rewrite on GitHub. They stay because the product works and they're already integrated.
+
+![The convergence of agent architecture patterns across the industry](/images/blog/moat-3.jpg)
 
 But here's the flip side: if your entire defensibility is "we have code that nobody else has," you're fucked. Full stop. The moat has to be something else. Model quality. Distribution. Network effects. Data flywheels. Brand trust (though Anthropic is testing that one). Something that doesn't evaporate the moment your source map ships with your npm package.
 
