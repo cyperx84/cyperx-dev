@@ -247,14 +247,14 @@ const pageAttr = activeNav ?? 'home';
   <footer class="site-footer w-full py-10 sm:py-12 px-6 sm:px-10 flex flex-col md:flex-row justify-between items-end gap-4 relative z-10 bg-black/90 backdrop-blur-md">
     <div class="flex flex-col gap-2">
       <a href="/" class="footer-brand text-[#39FF14] font-bold text-xl font-['Space_Grotesk'] uppercase tracking-tighter italic no-underline">CYPERX.DEV</a>
-      <p class="footer-tagline font-mono text-[10px] uppercase tracking-widest">SYSTEM ENTROPY: 99.9% | STABLE BEYOND VOID</p>
+      <p class="footer-tagline font-mono text-[10px] uppercase tracking-widest">BUILDING THINGS THAT COMPOUND</p>
     </div>
     <div class="flex gap-6 sm:gap-8 font-mono text-[10px] uppercase tracking-widest">
       <a class="footer-link transition-all" href="/about">ABOUT</a>
       <a class="footer-link transition-all" href="https://github.com/cyperx84" target="_blank" rel="noopener">GITHUB</a>
       <a class="footer-link transition-all" href="https://x.com/cyperx" target="_blank" rel="noopener">X</a>
     </div>
-    <div class="footer-copy font-mono text-[10px]"><span class="footer-rights" data-typewriter="60">© NO_RIGHTS_RESERVED</span></div>
+    <div class="footer-copy font-mono text-[10px]"><span class="footer-rights" data-typewriter="60">© 2026 CyperX</span></div>
   </footer>
   </div><!-- /#page-content -->
 
@@ -488,7 +488,7 @@ const pageAttr = activeNav ?? 'home';
     function initFooterTypewriter() {
       const el = document.querySelector('.footer-rights');
       if (!el || el.dataset.twDone) return;
-      const originalText = '© NO_RIGHTS_RESERVED';
+      const originalText = '© 2026 CyperX';
 
       function runTypewriter() {
         el.dataset.twDone = '1';

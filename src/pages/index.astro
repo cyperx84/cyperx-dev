@@ -27,7 +27,7 @@ const posts = allPosts
 
       <!-- ── HERO ── -->
       <section class="px-4 sm:px-6 max-w-7xl mx-auto">
-        <p class="hero-sub font-mono text-[#39FF14] text-xs sm:text-sm tracking-[0.5em] mb-6">BRISBANE · BUILDER · SHIPS DAILY</p>
+        <p class="hero-sub font-mono text-[#39FF14] text-xs tracking-widest mb-6">BRISBANE · BUILDER · SHIPS DAILY</p>
         <h1 class="hero-title leading-none pb-2 overflow-visible">
           <span class="block bg-clip-text text-transparent bg-gradient-to-r from-[#39FF14] via-[#AC89FF] to-[#FF51FA] pr-2"
             style="font-family:'Lazer84',cursive; font-size:clamp(4rem,16vw,14rem); letter-spacing:-0.01em;">CyperX</span>
@@ -170,7 +170,7 @@ const posts = allPosts
 
       <!-- Hero -->
       <section class="px-4 sm:px-6 max-w-7xl mx-auto">
-        <p class="font-mono text-[#FF51FA] text-xs tracking-[0.5em] mb-6">BRISBANE · BUILDER · SHIPS DAILY</p>
+        <p class="font-mono text-[#FF51FA] text-xs tracking-widest mb-6">BRISBANE · BUILDER · SHIPS DAILY</p>
         <h1 class="leading-none pb-2 overflow-visible">
           <span class="block bg-clip-text text-transparent bg-gradient-to-r from-[#FF51FA] via-[#AC89FF] to-[#39FF14] pr-2"
             style="font-family:'Lazer84',cursive; font-size:clamp(4rem,15vw,13rem); letter-spacing:-0.01em;">CyperX</span>
@@ -181,6 +181,7 @@ const posts = allPosts
         <div class="flex flex-wrap gap-4">
           <a href="/projects" class="bg-[#FF51FA] text-white px-8 py-3 font-black text-sm uppercase tracking-widest hover:bg-[#39FF14] hover:text-black transition-all" style="clip-path:polygon(0 0,100% 0,95% 100%,5% 95%)">PROJECTS</a>
           <a href="/blog" class="border-2 border-[#131313] text-[#131313] px-8 py-3 font-black text-sm uppercase tracking-widest hover:bg-[#131313] hover:text-white transition-all">BLOG</a>
+          <a href="/about" class="border-2 border-[#AC89FF]/50 text-[#AC89FF] px-8 py-3 font-black text-sm uppercase tracking-widest hover:border-[#AC89FF] hover:bg-[#AC89FF]/10 transition-all">ABOUT</a>
         </div>
       </section>
 
@@ -280,7 +281,7 @@ const posts = allPosts
 
       <!-- Hero -->
       <section class="px-4 sm:px-6 max-w-7xl mx-auto relative">
-        <p class="font-mono text-[#8eff71] text-xs sm:text-sm tracking-[0.5em] mb-6 animate-pulse">BRISBANE · BUILDER · SHIPS DAILY</p>
+        <p class="font-mono text-[#8eff71] text-xs tracking-widest mb-6 animate-pulse">BRISBANE · BUILDER · SHIPS DAILY</p>
         <h1 class="leading-none pb-2 overflow-visible x-vibrating-text">
           <span style="font-family:'Lazer84',cursive; font-size:clamp(4rem,16vw,14rem); letter-spacing:-0.01em; color:#8eff71;">CyperX</span><span class="text-[#ff51fa]" style="font-family:'Lazer84',cursive; font-size:clamp(4rem,16vw,14rem);">.</span>
         </h1>
@@ -369,7 +370,7 @@ const posts = allPosts
               <a href={`/blog/${post.data.slug}`} class={`group block no-underline ${shapes[i]} ${offsets[i]} p-6 sm:p-8 hover:scale-[1.02] transition-transform relative`} style={`background:rgba(0,0,0,0.75);`}>
                 <div class="flex items-center justify-between mb-4">
                   <span class="font-mono text-[10px] px-2 py-0.5" style={`background:${accent}20; color:${accent}; border:1px solid ${accent}30`}>{post.data.category}</span>
-                  <span class="font-mono text-[10px] text-white/25">{post.data.readTime} · S:{post.data.signal}</span>
+                  <span class="font-mono text-[10px] text-white/25">{post.data.readTime}</span>
                 </div>
                 <h3 class="font-black italic text-lg sm:text-xl leading-tight mb-3 text-white group-hover:text-[#8eff71] transition-colors">{post.data.title}</h3>
                 <p class="text-sm text-white/50 font-mono leading-relaxed">{post.data.excerpt}</p>

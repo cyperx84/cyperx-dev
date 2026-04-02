@@ -15,12 +15,12 @@ const rest = projects.slice(1);
       <!-- Hero -->
       <header class="mb-20 sm:mb-32">
         <div class="flex items-center gap-4 mb-6 flex-wrap">
-          <span class="font-mono text-[#39FF14] text-xs sm:text-sm tracking-widest bg-[#353535] px-3 py-1">SYSTEM_STATUS: ACTIVE</span>
+          <span class="font-mono text-[#39FF14] text-xs sm:text-sm tracking-widest bg-[#353535] px-3 py-1">SHIPPING</span>
           <div class="h-[2px] flex-grow bg-gradient-to-r from-[#39FF14] to-transparent"></div>
         </div>
         <h1 class="text-4xl sm:text-6xl lg:text-9xl font-black uppercase tracking-tighter italic leading-tight overflow-visible mb-6 sm:mb-8" data-reveal>
-          Neural<br/>
-          <span class="inline-block text-transparent bg-clip-text bg-gradient-to-r from-[#39FF14] via-[#FF51FA] to-[#e5d7ff] pr-3">Experiments</span>
+          What I've<br/>
+          <span class="inline-block text-transparent bg-clip-text bg-gradient-to-r from-[#39FF14] via-[#FF51FA] to-[#e5d7ff] pr-3">Built</span>
         </h1>
         <p class="max-w-2xl text-base sm:text-xl text-[#baccb0] leading-relaxed" data-reveal>
           Things I'm building. Some shipped, some in progress, some held together with duct tape and vibes. All real.
@@ -36,9 +36,9 @@ const rest = projects.slice(1);
             <div class="w-full md:w-2/3">
               <div class="flex items-center gap-3 mb-4">
                 <span class="font-mono text-xs px-2 py-1 font-black" style={`background:${featured.statusColor}; color:black`}>{featured.status}</span>
-                <span class="font-mono text-[10px] text-[#FF51FA]">ENTROPY: {featured.entropy}%</span>
+                <span class="font-mono text-[10px] text-[#FF51FA]"></span>
               </div>
-              <h2 class="text-2xl sm:text-4xl lg:text-5xl font-black uppercase leading-tight overflow-visible mb-4 sm:mb-6 group-hover:text-[#39FF14] transition-colors italic tracking-tighter">{featured.name.replace(/ /g, '_').toUpperCase()}</h2>
+              <h2 class="text-2xl sm:text-4xl lg:text-5xl font-black uppercase leading-tight overflow-visible mb-4 sm:mb-6 group-hover:text-[#39FF14] transition-colors italic tracking-tighter">{featured.name.toUpperCase()}</h2>
               <p class="text-[#39FF14] font-mono text-sm mb-4 italic">{featured.tagline}</p>
               <p class="text-[#baccb0] mb-6 sm:mb-8 text-sm sm:text-base max-w-2xl">{featured.description}</p>
               <div class="flex flex-wrap gap-2 mb-6">
@@ -48,10 +48,10 @@ const rest = projects.slice(1);
               </div>
               <div class="flex gap-4">
                 {featured.links.github && (
-                  <span class="bg-[#39FF14] text-black px-6 sm:px-8 py-3 font-black italic tracking-tighter" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">VIEW_SOURCE</span>
+                  <span class="bg-[#39FF14] text-black px-6 sm:px-8 py-3 font-black italic tracking-tighter" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">GITHUB →</span>
                 )}
                 {featured.links.live && (
-                  <span class="bg-[#FF51FA] text-white px-6 sm:px-8 py-3 font-black italic tracking-tighter" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">OPEN_LIVE</span>
+                  <span class="bg-[#FF51FA] text-white px-6 sm:px-8 py-3 font-black italic tracking-tighter" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">SEE IT LIVE →</span>
                 )}
               </div>
             </div>
@@ -95,9 +95,9 @@ const rest = projects.slice(1);
                   )}
                   <div class="flex items-center justify-between mb-4">
                     <span class="font-mono text-xs px-2 py-1 font-black" style={`background:${project.statusColor}; color:black`}>{project.status}</span>
-                    <span class="font-mono text-[10px]" style={`color:${colors[i]}`}>E:{project.entropy}%</span>
+                    <span class="font-mono text-[10px]" style={`color:${colors[i]}`}></span>
                   </div>
-                  <h3 class="text-xl sm:text-2xl font-black italic tracking-tighter mb-3 group-hover:text-[#39FF14] transition-colors">{project.name.replace(/ /g, '_').toUpperCase()}</h3>
+                  <h3 class="text-xl sm:text-2xl font-black italic tracking-tighter mb-3 group-hover:text-[#39FF14] transition-colors">{project.name.toUpperCase()}</h3>
                   <p class="font-mono text-xs text-[#FF51FA] mb-4 italic">{project.tagline}</p>
                   <p class="text-[#baccb0] mb-4 text-sm">{project.description}</p>
                   <div class="flex flex-wrap gap-2">
@@ -107,9 +107,9 @@ const rest = projects.slice(1);
                   </div>
                 </div>
                 <div class="mt-6 sm:mt-8 flex items-center gap-4 font-mono text-[10px] border-t border-[#e2e2e2]/10 pt-4">
-                  <span>ENTROPY: {project.entropy}%</span>
-                  {project.links.github && <span style={`color:${colors[i]}`}>SOURCE_&gt;&gt;</span>}
-                  {project.links.live && <span style={`color:${colors[i]}`}>LIVE_&gt;&gt;</span>}
+                  <span></span>
+                  {project.links.github && <span style={`color:${colors[i]}`}>SOURCE →</span>}
+                  {project.links.live && <span style={`color:${colors[i]}`}>LIVE →</span>}
                 </div>
                 </div>
               </a>
@@ -121,7 +121,7 @@ const rest = projects.slice(1);
       <!-- Coming Soon -->
       <div class="mt-20 sm:mt-32 p-8 sm:p-12 bg-[#0e0e0e] border border-[#39FF14]/10 text-center" style="clip-path:polygon(0% 10%,100% 0%,90% 100%,10% 90%)">
         <span class="material-symbols-outlined text-5xl sm:text-6xl text-[#39FF14] mb-4 animate-pulse block">radar</span>
-        <h3 class="text-2xl sm:text-3xl font-black italic tracking-tighter mb-3">MORE_INCOMING</h3>
+        <h3 class="text-2xl sm:text-3xl font-black italic tracking-tighter mb-3">MORE COMING</h3>
         <p class="font-mono text-xs uppercase tracking-widest text-[#baccb0]">Loading next batch of experiments...</p>
       </div>
     </main>
@@ -137,9 +137,9 @@ const rest = projects.slice(1);
       <section class="mb-20 sm:mb-32 relative">
         <div class="absolute -top-20 -left-20 w-96 h-96 bg-[#FF51FA]/10 blur-[120px] rounded-full"></div>
         <div class="relative z-10">
-          <span class="font-mono text-xs tracking-[0.5em] text-[#353535] mb-4 block">STABLE_BRANCH // {projects.length} PROJECTS</span>
+          <span class="font-mono text-xs tracking-widest text-[#353535] mb-4 block">{projects.length} PROJECTS</span>
           <h1 class="text-5xl sm:text-7xl lg:text-[10rem] font-black leading-tight overflow-visible tracking-tighter text-[#FF51FA] glitch-text italic uppercase" data-reveal>
-            BUILD_<br/>LOG
+            WHAT<br/>I BUILT
           </h1>
           <div class="mt-6 sm:mt-8 max-w-2xl text-base sm:text-xl font-bold uppercase italic text-[#353535] leading-tight">
             REAL PROJECTS. REAL CODE. MOSTLY WORKING.
@@ -156,9 +156,9 @@ const rest = projects.slice(1);
             <div class="w-full md:w-2/3">
               <div class="flex items-center gap-3 mb-4">
                 <span class="text-white font-mono text-xs px-2 py-1 font-black" style={`background:${featured.statusColor}`}>{featured.status}</span>
-                <span class="font-mono text-[10px] text-[#FF51FA]">ENTROPY: {featured.entropy}%</span>
+                <span class="font-mono text-[10px] text-[#FF51FA]"></span>
               </div>
-              <h2 class="text-2xl sm:text-4xl lg:text-5xl font-black uppercase leading-tight overflow-visible mb-4 sm:mb-6 group-hover:text-[#39FF14] transition-colors italic tracking-tighter text-[#131313]">{featured.name.replace(/ /g, '_').toUpperCase()}</h2>
+              <h2 class="text-2xl sm:text-4xl lg:text-5xl font-black uppercase leading-tight overflow-visible mb-4 sm:mb-6 group-hover:text-[#39FF14] transition-colors italic tracking-tighter text-[#131313]">{featured.name.toUpperCase()}</h2>
               <p class="text-[#39FF14] font-mono text-sm mb-4 italic">{featured.tagline}</p>
               <p class="text-[#353535] mb-6 sm:mb-8 text-sm sm:text-base max-w-2xl">{featured.description}</p>
               <div class="flex flex-wrap gap-2 mb-6">
@@ -168,10 +168,10 @@ const rest = projects.slice(1);
               </div>
               <div class="flex gap-4">
                 {featured.links.github && (
-                  <span class="bg-[#39FF14] text-black px-6 sm:px-8 py-3 font-black italic tracking-tighter" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">VIEW_SOURCE</span>
+                  <span class="bg-[#39FF14] text-black px-6 sm:px-8 py-3 font-black italic tracking-tighter" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">GITHUB →</span>
                 )}
                 {featured.links.live && (
-                  <span class="bg-[#FF51FA] text-white px-6 sm:px-8 py-3 font-black italic tracking-tighter" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">OPEN_LIVE</span>
+                  <span class="bg-[#FF51FA] text-white px-6 sm:px-8 py-3 font-black italic tracking-tighter" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">SEE IT LIVE →</span>
                 )}
               </div>
             </div>
@@ -204,9 +204,9 @@ const rest = projects.slice(1);
                   <div class="relative z-10">
                     <div class="mb-3 flex justify-between items-start">
                       <span class="text-white text-[10px] font-mono px-2 py-1 font-black" style={`background:${project.statusColor}`}>{project.status}</span>
-                      <span class="font-mono text-[10px] opacity-60">E:{project.entropy}%</span>
+                      <span class="font-mono text-[10px] opacity-60"></span>
                     </div>
-                    <h3 class="text-xl sm:text-2xl font-black uppercase mb-3 text-[#131313]">{project.name.replace(/ /g, '_').toUpperCase()}</h3>
+                    <h3 class="text-xl sm:text-2xl font-black uppercase mb-3 text-[#131313]">{project.name.toUpperCase()}</h3>
                     <p class="font-mono text-xs text-[#FF51FA] mb-3 italic">{project.tagline}</p>
                     <p class="text-sm mb-4 opacity-70">{project.description}</p>
                     <div class="flex flex-wrap gap-2 mb-4">
@@ -215,8 +215,8 @@ const rest = projects.slice(1);
                       ))}
                     </div>
                     <div class="flex items-center justify-between">
-                      {project.links.github && <span class="font-mono text-[10px]" style={`color:${borderColors[i]}`}>SOURCE_&gt;&gt;</span>}
-                      {project.links.live && <span class="font-mono text-[10px]" style={`color:${borderColors[i]}`}>LIVE_&gt;&gt;</span>}
+                      {project.links.github && <span class="font-mono text-[10px]" style={`color:${borderColors[i]}`}>SOURCE →</span>}
+                      {project.links.live && <span class="font-mono text-[10px]" style={`color:${borderColors[i]}`}>LIVE →</span>}
                     </div>
                   </div>
                 </div>
@@ -229,7 +229,7 @@ const rest = projects.slice(1);
       <!-- Coming Soon -->
       <div class="mt-20 sm:mt-32 p-8 sm:p-12 bg-[#eeeeee] border border-[#39FF14]/10 text-center" style="clip-path:polygon(0% 10%,100% 0%,90% 100%,10% 90%)">
         <span class="material-symbols-outlined text-5xl sm:text-6xl text-[#39FF14] mb-4 animate-pulse block">radar</span>
-        <h3 class="text-2xl sm:text-3xl font-black italic tracking-tighter mb-3 text-[#131313]">MORE_INCOMING</h3>
+        <h3 class="text-2xl sm:text-3xl font-black italic tracking-tighter mb-3 text-[#131313]">MORE COMING</h3>
         <p class="font-mono text-xs uppercase tracking-widest text-[#353535]">Loading next batch of experiments...</p>
       </div>
     </main>
@@ -247,12 +247,12 @@ const rest = projects.slice(1);
       <div class="mb-20 sm:mb-32 relative z-10">
         <div class="flex items-center gap-4 text-[#ff51fa] font-mono text-xs sm:text-sm tracking-widest mb-4 flex-wrap">
           <span class="inline-block w-16 sm:w-24 h-[4px] bg-[#ff51fa]"></span>
-          STATUS: {projects.filter(p => p.status === 'ACTIVE').length} ACTIVE // {projects.length} TOTAL
+          {projects.length} PROJECTS // {projects.filter(p => p.status === 'ACTIVE').length} SHIPPING
         </div>
         <h1 class="text-[10vw] sm:text-[12vw] leading-tight overflow-visible font-black tracking-tighter glitch-text-extreme uppercase italic text-white mix-blend-difference">
-          TOXIC<br/><span class="text-[#8eff71]">BUILDS</span>
+          WHAT I<br/><span class="text-[#8eff71]">BUILT</span>
         </h1>
-        <div class="mt-6 sm:mt-8 p-3 sm:p-4 bg-[#8eff71] text-black inline-block font-black text-base sm:text-xl -skew-x-12">DEPLOYING TO THE VOID</div>
+        <div class="mt-6 sm:mt-8 p-3 sm:p-4 bg-[#8eff71] text-black inline-block font-black text-base sm:text-xl -skew-x-12">SHIPPING DAILY</div>
       </div>
 
       <!-- Featured -->
@@ -263,10 +263,10 @@ const rest = projects.slice(1);
           <div class="p-6 sm:p-12 relative z-10 space-y-6 sm:space-y-8">
             <div class="flex items-center gap-4 font-mono text-xs">
               <span class="bg-[#8eff71] text-black px-3 py-1 font-black">{featured.status}</span>
-              <span class="text-[#ff51fa]">ENTROPY: {featured.entropy}%</span>
+              <span class="text-[#ff51fa]"></span>
             </div>
             <h2 class="text-3xl sm:text-5xl lg:text-7xl font-black text-white uppercase tracking-tighter x-vibrating-text group-hover:text-[#8eff71]">
-              {featured.name.replace(/ /g, '_').toUpperCase()}
+              {featured.name.toUpperCase()}
             </h2>
             <p class="text-[#8eff71] font-mono text-sm italic">{featured.tagline}</p>
             <p class="text-white text-lg sm:text-2xl font-bold leading-tight max-w-3xl italic tracking-tight">{featured.description}</p>
@@ -278,7 +278,7 @@ const rest = projects.slice(1);
             <div class="flex flex-wrap items-center gap-6">
               {featured.links.github && (
                 <span class="bg-[#8eff71] text-[#0d6100] px-8 sm:px-12 py-4 sm:py-6 font-black text-base sm:text-xl uppercase tracking-tighter shadow-[0_0_30px_rgba(142,255,113,0.8)]">
-                  VIEW_SOURCE
+                  GITHUB →
                 </span>
               )}
             </div>
@@ -299,10 +299,10 @@ const rest = projects.slice(1);
                 <div class="relative z-10">
                   <div class="flex items-center justify-between mb-4">
                     <span class="font-mono text-[10px] px-2 py-1 font-black" style={`background:${project.statusColor}; color:black`}>{project.status}</span>
-                    <span class="font-mono text-[10px] text-white/40">E:{project.entropy}%</span>
+                    <span class="font-mono text-[10px] text-white/40"></span>
                   </div>
                   <h3 class="text-xl sm:text-2xl font-black text-white mb-2 uppercase tracking-tighter">
-                    {project.name.replace(/ /g, '_').toUpperCase()}
+                    {project.name.toUpperCase()}
                   </h3>
                   <p class="font-mono text-xs mb-4 italic" style={`color:${borderColors[i]}`}>{project.tagline}</p>
                   <p class="text-sm text-[#ababab] leading-tight font-medium italic mb-4">{project.description}</p>
@@ -312,8 +312,8 @@ const rest = projects.slice(1);
                     ))}
                   </div>
                   <div class="flex items-center gap-4 font-mono text-[10px] border-t border-white/10 pt-4">
-                    {project.links.github && <span class="font-black uppercase tracking-[0.3em]" style={`color:${borderColors[i]}`}>SOURCE_&gt;&gt;</span>}
-                    {project.links.live && <span class="font-black uppercase tracking-[0.3em]" style={`color:${borderColors[i]}`}>LIVE_&gt;&gt;</span>}
+                    {project.links.github && <span class="font-black uppercase tracking-[0.3em]" style={`color:${borderColors[i]}`}>SOURCE →</span>}
+                    {project.links.live && <span class="font-black uppercase tracking-[0.3em]" style={`color:${borderColors[i]}`}>LIVE →</span>}
                   </div>
                 </div>
               </a>
@@ -328,7 +328,7 @@ const rest = projects.slice(1);
           <span class="material-symbols-outlined text-[80px] sm:text-[120px] animate-pulse">construction</span>
           <div>
             <h3 class="text-3xl sm:text-5xl font-black uppercase italic leading-tight overflow-visible">ALWAYS_BUILDING</h3>
-            <p class="text-base sm:text-xl font-black bg-black text-[#8eff71] px-4 inline-block mt-3 sm:mt-4">MORE PROJECTS IN THE VOID</p>
+            <p class="text-base sm:text-xl font-black bg-black text-[#8eff71] px-4 inline-block mt-3 sm:mt-4">MORE COMING SOON</p>
           </div>
         </div>
       </div>
