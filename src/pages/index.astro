@@ -28,9 +28,9 @@ const posts = allPosts
       <!-- ── HERO ── -->
       <section class="px-4 sm:px-6 max-w-7xl mx-auto">
         <p class="hero-sub font-mono text-[#39FF14] text-xs tracking-widest mb-6">BRISBANE · BUILDER · SHIPS DAILY</p>
-        <h1 class="hero-title leading-none pb-2 overflow-visible">
-          <span class="block bg-clip-text text-transparent bg-gradient-to-r from-[#39FF14] via-[#AC89FF] to-[#FF51FA] pr-2"
-            style="font-family:'Lazer84',cursive; font-size:clamp(4rem,16vw,14rem); letter-spacing:-0.01em;">CyperX</span>
+        <h1 class="hero-title leading-none pb-2 overflow-visible" style="pointer-events:none;">
+          <span class="block bg-clip-text text-transparent bg-gradient-to-r from-[#39FF14] via-[#AC89FF] to-[#FF51FA] pr-2 hero-lazer-glitch"
+            style="font-family:'Lazer84',cursive; font-size:clamp(4rem,16vw,14rem); letter-spacing:-0.01em; pointer-events:none;">CyperX</span>
         </h1>
         <p class="hero-desc max-w-2xl text-[#baccb0] text-base sm:text-xl leading-relaxed mt-4 mb-10">
           I build tools and systems that compound. Right now: AI agent fleets, automation pipelines, and whatever plumbing keeps the whole thing running — all orchestrated from an M4 Mac Mini and a phone.
@@ -171,9 +171,9 @@ const posts = allPosts
       <!-- Hero -->
       <section class="px-4 sm:px-6 max-w-7xl mx-auto">
         <p class="font-mono text-[#FF51FA] text-xs tracking-widest mb-6">BRISBANE · BUILDER · SHIPS DAILY</p>
-        <h1 class="leading-none pb-2 overflow-visible">
-          <span class="block bg-clip-text text-transparent bg-gradient-to-r from-[#FF51FA] via-[#AC89FF] to-[#39FF14] pr-2"
-            style="font-family:'Lazer84',cursive; font-size:clamp(4rem,15vw,13rem); letter-spacing:-0.01em;">CyperX</span>
+        <h1 class="leading-none pb-2 overflow-visible" style="pointer-events:none;">
+          <span class="block bg-clip-text text-transparent bg-gradient-to-r from-[#FF51FA] via-[#AC89FF] to-[#39FF14] pr-2 hero-lazer-glitch"
+            style="font-family:'Lazer84',cursive; font-size:clamp(4rem,15vw,13rem); letter-spacing:-0.01em; pointer-events:none;">CyperX</span>
         </h1>
         <p class="max-w-2xl text-[#555] text-base sm:text-xl leading-relaxed mt-4 mb-10">
           I build tools and systems that compound. Right now: AI agent fleets, automation pipelines, and whatever plumbing keeps the whole thing running.
@@ -282,8 +282,8 @@ const posts = allPosts
       <!-- Hero -->
       <section class="px-4 sm:px-6 max-w-7xl mx-auto relative">
         <p class="font-mono text-[#8eff71] text-xs tracking-widest mb-6 animate-pulse">BRISBANE · BUILDER · SHIPS DAILY</p>
-        <h1 class="leading-none pb-2 overflow-visible x-vibrating-text">
-          <span style="font-family:'Lazer84',cursive; font-size:clamp(4rem,16vw,14rem); letter-spacing:-0.01em; color:#8eff71;">CyperX</span><span class="text-[#ff51fa]" style="font-family:'Lazer84',cursive; font-size:clamp(4rem,16vw,14rem);">.</span>
+        <h1 class="leading-none pb-2 overflow-visible x-vibrating-text" style="pointer-events:none;">
+          <span class="hero-lazer-glitch-solid" style="font-family:'Lazer84',cursive; font-size:clamp(4rem,16vw,14rem); letter-spacing:-0.01em; color:#8eff71; pointer-events:none;">CyperX</span><span class="text-[#ff51fa]" style="font-family:'Lazer84',cursive; font-size:clamp(4rem,16vw,14rem); pointer-events:none;">.</span>
         </h1>
         <p class="max-w-2xl text-white/70 font-mono text-sm sm:text-base leading-relaxed mt-6 mb-12 border-l-4 border-[#ff51fa] pl-6">
           I build tools and systems that compound. AI agent fleets, automation pipelines, the plumbing that keeps it running. All orchestrated from an M4 Mac Mini.
@@ -429,6 +429,55 @@ const posts = allPosts
   }
   .marquee-strip:hover .marquee-inner {
     animation-play-state: paused;
+  }
+
+  /* ── Hero Lazer84 glitch animations (filter: drop-shadow works on gradient text) ── */
+  @keyframes hero-glitch-slow {
+    0%   { filter: drop-shadow(2px 0 #FF51FA) drop-shadow(-2px 0 #AC89FF); }
+    20%  { filter: drop-shadow(-3px 0 #FF51FA) drop-shadow(3px 0 #39FF14); transform: translateX(0); }
+    21%  { filter: drop-shadow(-3px 0 #FF51FA) drop-shadow(3px 0 #39FF14); transform: translateX(-2px); }
+    22%  { filter: drop-shadow(3px 0 #39FF14) drop-shadow(-3px 0 #FF51FA); transform: translateX(2px); }
+    23%  { filter: drop-shadow(-3px 0 #FF51FA) drop-shadow(3px 0 #39FF14); transform: translateX(0); }
+    40%  { filter: drop-shadow(2px 0 #FF51FA) drop-shadow(-2px 0 #AC89FF); }
+    60%  { filter: drop-shadow(-2px 1px #AC89FF) drop-shadow(2px -1px #FF51FA); }
+    80%  { filter: drop-shadow(3px 0 #FF51FA) drop-shadow(-3px 0 #39FF14); }
+    100% { filter: drop-shadow(2px 0 #FF51FA) drop-shadow(-2px 0 #AC89FF); }
+  }
+  @keyframes hero-glitch-burst {
+    0%   { filter: drop-shadow(2px 0 #FF51FA) drop-shadow(-2px 0 #AC89FF); transform: translateX(0); }
+    15%  { filter: drop-shadow(-6px 2px #FF51FA) drop-shadow(6px -2px #39FF14) brightness(1.4); transform: translateX(-3px) skewX(-2deg); }
+    30%  { filter: drop-shadow(5px -1px #AC89FF) drop-shadow(-5px 1px #FF51FA) brightness(0.9); transform: translateX(3px) skewX(2deg); }
+    45%  { filter: drop-shadow(-4px 3px #39FF14) drop-shadow(4px -3px #FF51FA) brightness(1.5); transform: translateX(-2px); }
+    60%  { filter: drop-shadow(6px 0 #FF51FA) drop-shadow(-6px 0 #AC89FF) brightness(1.2); transform: translateX(2px) skewX(-1deg); }
+    80%  { filter: drop-shadow(-2px 0 #FF51FA) drop-shadow(2px 0 #39FF14); transform: translateX(0); }
+    100% { filter: drop-shadow(2px 0 #FF51FA) drop-shadow(-2px 0 #AC89FF); transform: translateX(0); }
+  }
+  .hero-lazer-glitch {
+    display: block;
+    animation: hero-glitch-slow 8s ease-in-out infinite;
+    cursor: default;
+  }
+  .hero-lazer-glitch:hover {
+    animation: hero-glitch-burst 0.25s steps(1) forwards, hero-glitch-slow 8s ease-in-out 0.25s infinite;
+  }
+  /* Extreme theme: solid color version */
+  @keyframes hero-glitch-solid-slow {
+    0%   { text-shadow: 2px 0 #ff51fa, -2px 0 #AC89FF; }
+    20%  { text-shadow: -3px 0 #ff51fa, 3px 0 #39FF14; transform: translateX(0); }
+    21%  { text-shadow: -3px 0 #ff51fa, 3px 0 #39FF14; transform: translateX(-2px); }
+    22%  { text-shadow: 3px 0 #39FF14, -3px 0 #ff51fa; transform: translateX(2px); }
+    23%  { text-shadow: -3px 0 #ff51fa, 3px 0 #39FF14; transform: translateX(0); }
+    40%  { text-shadow: 2px 0 #ff51fa, -2px 0 #AC89FF; }
+    80%  { text-shadow: 3px 0 #ff51fa, -3px 0 #39FF14; }
+    100% { text-shadow: 2px 0 #ff51fa, -2px 0 #AC89FF; }
+  }
+  .hero-lazer-glitch-solid {
+    display: inline-block;
+    animation: hero-glitch-solid-slow 8s ease-in-out infinite;
+    cursor: default;
+  }
+  .hero-lazer-glitch-solid:hover {
+    animation: logo-glitch-burst 0.25s steps(1) forwards, hero-glitch-solid-slow 8s ease-in-out 0.25s infinite;
   }
 
   /* ── Hero text entrance ── */
