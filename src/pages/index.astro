@@ -71,8 +71,11 @@ const posts = allPosts
             return (
               <a href={`/projects/${p.slug}`} class={`project-card group block no-underline ${shapes[i]} ${offsets[i]} ${zs[i]} hover:scale-[1.03] transition-transform relative`} style={`background:#0e0e0e;`}>
                 {p.image && (
-                  <div class="overflow-hidden" style="height:160px;">
-                    <img src={p.image} alt={p.name} style="width:100%; height:100%; object-fit:cover; opacity:0.7; transition:opacity 0.4s,transform 0.6s; display:block;" class="group-hover:opacity-90 group-hover:scale-105" />
+                  <div class="jag-img-wrap" style="height:160px;">
+                    <img src={p.image} alt={p.name} class="jag-img group-hover:opacity-90 group-hover:scale-105" />
+                    <svg class="jag-border" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                      <polygon points="2,2 98,0 96,98 4,100" class="jag-stroke" style={`stroke:${accent};`} />
+                    </svg>
                   </div>
                 )}
                 <div class="p-6 sm:p-7">
@@ -193,8 +196,11 @@ const posts = allPosts
             return (
               <a href={`/projects/${p.slug}`} class={`group block no-underline ${shapes[i]} ${offsets[i]} hover:scale-[1.02] transition-transform overflow-hidden relative`} style={`background:white; border-top:4px solid ${accent};`}>
                 {p.image && (
-                  <div style="height:140px; overflow:hidden;">
-                    <img src={p.image} alt={p.name} style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s;" class="group-hover:scale-105" />
+                  <div class="jag-img-wrap" style="height:140px;">
+                    <img src={p.image} alt={p.name} class="jag-img group-hover:scale-105" />
+                    <svg class="jag-border" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                      <polygon points="3,1 97,3 99,97 1,99" class="jag-stroke" style={`stroke:${accent}; animation-delay:${i * 0.4}s`} />
+                    </svg>
                   </div>
                 )}
                 <div class="p-5">
@@ -299,8 +305,11 @@ const posts = allPosts
             return (
               <a href={`/projects/${p.slug}`} class={`group block no-underline ${shapes[i]} ${offsets[i]} hover:scale-[1.03] transition-transform overflow-hidden relative`} style={`background:rgba(0,0,0,0.75);`}>
                 {p.image && (
-                  <div style="height:160px;overflow:hidden;">
-                    <img src={p.image} alt={p.name} style="width:100%;height:100%;object-fit:cover;display:block;opacity:0.6;transition:opacity 0.4s,transform 0.6s;" class="group-hover:opacity-80 group-hover:scale-105" />
+                  <div class="jag-img-wrap" style="height:160px;">
+                    <img src={p.image} alt={p.name} class="jag-img jag-img-dark group-hover:opacity-80 group-hover:scale-105" />
+                    <svg class="jag-border" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                      <polygon points="1,3 99,0 97,97 3,100" class="jag-stroke jag-stroke-glow" style={`stroke:${accent}; animation-delay:${i * 0.6}s`} />
+                    </svg>
                   </div>
                 )}
                 <div class="p-5 border-t-2" style={`border-color:${accent}40`}>
@@ -443,6 +452,72 @@ const posts = allPosts
     opacity: 1;
     transform: none;
     transition: opacity 0.4s, transform 0.4s;
+  }
+
+  /* ── Jagged image wrappers + animated borders ── */
+  .jag-img-wrap {
+    position: relative;
+    overflow: visible; /* let the SVG border bleed out */
+  }
+  .jag-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.72;
+    transition: opacity 0.4s, transform 0.6s;
+    /* Jagged clip on the image itself — not too aggressive */
+    clip-path: polygon(0% 2%, 97% 0%, 100% 96%, 3% 100%);
+  }
+  .jag-img-dark { opacity: 0.6; }
+
+  /* SVG overlay — sits on top, pointer-events none */
+  .jag-border {
+    position: absolute;
+    inset: -6px;
+    width: calc(100% + 12px);
+    height: calc(100% + 12px);
+    pointer-events: none;
+    overflow: visible;
+  }
+  .jag-stroke {
+    fill: none;
+    stroke-width: 1.5;
+    /* dasharray = rough perimeter / segment; offset animates forward */
+    stroke-dasharray: 8 4 14 3 6 9 11 2;
+    stroke-dashoffset: 0;
+    animation: jag-march 4s linear infinite;
+  }
+  .jag-stroke-glow {
+    filter: drop-shadow(0 0 4px currentColor);
+    stroke-width: 1.2;
+    animation-duration: 3s;
+  }
+  @keyframes jag-march {
+    0%   { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: -100; }
+  }
+
+  /* Card-level border outline — sits around the whole card, animates */
+  .project-card, .blog-card {
+    position: relative;
+  }
+  .project-card::after, .blog-card::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    pointer-events: none;
+    border: 0; /* use outline below instead */
+    clip-path: polygon(2% 0%, 98% 1%, 100% 97%, 1% 100%);
+    animation: card-border-pulse 6s ease-in-out infinite;
+    opacity: 0;
+  }
+  .project-card:hover::after, .blog-card:hover::after {
+    opacity: 1;
+  }
+  @keyframes card-border-pulse {
+    0%, 100% { opacity: 0; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.01); }
   }
 
   /* ── Extreme vibrate ── */
