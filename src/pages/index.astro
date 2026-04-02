@@ -66,7 +66,7 @@ const posts = allPosts
           {projects.map((p, i) => {
             const accent = ["#39FF14", "#FF51FA", "#AC89FF"][i];
             return (
-              <a href={`/projects/${p.slug}`} class="project-card group block no-underline bg-[#0e0e0e] hover:bg-[#161616] transition-colors border border-[#e2e2e2]/5 hover:border-[#e2e2e2]/15 overflow-hidden">
+              <a href={`/projects/${p.slug}`} class="project-card group block no-underline x-shard-sidebar hover:scale-[1.02] transition-transform" style={`background:#0e0e0e; border-left:3px solid ${accent};`}>
                 {p.image && (
                   <div class="overflow-hidden" style="height:160px;">
                     <img src={p.image} alt={p.name} style={`width:100%; height:100%; object-fit:cover; opacity:0.7; transition:opacity 0.4s,transform 0.6s; display:block;`} class="group-hover:opacity-90 group-hover:scale-105" />
@@ -100,7 +100,7 @@ const posts = allPosts
             { n: "M4", label: "MAC MINI" },
             { n: "∞", label: "COMPOUNDING" },
           ].map(s => (
-            <div class="stat-card bg-[#0e0e0e] p-8 sm:p-10 text-center hover:bg-[#161616] transition-colors">
+            <div class="stat-card x-shard-4 bg-[#0e0e0e] p-8 sm:p-10 text-center hover:bg-[#161616] transition-colors">
               <div class="text-4xl sm:text-6xl font-black italic text-[#39FF14] mb-2 stat-number">{s.n}</div>
               <div class="font-mono text-[10px] text-[#e2e2e2]/30 tracking-widest">{s.label}</div>
             </div>
@@ -119,7 +119,7 @@ const posts = allPosts
           {posts.map((post, i) => {
             const accent = ["#FF51FA", "#AC89FF"][i];
             return (
-              <a href={`/blog/${post.data.slug}`} class="blog-card group block no-underline bg-[#0e0e0e] border border-[#e2e2e2]/5 hover:border-[#e2e2e2]/15 p-6 sm:p-8 hover:bg-[#161616] transition-colors overflow-hidden">
+              <a href={`/blog/${post.data.slug}`} class="blog-card group block no-underline x-shard-3 p-6 sm:p-8 hover:scale-[1.01] transition-transform" style={`background:#0e0e0e; border-bottom:3px solid ${accent};`}>
                 <div class="flex items-center justify-between mb-5">
                   <span class="font-mono text-[10px] px-2 py-0.5 font-black" style={`background:${accent}20; color:${accent}; border:1px solid ${accent}40`}>{post.data.category}</span>
                   <span class="font-mono text-[10px] text-[#e2e2e2]/25">{post.data.readTime}</span>
@@ -184,7 +184,7 @@ const posts = allPosts
           {projects.map((p, i) => {
             const accent = ["#39FF14", "#FF51FA", "#AC89FF"][i];
             return (
-              <a href={`/projects/${p.slug}`} class="group block no-underline bg-white border-2 border-[#131313] hover:border-[#FF51FA] overflow-hidden transition-colors" style={`border-bottom:4px solid ${accent}`}>
+              <a href={`/projects/${p.slug}`} class="group block no-underline x-shard-1 hover:scale-[1.02] transition-transform overflow-hidden" style={`background:white; border-bottom:4px solid ${accent}; outline:2px solid #13131310;`}>
                 {p.image && (
                   <div style="height:140px; overflow:hidden;">
                     <img src={p.image} alt={p.name} style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s;" class="group-hover:scale-105" />
@@ -210,7 +210,7 @@ const posts = allPosts
             { n: "M4", label: "MAC MINI", c: "#AC89FF" },
             { n: "∞", label: "COMPOUNDING", c: "#131313" },
           ].map(s => (
-            <div class="p-6 border-2" style={`border-color:${s.c}`}>
+            <div class="x-shard-sidebar p-6" style={`border:2px solid ${s.c}; background:white;`}>
               <div class="text-4xl font-black italic mb-1" style={`color:${s.c}`}>{s.n}</div>
               <div class="font-mono text-[10px] text-[#131313]/50 tracking-widest">{s.label}</div>
             </div>
@@ -228,7 +228,7 @@ const posts = allPosts
           {posts.map((post, i) => {
             const accent = ["#FF51FA", "#AC89FF"][i];
             return (
-              <a href={`/blog/${post.data.slug}`} class="group block no-underline bg-white border-2 border-[#131313] hover:border-[#FF51FA] p-6 transition-colors" style={`border-left:4px solid ${accent}`}>
+              <a href={`/blog/${post.data.slug}`} class="group block no-underline x-shard-3 p-6 hover:scale-[1.01] transition-transform" style={`background:white; border-left:4px solid ${accent}; outline:1px solid #13131310;`}>
                 <span class="font-mono text-[10px]" style={`color:${accent}`}>{post.data.category} · {post.data.readTime}</span>
                 <h3 class="text-lg font-black italic mt-2 mb-3 group-hover:text-[#FF51FA] transition-colors">{post.data.title}</h3>
                 <p class="text-sm text-[#555] leading-relaxed">{post.data.excerpt}</p>
@@ -286,7 +286,7 @@ const posts = allPosts
           {projects.map((p, i) => {
             const accent = ["#8eff71", "#ff51fa", "#ac89ff"][i];
             return (
-              <a href={`/projects/${p.slug}`} class="group block no-underline bg-black/60 border border-white/5 hover:border-white/20 overflow-hidden transition-all hover:scale-[1.02]" style={`box-shadow: 0 0 0 0 ${accent}; transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;`}>
+              <a href={`/projects/${p.slug}`} class="group block no-underline acid-mask-1 hover:scale-[1.02] transition-transform overflow-hidden" style={`background:rgba(0,0,0,0.7); border-top:3px solid ${accent};`}>
                 {p.image && (
                   <div style="height:160px;overflow:hidden;">
                     <img src={p.image} alt={p.name} style="width:100%;height:100%;object-fit:cover;display:block;opacity:0.6;transition:opacity 0.4s,transform 0.6s;" class="group-hover:opacity-80 group-hover:scale-105" />
@@ -312,7 +312,7 @@ const posts = allPosts
             { n: "M4", label: "MAC MINI", c: "#ac89ff" },
             { n: "∞", label: "COMPOUNDING", c: "#8eff71" },
           ].map(s => (
-            <div class="bg-black/80 p-8 sm:p-10 text-center hover:bg-black/60 transition-colors">
+            <div class="x-shard-4 bg-black/80 p-8 sm:p-10 text-center hover:bg-black/60 transition-colors">
               <div class="text-4xl sm:text-6xl font-black italic mb-2" style={`color:${s.c}; text-shadow:0 0 20px ${s.c}44`}>{s.n}</div>
               <div class="font-mono text-[10px] text-white/25 tracking-widest">{s.label}</div>
             </div>
@@ -331,7 +331,7 @@ const posts = allPosts
           {posts.map((post, i) => {
             const accent = ["#ff51fa", "#ac89ff"][i];
             return (
-              <a href={`/blog/${post.data.slug}`} class="group block no-underline bg-black/60 border border-white/5 hover:border-white/20 p-6 sm:p-8 transition-all hover:bg-black/80 hover:scale-[1.01]">
+              <a href={`/blog/${post.data.slug}`} class="group block no-underline acid-mask-3 p-6 sm:p-8 hover:scale-[1.01] transition-transform" style={`background:rgba(0,0,0,0.7);`}>
                 <div class="flex items-center justify-between mb-4">
                   <span class="font-mono text-[10px] px-2 py-0.5" style={`background:${accent}20; color:${accent}; border:1px solid ${accent}30`}>{post.data.category}</span>
                   <span class="font-mono text-[10px] text-white/25">{post.data.readTime} · S:{post.data.signal}</span>
