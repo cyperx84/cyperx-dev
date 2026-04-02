@@ -548,125 +548,156 @@ const posts = allPosts
 </style>
 
 <script>
-  // ── SCROLL SYSTEM ──
-  // 1. Cards: 3D perspective flip-in from below, staggered
-  // 2. Parallax: images scroll at 0.4x speed (float effect)
-  // 3. Section headers: skew+fade slide
-  // 4. Stat numbers: count-up on reveal
-  // 5. Scroll velocity: accelerates jag-stroke speed
+  // ── CHAOS SCROLL SYSTEM ──
+  // Every element gets a unique entrance from a 26-entry pool.
+  // Seed is deterministic so SSR/CSR stay consistent.
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // --- 1. Perspective card flip-in ---
-  document.querySelectorAll('.project-card, .blog-card').forEach((card, i) => {
-    if (!prefersReducedMotion) {
-      (card as HTMLElement).style.opacity = '0';
-      (card as HTMLElement).style.transform = 'perspective(800px) rotateX(18deg) translateY(60px)';
-      (card as HTMLElement).style.transition = `opacity 0.7s ${i*0.12}s ease-out, transform 0.7s ${i*0.12}s cubic-bezier(.17,.67,.4,1.1)`;
-    }
+  // [initTransform, finalTransform, duration(s), easing]
+  type E = [string, string, number, string];
+  const POOL: E[] = [
+    ['translateY(90px)',                                         'none',                           0.60, 'cubic-bezier(.17,.67,.4,1.1)'],
+    ['translateX(-120px)',                                       'none',                           0.55, 'cubic-bezier(.25,.46,.45,.94)'],
+    ['translateX(130px)',                                        'none',                           0.55, 'cubic-bezier(.25,.46,.45,.94)'],
+    ['translateY(-100px)',                                       'none',                           0.52, 'ease-out'],
+    ['translate(-100px,-80px)',                                  'none',                           0.65, 'cubic-bezier(.17,.67,.4,1.1)'],
+    ['translate(100px,-80px)',                                   'none',                           0.65, 'cubic-bezier(.17,.67,.4,1.1)'],
+    ['translate(-100px,80px)',                                   'none',                           0.65, 'ease-out'],
+    ['translate(110px,70px)',                                    'none',                           0.65, 'ease-out'],
+    ['scale(0.55)',                                              'none',                           0.52, 'cubic-bezier(.34,1.56,.64,1)'],
+    ['scale(0.72) rotate(-12deg)',                               'none',                           0.62, 'cubic-bezier(.34,1.56,.64,1)'],
+    ['perspective(700px) rotateX(32deg) translateY(55px)',       'perspective(700px) rotateX(0)',  0.72, 'cubic-bezier(.17,.67,.4,1.1)'],
+    ['perspective(700px) rotateY(-42deg) translateX(65px)',      'perspective(700px) rotateY(0)',  0.72, 'cubic-bezier(.25,.46,.45,.94)'],
+    ['perspective(700px) rotateY(42deg) translateX(-65px)',      'perspective(700px) rotateY(0)',  0.72, 'cubic-bezier(.25,.46,.45,.94)'],
+    ['skewX(-28deg) translateX(-80px)',                          'skewX(0)',                       0.55, 'ease-out'],
+    ['skewX(28deg) translateX(80px)',                            'skewX(0)',                       0.55, 'ease-out'],
+    ['skewY(-20deg) translateY(-55px)',                          'skewY(0)',                       0.58, 'ease-out'],
+    ['skewY(20deg) translateY(55px)',                            'skewY(0)',                       0.58, 'ease-out'],
+    ['scale(1.45)',                                              'none',                           0.50, 'ease-out'],
+    ['scale(0.45) translateY(130px)',                            'none',                           0.85, 'cubic-bezier(.34,1.56,.64,1)'],
+    ['rotate(-18deg) translateX(-90px)',                         'rotate(0)',                      0.68, 'cubic-bezier(.34,1.56,.64,1)'],
+    ['rotate(18deg) translateX(90px)',                           'rotate(0)',                      0.68, 'cubic-bezier(.34,1.56,.64,1)'],
+    ['translateX(-170px) scale(0.8)',                            'none',                           0.95, 'cubic-bezier(.25,.46,.45,.94)'],
+    ['translateX(170px) scale(0.8)',                             'none',                           0.95, 'cubic-bezier(.25,.46,.45,.94)'],
+    ['translateY(-120px) scale(0.88)',                           'none',                           0.74, 'cubic-bezier(.17,.67,.4,1.1)'],
+    ['perspective(900px) rotateX(-26deg) translateY(-70px)',     'perspective(900px) rotateX(0)',  0.70, 'ease-out'],
+    ['scale(0.78) skewX(-15deg) translateX(-55px)',              'skewX(0)',                       0.70, 'cubic-bezier(.34,1.56,.64,1)'],
+  ];
+
+  // Deterministic pick — different for every seed value
+  function pick(seed: number): E { return POOL[(seed * 7 + 11) % POOL.length]; }
+
+  function animateIn(el: HTMLElement, seed: number) {
+    if (prefersReducedMotion) return;
+    const [init, final, dur] = pick(seed);
+    el.style.opacity = '0';
+    el.style.transform = init;
+    el.style.transition = 'none';
+
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => {
-        if (e.isIntersecting) {
-          (e.target as HTMLElement).style.opacity = '1';
-          (e.target as HTMLElement).style.transform = 'perspective(800px) rotateX(0deg) translateY(0)';
-          obs.unobserve(e.target);
-        }
+        if (!e.isIntersecting) return;
+        const t = e.target as HTMLElement;
+        // rAF to ensure 'none' transition applied before starting
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          const [, fin, d, ease] = pick(parseInt(t.dataset.aSeed ?? '0'));
+          t.style.transition = `opacity ${d}s ${ease}, transform ${d}s ${ease}`;
+          t.style.opacity = '1';
+          t.style.transform = fin;
+          // clean up so hover/Tailwind transitions still work
+          setTimeout(() => { t.style.transition = ''; t.style.transform = ''; }, d * 1000 + 80);
+        }));
+        obs.unobserve(t);
       });
-    }, { threshold: 0.1 });
-    obs.observe(card);
+    }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+    obs.observe(el);
+  }
+
+  let s = 0;
+
+  // Project cards
+  document.querySelectorAll<HTMLElement>('.project-card').forEach(el => { el.dataset.aSeed = String(s); animateIn(el, s++); });
+
+  // Blog cards
+  document.querySelectorAll<HTMLElement>('.blog-card').forEach(el => { el.dataset.aSeed = String(s); animateIn(el, s++); });
+
+  // Stat cards + count-up
+  document.querySelectorAll<HTMLElement>('.stat-card').forEach(el => {
+    el.dataset.aSeed = String(s);
+    animateIn(el, s++);
+    // count-up fires separately after element is visible
+    const numEl = el.querySelector<HTMLElement>('div:first-child');
+    if (numEl) {
+      const raw = numEl.textContent?.trim() ?? '';
+      const n = parseInt(raw);
+      if (!isNaN(n) && n > 0 && n < 20) {
+        const obs2 = new IntersectionObserver(entries => {
+          entries.forEach(e => {
+            if (!e.isIntersecting) return;
+            let cur = 0;
+            const step = () => { cur++; numEl.textContent = String(cur); if (cur < n) setTimeout(step, 80); };
+            setTimeout(step, 200);
+            obs2.unobserve(e.target);
+          });
+        }, { threshold: 0.3 });
+        obs2.observe(el);
+      }
+    }
   });
 
-  // --- 2. Parallax image scroll ---
-  const jagImgs = Array.from(document.querySelectorAll<HTMLElement>('.jag-img-wrap'));
+  // Section label rows (the "PROJECTS" / "LATEST POSTS" header rows)
+  document.querySelectorAll<HTMLElement>('section > .\!px-4, section > .px-4').forEach(el => {
+    // only top-level wrappers with label text, not card grids
+    const header = el.querySelector<HTMLElement>(':scope > div.flex, :scope > .flex');
+    if (header && !header.closest('.project-card') && !header.closest('.blog-card')) {
+      header.dataset.aSeed = String(s);
+      animateIn(header, s++);
+    }
+  });
+
+  // Marquee strip
+  const marquee = document.querySelector<HTMLElement>('.marquee-strip');
+  if (marquee) { marquee.dataset.aSeed = String(s); animateIn(marquee, s++); }
+
+  // ── Parallax images — unique rate + direction per image ──
+  // [parallax_rate, vertical_bias] — some images also drift horizontally
+  const PAR: Array<[number, number]> = [
+    [0.12,  0], [0.24,  0], [0.08,  0],
+    [0.20,  0], [0.30,  0], [0.15,  0],
+  ];
+  const jagWraps = Array.from(document.querySelectorAll<HTMLElement>('.jag-img-wrap'));
   function updateParallax() {
-    const sy = window.scrollY;
-    jagImgs.forEach(wrap => {
+    jagWraps.forEach((wrap, idx) => {
+      const [rate] = PAR[idx % PAR.length];
       const rect = wrap.getBoundingClientRect();
-      const center = rect.top + rect.height / 2;
-      const vhCenter = window.innerHeight / 2;
-      const offset = (center - vhCenter) * 0.18;
+      const offset = (rect.top + rect.height / 2 - window.innerHeight / 2) * rate;
       const img = wrap.querySelector<HTMLElement>('img');
-      if (img) img.style.transform = `translateY(${offset}px) scale(1.1)`;
+      if (img) img.style.transform = `translateY(${offset}px) scale(1.16)`;
     });
   }
   window.addEventListener('scroll', updateParallax, { passive: true });
   updateParallax();
 
-  // --- 3. Section headers: skew slide ---
-  document.querySelectorAll<HTMLElement>('[data-reveal-section] .font-mono').forEach((el, i) => {
-    if (!prefersReducedMotion) {
-      el.style.opacity = '0';
-      el.style.transform = 'skewX(-8deg) translateX(-30px)';
-      el.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+  // ── Scroll velocity → jag stroke speed ──
+  let lastScrollY = window.scrollY;
+  function tickStrokes() {
+    const vel = Math.abs(window.scrollY - lastScrollY);
+    lastScrollY = window.scrollY;
+    if (vel > 3) {
+      const spd = Math.max(0.3, 5 - vel * 0.12).toFixed(2);
+      document.querySelectorAll<SVGElement>('.jag-stroke-outer,.jag-stroke-inner,.card-jag-outer,.card-jag-inner')
+        .forEach(el => { el.style.animationDuration = `${spd}s`; });
     }
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          (e.target as HTMLElement).style.opacity = '1';
-          (e.target as HTMLElement).style.transform = 'skewX(0) translateX(0)';
-          obs.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.5 });
-    obs.observe(el);
-  });
-
-  // --- 4. Stat cards + count-up ---
-  document.querySelectorAll<HTMLElement>('.stat-card').forEach((card, i) => {
-    if (!prefersReducedMotion) {
-      card.style.opacity = '0';
-      card.style.transform = `translateY(40px) rotate(${(i%2===0?1:-1)*3}deg)`;
-      card.style.transition = `opacity 0.5s ${i*0.1}s ease-out, transform 0.5s ${i*0.1}s cubic-bezier(.34,1.56,.64,1)`;
-    }
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          const el = e.target as HTMLElement;
-          el.style.opacity = '1';
-          el.style.transform = 'none';
-          // count-up for numeric values
-          const numEl = el.querySelector<HTMLElement>('div:first-child');
-          if (numEl) {
-            const raw = numEl.textContent?.trim() ?? '';
-            const n = parseInt(raw);
-            if (!isNaN(n) && n > 0 && n < 100) {
-              let cur = 0;
-              const step = () => {
-                cur++;
-                numEl.textContent = String(cur);
-                if (cur < n) setTimeout(step, 60);
-              };
-              setTimeout(step, i * 100);
-            }
-          }
-          obs.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.3 });
-    obs.observe(card);
-  });
-
-  // --- 5. Scroll velocity → speed up jag strokes ---
-  let lastY = window.scrollY;
-  let velocity = 0;
-  let strokeSpeedRaf = 0;
-  function updateStrokeSpeed() {
-    const curY = window.scrollY;
-    velocity = Math.abs(curY - lastY);
-    lastY = curY;
-    const speed = Math.max(0.5, 5 - velocity * 0.08); // faster scroll = lower duration = faster march
-    document.querySelectorAll<SVGElement>('.jag-stroke-outer, .jag-stroke-inner, .card-jag-outer, .card-jag-inner').forEach(el => {
-      if (velocity > 5) el.style.animationDuration = `${speed}s`;
-    });
-    strokeSpeedRaf = requestAnimationFrame(updateStrokeSpeed);
+    requestAnimationFrame(tickStrokes);
   }
-  updateStrokeSpeed();
+  tickStrokes();
 
-  // --- Section reveal fallback ---
+  // Section reveal class fallback
   document.querySelectorAll('[data-reveal-section]').forEach(section => {
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); } });
-    }, { threshold: 0.08 });
+    }, { threshold: 0.05 });
     obs.observe(section);
   });
 
