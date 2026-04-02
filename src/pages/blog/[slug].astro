@@ -827,6 +827,27 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
   }
   window.addEventListener('scroll', updateBlogProgress, { passive: true });
 
+  // ── Wrap images in figures with captions FIRST (before observer) ──
+  document.querySelectorAll('.blog-prose img').forEach(img => {
+    const imgEl = img as HTMLImageElement;
+    const alt = imgEl.getAttribute('alt');
+    const parent = imgEl.parentElement;
+    if (parent && parent.tagName !== 'FIGURE') {
+      const figure = document.createElement('figure');
+      const caption = document.createElement('figcaption');
+      caption.textContent = alt || '';
+      // If parent <p> only contains this img, replace the whole <p> with figure
+      if (parent.tagName === 'P' && parent.children.length === 1) {
+        parent.parentElement?.insertBefore(figure, parent);
+        parent.parentElement?.removeChild(parent);
+      } else {
+        parent.insertBefore(figure, imgEl);
+      }
+      figure.appendChild(imgEl);
+      figure.appendChild(caption);
+    }
+  });
+
   // ── Blog editorial scroll reveal ──
   const blogProseContainers = document.querySelectorAll('.blog-prose');
   blogProseContainers.forEach(container => {
@@ -837,7 +858,6 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
         if (entry.isIntersecting) {
           const el = entry.target as HTMLElement;
           if (el.tagName === 'H2') {
-            // Glitch-flash for headings
             el.classList.add('bp-glitch');
           } else {
             el.classList.add('bp-visible');
@@ -845,22 +865,8 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
           observer.unobserve(el);
         }
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.1 });
 
     elements.forEach(el => observer.observe(el));
-  });
-
-  // ── Wrap images in figures with captions from alt text ──
-  document.querySelectorAll('.blog-prose img').forEach(img => {
-    const imgEl = img as HTMLImageElement;
-    const alt = imgEl.getAttribute('alt');
-    if (alt && imgEl.parentElement?.tagName !== 'FIGURE') {
-      const figure = document.createElement('figure');
-      const caption = document.createElement('figcaption');
-      caption.textContent = alt;
-      imgEl.parentElement?.insertBefore(figure, imgEl);
-      figure.appendChild(imgEl);
-      figure.appendChild(caption);
-    }
   });
 </script>
