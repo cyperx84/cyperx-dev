@@ -242,19 +242,19 @@ const { project } = Astro.props;
      STORYBOOK SCROLL ANIMATIONS
   ══════════════════════════════════════════ */
 
-  /* Initial hidden state for scroll-reveal elements */
-  .storybook-prose p,
-  .storybook-prose h2,
-  .storybook-prose ul,
-  .storybook-prose li {
+  /* JS adds .storybook-ready before hiding — safe fallback if JS fails */
+  .storybook-ready p,
+  .storybook-ready h2,
+  .storybook-ready ul,
+  .storybook-ready li {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   }
 
-  .storybook-prose p.sb-visible,
-  .storybook-prose ul.sb-visible,
-  .storybook-prose li.sb-visible {
+  .storybook-ready p.sb-visible,
+  .storybook-ready ul.sb-visible,
+  .storybook-ready li.sb-visible {
     opacity: 1;
     transform: translateY(0);
   }
@@ -374,6 +374,7 @@ const { project } = Astro.props;
   // ── Storybook scroll reveal ──
   const proseContainers = document.querySelectorAll('.storybook-prose');
   proseContainers.forEach(container => {
+    container.classList.add('storybook-ready'); // only hide when JS is running
     const elements = container.querySelectorAll('p, h2, ul, li');
     let delay = 0;
     const observer = new IntersectionObserver((entries) => {
