@@ -1,121 +1,138 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { projects } from '../data/projects';
+import { getCollection } from 'astro:content';
 
-const about = {
-  name: "Chris",
-  handle: "@cyperx",
-  location: "Brisbane, AU",
-  role: "Builder & Systems Thinker",
-  bio: "I build tools, agents, and systems that compound over time. Most of what I ship is infrastructure — things that make the next thing easier to build. My stack is AI agents on Apple Silicon, Obsidian as an operating system, and whatever language gets the job done fastest.",
-  principles: [
-    "Ship daily, refine weekly",
-    "Build for models 6 months out",
-    "If it doesn't compound, don't build it",
-    "Agents are teammates, not tools",
-  ],
-  stack: [
-    { label: "HARDWARE", value: "M4 Mac Mini / Apple Silicon" },
-    { label: "AGENTS", value: "Claude Code / Codex / Gemini / OpenCode" },
-    { label: "INFRA", value: "OpenClaw Gateway / Discord / Tailscale" },
-    { label: "KNOWLEDGE", value: "Obsidian / QMD / Flywheel" },
-    { label: "LANGUAGES", value: "TypeScript / Go / Rust / Python" },
-    { label: "EDITOR", value: "Neovim + Ghostty + tmux" },
-  ],
-  links: [
-    { label: "GITHUB", href: "https://github.com/cyperx84", svg: '<svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>' },
-    { label: "X", href: "https://x.com/cyperx", svg: '<svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>' },
-  ],
-};
-
-const hero = {
-  tagline: "BUILDER // BREAKER // AUTOMATOR",
-  title: "CYPERX",
-  subtitle: "DEV",
-  description: "Building infrastructure for humans and AI agents. Obsidian vaults, distributed agent fleets, and tools that compound over time.",
-};
-
-const sections = [
-  {
-    icon: "hub",
-    title: "Agent Fleet",
-    description: "4 autonomous AI agents running on Apple Silicon. A generalist, builder, researcher, and ops agent — orchestrating, building, and maintaining systems 24/7.",
-    stat: "4 AGENTS",
-    statLabel: "ACTIVE",
-    href: "/projects/openclaw-fleet",
-  },
-  {
-    icon: "terminal",
-    title: "Builder Tools",
-    description: "Fleet TUI, voice forge, knowledge processors, and custom CLIs. Everything built to be used, not demoed. If it doesn't ship, it doesn't exist.",
-    stat: "12+",
-    statLabel: "TOOLS SHIPPED",
-    href: "/projects/fleet-tui",
-  },
-  {
-    icon: "memory",
-    title: "Knowledge OS",
-    description: "Obsidian vault as operating system. Pipelines from ideas → PRDs → builds → ship. Shared context for humans AND agents. Structure that compounds.",
-    stat: "∞",
-    statLabel: "COMPOUNDING",
-    href: "/projects/personal-os",
-  },
-];
-
-const timeline = [
-  { date: "2026.03", title: "Agent Fleet v2", description: "Multi-agent gateway, Discord integration, inter-agent orchestration, automatic failover chains.", href: "/projects/openclaw-fleet" },
-  { date: "2026.02", title: "Fleet TUI", description: "Go/Bubbletea terminal dashboard. Real-time session monitoring, error feeds, vim keybinds.", href: "/projects/fleet-tui" },
-  { date: "2026.01", title: "Voice Forge v3", description: "Automated voice corpus pipeline. Whisper transcription, ElevenLabs cloning, agent TTS.", href: "/projects/voice-forge" },
-];
+const allPosts = await getCollection('blog');
+const posts = allPosts
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 2);
 ---
+
 <BaseLayout title="CYPERX.DEV" activeNav="home">
 
   <!-- ════════════════════════════════════════
        DARK VARIANT
   ════════════════════════════════════════ -->
-  <div class="variant-dark bg-transparent text-[#e2e2e2] min-h-screen">
-    <main class="pt-28 sm:pt-32 pb-20 px-4 sm:px-6 max-w-7xl mx-auto space-y-24 sm:space-y-40">
-      <!-- Hero -->
-      <section class="relative">
-        <div class="shard-hero w-full h-[400px] sm:h-[600px] lg:h-[716px] relative overflow-hidden">
-          <div class="absolute inset-0 bg-gradient-to-br from-[#131313]/60 via-[#1a0a2e]/40 to-[#0a1a0a]/30"></div>
-          <div class="absolute inset-0 flex items-center justify-center p-6 sm:p-12">
-            <div class="text-center z-10">
-              <p class="font-mono text-[#39FF14] text-xs sm:text-sm tracking-[0.5em] mb-4" data-typewriter="40">{hero.tagline}</p>
-              <h1 class="text-4xl sm:text-6xl lg:text-9xl font-black italic tracking-tighter glitch-text leading-tight overflow-visible mb-4" data-reveal>
-                {hero.title}<span class="text-[#e2e2e2] opacity-90">.</span>{hero.subtitle}
-              </h1>
-              <p class="max-w-xl mx-auto text-[#baccb0] text-sm sm:text-base mb-6 sm:mb-8" data-reveal>{hero.description}</p>
-              <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
-                <a href="/projects" class="bg-[#39FF14] text-black px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-xl font-black italic shard-card-3 hover:scale-105 transition-transform">VIEW_PROJECTS</a>
-                <a href="/blog" class="border-2 border-[#FF51FA]/30 text-[#FF51FA] px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-xl font-black italic shard-card-1 hover:border-[#FF51FA] transition-all">READ_BLOG</a>
-              </div>
+  <div class="variant-dark bg-transparent text-[#e2e2e2] min-h-screen overflow-x-hidden">
+
+    <!-- Ambient orbs -->
+    <div aria-hidden="true" class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+
+    <main class="relative z-10 pt-28 sm:pt-36 pb-24 space-y-28 sm:space-y-48">
+
+      <!-- ── HERO ── -->
+      <section class="px-4 sm:px-6 max-w-7xl mx-auto">
+        <p class="hero-sub font-mono text-[#39FF14] text-xs sm:text-sm tracking-[0.5em] mb-6">BRISBANE, AU // BUILDER // SHIPS DAILY</p>
+        <h1 class="hero-title text-[18vw] sm:text-[14vw] lg:text-[12vw] font-black italic tracking-tighter leading-none pb-2 overflow-visible">
+          <span class="block bg-clip-text text-transparent bg-gradient-to-r from-[#39FF14] via-[#AC89FF] to-[#FF51FA] pr-2">CYPERX</span>
+        </h1>
+        <p class="hero-desc max-w-2xl text-[#baccb0] text-base sm:text-xl leading-relaxed mt-4 mb-10">
+          I build tools and systems that compound. Right now: AI agent fleets, automation pipelines, and whatever plumbing keeps the whole thing running — all orchestrated from an M4 Mac Mini and a phone.
+        </p>
+        <div class="hero-cta flex flex-wrap gap-4">
+          <a href="/projects" class="bg-[#39FF14] text-black px-8 py-3 font-black text-sm uppercase tracking-widest hover:scale-105 hover:bg-[#FF51FA] hover:text-white transition-all" style="clip-path:polygon(0 0,100% 0,95% 100%,5% 95%)">PROJECTS</a>
+          <a href="/blog" class="border-2 border-[#FF51FA]/40 text-[#FF51FA] px-8 py-3 font-black text-sm uppercase tracking-widest hover:border-[#FF51FA] hover:bg-[#FF51FA]/10 transition-all" style="clip-path:polygon(2% 5%,100% 0,98% 95%,0 100%)">BLOG</a>
+          <a href="/about" class="border-2 border-[#AC89FF]/30 text-[#AC89FF] px-8 py-3 font-black text-sm uppercase tracking-widest hover:border-[#AC89FF] hover:bg-[#AC89FF]/10 transition-all">ABOUT</a>
+        </div>
+      </section>
+
+      <!-- ── MARQUEE TICKER ── -->
+      <div class="marquee-strip border-y border-[#39FF14]/20 py-3 overflow-hidden bg-[#39FF14]/5" aria-hidden="true">
+        <div class="marquee-inner whitespace-nowrap font-mono text-xs tracking-widest text-[#39FF14]/70">
+          {Array(3).fill([
+            "CYPERX.DEV", "CHANGELOGS.INFO", "DOTFILES", "M4 MAC MINI",
+            "CLAUDE CODE", "CODEX", "OPENCLAW", "NEOVIM", "TMUX", "GHOSTTY",
+            "AGENT FLEET ONLINE", "SHIPS DAILY", "BRISBANE AU",
+          ]).flat().map((t, i) => (
+            <span class="inline-block px-8">{t} <span class="text-[#FF51FA]/50">·</span></span>
+          ))}
+        </div>
+      </div>
+
+      <!-- ── PROJECTS ── -->
+      <section class="px-4 sm:px-6 max-w-7xl mx-auto" data-reveal-section>
+        <div class="flex items-baseline gap-4 mb-12 flex-wrap">
+          <p class="font-mono text-[10px] text-[#39FF14]/60 tracking-[0.5em]">PROJECTS</p>
+          <div class="h-px flex-grow bg-[#39FF14]/10"></div>
+          <a href="/projects" class="font-mono text-[10px] text-[#e2e2e2]/40 hover:text-[#39FF14] tracking-widest transition-colors">ALL →</a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          {projects.map((p, i) => {
+            const accent = ["#39FF14", "#FF51FA", "#AC89FF"][i];
+            return (
+              <a href={`/projects/${p.slug}`} class="project-card group block no-underline bg-[#0e0e0e] hover:bg-[#161616] transition-colors border border-[#e2e2e2]/5 hover:border-[#e2e2e2]/15 overflow-hidden">
+                {p.image && (
+                  <div class="overflow-hidden" style="height:160px;">
+                    <img src={p.image} alt={p.name} style={`width:100%; height:100%; object-fit:cover; opacity:0.7; transition:opacity 0.4s,transform 0.6s; display:block;`} class="group-hover:opacity-90 group-hover:scale-105" />
+                  </div>
+                )}
+                <div class="p-5 sm:p-6">
+                  <div class="flex items-center justify-between mb-3">
+                    <span class="font-mono text-[10px] px-2 py-0.5 font-black" style={`background:${accent}; color:black`}>{p.status}</span>
+                    <span class="font-mono text-[10px] text-[#e2e2e2]/30">E:{p.entropy}%</span>
+                  </div>
+                  <h3 class="text-lg font-black italic tracking-tight mb-2 transition-colors" style={`color:${accent}`}>{p.name}</h3>
+                  <p class="text-[#baccb0] text-xs leading-relaxed mb-4">{p.tagline}</p>
+                  <div class="flex gap-2 flex-wrap">
+                    {p.stack.slice(0, 3).map(t => (
+                      <span class="font-mono text-[9px] text-[#e2e2e2]/25 bg-[#1f1f1f] px-2 py-1">{t}</span>
+                    ))}
+                  </div>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+
+      <!-- ── STAT ROW ── -->
+      <section class="px-4 sm:px-6 max-w-7xl mx-auto">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-px bg-[#e2e2e2]/5">
+          {[
+            { n: "3", label: "LIVE PROJECTS" },
+            { n: "4", label: "AI AGENTS" },
+            { n: "M4", label: "MAC MINI" },
+            { n: "∞", label: "COMPOUNDING" },
+          ].map(s => (
+            <div class="stat-card bg-[#0e0e0e] p-8 sm:p-10 text-center hover:bg-[#161616] transition-colors">
+              <div class="text-4xl sm:text-6xl font-black italic text-[#39FF14] mb-2 stat-number">{s.n}</div>
+              <div class="font-mono text-[10px] text-[#e2e2e2]/30 tracking-widest">{s.label}</div>
             </div>
-          </div>
-          <div class="absolute top-10 right-10 w-24 sm:w-32 h-24 sm:h-32 border-t-2 border-r-2 border-[#39FF14]/20"></div>
-          <div class="absolute bottom-10 left-10 w-24 sm:w-32 h-24 sm:h-32 border-b-2 border-l-2 border-[#FF51FA]/20"></div>
+          ))}
         </div>
       </section>
 
-      <!-- What I Build -->
-      <section>
-        <div class="mb-8 sm:mb-16 flex items-baseline gap-4 flex-wrap">
-          <h2 class="text-3xl sm:text-5xl font-black italic text-[#39FF14] tracking-tighter" data-typewriter="30">WHAT_I_BUILD</h2>
-          <div class="h-[2px] flex-grow bg-gradient-to-r from-[#39FF14]/50 to-transparent"></div>
+      <!-- ── BLOG ── -->
+      <section class="px-4 sm:px-6 max-w-7xl mx-auto" data-reveal-section>
+        <div class="flex items-baseline gap-4 mb-12 flex-wrap">
+          <p class="font-mono text-[10px] text-[#FF51FA]/60 tracking-[0.5em]">LATEST POSTS</p>
+          <div class="h-px flex-grow bg-[#FF51FA]/10"></div>
+          <a href="/blog" class="font-mono text-[10px] text-[#e2e2e2]/40 hover:text-[#FF51FA] tracking-widest transition-colors">ALL →</a>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-0 relative" data-stagger-grid>
-          {sections.map((s, i) => {
-            const bgs = ["bg-[#2a2a2a]", "bg-[#353535]", "bg-[#1f1f1f]"];
-            const colors = ["#39FF14", "#FF51FA", "#AC89FF"];
-            const clips = ["shard-card-1", "shard-card-2", "shard-card-3"];
-            const offsets = ["z-20 md:-mr-4", "z-30 md:mt-10", "z-10 md:-ml-4"];
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          {posts.map((post, i) => {
+            const accent = ["#FF51FA", "#AC89FF"][i];
             return (
-              <a href={s.href} class={`${clips[i]} ${bgs[i]} p-6 sm:p-8 group hover:bg-[#393939] transition-colors relative ${offsets[i]} hover-lift block no-underline`} data-reveal>
-                <span class="material-symbols-outlined text-4xl sm:text-5xl mb-4 sm:mb-6 block" style={`color:${colors[i]}`}>{s.icon}</span>
-                <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 italic tracking-tight">{s.title.toUpperCase()}</h3>
-                <p class="text-sm opacity-70 font-mono leading-relaxed mb-4 sm:mb-6">{s.description}</p>
-                <div class="flex items-baseline gap-2">
-                  <span class="text-2xl font-black" style={`color:${colors[i]}`}>{s.stat}</span>
-                  <span class="font-mono text-[10px] opacity-60">{s.statLabel}</span>
+              <a href={`/blog/${post.data.slug}`} class="blog-card group block no-underline bg-[#0e0e0e] border border-[#e2e2e2]/5 hover:border-[#e2e2e2]/15 p-6 sm:p-8 hover:bg-[#161616] transition-colors overflow-hidden">
+                <div class="flex items-center justify-between mb-5">
+                  <span class="font-mono text-[10px] px-2 py-0.5 font-black" style={`background:${accent}20; color:${accent}; border:1px solid ${accent}40`}>{post.data.category}</span>
+                  <span class="font-mono text-[10px] text-[#e2e2e2]/25">{post.data.readTime}</span>
+                </div>
+                <h3 class="text-lg sm:text-xl font-black italic tracking-tight leading-snug mb-3 group-hover:text-[#e2e2e2] transition-colors" style={`color:${accent}`}>{post.data.title}</h3>
+                <p class="text-[#baccb0] text-sm leading-relaxed mb-6">{post.data.excerpt}</p>
+                <div class="flex items-center justify-between">
+                  <div class="flex gap-2 flex-wrap">
+                    {post.data.tags.slice(0, 3).map((t: string) => (
+                      <span class="font-mono text-[9px] text-[#e2e2e2]/25">{t}</span>
+                    ))}
+                  </div>
+                  <span class="font-mono text-[10px]" style={`color:${accent}`}>SIGNAL: {post.data.signal}</span>
                 </div>
               </a>
             );
@@ -123,39 +140,6 @@ const timeline = [
         </div>
       </section>
 
-      <!-- Timeline -->
-      <section class="max-w-4xl mx-auto">
-        <div class="mb-12 sm:mb-20 text-center">
-          <h2 class="text-3xl sm:text-5xl font-black italic text-[#FF51FA] tracking-tighter mb-2" data-typewriter="30">RECENT_BUILDS</h2>
-          <p class="font-mono text-xs opacity-60">LATEST FROM THE WORKSHOP</p>
-        </div>
-        <div class="space-y-16 sm:space-y-24 relative">
-          <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-[1px] bg-gradient-to-b from-[#39FF14] via-[#FF51FA] to-[#AC89FF] opacity-20"></div>
-          {timeline.map((item, i) => {
-            const colors = ["#39FF14", "#FF51FA", "#AC89FF"];
-            const rev = i % 2 === 1;
-            return (
-              <a href={item.href} class={`relative flex flex-col ${rev ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-8 sm:gap-12 group pl-12 md:pl-0 no-underline hover:opacity-80 transition-opacity`} data-reveal>
-                <div class={`w-full md:w-1/2 ${rev ? 'md:text-left' : 'md:text-right'}`}>
-                  <h4 class="font-mono text-xs mb-2" style={`color:${colors[i]}`}>{item.date}</h4>
-                  <h3 class="text-2xl sm:text-3xl font-black italic uppercase leading-tight overflow-visible mb-3 sm:mb-4">{item.title}</h3>
-                  <p class="text-sm opacity-60">{item.description}</p>
-                </div>
-                <div class="z-10 w-3 sm:w-4 h-3 sm:h-4 rotate-45 absolute left-2.5 md:relative md:left-auto" style={`background:${colors[i]}; box-shadow:0 0 15px ${colors[i]}`}></div>
-                <div class="w-full md:w-1/2"></div>
-              </a>
-            );
-          })}
-        </div>
-        <div class="mt-20 sm:mt-32 flex justify-center">
-          <a href="/projects" class="relative group">
-            <div class="absolute inset-0 bg-[#39FF14] blur-xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
-            <div class="relative bg-[#131313] border-2 border-[#39FF14] text-[#39FF14] px-8 sm:px-12 py-4 sm:py-5 font-black text-xl sm:text-2xl italic tracking-widest shard-card-1 group-hover:bg-[#39FF14] group-hover:text-black transition-all">VIEW_ALL_PROJECTS</div>
-          </a>
-        </div>
-      </section>
-
-      <!-- About section moved to /about -->
     </main>
   </div>
 
@@ -163,49 +147,53 @@ const timeline = [
   <!-- ════════════════════════════════════════
        LIGHT VARIANT
   ════════════════════════════════════════ -->
-  <div class="variant-light bg-white/90 text-[#131313] min-h-screen">
-    <main class="pt-28 sm:pt-32 min-h-screen">
+  <div class="variant-light bg-white/90 text-[#131313] min-h-screen overflow-x-hidden">
+    <main class="pt-28 sm:pt-36 pb-24 space-y-24">
+
       <!-- Hero -->
-      <section class="relative px-4 sm:px-8 py-16 sm:py-20 flex flex-col items-center justify-center min-h-[500px] sm:min-h-[700px] overflow-hidden">
-        <div class="relative z-10 text-center space-y-4 sm:space-y-6">
-          <p class="font-mono text-[#FF51FA] tracking-[0.5em] text-sm" data-typewriter="40">{hero.tagline}</p>
-          <h1 class="text-5xl sm:text-7xl lg:text-9xl font-black italic tracking-tighter glitch-text leading-tight overflow-visible" data-reveal>{hero.title}<span class="text-[#39FF14]">.</span>{hero.subtitle}</h1>
-          <p class="max-w-xl mx-auto text-[#131313]/80 text-base sm:text-lg" data-reveal>{hero.description}</p>
-          <div class="flex flex-wrap justify-center gap-4 mt-8 sm:mt-12">
-            <a href="/projects" class="bg-[#39FF14] text-black px-8 sm:px-10 py-3 sm:py-4 text-lg sm:text-xl font-black hover:bg-[#FF51FA] hover:text-white transition-all" style="clip-path: polygon(0 0,100% 0,95% 100%,5% 95%)">VIEW_PROJECTS</a>
-            <a href="/blog" class="border-2 border-[#FF51FA] text-[#FF51FA] px-8 sm:px-10 py-3 sm:py-4 text-lg sm:text-xl font-black hover:bg-[#FF51FA] hover:text-white transition-all" style="clip-path: polygon(2% 5%,100% 0,98% 95%,0 100%)">READ_BLOG</a>
-          </div>
+      <section class="px-4 sm:px-6 max-w-7xl mx-auto">
+        <p class="font-mono text-[#FF51FA] text-xs tracking-[0.5em] mb-6">BRISBANE, AU // BUILDER // SHIPS DAILY</p>
+        <h1 class="text-[16vw] sm:text-[12vw] font-black italic tracking-tighter leading-none pb-2 overflow-visible">
+          <span class="block bg-clip-text text-transparent bg-gradient-to-r from-[#FF51FA] via-[#AC89FF] to-[#39FF14] pr-2">CYPERX</span>
+        </h1>
+        <p class="max-w-2xl text-[#555] text-base sm:text-xl leading-relaxed mt-4 mb-10">
+          I build tools and systems that compound. Right now: AI agent fleets, automation pipelines, and whatever plumbing keeps the whole thing running.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="/projects" class="bg-[#FF51FA] text-white px-8 py-3 font-black text-sm uppercase tracking-widest hover:bg-[#39FF14] hover:text-black transition-all" style="clip-path:polygon(0 0,100% 0,95% 100%,5% 95%)">PROJECTS</a>
+          <a href="/blog" class="border-2 border-[#131313] text-[#131313] px-8 py-3 font-black text-sm uppercase tracking-widest hover:bg-[#131313] hover:text-white transition-all">BLOG</a>
         </div>
       </section>
 
-      <!-- What I Build -->
-      <section class="px-4 sm:px-8 py-16 sm:py-24 space-y-8 sm:space-y-12 max-w-7xl mx-auto bg-white/60 backdrop-blur-sm rounded-lg">
-        <div class="flex justify-between items-end border-b-4 border-[#39FF14] pb-4 flex-wrap gap-4">
-          <h2 class="text-3xl sm:text-5xl font-black italic tracking-tighter text-[#131313]" data-typewriter="30">WHAT_I_BUILD</h2>
-          <span class="font-mono text-[#FF51FA] text-sm">[{sections.length}_ACTIVE_DOMAINS]</span>
+      <!-- Marquee -->
+      <div class="marquee-strip border-y border-[#FF51FA]/20 py-3 overflow-hidden bg-[#FF51FA]/5" aria-hidden="true">
+        <div class="marquee-inner whitespace-nowrap font-mono text-xs tracking-widest text-[#FF51FA]/70">
+          {Array(3).fill(["CYPERX.DEV","CHANGELOGS.INFO","DOTFILES","M4 MAC MINI","CLAUDE CODE","CODEX","OPENCLAW","NEOVIM","AGENT FLEET"]).flat().map((t, i) => (
+            <span class="inline-block px-8">{t} <span class="text-[#131313]/20">·</span></span>
+          ))}
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8" data-stagger-grid>
-          {sections.map((s, i) => {
-            const spans = ["md:col-span-8", "md:col-span-4", "md:col-span-12"];
-            const clipPaths = [
-              "polygon(0 0,100% 0,95% 100%,5% 95%)",
-              "polygon(2% 5%,100% 0,98% 95%,0 100%)",
-              "polygon(0 0,100% 0,95% 100%,5% 95%)",
-            ];
-            const borderColors = ["#39FF14", "#FF51FA", "#AC89FF"];
+      </div>
+
+      <!-- Projects -->
+      <section class="px-4 sm:px-6 max-w-7xl mx-auto">
+        <div class="flex items-baseline gap-4 mb-10 border-b-2 border-[#131313] pb-4">
+          <h2 class="text-3xl font-black italic tracking-tighter">PROJECTS</h2>
+          <a href="/projects" class="ml-auto font-mono text-xs text-[#FF51FA] hover:text-[#39FF14] transition-colors">VIEW ALL →</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {projects.map((p, i) => {
+            const accent = ["#39FF14", "#FF51FA", "#AC89FF"][i];
             return (
-              <a href={s.href} class={`${spans[i]} p-1 hover:scale-[1.01] transition-transform group block no-underline`} style={`background:${borderColors[i]}; clip-path:${clipPaths[i]}`} data-reveal>
-                <div class="bg-white h-full p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden" style={`clip-path:${clipPaths[i]}`}>
-                  <div class="absolute top-0 right-0 p-4 font-mono opacity-10 text-5xl sm:text-6xl font-black select-none" style={`color:${borderColors[i]}`}>{String(i + 1).padStart(2, '0')}</div>
-                  <div class="space-y-3 sm:space-y-4 relative z-10">
-                    <span class="text-white text-xs px-2 py-1 font-mono" style={`background:${borderColors[i]}`}>{s.statLabel}</span>
-                    <h3 class="text-2xl sm:text-3xl font-black text-[#131313] group-hover:text-[#39FF14] transition-colors">{s.title.toUpperCase()}</h3>
-                    <p class="text-[#131313]/70 max-w-md">{s.description}</p>
+              <a href={`/projects/${p.slug}`} class="group block no-underline bg-white border-2 border-[#131313] hover:border-[#FF51FA] overflow-hidden transition-colors" style={`border-bottom:4px solid ${accent}`}>
+                {p.image && (
+                  <div style="height:140px; overflow:hidden;">
+                    <img src={p.image} alt={p.name} style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s;" class="group-hover:scale-105" />
                   </div>
-                  <div class="mt-6 sm:mt-8 flex items-center gap-4">
-                    <span class="material-symbols-outlined" style={`color:${borderColors[i]}`}>{s.icon}</span>
-                    <span class="font-mono text-sm tracking-widest uppercase text-[#131313]/40">{s.stat} {s.statLabel}</span>
-                  </div>
+                )}
+                <div class="p-5">
+                  <span class="font-mono text-[9px] font-black" style={`color:${accent}`}>{p.status}</span>
+                  <h3 class="text-base font-black italic mt-1 mb-2">{p.name}</h3>
+                  <p class="text-xs text-[#555]">{p.tagline}</p>
                 </div>
               </a>
             );
@@ -213,92 +201,43 @@ const timeline = [
         </div>
       </section>
 
-      <!-- Timeline -->
-      <section class="px-4 sm:px-8 py-16 sm:py-24 max-w-4xl mx-auto bg-white/60 backdrop-blur-sm rounded-lg">
-        <div class="mb-12 text-center">
-          <h2 class="text-3xl sm:text-5xl font-black italic tracking-tighter text-[#131313] mb-2" data-split-text>RECENT_BUILDS</h2>
-          <p class="font-mono text-xs text-[#131313]/40">LATEST FROM THE WORKSHOP</p>
+      <!-- Stats -->
+      <section class="px-4 sm:px-6 max-w-7xl mx-auto">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
+          {[
+            { n: "3", label: "LIVE PROJECTS", c: "#39FF14" },
+            { n: "4", label: "AI AGENTS", c: "#FF51FA" },
+            { n: "M4", label: "MAC MINI", c: "#AC89FF" },
+            { n: "∞", label: "COMPOUNDING", c: "#131313" },
+          ].map(s => (
+            <div class="p-6 border-2" style={`border-color:${s.c}`}>
+              <div class="text-4xl font-black italic mb-1" style={`color:${s.c}`}>{s.n}</div>
+              <div class="font-mono text-[10px] text-[#131313]/50 tracking-widest">{s.label}</div>
+            </div>
+          ))}
         </div>
-        <div class="space-y-8">
-          {timeline.map((item, i) => {
-            const borderColors = ["#39FF14", "#FF51FA", "#AC89FF"];
+      </section>
+
+      <!-- Blog -->
+      <section class="px-4 sm:px-6 max-w-7xl mx-auto">
+        <div class="flex items-baseline gap-4 mb-10 border-b-2 border-[#131313] pb-4">
+          <h2 class="text-3xl font-black italic tracking-tighter">LATEST POSTS</h2>
+          <a href="/blog" class="ml-auto font-mono text-xs text-[#FF51FA] hover:text-[#39FF14] transition-colors">ALL →</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {posts.map((post, i) => {
+            const accent = ["#FF51FA", "#AC89FF"][i];
             return (
-              <a href={item.href} class="block border-l-4 pl-6 py-4 hover:bg-[#f8f8f8] transition-colors no-underline" style={`border-color:${borderColors[i]}`} data-reveal>
-                <span class="font-mono text-xs" style={`color:${borderColors[i]}`}>{item.date}</span>
-                <h3 class="text-xl sm:text-2xl font-black uppercase mt-1 mb-2 text-[#131313]">{item.title}</h3>
-                <p class="text-sm text-[#131313]/60">{item.description}</p>
+              <a href={`/blog/${post.data.slug}`} class="group block no-underline bg-white border-2 border-[#131313] hover:border-[#FF51FA] p-6 transition-colors" style={`border-left:4px solid ${accent}`}>
+                <span class="font-mono text-[10px]" style={`color:${accent}`}>{post.data.category} · {post.data.readTime}</span>
+                <h3 class="text-lg font-black italic mt-2 mb-3 group-hover:text-[#FF51FA] transition-colors">{post.data.title}</h3>
+                <p class="text-sm text-[#555] leading-relaxed">{post.data.excerpt}</p>
               </a>
             );
           })}
         </div>
-        <div class="mt-12 text-center">
-          <a href="/projects" class="inline-flex items-center gap-2 font-black uppercase tracking-widest text-[#39FF14] hover:text-[#FF51FA]">
-            VIEW ALL PROJECTS <span class="material-symbols-outlined">arrow_forward</span>
-          </a>
-        </div>
       </section>
 
-      <!-- Quote -->
-      <section class="py-20 sm:py-32 bg-[#39FF14] text-black mx-4 sm:mx-8 relative overflow-hidden" style="clip-path: polygon(2% 5%,100% 0,98% 95%,0 100%)">
-        <div class="absolute inset-0 opacity-10 pointer-events-none text-6xl sm:text-8xl font-black italic break-all leading-[0.8] select-none">BUILD BUILD BUILD BUILD BUILD BUILD BUILD BUILD BUILD BUILD</div>
-        <div class="relative z-10 max-w-4xl mx-auto px-6 sm:px-8 text-center space-y-6 sm:space-y-8">
-          <span class="material-symbols-outlined text-5xl sm:text-6xl">format_quote</span>
-          <blockquote class="text-2xl sm:text-4xl lg:text-6xl font-black tracking-tight uppercase leading-tight italic">"BUILD FOR MODELS 6 MONTHS OUT, NOT TODAY'S LIMITATIONS."</blockquote>
-        </div>
-      </section>
-
-      <!-- About — Editorial Style -->
-      <section class="px-4 sm:px-8 py-16 sm:py-24 max-w-5xl mx-auto bg-white/60 backdrop-blur-sm rounded-lg" data-reveal>
-        <div class="flex justify-between items-end border-b-4 border-[#FF51FA] pb-4 mb-12 flex-wrap gap-4">
-          <h2 class="text-3xl sm:text-5xl font-black italic tracking-tighter text-[#131313]" data-typewriter="30">ABOUT</h2>
-          <span class="font-mono text-[#FF51FA] text-sm">{about.handle}</span>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12" data-stagger-grid>
-          <!-- Main column -->
-          <div class="md:col-span-7 space-y-6">
-            <div class="space-y-1">
-              <h3 class="text-2xl sm:text-3xl font-black italic text-[#131313]">{about.name}</h3>
-              <p class="text-[#FF51FA] font-mono text-sm">{about.role} · {about.location}</p>
-            </div>
-            <p class="text-[#131313]/80 text-base sm:text-lg leading-relaxed">{about.bio}</p>
-            <div class="pt-4 border-t border-[#131313]/10">
-              <h4 class="font-mono text-xs text-[#131313]/40 mb-3 tracking-widest">PRINCIPLES</h4>
-              <div class="space-y-2">
-                {about.principles.map((p, i) => (
-                  <div class="flex items-start gap-3">
-                    <span class="font-black text-[#39FF14] text-lg leading-none">{String(i + 1).padStart(2, '0')}</span>
-                    <p class="text-[#131313]/80 text-sm sm:text-base">{p}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-          <!-- Sidebar -->
-          <div class="md:col-span-5 space-y-6">
-            <div class="bg-[#f8f8f8] p-6 sm:p-8" style="clip-path: polygon(0 0,100% 0,95% 100%,5% 95%)">
-              <h4 class="font-mono text-xs text-[#131313]/40 mb-4 tracking-widest">STACK</h4>
-              <div class="space-y-3">
-                {about.stack.map((s) => (
-                  <div>
-                    <span class="font-mono text-[10px] text-[#FF51FA] tracking-widest">{s.label}</span>
-                    <p class="text-sm text-[#131313]/80">{s.value}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div class="flex flex-wrap gap-4">
-              {about.links.map((l) => (
-                <a href={l.href} target="_blank" rel="noopener" class="flex items-center gap-2 bg-[#131313] text-white px-4 py-2 text-xs font-mono tracking-widest hover:bg-[#FF51FA] transition-colors no-underline">
-                  <Fragment set:html={l.svg} />
-                  {l.label}
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div class="h-16 sm:h-24"></div>
     </main>
   </div>
 
@@ -306,141 +245,284 @@ const timeline = [
   <!-- ════════════════════════════════════════
        EXTREME VARIANT
   ════════════════════════════════════════ -->
-  <div class="variant-extreme min-h-screen" style="background:transparent; color:#fff;">
-    <main class="relative pt-28 sm:pt-40 pb-20 px-4 sm:px-6 max-w-7xl mx-auto min-h-screen overflow-x-hidden">
+  <div class="variant-extreme min-h-screen text-white overflow-x-hidden">
+    <!-- Canvas starfield background -->
+    <canvas id="starfield" class="fixed inset-0 pointer-events-none z-0" aria-hidden="true"></canvas>
+
+    <main class="relative z-10 pt-28 sm:pt-40 pb-24 space-y-32 sm:space-y-56">
+
       <!-- Hero -->
-      <section class="relative py-16 sm:py-24 flex flex-col items-center justify-center text-center">
-        <p class="font-mono text-[#8eff71] tracking-[0.5em] text-sm sm:text-lg mb-4 relative z-10" data-typewriter="40">{hero.tagline}</p>
-        <h1 class="text-[8vw] sm:text-7xl lg:text-[14rem] font-black tracking-tighter mb-6 uppercase italic leading-[0.9] relative z-10 text-white glitch-text-extreme-hero">
-          {hero.title}<br/><span class="text-[#8eff71]">{hero.subtitle}</span>
+      <section class="px-4 sm:px-6 max-w-7xl mx-auto relative">
+        <p class="font-mono text-[#8eff71] text-xs sm:text-sm tracking-[0.5em] mb-6 animate-pulse">BRISBANE, AU // BUILDER // SHIPS DAILY</p>
+        <h1 class="text-[18vw] sm:text-[14vw] font-black italic tracking-tighter leading-none pb-2 overflow-visible x-vibrating-text">
+          CYPERX<span class="text-[#8eff71]">.</span>
         </h1>
-        <p class="max-w-2xl text-white font-mono text-base sm:text-xl tracking-wider mb-10 sm:mb-16 bg-black/60 p-6 sm:p-10 backdrop-blur-sm border-4 sm:border-8 border-[#8eff71] uppercase font-bold relative z-10">
-          {hero.description}
+        <p class="max-w-2xl text-white/70 font-mono text-sm sm:text-base leading-relaxed mt-6 mb-12 border-l-4 border-[#ff51fa] pl-6">
+          I build tools and systems that compound. AI agent fleets, automation pipelines, the plumbing that keeps it running. All orchestrated from an M4 Mac Mini.
         </p>
-        <div class="flex flex-wrap justify-center gap-6 sm:gap-12 relative z-10 px-6 pb-8">
-          <a href="/projects" class="bg-[#8eff71] text-black px-8 sm:px-16 py-5 sm:py-8 font-black text-xl sm:text-3xl hover:scale-125 transition-transform shadow-[12px_12px_0_#ff51fa] sm:shadow-[20px_20px_0_#ff51fa]">VIEW_PROJECTS</a>
-          <a href="/blog" class="border-8 border-[#ff51fa] text-[#ff51fa] bg-black px-8 sm:px-16 py-5 sm:py-8 font-black text-xl sm:text-3xl hover:scale-125 transition-transform shadow-[-12px_12px_0_#8eff71] sm:shadow-[-20px_20px_0_#8eff71]">READ_BLOG</a>
+        <div class="flex flex-wrap gap-6">
+          <a href="/projects" class="bg-[#8eff71] text-black px-10 py-4 font-black text-sm uppercase tracking-widest hover:scale-105 hover:bg-[#ff51fa] hover:text-white transition-all shadow-[6px_6px_0_#ff51fa] hover:shadow-[6px_6px_0_#8eff71]">PROJECTS</a>
+          <a href="/blog" class="border-2 border-[#ff51fa] text-[#ff51fa] px-10 py-4 font-black text-sm uppercase tracking-widest hover:bg-[#ff51fa] hover:text-white transition-all">BLOG</a>
         </div>
       </section>
 
-      <!-- What I Build -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-16 mt-20 sm:mt-40 relative" data-stagger-grid>
-        {sections.map((s, i) => {
-          const spans = ["md:col-span-8", "md:col-span-4 md:-ml-8 md:mt-20", "md:col-span-12"];
-          const colors = ["#8eff71", "#ff51fa", "#ac89ff"];
-          const masks = ["acid-mask-1", "acid-mask-3", "acid-mask-2"];
-          return (
-            <a href={s.href} class={`${spans[i]} bg-black/70 backdrop-blur-sm relative z-${10 + i * 10} ${masks[i]} glitch-border-vibrate block no-underline hover:scale-[1.02] transition-transform`}>
-              <div class="p-4 border-b-4" style={`background:${colors[i]}20; border-color:${colors[i]}`}>
-                <span class="text-lg sm:text-xl font-black uppercase tracking-[0.5em] italic" style={`color:${colors[i]}`}>{s.title.toUpperCase()}</span>
-              </div>
-              <div class="p-8 sm:p-12 font-mono text-base sm:text-lg space-y-4">
-                <div class="flex gap-4 items-center">
-                  <span class="material-symbols-outlined text-4xl" style={`color:${colors[i]}`}>{s.icon}</span>
-                  <span class="text-3xl sm:text-4xl font-black italic">{s.stat}</span>
-                  <span class="text-xs opacity-60">{s.statLabel}</span>
-                </div>
-                <p class="text-white/80">{s.description}</p>
-              </div>
-            </a>
-          );
-        })}
+      <!-- Marquee -->
+      <div class="marquee-strip border-y border-[#8eff71]/20 py-3 overflow-hidden" aria-hidden="true">
+        <div class="marquee-inner whitespace-nowrap font-mono text-xs tracking-widest text-[#8eff71]/60">
+          {Array(3).fill(["CYPERX.DEV","CHANGELOGS.INFO","DOTFILES","M4 MAC MINI","CLAUDE CODE","CODEX","OPENCLAW","NEOVIM","TMUX","AGENT FLEET ONLINE"]).flat().map((t, i) => (
+            <span class="inline-block px-8">{t} <span class="text-[#ff51fa]/40">·</span></span>
+          ))}
+        </div>
       </div>
 
-      <!-- Timeline -->
-      <section class="mt-32 sm:mt-60 border-t-8 border-white pt-16 sm:pt-24">
-        <h2 class="text-5xl sm:text-7xl lg:text-9xl font-black mb-12 sm:mb-20 italic uppercase tracking-tighter text-white glitch-text-extreme">RECENT_BUILDS</h2>
-        <div class="space-y-8 sm:space-y-16">
-          {timeline.map((item, i) => {
-            const colors = ["#8eff71", "#ff51fa", "#ac89ff"];
-            const masks = ["acid-mask-1", "acid-mask-2", "acid-mask-3"];
+      <!-- Projects -->
+      <section class="px-4 sm:px-6 max-w-7xl mx-auto">
+        <div class="flex items-baseline gap-4 mb-12">
+          <p class="font-mono text-[10px] text-[#8eff71]/60 tracking-[0.5em]">// PROJECTS</p>
+          <div class="h-px flex-grow bg-[#8eff71]/10"></div>
+          <a href="/projects" class="font-mono text-[10px] text-white/30 hover:text-[#8eff71] tracking-widest transition-colors">ALL →</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {projects.map((p, i) => {
+            const accent = ["#8eff71", "#ff51fa", "#ac89ff"][i];
             return (
-              <a href={item.href} class={`group flex items-center justify-between p-8 sm:p-12 transition-all ${masks[i]} glitch-border-vibrate no-underline flex-wrap gap-4 hover:scale-[1.01]`} style={`background:${colors[i]}10`}>
-                <div class="flex items-center gap-6 sm:gap-10 flex-wrap">
-                  <span class="text-lg sm:text-2xl font-mono text-white">{item.date}</span>
-                  <div>
-                    <span class="text-2xl sm:text-4xl font-black tracking-widest uppercase text-white italic group-hover:translate-x-4 transition-transform block">{item.title}</span>
-                    <p class="text-sm text-white/60 mt-2 max-w-lg">{item.description}</p>
+              <a href={`/projects/${p.slug}`} class="group block no-underline bg-black/60 border border-white/5 hover:border-white/20 overflow-hidden transition-all hover:scale-[1.02]" style={`box-shadow: 0 0 0 0 ${accent}; transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;`}>
+                {p.image && (
+                  <div style="height:160px;overflow:hidden;">
+                    <img src={p.image} alt={p.name} style="width:100%;height:100%;object-fit:cover;display:block;opacity:0.6;transition:opacity 0.4s,transform 0.6s;" class="group-hover:opacity-80 group-hover:scale-105" />
                   </div>
+                )}
+                <div class="p-5 border-t-2" style={`border-color:${accent}40`}>
+                  <span class="font-mono text-[9px] font-black" style={`color:${accent}`}>{p.status}</span>
+                  <h3 class="font-black italic text-lg mt-1 mb-2 text-white">{p.name}</h3>
+                  <p class="text-xs text-white/50 font-mono">{p.tagline}</p>
                 </div>
-                <span class="material-symbols-outlined text-5xl sm:text-7xl animate-pulse" style={`color:${colors[i]}`}>arrow_forward</span>
               </a>
             );
           })}
         </div>
       </section>
 
-      <!-- About — Glitched Style -->
-      <section class="mt-32 sm:mt-60 relative" data-reveal>
-        <div class="absolute inset-0 bg-gradient-to-br from-[#8eff71]/5 via-[#ff51fa]/5 to-[#ac89ff]/5 pointer-events-none"></div>
-        <div class="border-t-8 border-b-8 border-[#8eff71] py-16 sm:py-24 relative overflow-hidden">
-          <!-- Scanline overlay -->
-          <div class="absolute inset-0 pointer-events-none opacity-10" style="background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(142,255,113,0.1) 2px, rgba(142,255,113,0.1) 4px)"></div>
-
-          <div class="max-w-5xl mx-auto px-6 sm:px-12 relative z-10">
-            <h2 class="text-5xl sm:text-7xl lg:text-9xl font-black italic uppercase tracking-tighter text-white glitch-text-extreme mb-12 sm:mb-20">ABOUT</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 sm:gap-16">
-              <!-- Left: Identity + Bio -->
-              <div class="space-y-8">
-                <div class="bg-black/80 border-4 border-[#8eff71] p-6 sm:p-8 glitch-border-vibrate">
-                  <div class="font-mono text-lg sm:text-xl space-y-2">
-                    <p><span class="text-[#8eff71] font-black">$</span> whoami</p>
-                    <p class="text-3xl sm:text-4xl font-black italic text-white">{about.name}</p>
-                    <p class="text-[#ff51fa] text-lg">{about.handle}</p>
-                    <p class="text-white/50 text-sm">{about.location} · {about.role}</p>
-                  </div>
-                </div>
-                <div class="bg-black/60 border-l-4 border-[#ff51fa] p-6 sm:p-8">
-                  <p class="text-white/80 font-mono text-sm sm:text-base leading-relaxed">{about.bio}</p>
-                </div>
-                <!-- Links -->
-                <div class="flex flex-wrap gap-4">
-                  {about.links.map((l) => (
-                    <a href={l.href} target="_blank" rel="noopener" class="flex items-center gap-2 bg-[#8eff71] text-black px-5 py-3 font-black text-sm uppercase tracking-widest hover:bg-[#ff51fa] hover:text-white transition-all hover:scale-110 no-underline shadow-[4px_4px_0_#ff51fa] hover:shadow-[4px_4px_0_#8eff71]">
-                      <Fragment set:html={l.svg} />
-                      {l.label}
-                    </a>
-                  ))}
-                </div>
-              </div>
-
-              <!-- Right: Principles + Stack -->
-              <div class="space-y-8">
-                <div class="bg-black/80 border-4 border-[#ff51fa] p-6 sm:p-8 glitch-border-vibrate">
-                  <h3 class="text-2xl sm:text-3xl font-black italic text-[#ff51fa] mb-6 uppercase">PRINCIPLES</h3>
-                  <div class="space-y-4">
-                    {about.principles.map((p, i) => (
-                      <div class="flex items-start gap-4">
-                        <span class="text-[#8eff71] font-black text-2xl sm:text-3xl font-mono leading-none">{String(i + 1).padStart(2, '0')}</span>
-                        <p class="text-white font-mono text-sm sm:text-base uppercase tracking-wider font-bold">{p}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div class="bg-black/80 border-4 border-[#ac89ff] p-6 sm:p-8 glitch-border-vibrate">
-                  <h3 class="text-2xl sm:text-3xl font-black italic text-[#ac89ff] mb-6 uppercase">STACK</h3>
-                  <div class="space-y-3">
-                    {about.stack.map((s) => (
-                      <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
-                        <span class="text-[#ac89ff] font-mono text-xs tracking-[0.3em] font-bold min-w-[100px]">{s.label}</span>
-                        <span class="text-white/70 font-mono text-sm">{s.value}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+      <!-- Stats -->
+      <section class="px-4 sm:px-6 max-w-7xl mx-auto">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/5">
+          {[
+            { n: "3", label: "LIVE PROJECTS", c: "#8eff71" },
+            { n: "4", label: "AI AGENTS", c: "#ff51fa" },
+            { n: "M4", label: "MAC MINI", c: "#ac89ff" },
+            { n: "∞", label: "COMPOUNDING", c: "#8eff71" },
+          ].map(s => (
+            <div class="bg-black/80 p-8 sm:p-10 text-center hover:bg-black/60 transition-colors">
+              <div class="text-4xl sm:text-6xl font-black italic mb-2" style={`color:${s.c}; text-shadow:0 0 20px ${s.c}44`}>{s.n}</div>
+              <div class="font-mono text-[10px] text-white/25 tracking-widest">{s.label}</div>
             </div>
-          </div>
+          ))}
         </div>
       </section>
 
-      <!-- CTA -->
-      <div class="mt-32 sm:mt-60 flex justify-center relative z-10">
-        <a href="/projects" class="bg-[#8eff71] text-black px-12 sm:px-20 py-6 sm:py-10 font-black text-2xl sm:text-4xl uppercase tracking-tighter hover:scale-110 transition-transform shadow-[0_0_80px_rgba(142,255,113,0.6)] border-8 border-black">
-          VIEW_ALL_PROJECTS
-        </a>
-      </div>
+      <!-- Blog -->
+      <section class="px-4 sm:px-6 max-w-7xl mx-auto">
+        <div class="flex items-baseline gap-4 mb-12">
+          <p class="font-mono text-[10px] text-[#ff51fa]/60 tracking-[0.5em]">// LATEST POSTS</p>
+          <div class="h-px flex-grow bg-[#ff51fa]/10"></div>
+          <a href="/blog" class="font-mono text-[10px] text-white/30 hover:text-[#ff51fa] tracking-widest transition-colors">ALL →</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {posts.map((post, i) => {
+            const accent = ["#ff51fa", "#ac89ff"][i];
+            return (
+              <a href={`/blog/${post.data.slug}`} class="group block no-underline bg-black/60 border border-white/5 hover:border-white/20 p-6 sm:p-8 transition-all hover:bg-black/80 hover:scale-[1.01]">
+                <div class="flex items-center justify-between mb-4">
+                  <span class="font-mono text-[10px] px-2 py-0.5" style={`background:${accent}20; color:${accent}; border:1px solid ${accent}30`}>{post.data.category}</span>
+                  <span class="font-mono text-[10px] text-white/25">{post.data.readTime} · S:{post.data.signal}</span>
+                </div>
+                <h3 class="font-black italic text-lg sm:text-xl leading-tight mb-3 text-white group-hover:text-[#8eff71] transition-colors">{post.data.title}</h3>
+                <p class="text-sm text-white/50 font-mono leading-relaxed">{post.data.excerpt}</p>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+
     </main>
   </div>
+
 </BaseLayout>
+
+<style>
+  /* ── Ambient orbs (dark variant) ── */
+  .variant-dark .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    animation: drift 20s ease-in-out infinite;
+  }
+  .variant-dark .orb-1 {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, #39FF1410, transparent 70%);
+    top: -100px; left: -200px;
+    animation-delay: 0s; animation-duration: 22s;
+  }
+  .variant-dark .orb-2 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, #FF51FA0C, transparent 70%);
+    top: 40%; right: -150px;
+    animation-delay: -7s; animation-duration: 18s;
+  }
+  .variant-dark .orb-3 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, #AC89FF0A, transparent 70%);
+    bottom: 10%; left: 30%;
+    animation-delay: -12s; animation-duration: 25s;
+  }
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(40px, -30px) scale(1.05); }
+    66% { transform: translate(-20px, 50px) scale(0.95); }
+  }
+
+  /* ── Marquee ── */
+  .marquee-inner {
+    display: inline-block;
+    animation: marquee-scroll 40s linear infinite;
+  }
+  @keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-33.333%); }
+  }
+  .marquee-strip:hover .marquee-inner {
+    animation-play-state: paused;
+  }
+
+  /* ── Hero text entrance ── */
+  .hero-sub { opacity: 0; animation: fade-up 0.6s 0.1s ease-out forwards; }
+  .hero-title { opacity: 0; animation: fade-up 0.7s 0.2s ease-out forwards; }
+  .hero-desc { opacity: 0; animation: fade-up 0.6s 0.35s ease-out forwards; }
+  .hero-cta { opacity: 0; animation: fade-up 0.6s 0.5s ease-out forwards; }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Section reveal ── */
+  [data-reveal-section] .project-card,
+  [data-reveal-section] .blog-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+  [data-reveal-section].is-visible .project-card,
+  [data-reveal-section].is-visible .blog-card {
+    opacity: 1;
+    transform: none;
+  }
+  [data-reveal-section].is-visible .project-card:nth-child(2),
+  [data-reveal-section].is-visible .blog-card:nth-child(2) { transition-delay: 0.1s; }
+  [data-reveal-section].is-visible .project-card:nth-child(3) { transition-delay: 0.2s; }
+
+  /* ── Stat cards entrance ── */
+  .stat-card {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  .stat-card.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.4s, transform 0.4s;
+  }
+
+  /* ── Extreme vibrate ── */
+  .variant-extreme .x-vibrating-text {
+    animation: x-vibrate 10s ease-in-out infinite;
+  }
+  @keyframes x-vibrate {
+    0%, 88%, 100% { text-shadow: none; }
+    90% { text-shadow: 4px 0 #ff51fa, -4px 0 #8eff71; }
+    92% { text-shadow: -3px 0 #8eff71, 3px 0 #ff51fa; }
+    94% { text-shadow: 4px 0 #ff51fa, -4px 0 #8eff71; }
+    96% { text-shadow: none; }
+  }
+</style>
+
+<script>
+  // ── Section reveal with IntersectionObserver ──
+  document.querySelectorAll('[data-reveal-section]').forEach(section => {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    obs.observe(section);
+  });
+
+  // Stat cards
+  document.querySelectorAll('.stat-card').forEach((card, i) => {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          setTimeout(() => {
+            (e.target as HTMLElement).style.transitionDelay = `${i * 0.08}s`;
+            e.target.classList.add('is-visible');
+          }, i * 80);
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    obs.observe(card);
+  });
+
+  // ── Starfield canvas (extreme variant) ──
+  const canvas = document.getElementById('starfield') as HTMLCanvasElement | null;
+  if (canvas && document.querySelector('.variant-extreme')?.closest('body') !== null) {
+    const ctx = canvas.getContext('2d');
+    if (ctx) {
+      let w = canvas.width = window.innerWidth;
+      let h = canvas.height = window.innerHeight;
+      window.addEventListener('resize', () => {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      });
+
+      const stars = Array.from({ length: 200 }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 1.5 + 0.3,
+        speed: Math.random() * 0.4 + 0.05,
+        alpha: Math.random() * 0.6 + 0.1,
+        color: Math.random() > 0.8 ? '#8eff71' : Math.random() > 0.5 ? '#ff51fa' : '#ffffff',
+      }));
+
+      function drawStars() {
+        if (!ctx) return;
+        ctx.clearRect(0, 0, w, h);
+        stars.forEach(s => {
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = s.color;
+          ctx.globalAlpha = s.alpha;
+          ctx.fill();
+          s.y += s.speed;
+          if (s.y > h) { s.y = 0; s.x = Math.random() * w; }
+        });
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(drawStars);
+      }
+      // Only run starfield when extreme variant is active
+      if (document.documentElement.dataset.theme === 'extreme' || document.documentElement.classList.contains('theme-extreme')) {
+        drawStars();
+      }
+      // Listen for theme changes
+      const themeObs = new MutationObserver(() => {
+        const root = document.documentElement;
+        if (root.dataset.theme === 'extreme' || root.classList.contains('theme-extreme')) {
+          drawStars();
+        }
+      });
+      themeObs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'class'] });
+    }
+  }
+</script>
