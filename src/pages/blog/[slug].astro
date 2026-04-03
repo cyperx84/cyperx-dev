@@ -391,11 +391,6 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
      IMAGE STYLES (inline markdown images)
   ══════════════════════════════════════════ */
 
-  /* Blog jag wrapper — fixed height so clip-path doesn't leave black void */
-  .blog-jag-wrap {
-    height: 340px;
-  }
-
   /* Shared image base styles — images in blog prose now use jag wrappers */
   .prose-dark .jag-img,
   .prose-light .jag-img,
@@ -418,6 +413,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
   /* Jag blog wrapper sizing */
   .blog-jag-wrap {
     width: 100%;
+    height: 340px;
     position: relative;
     overflow: visible;
     margin: 0;
