@@ -626,10 +626,30 @@ const pageAttr = activeNav ?? 'home';
       pointer-events: auto !important;
       transform: translateY(0) !important;
     }
-    /* Extreme theme variant */
-    .variant-extreme-active #back-to-top {
+    /* Light theme variant — darker button */
+    .variant-light ~ #back-to-top,
+    body:has(.variant-light) #back-to-top {
+      background: #131313;
+      color: #fff;
+      box-shadow: 0 0 12px #13131333;
+    }
+    body:has(.variant-light) #back-to-top:hover {
+      background: #FF51FA;
+      box-shadow: 0 0 28px #FF51FA66;
+    }
+    /* Extreme theme variant — neon */
+    body:has(.variant-extreme) #back-to-top {
       background: #8eff71;
       box-shadow: 0 0 24px #8eff7188, 0 0 48px #ff51fa44;
+      animation: x-btn-pulse 3s ease-in-out infinite;
+    }
+    body:has(.variant-extreme) #back-to-top:hover {
+      background: #ff51fa;
+      box-shadow: 0 0 36px #ff51faaa;
+    }
+    @keyframes x-btn-pulse {
+      0%,100% { box-shadow: 0 0 24px #8eff7188, 0 0 48px #ff51fa44; }
+      50% { box-shadow: 0 0 36px #ff51faaa, 0 0 60px #8eff7166; }
     }
   </style>
   <script>
