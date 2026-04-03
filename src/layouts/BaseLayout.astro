@@ -596,38 +596,46 @@ const pageAttr = activeNav ?? 'home';
   </script>
 
   <!-- ── Back to Top Button ── -->
-  <button id="back-to-top" aria-label="Back to top"
-    style="position:fixed; bottom:1.5rem; right:1.5rem; z-index:9000; opacity:0; pointer-events:none; transition:opacity 0.3s, transform 0.3s; transform:translateY(20px);">
-  </button>
+  <button id="back-to-top" aria-label="Back to top">&#8593;</button>
   <style>
+    /* Base — hidden until .visible */
     #back-to-top {
-      width: 52px; height: 52px;
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 9000;
+      width: 52px;
+      height: 52px;
       background: #39FF14;
       color: #000;
       border: none;
       cursor: pointer;
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       font-weight: 900;
+      line-height: 1;
       display: flex;
       align-items: center;
       justify-content: center;
       clip-path: polygon(10% 0%, 90% 5%, 100% 85%, 95% 100%, 5% 95%, 0% 15%);
-      transition: opacity 0.3s, transform 0.3s, background 0.2s, clip-path 0.3s;
       box-shadow: 0 0 18px #39FF1466;
+      /* hidden state */
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(20px);
+      transition: opacity 0.35s ease, transform 0.35s ease, background 0.2s, clip-path 0.3s, box-shadow 0.3s;
+    }
+    #back-to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
     }
     #back-to-top:hover {
       background: #FF51FA;
       clip-path: polygon(5% 5%, 95% 0%, 100% 90%, 90% 100%, 0% 95%, 5% 10%);
       box-shadow: 0 0 28px #FF51FA88;
-      transform: translateY(-4px) !important;
+      transform: translateY(-4px);
     }
-    #back-to-top.visible {
-      opacity: 1 !important;
-      pointer-events: auto !important;
-      transform: translateY(0) !important;
-    }
-    /* Light theme variant — darker button */
-    .variant-light ~ #back-to-top,
+    /* Light theme */
     body:has(.variant-light) #back-to-top {
       background: #131313;
       color: #fff;
@@ -635,37 +643,45 @@ const pageAttr = activeNav ?? 'home';
     }
     body:has(.variant-light) #back-to-top:hover {
       background: #FF51FA;
+      color: #fff;
       box-shadow: 0 0 28px #FF51FA66;
     }
-    /* Extreme theme variant — neon */
+    /* Extreme theme */
     body:has(.variant-extreme) #back-to-top {
       background: #8eff71;
+      color: #000;
       box-shadow: 0 0 24px #8eff7188, 0 0 48px #ff51fa44;
       animation: x-btn-pulse 3s ease-in-out infinite;
     }
     body:has(.variant-extreme) #back-to-top:hover {
       background: #ff51fa;
+      color: #fff;
       box-shadow: 0 0 36px #ff51faaa;
+      animation: none;
     }
     @keyframes x-btn-pulse {
-      0%,100% { box-shadow: 0 0 24px #8eff7188, 0 0 48px #ff51fa44; }
-      50% { box-shadow: 0 0 36px #ff51faaa, 0 0 60px #8eff7166; }
+      0%,100% { box-shadow: 0 0 24px #8eff7188, 0 0 48px #ff51fa44; clip-path: polygon(10% 0%, 90% 5%, 100% 85%, 95% 100%, 5% 95%, 0% 15%); }
+      50%      { box-shadow: 0 0 36px #ff51faaa, 0 0 60px #8eff7166; clip-path: polygon(5% 5%, 92% 0%, 100% 90%, 88% 100%, 8% 95%, 0% 12%); }
     }
   </style>
   <script>
     (function() {
       const btn = document.getElementById('back-to-top');
       if (!btn) return;
-      btn.innerHTML = '&#8593;';
+      function updateBtn() {
+        if (window.scrollY > 100) {
+          btn.classList.add('visible');
+        } else {
+          btn.classList.remove('visible');
+        }
+      }
+      // Check on load in case page is pre-scrolled
+      updateBtn();
       let ticking = false;
       window.addEventListener('scroll', function() {
         if (!ticking) {
           requestAnimationFrame(function() {
-            if (window.scrollY > 400) {
-              btn.classList.add('visible');
-            } else {
-              btn.classList.remove('visible');
-            }
+            updateBtn();
             ticking = false;
           });
           ticking = true;
