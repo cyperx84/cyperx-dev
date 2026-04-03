@@ -833,8 +833,12 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     const wrap = document.createElement('div');
     wrap.className = 'jag-img-wrap blog-jag-wrap';
 
+    const clip = document.createElement('div');
+    clip.className = 'jag-img-clip';
+
     imgEl.className = (imgEl.className + ' jag-img').trim();
-    (imgEl.style as any).clipPath = JAG_CLIP;
+    // Remove any inline clip-path previously set
+    (imgEl.style as any).clipPath = '';
 
     // SVG animated border
     const svgNS = 'http://www.w3.org/2000/svg';
@@ -871,7 +875,8 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
       parent.insertBefore(figure, imgEl);
     }
 
-    wrap.appendChild(imgEl);
+    clip.appendChild(imgEl);
+    wrap.appendChild(clip);
     wrap.appendChild(svg);
     figure.appendChild(wrap);
     figure.appendChild(caption);
