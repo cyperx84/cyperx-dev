@@ -37,7 +37,7 @@ const { project } = Astro.props;
       <!-- Header -->
       <header class="mb-10 sm:mb-16">
         {project.image && (
-          <div class="project-hero-img mb-8 overflow-hidden" style="border: 1px solid #39FF14; box-shadow: 0 0 24px #39FF1444;">
+          <div class="project-hero-img mb-8 overflow-visible" style="border: 1px solid #39FF14; box-shadow: 0 0 24px #39FF1444;">
             <img src={project.image} alt={project.name} loading="lazy" decoding="async" style="width:100%; display:block; max-height:360px; object-fit:cover;" />
           </div>
         )}
@@ -104,7 +104,7 @@ const { project } = Astro.props;
       <!-- Header -->
       <header class="mb-10 sm:mb-16">
         {project.image && (
-          <div class="project-hero-img mb-8 overflow-hidden" style="border: 1px solid #FF51FA; box-shadow: 0 0 24px #FF51FA44;">
+          <div class="project-hero-img mb-8 overflow-visible" style="border: 1px solid #FF51FA; box-shadow: 0 0 24px #FF51FA44;">
             <img src={project.image} alt={project.name} loading="lazy" decoding="async" style="width:100%; display:block; max-height:360px; object-fit:cover;" />
           </div>
         )}
@@ -172,7 +172,7 @@ const { project } = Astro.props;
       <!-- Header -->
       <header class="mb-10 sm:mb-16 relative z-10">
         {project.image && (
-          <div class="project-hero-img mb-8 overflow-hidden relative z-10" style="border: 1px solid #8eff71; box-shadow: 0 0 32px #8eff7144;">
+          <div class="project-hero-img mb-8 overflow-visible relative z-10" style="border: 1px solid #8eff71; box-shadow: 0 0 32px #8eff7144;">
             <img src={project.image} alt={project.name} loading="lazy" decoding="async" style="width:100%; display:block; max-height:360px; object-fit:cover;" />
           </div>
         )}
@@ -356,7 +356,7 @@ const { project } = Astro.props;
         if (!src || !point) return;
         const figure = document.createElement('figure');
         figure.className = 'project-inline-img storybook-prose-img';
-        figure.style.cssText = 'margin:2.5rem 0; overflow:hidden;';
+        figure.style.cssText = 'margin:2.5rem 0; overflow:visible;';
         const img = document.createElement('img');
         img.src = src;
         img.alt = `Project image ${idx + 2}`;
