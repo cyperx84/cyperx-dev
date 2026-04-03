@@ -695,13 +695,13 @@ const pageAttr = activeNav ?? 'home';
 
   <!-- ── Global drip-border v2: clip image + SVG trace + theme entrance ── -->
   <style>
-    /* Wrapper must be inline-block so it shrinks to image size */
+    /* Wrapper: clip-path is applied here (not on img) so layout collapses to the clipped area */
     .drip-wrap {
       position: relative;
-      display: inline-block;
+      display: block;
       overflow: visible !important;
-      vertical-align: top;
       width: 100%;
+      /* clip-path set inline via JS */
     }
     /* The image IS clipped — this makes it jagged */
     .drip-img-clipped {
@@ -709,6 +709,11 @@ const pageAttr = activeNav ?? 'home';
       width: 100%;
       /* clip-path applied inline per-image via JS */
     }
+    /* Placeholder bg so lazy/pending images never leave a black void */
+    .drip-wrap { background: #111; }
+    .variant-light .drip-wrap,
+    .variant-light .project-hero-img { background: #e8e8e8; }
+    .theme-light .drip-wrap { background: #e8e8e8; }
     /* SVG traces exactly on top of clip boundary */
     .drip-border-svg {
       position: absolute;
@@ -863,12 +868,12 @@ const pageAttr = activeNav ?? 'home';
         const dropSet = DROPS[idx % DROPS.length];
         const a1 = accents[idx % accents.length];
         const a2 = accents[(idx + 1) % accents.length];
-        // Apply jagged clip-path to image itself
-        img.style.clipPath = cssClip;
+        // Apply jagged clip-path to wrapper (not img) so layout collapses to the clipped area
         img.classList.add('drip-img-clipped');
         // Wrap
         const wrap = document.createElement('div');
         wrap.className = 'drip-wrap';
+        wrap.style.clipPath = cssClip;
         const parent = img.parentElement;
         if (!parent) return;
         parent.insertBefore(wrap, img);

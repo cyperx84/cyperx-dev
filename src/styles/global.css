@@ -1462,9 +1462,7 @@ footer {
 }
 
 /* Image optimization + fade-in on load */
-img {
-  content-visibility: auto;
-}
+/* NOTE: content-visibility: auto is intentionally NOT on img — it causes black placeholder boxes on replaced elements */
 
 /* ── Global image fade-in when loaded (JS adds .img-loaded) ── */
 @keyframes img-fade-in {
