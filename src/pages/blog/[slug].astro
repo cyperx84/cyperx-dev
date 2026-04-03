@@ -391,59 +391,42 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
      IMAGE STYLES (inline markdown images)
   ══════════════════════════════════════════ */
 
-  /* Shared image base styles */
-  .prose-dark img,
-  .prose-light img,
-  .prose-extreme img {
+  /* Shared image base styles — images in blog prose now use jag wrappers */
+  .prose-dark .jag-img,
+  .prose-light .jag-img,
+  .prose-extreme .jag-img {
     width: 100%;
-    border-radius: 2px;
-    margin: 2rem 0;
-    max-height: 400px;
+    display: block;
     object-fit: cover;
     aspect-ratio: 16 / 9;
-    transition: transform 0.3s ease;
-    cursor: zoom-in;
+    opacity: 0;
+    transition: opacity 0.6s ease, transform 0.4s ease;
   }
-  .prose-dark img:hover,
-  .prose-light img:hover,
-  .prose-extreme img:hover {
-    transform: scale(1.02);
+  .prose-dark .jag-img.jag-loaded,
+  .prose-light .jag-img.jag-loaded,
+  .prose-extreme .jag-img.jag-loaded {
+    opacity: 0.82;
   }
+  .prose-extreme .jag-img.jag-loaded { filter: saturate(1.2) contrast(1.1); }
+  .prose-dark .jag-img.jag-loaded { filter: saturate(0.85) contrast(1.08); }
 
-  .prose-dark img {
-    border: 1px solid rgba(57,255,20,0.3);
-    filter: saturate(0.8) contrast(1.1);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-  }
-
-  .prose-light img {
-    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-  }
-
-  @keyframes img-border-cycle {
-    0%   { border-color: #8eff71; box-shadow: 0 0 12px rgba(142,255,113,0.2); }
-    33%  { border-color: #ff51fa; box-shadow: 0 0 12px rgba(255,81,250,0.2); }
-    66%  { border-color: #ac89ff; box-shadow: 0 0 12px rgba(172,137,255,0.2); }
-    100% { border-color: #8eff71; box-shadow: 0 0 12px rgba(142,255,113,0.2); }
-  }
-  .prose-extreme img {
-    border: 2px solid #8eff71;
-    animation: img-border-cycle 4s linear infinite;
-    filter: saturate(1.2) contrast(1.1);
-  }
-
-  /* Image caption from alt text — rendered via JS below */
-  .blog-prose figure {
-    margin: 2rem 0;
-  }
-  .blog-prose figure img {
+  /* Jag blog wrapper sizing */
+  .blog-jag-wrap {
+    width: 100%;
+    position: relative;
+    overflow: visible;
     margin: 0;
   }
-  .blog-prose figcaption {
+
+  /* Caption */
+  .blog-jag-figure {
+    margin: 2.5rem 0;
+  }
+  .blog-jag-figure figcaption {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.7rem;
-    margin-top: 0.5rem;
-    opacity: 0.5;
+    margin-top: 0.75rem;
+    opacity: 0.45;
     text-align: center;
   }
 
@@ -828,24 +811,75 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
   }
   window.addEventListener('scroll', updateBlogProgress, { passive: true });
 
-  // ── Wrap images in figures with captions FIRST (before observer) ──
-  document.querySelectorAll('.blog-prose img').forEach(img => {
+  // ── Wrap blog prose images in jagged border + clip-path wrappers ──
+  const JAG_CLIP = 'polygon(0% 15%, 5% 0%, 15% 12%, 25% 0%, 35% 8%, 45% 0%, 55% 10%, 65% 0%, 75% 6%, 85% 0%, 95% 5%, 100% 10%, 95% 25%, 100% 40%, 95% 55%, 100% 70%, 95% 85%, 100% 100%, 90% 92%, 80% 100%, 70% 95%, 60% 100%, 50% 93%, 40% 100%, 30% 96%, 20% 100%, 10% 94%, 0% 100%, 5% 80%, 0% 65%, 5% 50%, 0% 35%, 5% 20%)';
+  const ACCENT_COLORS = ['#39FF14', '#FF51FA', '#AC89FF'];
+
+  document.querySelectorAll('.blog-prose img:not(.jag-img)').forEach((img, idx) => {
     const imgEl = img as HTMLImageElement;
-    const alt = imgEl.getAttribute('alt');
+    const alt = imgEl.getAttribute('alt') || '';
     const parent = imgEl.parentElement;
-    if (parent && parent.tagName !== 'FIGURE') {
-      const figure = document.createElement('figure');
-      const caption = document.createElement('figcaption');
-      caption.textContent = alt || '';
-      // If parent <p> only contains this img, replace the whole <p> with figure
-      if (parent.tagName === 'P' && parent.children.length === 1) {
-        parent.parentElement?.insertBefore(figure, parent);
-        parent.parentElement?.removeChild(parent);
-      } else {
-        parent.insertBefore(figure, imgEl);
-      }
-      figure.appendChild(imgEl);
-      figure.appendChild(caption);
+    if (!parent || parent.classList.contains('jag-img-wrap')) return;
+
+    const accent = ACCENT_COLORS[idx % ACCENT_COLORS.length];
+    const delay = (idx * 0.3).toFixed(1);
+
+    // Build jag wrapper
+    const wrap = document.createElement('div');
+    wrap.className = 'jag-img-wrap blog-jag-wrap';
+
+    imgEl.className = (imgEl.className + ' jag-img').trim();
+    (imgEl.style as any).clipPath = JAG_CLIP;
+
+    // SVG animated border
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('class', 'jag-border');
+    svg.setAttribute('viewBox', '0 0 100 100');
+    svg.setAttribute('preserveAspectRatio', 'none');
+    svg.setAttribute('aria-hidden', 'true');
+
+    const outer = document.createElementNS(svgNS, 'polygon');
+    outer.setAttribute('points', '2,0 14,6 25,0 38,5 52,0 65,3 80,0 92,4 100,2 98,16 100,32 97,48 100,64 98,80 100,95 94,100 80,97 65,100 48,96 32,100 18,98 0,96 3,82 0,65 4,48 0,32 2,16');
+    outer.setAttribute('class', 'jag-stroke-outer');
+    outer.setAttribute('style', `stroke:${accent}`);
+
+    const inner = document.createElementNS(svgNS, 'polygon');
+    inner.setAttribute('points', '4,2 16,8 27,2 40,7 54,2 67,5 82,2 94,6 98,4 96,18 98,34 95,50 98,66 96,82 98,97 92,98 78,95 63,98 46,94 30,98 16,96 2,94 5,80 2,63 6,46 2,30 4,18');
+    inner.setAttribute('class', 'jag-stroke-inner');
+    inner.setAttribute('style', `stroke:${accent}; animation-delay:${delay}s`);
+
+    svg.appendChild(outer);
+    svg.appendChild(inner);
+
+    // Fade-in wrapper (starts hidden, revealed by IntersectionObserver below)
+    const figure = document.createElement('figure');
+    figure.className = 'blog-jag-figure';
+
+    const caption = document.createElement('figcaption');
+    caption.textContent = alt;
+
+    if (parent.tagName === 'P' && parent.children.length === 1) {
+      parent.parentElement?.insertBefore(figure, parent);
+      parent.parentElement?.removeChild(parent);
+    } else {
+      parent.insertBefore(figure, imgEl);
+    }
+
+    wrap.appendChild(imgEl);
+    wrap.appendChild(svg);
+    figure.appendChild(wrap);
+    figure.appendChild(caption);
+  });
+
+  // ── Fade in jag images when loaded ──
+  document.querySelectorAll('.blog-jag-wrap .jag-img').forEach(img => {
+    const el = img as HTMLImageElement;
+    if (el.complete && el.naturalWidth > 0) {
+      el.classList.add('jag-loaded');
+    } else {
+      el.addEventListener('load', () => el.classList.add('jag-loaded'));
+      el.addEventListener('error', () => el.classList.add('jag-loaded')); // show even on error
     }
   });
 
