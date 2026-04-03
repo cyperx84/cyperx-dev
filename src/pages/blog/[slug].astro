@@ -391,41 +391,37 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
      IMAGE STYLES (inline markdown images)
   ══════════════════════════════════════════ */
 
-  /* Shared image base styles — images in blog prose now use jag wrappers */
-  .prose-dark .jag-img,
-  .prose-light .jag-img,
-  .prose-extreme .jag-img {
-    width: 100%;
-    height: 100%;
+  /* ── Blog prose images: clip-path via CSS (no JS dependency) ── */
+  .blog-prose img {
     display: block;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 0.6s ease, transform 0.4s ease;
-  }
-  .prose-dark .jag-img.jag-loaded,
-  .prose-light .jag-img.jag-loaded,
-  .prose-extreme .jag-img.jag-loaded {
-    opacity: 0.82;
-  }
-  .prose-extreme .jag-img.jag-loaded { filter: saturate(1.2) contrast(1.1); }
-  .prose-dark .jag-img.jag-loaded { filter: saturate(0.85) contrast(1.08); }
-
-  /* Jag blog wrapper sizing */
-  .blog-jag-wrap {
     width: 100%;
-    height: 340px;
+    max-height: 360px;
+    object-fit: cover;
+    clip-path: polygon(0% 15%, 5% 0%, 15% 12%, 25% 0%, 35% 8%, 45% 0%, 55% 10%, 65% 0%, 75% 6%, 85% 0%, 95% 5%, 100% 10%, 95% 25%, 100% 40%, 95% 55%, 100% 70%, 95% 85%, 100% 100%, 90% 92%, 80% 100%, 70% 95%, 60% 100%, 50% 93%, 40% 100%, 30% 96%, 20% 100%, 10% 94%, 0% 100%, 5% 80%, 0% 65%, 5% 50%, 0% 35%, 5% 20%);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  .blog-prose img.jag-loaded {
+    opacity: 0.85;
+  }
+  .prose-extreme .blog-prose img.jag-loaded { filter: saturate(1.2) contrast(1.1); opacity: 0.9; }
+  .prose-dark .blog-prose img.jag-loaded { filter: saturate(0.85) contrast(1.08); }
+
+  /* Jag blog wrapper — JS injects this around each img, SVG border bleeds off it */
+  .blog-jag-wrap {
+    display: block;
     position: relative;
     overflow: visible;
-    margin: 0;
+    margin: 2.5rem 16px;
+    width: calc(100% - 32px);
   }
 
   /* Caption */
   .blog-jag-figure {
-    /* 16px margin each side ensures jag-border's -8px inset stays inside body overflow-x-hidden */
-    margin: 2.5rem 16px;
+    margin: 2.5rem 0;
   }
   .blog-jag-figure figcaption {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'ZedMono NFM', monospace;
     font-size: 0.7rem;
     margin-top: 0.75rem;
     opacity: 0.45;
@@ -819,26 +815,21 @@ function initBlogPage() {
   const JAG_CLIP = 'polygon(0% 15%, 5% 0%, 15% 12%, 25% 0%, 35% 8%, 45% 0%, 55% 10%, 65% 0%, 75% 6%, 85% 0%, 95% 5%, 100% 10%, 95% 25%, 100% 40%, 95% 55%, 100% 70%, 95% 85%, 100% 100%, 90% 92%, 80% 100%, 70% 95%, 60% 100%, 50% 93%, 40% 100%, 30% 96%, 20% 100%, 10% 94%, 0% 100%, 5% 80%, 0% 65%, 5% 50%, 0% 35%, 5% 20%)';
   const ACCENT_COLORS = ['#39FF14', '#FF51FA', '#AC89FF'];
 
-  document.querySelectorAll('.blog-prose img:not(.jag-img):not([data-jag-done])').forEach((img, idx) => {
-    (img as HTMLElement).setAttribute('data-jag-done', '1');
+  // clip-path is CSS — JS only wraps img in a position:relative div for the SVG border
+  document.querySelectorAll('.blog-prose img:not([data-jag-done])').forEach((img, idx) => {
     const imgEl = img as HTMLImageElement;
-    const alt = imgEl.getAttribute('alt') || '';
-    const parent = imgEl.parentElement;
-    if (!parent || parent.classList.contains('jag-img-wrap')) return;
+    imgEl.setAttribute('data-jag-done', '1');
 
     const accent = ACCENT_COLORS[idx % ACCENT_COLORS.length];
     const delay = (idx * 0.3).toFixed(1);
+    const parent = imgEl.parentElement;
+    if (!parent) return;
 
-    // Build jag wrapper
+    // Wrap in a relative container so SVG border can position off it
     const wrap = document.createElement('div');
-    wrap.className = 'jag-img-wrap blog-jag-wrap';
-
-    const clip = document.createElement('div');
-    clip.className = 'jag-img-clip';
-
-    imgEl.className = (imgEl.className + ' jag-img').trim();
-    // Remove any inline clip-path previously set
-    (imgEl.style as any).clipPath = '';
+    wrap.className = 'blog-jag-wrap';
+    parent.insertBefore(wrap, imgEl);
+    wrap.appendChild(imgEl);
 
     // SVG animated border
     const svgNS = 'http://www.w3.org/2000/svg';
@@ -852,44 +843,23 @@ function initBlogPage() {
     outer.setAttribute('points', '2,0 14,6 25,0 38,5 52,0 65,3 80,0 92,4 100,2 98,16 100,32 97,48 100,64 98,80 100,95 94,100 80,97 65,100 48,96 32,100 18,98 0,96 3,82 0,65 4,48 0,32 2,16');
     outer.setAttribute('class', 'jag-stroke-outer');
     outer.setAttribute('style', `stroke:${accent}`);
-
     const inner = document.createElementNS(svgNS, 'polygon');
     inner.setAttribute('points', '4,2 16,8 27,2 40,7 54,2 67,5 82,2 94,6 98,4 96,18 98,34 95,50 98,66 96,82 98,97 92,98 78,95 63,98 46,94 30,98 16,96 2,94 5,80 2,63 6,46 2,30 4,18');
     inner.setAttribute('class', 'jag-stroke-inner');
     inner.setAttribute('style', `stroke:${accent}; animation-delay:${delay}s`);
-
     svg.appendChild(outer);
     svg.appendChild(inner);
-
-    // Fade-in wrapper (starts hidden, revealed by IntersectionObserver below)
-    const figure = document.createElement('figure');
-    figure.className = 'blog-jag-figure';
-
-    const caption = document.createElement('figcaption');
-    caption.textContent = alt;
-
-    if (parent.tagName === 'P' && parent.children.length === 1) {
-      parent.parentElement?.insertBefore(figure, parent);
-      parent.parentElement?.removeChild(parent);
-    } else {
-      parent.insertBefore(figure, imgEl);
-    }
-
-    clip.appendChild(imgEl);
-    wrap.appendChild(clip);
     wrap.appendChild(svg);
-    figure.appendChild(wrap);
-    figure.appendChild(caption);
   });
 
-  // ── Fade in jag images when loaded ──
-  document.querySelectorAll('.blog-jag-wrap .jag-img').forEach(img => {
+  // ── Fade in blog images on load ──
+  document.querySelectorAll('.blog-prose img').forEach(img => {
     const el = img as HTMLImageElement;
     if (el.complete && el.naturalWidth > 0) {
       el.classList.add('jag-loaded');
     } else {
       el.addEventListener('load', () => el.classList.add('jag-loaded'));
-      el.addEventListener('error', () => el.classList.add('jag-loaded')); // show even on error
+      el.addEventListener('error', () => el.classList.add('jag-loaded'));
     }
   });
 
