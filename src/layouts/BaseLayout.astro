@@ -38,6 +38,9 @@ const pageAttr = activeNav ?? 'home';
   <script type="importmap">
     {"imports":{"three":"https://esm.sh/three@0.183.2","three/":"https://esm.sh/three@0.183.2/"}}
   </script>
+  <!-- DNS prefetch for CDN assets used in JS -->
+  <link rel="dns-prefetch" href="https://esm.sh" />
+  <link rel="preconnect" href="https://esm.sh" crossorigin />
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
@@ -79,11 +82,7 @@ const pageAttr = activeNav ?? 'home';
   <link rel="preload" href="/fonts/space-grotesk-v22-latin-700.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/Lazer84.woff2" as="font" type="font/woff2" crossorigin />
   <!-- ZedMono/Monaspace not preloaded — accent/terminal fonts, font-display:swap handles them without blocking FCP -->
-  <!-- JetBrains Mono — deferred (mono/code only, non-critical) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" /></noscript>
+  <!-- JetBrains Mono removed — ZedMono NFM is the primary mono, JBM was only a fallback and never rendered -->
 
   <!-- Material Symbols — deferred, only 10 icons used -->
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_forward,construction,format_quote,hub,leak_add,open_in_new,person,radar,shield,terminal&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
@@ -332,32 +331,36 @@ const pageAttr = activeNav ?? 'home';
     (window as any).__lenisInstance = () => lenis;
   </script>
 
-  <!-- ── Three.js Background (lazy loaded — not render critical) ── -->
+  <!-- ── Three.js Background (lazy loaded — desktop / motion-capable only) ── -->
   <script>
     if (!(window as any).__threeBgInit) {
       (window as any).__threeBgInit = true;
-      // Defer Three.js load well after FCP to avoid blocking main thread
-      const loadThree = () => {
-        import(/* @vite-ignore */ '../scripts/three-bg').then(m => {
-          (window as any).__threeBgModule = m;
-          m.initThreeBg();
-        });
-      };
-      if ('requestIdleCallback' in window) {
-        // Wait for idle after a short delay to let FCP + LCP complete
-        (window as any).requestIdleCallback(loadThree, { timeout: 3000 });
-      } else {
-        setTimeout(loadThree, 3000);
+      const allowThree = window.matchMedia('(min-width: 768px)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (allowThree) {
+        // Defer Three.js load well after FCP to avoid blocking main thread
+        const loadThree = () => {
+          import(/* @vite-ignore */ '../scripts/three-bg').then(m => {
+            (window as any).__threeBgModule = m;
+            m.initThreeBg();
+          });
+        };
+        if ('requestIdleCallback' in window) {
+          // Wait for idle after a short delay to let FCP + LCP complete
+          (window as any).requestIdleCallback(loadThree, { timeout: 3000 });
+        } else {
+          setTimeout(loadThree, 3000);
+        }
       }
     }
   </script>
 
-  <!-- ── Cursor + Bullet Holes (idle — decorative, non-critical) ── -->
+  <!-- ── Cursor + Bullet Holes (idle — decorative, desktop pointer only) ── -->
   <script>
     const runCursor = () => import('../scripts/cursor').then(m => m.initCursor?.() ?? m.default?.());
     const runBulletHoles = () => import('../scripts/bullet-holes').then(m => m.initBulletHoles?.() ?? m.default?.());
+    const allowPointerFx = window.matchMedia('(hover: hover) and (pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (!(window as any).__cursorInit || !(window as any).__bulletsInit) {
+    if (allowPointerFx && (!(window as any).__cursorInit || !(window as any).__bulletsInit)) {
       (window as any).__cursorInit = true;
       (window as any).__bulletsInit = true;
       // Purely decorative — defer both to a single idle callback so they don't compete with LCP/FCP
@@ -368,7 +371,7 @@ const pageAttr = activeNav ?? 'home';
       }
     }
     // Re-init on every Astro page transition (already past initial paint by then)
-    document.addEventListener('astro:page-load', runBulletHoles);
+    if (allowPointerFx) document.addEventListener('astro:page-load', runBulletHoles);
     (window as any).__clearBulletHoles = () => import('../scripts/bullet-holes').then(m => m.clearBulletHoles());
   </script>
 

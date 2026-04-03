@@ -10,6 +10,8 @@ const posts = allPosts
 ---
 
 <BaseLayout title="CYPERX.DEV" activeNav="home">
+  <!-- LCP preload: first above-fold project image -->
+  <link slot="head" rel="preload" href="/images/projects/cyperx-dev.webp" as="image" fetchpriority="high" />
 
   <!-- ════════════════════════════════════════
        DARK VARIANT
