@@ -1435,9 +1435,9 @@ a[href="/projects/personal-os"] {
   body { cursor: auto; }
 }
 
-/* Paint containment for heavy sections */
+/* Layout/style containment only — paint containment clips jag borders and SVG bleeds */
 .variant-dark, .variant-light, .variant-extreme {
-  contain: layout style paint;
+  contain: layout style;
 }
 
 /* Content visibility for offscreen sections */
