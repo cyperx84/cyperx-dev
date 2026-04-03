@@ -206,7 +206,7 @@ const posts = allPosts
             const shapes = ["shard-card-1", "x-shard-3", "shard-card-2"];
             const offsets = ["", "md:mt-12 md:-ml-4 z-20", "md:mt-6 md:-ml-6 z-10"];
             return (
-              <a href={`/projects/${p.slug}`} class={`project-card group block no-underline ${shapes[i]} ${offsets[i]} hover:scale-[1.02] transition-transform overflow-hidden relative`} style={`background:white; border-top:4px solid ${accent};`}>
+              <a href={`/projects/${p.slug}`} class={`project-card group block no-underline ${shapes[i]} ${offsets[i]} hover:scale-[1.02] transition-transform overflow-visible relative`} style={`background:white; border-top:4px solid ${accent};`}>
                 {p.image && (
                   <div class="jag-img-wrap" style="height:140px;">
                     <img src={p.image} alt={p.name} class="jag-img group-hover:scale-105" loading="lazy" decoding="async" width="600" height="140" />
@@ -316,7 +316,7 @@ const posts = allPosts
             const shapes = ["x-shard-1", "acid-mask-1", "x-shard-melt-intense"];
             const offsets = ["z-30", "md:mt-16 md:-ml-6 z-20", "md:mt-8 md:-ml-8 z-10"];
             return (
-              <a href={`/projects/${p.slug}`} class={`project-card group block no-underline ${shapes[i]} ${offsets[i]} hover:scale-[1.03] transition-transform overflow-hidden relative`} style={`background:rgba(0,0,0,0.75);`}>
+              <a href={`/projects/${p.slug}`} class={`project-card group block no-underline ${shapes[i]} ${offsets[i]} hover:scale-[1.03] transition-transform overflow-visible relative`} style={`background:rgba(0,0,0,0.75);`}>
                 {p.image && (
                   <div class="jag-img-wrap" style="height:160px;">
                     <img src={p.image} alt={p.name} class="jag-img jag-img-dark group-hover:opacity-80 group-hover:scale-105" loading="lazy" decoding="async" width="600" height="160" />
