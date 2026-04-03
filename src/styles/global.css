@@ -806,7 +806,10 @@ body {
 
 /* ── Base transition for all cards ── */
 body [data-card],
-body .hover-card {
+body .hover-card,
+body .project-card,
+body .blog-card,
+body .stat-card {
   transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
 }
 
@@ -814,24 +817,36 @@ body .hover-card {
 
 /* HOME / DARK — 3D tilt effect (JS-assisted via CSS custom props, CSS-only fallback) */
 .theme-dark body[data-page="home"] .hover-card,
-.theme-dark body[data-page="home"] [data-card] {
+.theme-dark body[data-page="home"] [data-card],
+.theme-dark body[data-page="home"] .project-card,
+.theme-dark body[data-page="home"] .blog-card,
+.theme-dark body[data-page="home"] .stat-card {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   transform-style: preserve-3d;
 }
 .theme-dark body[data-page="home"] .hover-card:hover,
-.theme-dark body[data-page="home"] [data-card]:hover {
+.theme-dark body[data-page="home"] [data-card]:hover,
+.theme-dark body[data-page="home"] .project-card:hover,
+.theme-dark body[data-page="home"] .blog-card:hover,
+.theme-dark body[data-page="home"] .stat-card:hover {
   transform: perspective(600px) rotateX(4deg) rotateY(-4deg) scale(1.02);
   box-shadow: 8px 8px 30px rgba(57,255,20,0.15), -4px -4px 20px rgba(255,81,250,0.1);
 }
 
 /* HOME / LIGHT — neon green underline expands from center */
 .theme-light body[data-page="home"] .hover-card,
-.theme-light body[data-page="home"] [data-card] {
+.theme-light body[data-page="home"] [data-card],
+.theme-light body[data-page="home"] .project-card,
+.theme-light body[data-page="home"] .blog-card,
+.theme-light body[data-page="home"] .stat-card {
   position: relative;
   overflow: hidden;
 }
 .theme-light body[data-page="home"] .hover-card::after,
-.theme-light body[data-page="home"] [data-card]::after {
+.theme-light body[data-page="home"] [data-card]::after,
+.theme-light body[data-page="home"] .project-card::after,
+.theme-light body[data-page="home"] .blog-card::after,
+.theme-light body[data-page="home"] .stat-card::after {
   content: '';
   position: absolute;
   bottom: 0; left: 50%;
@@ -841,11 +856,17 @@ body .hover-card {
   transition: width 0.35s ease;
 }
 .theme-light body[data-page="home"] .hover-card:hover::after,
-.theme-light body[data-page="home"] [data-card]:hover::after {
+.theme-light body[data-page="home"] [data-card]:hover::after,
+.theme-light body[data-page="home"] .project-card:hover::after,
+.theme-light body[data-page="home"] .blog-card:hover::after,
+.theme-light body[data-page="home"] .stat-card:hover::after {
   width: 90%;
 }
 .theme-light body[data-page="home"] .hover-card:hover,
-.theme-light body[data-page="home"] [data-card]:hover {
+.theme-light body[data-page="home"] [data-card]:hover,
+.theme-light body[data-page="home"] .project-card:hover,
+.theme-light body[data-page="home"] .blog-card:hover,
+.theme-light body[data-page="home"] .stat-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 25px rgba(57,255,20,0.12);
 }
@@ -860,7 +881,10 @@ body .hover-card {
   100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); transform: scale(1); }
 }
 .theme-extreme body[data-page="home"] .hover-card:hover,
-.theme-extreme body[data-page="home"] [data-card]:hover {
+.theme-extreme body[data-page="home"] [data-card]:hover,
+.theme-extreme body[data-page="home"] .project-card:hover,
+.theme-extreme body[data-page="home"] .blog-card:hover,
+.theme-extreme body[data-page="home"] .stat-card:hover {
   animation: shatter-out 0.5s ease forwards;
   filter: drop-shadow(0 0 12px #8eff71) drop-shadow(0 0 25px #ff51fa);
 }
@@ -873,12 +897,16 @@ body .hover-card {
   100% { background-position: 0 200%; }
 }
 .theme-dark body[data-page="blog"] .hover-card,
-.theme-dark body[data-page="blog"] [data-card] {
+.theme-dark body[data-page="blog"] [data-card],
+.theme-dark body[data-page="blog"] .project-card,
+.theme-dark body[data-page="blog"] .blog-card {
   position: relative;
   overflow: hidden;
 }
 .theme-dark body[data-page="blog"] .hover-card::before,
-.theme-dark body[data-page="blog"] [data-card]::before {
+.theme-dark body[data-page="blog"] [data-card]::before,
+.theme-dark body[data-page="blog"] .project-card::before,
+.theme-dark body[data-page="blog"] .blog-card::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -897,13 +925,17 @@ body .hover-card {
   z-index: 2;
 }
 .theme-dark body[data-page="blog"] .hover-card:hover::before,
-.theme-dark body[data-page="blog"] [data-card]:hover::before {
+.theme-dark body[data-page="blog"] [data-card]:hover::before,
+.theme-dark body[data-page="blog"] .project-card:hover::before,
+.theme-dark body[data-page="blog"] .blog-card:hover::before {
   animation: scanline-sweep 0.8s ease forwards;
 }
 
 /* BLOG / LIGHT — lift + colorful shadow */
 .theme-light body[data-page="blog"] .hover-card:hover,
-.theme-light body[data-page="blog"] [data-card]:hover {
+.theme-light body[data-page="blog"] [data-card]:hover,
+.theme-light body[data-page="blog"] .project-card:hover,
+.theme-light body[data-page="blog"] .blog-card:hover {
   transform: translateY(-6px) scale(1.01);
   box-shadow:
     0 12px 40px rgba(255,81,250,0.2),
@@ -922,7 +954,9 @@ body .hover-card {
   100% { filter: hue-rotate(180deg) brightness(1.2); }
 }
 .theme-extreme body[data-page="blog"] .hover-card:hover,
-.theme-extreme body[data-page="blog"] [data-card]:hover {
+.theme-extreme body[data-page="blog"] [data-card]:hover,
+.theme-extreme body[data-page="blog"] .project-card:hover,
+.theme-extreme body[data-page="blog"] .blog-card:hover {
   animation: color-invert-flicker 0.6s ease forwards;
 }
 
@@ -935,18 +969,24 @@ body .hover-card {
   100% { box-shadow: 0 0 30px 8px rgba(57,255,20,0.2), 0 0 60px 16px rgba(255,81,250,0.1), inset 0 0 20px rgba(57,255,20,0.04); }
 }
 .theme-dark body[data-page="projects"] .hover-card:hover,
-.theme-dark body[data-page="projects"] [data-card]:hover {
+.theme-dark body[data-page="projects"] [data-card]:hover,
+.theme-dark body[data-page="projects"] .project-card:hover,
+.theme-dark body[data-page="projects"] .blog-card:hover {
   animation: edge-glow-pulse 0.5s ease forwards;
 }
 
 /* PROJECTS / LIGHT — skew + reveal arrow */
 .theme-light body[data-page="projects"] .hover-card,
-.theme-light body[data-page="projects"] [data-card] {
+.theme-light body[data-page="projects"] [data-card],
+.theme-light body[data-page="projects"] .project-card,
+.theme-light body[data-page="projects"] .blog-card {
   position: relative;
   overflow: hidden;
 }
 .theme-light body[data-page="projects"] .hover-card::after,
-.theme-light body[data-page="projects"] [data-card]::after {
+.theme-light body[data-page="projects"] [data-card]::after,
+.theme-light body[data-page="projects"] .project-card::after,
+.theme-light body[data-page="projects"] .blog-card::after {
   content: '→';
   position: absolute;
   right: -2rem;
@@ -959,12 +999,16 @@ body .hover-card {
   opacity: 0;
 }
 .theme-light body[data-page="projects"] .hover-card:hover,
-.theme-light body[data-page="projects"] [data-card]:hover {
+.theme-light body[data-page="projects"] [data-card]:hover,
+.theme-light body[data-page="projects"] .project-card:hover,
+.theme-light body[data-page="projects"] .blog-card:hover {
   transform: skewX(-1.5deg) translateX(4px);
   box-shadow: -4px 4px 20px rgba(57,255,20,0.1);
 }
 .theme-light body[data-page="projects"] .hover-card:hover::after,
-.theme-light body[data-page="projects"] [data-card]:hover::after {
+.theme-light body[data-page="projects"] [data-card]:hover::after,
+.theme-light body[data-page="projects"] .project-card:hover::after,
+.theme-light body[data-page="projects"] .blog-card:hover::after {
   right: 1rem;
   opacity: 1;
 }
@@ -977,7 +1021,9 @@ body .hover-card {
   100% { transform: scaleY(1.03) translateY(1px); filter: blur(0.5px) drop-shadow(0 8px 4px rgba(142,255,113,0.3)); }
 }
 .theme-extreme body[data-page="projects"] .hover-card:hover,
-.theme-extreme body[data-page="projects"] [data-card]:hover {
+.theme-extreme body[data-page="projects"] [data-card]:hover,
+.theme-extreme body[data-page="projects"] .project-card:hover,
+.theme-extreme body[data-page="projects"] .blog-card:hover {
   animation: melt-down 0.5s ease forwards;
   transform-origin: top center;
 }
