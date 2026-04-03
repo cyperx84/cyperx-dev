@@ -421,7 +421,8 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
 
   /* Caption */
   .blog-jag-figure {
-    margin: 2.5rem 0;
+    /* 16px margin each side ensures jag-border's -8px inset stays inside body overflow-x-hidden */
+    margin: 2.5rem 16px;
   }
   .blog-jag-figure figcaption {
     font-family: 'JetBrains Mono', monospace;
