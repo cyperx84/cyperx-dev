@@ -644,9 +644,9 @@ const posts = allPosts
     const delays = { 'hero-sub': 0.1, 'hero-title': 0.2, 'hero-desc': 0.35, 'hero-cta': 0.5 };
     // Only target elements in the active (visible) variant
     const html = document.documentElement;
-    const theme = Array.from(html.classList).find(c => c.startsWith('theme-')) || 'theme-dark';
+    const theme = Array.from(html.classList).find(c => c.startsWith('theme-')) || 'theme-extreme';
     const variantClass = theme.replace('theme-', 'variant-');
-    const activeVariant = document.querySelector('.' + variantClass) || document.body;
+    const activeVariant = document.querySelector('.' + variantClass) || document.querySelector('.variant-extreme') || document.body;
     Object.entries(delays).forEach(([cls, delay]) => {
       const el = activeVariant.querySelector(`.${cls}`) || document.querySelector(`.${cls}`);
       if (!el) return;
@@ -658,6 +658,9 @@ const posts = allPosts
     });
   }
   document.addEventListener('astro:page-load', triggerHeroAnimations);
+  // Re-trigger hero animations when theme changes
+  const heroThemeObs = new MutationObserver(() => triggerHeroAnimations());
+  heroThemeObs.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
   // ── CHAOS SCROLL SYSTEM ──
   // Every element gets a unique entrance from a 26-entry pool.
