@@ -643,7 +643,10 @@ const posts = allPosts
   function triggerHeroAnimations() {
     const delays = { 'hero-sub': 0.1, 'hero-title': 0.2, 'hero-desc': 0.35, 'hero-cta': 0.5 };
     // Only target elements in the active (visible) variant
-    const activeVariant = document.querySelector('.variant-dark:not([style*="display:none"]), .variant-light:not([style*="display:none"]), .variant-extreme:not([style*="display:none"])') || document.body;
+    const html = document.documentElement;
+    const theme = Array.from(html.classList).find(c => c.startsWith('theme-')) || 'theme-dark';
+    const variantClass = theme.replace('theme-', 'variant-');
+    const activeVariant = document.querySelector('.' + variantClass) || document.body;
     Object.entries(delays).forEach(([cls, delay]) => {
       const el = activeVariant.querySelector(`.${cls}`) || document.querySelector(`.${cls}`);
       if (!el) return;
