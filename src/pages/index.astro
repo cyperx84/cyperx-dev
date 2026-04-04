@@ -67,7 +67,7 @@ const posts = allPosts
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {posts.map((post, i) => {
             const accent = ["#FF51FA", "#AC89FF"][i];
-            const shapes = ["x-shard-sidebar", "x-shard-4"];
+            const shapes = ["shard-card-3", "x-shard-4"];
             const offsets = ["", "mt-10 md:mt-16"];
             return (
               <a href={`/blog/${post.data.slug}`} class={`blog-card group block no-underline ${shapes[i]} ${offsets[i]} p-6 sm:p-8 hover:scale-[1.02] transition-transform relative`} style={`background:#0e0e0e;`}>
@@ -205,7 +205,7 @@ const posts = allPosts
         <div class="relative grid grid-cols-1 gap-6 md:gap-0 md:grid-cols-2">
           {posts.map((post, i) => {
             const accent = ["#FF51FA", "#AC89FF"][i];
-            const shapes = ["x-shard-sidebar", "shard-card-3"];
+            const shapes = ["shard-card-3", "shard-card-3"];
             const offsets = ["", "md:mt-14 md:-ml-4"];
             return (
               <a href={`/blog/${post.data.slug}`} class={`blog-card group block no-underline ${shapes[i]} ${offsets[i]} p-6 sm:p-8 hover:scale-[1.02] transition-transform`} style={`background:white; border-left:4px solid ${accent};`}>
