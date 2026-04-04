@@ -855,7 +855,7 @@ const pageAttr = activeNav ?? 'home';
 
     function processImages() {
       const accents = getAccents();
-      const imgs = Array.from(document.querySelectorAll('img:not(.no-drip):not(.jag-img):not([aria-hidden="true"])'));
+      const imgs = Array.from(document.querySelectorAll('img:not(.no-drip):not(.jag-img):not([aria-hidden="true"]):not(.blog-prose img)'));
       let count = 0;
       imgs.forEach(imgEl => {
         const img = imgEl as HTMLImageElement;

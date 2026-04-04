@@ -318,7 +318,7 @@ const about = {
 
 </BaseLayout>
 
-<style>
+<style is:global>
   /* ── About scroll reveal base ── */
   .about-line {
     opacity: 0;
@@ -367,24 +367,34 @@ const about = {
 </style>
 
 <script>
-  // ── About page scroll reveal ──
-  // Assign stagger delays within each section
-  document.querySelectorAll('.about-section').forEach(section => {
-    const lines = section.querySelectorAll('.about-line');
-    lines.forEach((el, i) => {
-      (el as HTMLElement).dataset.alDelay = String(Math.min(i + 1, 5));
+  function initAboutPage() {
+    // ── About page scroll reveal ──
+    // Assign stagger delays within each section
+    document.querySelectorAll('.about-section').forEach(section => {
+      const lines = section.querySelectorAll('.about-line');
+      lines.forEach((el, i) => {
+        (el as HTMLElement).dataset.alDelay = String(Math.min(i + 1, 5));
+      });
     });
-  });
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target as HTMLElement;
-        el.classList.add('al-visible');
-        observer.unobserve(el);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target as HTMLElement;
+          el.classList.add('al-visible');
+          observer.unobserve(el);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
 
-  document.querySelectorAll('.about-line').forEach(el => observer.observe(el));
+    document.querySelectorAll('.about-line').forEach(el => observer.observe(el));
+  }
+
+  // Run on initial load and after view transitions
+  document.addEventListener('astro:page-load', initAboutPage);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAboutPage);
+  } else {
+    initAboutPage();
+  }
 </script>
