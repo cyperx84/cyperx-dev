@@ -92,18 +92,32 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
       <!-- Article Body -->
       <article class="prose-dark blog-prose mb-16 sm:mb-24 text-[#e2e2e2] max-w-none sm:max-w-none" style="max-width:72ch"><Content /></article>
 
-      <!-- Prev/Next Navigation -->
-      <nav class="border-t border-[#e2e2e2]/10 pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 gap-6">
-        {prevPost && (
+      <!-- Bottom Navigation -->
+      <nav class="border-t border-[#e2e2e2]/10 pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {prevPost ? (
           <a href={`/blog/${prevPost.data.slug}`} class="group bg-[#0e0e0e] p-6 border-l-4 border-[#FF51FA] hover:bg-[#1f1f1f] transition-colors">
             <div class="font-mono text-[9px] text-[#e2e2e2]/40 mb-2">&lt;&lt; PREVIOUS</div>
             <div class="text-sm font-black uppercase leading-tight group-hover:text-[#FF51FA] transition-colors">{prevPost.data.title}</div>
           </a>
+        ) : (
+          <a href="#" onclick="event.preventDefault(); window.scrollTo({top:0,behavior:'smooth'})" class="group bg-[#0e0e0e] p-6 border-l-4 border-[#39FF14] hover:bg-[#1f1f1f] transition-colors">
+            <div class="font-mono text-[9px] text-[#e2e2e2]/40 mb-2">BACK TO TOP &uarr;</div>
+            <div class="text-sm font-black uppercase leading-tight group-hover:text-[#39FF14] transition-colors">Return to Top</div>
+          </a>
         )}
-        {nextPost && (
-          <a href={`/blog/${nextPost.data.slug}`} class={`group bg-[#0e0e0e] p-6 border-r-4 border-[#AC89FF] hover:bg-[#1f1f1f] transition-colors ${!prevPost ? 'sm:col-start-2' : ''}`}>
+        <a href="#" onclick="event.preventDefault(); window.scrollTo({top:0,behavior:'smooth'})" class="group bg-[#0e0e0e] p-6 border-t-4 sm:border-t-0 sm:border-l-4 lg:border-l-0 lg:border-t-4 border-[#39FF14] hover:bg-[#1f1f1f] transition-colors text-center">
+          <div class="font-mono text-[9px] text-[#e2e2e2]/40 mb-2">BACK TO TOP &uarr;</div>
+          <div class="text-sm font-black uppercase leading-tight group-hover:text-[#39FF14] transition-colors">Return to Top</div>
+        </a>
+        {nextPost ? (
+          <a href={`/blog/${nextPost.data.slug}`} class="group bg-[#0e0e0e] p-6 border-r-4 border-[#AC89FF] hover:bg-[#1f1f1f] transition-colors text-right">
             <div class="font-mono text-[9px] text-[#e2e2e2]/40 mb-2 text-right">NEXT &gt;&gt;</div>
             <div class="text-sm font-black uppercase leading-tight text-right group-hover:text-[#AC89FF] transition-colors">{nextPost.data.title}</div>
+          </a>
+        ) : (
+          <a href="#" onclick="event.preventDefault(); window.scrollTo({top:0,behavior:'smooth'})" class="group bg-[#0e0e0e] p-6 border-r-4 border-[#AC89FF] hover:bg-[#1f1f1f] transition-colors text-right">
+            <div class="font-mono text-[9px] text-[#e2e2e2]/40 mb-2 text-right">BACK TO TOP &uarr;</div>
+            <div class="text-sm font-black uppercase leading-tight text-right group-hover:text-[#AC89FF] transition-colors">Return to Top</div>
           </a>
         )}
       </nav>
@@ -143,18 +157,32 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
       <!-- Article Body -->
       <article class="prose-light blog-prose mb-16 sm:mb-24 text-[#131313] max-w-none sm:max-w-none" style="max-width:72ch"><Content /></article>
 
-      <!-- Prev/Next Navigation -->
-      <nav class="border-t border-[#131313]/10 pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 gap-6">
-        {prevPost && (
+      <!-- Bottom Navigation -->
+      <nav class="border-t border-[#131313]/10 pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {prevPost ? (
           <a href={`/blog/${prevPost.data.slug}`} class="group bg-[#f5f5f5] p-6 hover:bg-[#ebebeb] transition-colors" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">
             <div class="font-mono text-[9px] text-[#131313]/40 mb-2">&lt;&lt; PREVIOUS</div>
             <div class="text-sm font-black uppercase leading-tight group-hover:text-[#FF51FA] transition-colors">{prevPost.data.title}</div>
           </a>
+        ) : (
+          <a href="#" onclick="event.preventDefault(); window.scrollTo({top:0,behavior:'smooth'})" class="group bg-[#f5f5f5] p-6 hover:bg-[#ebebeb] transition-colors" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">
+            <div class="font-mono text-[9px] text-[#131313]/40 mb-2">BACK TO TOP &uarr;</div>
+            <div class="text-sm font-black uppercase leading-tight group-hover:text-[#FF51FA] transition-colors">Return to Top</div>
+          </a>
         )}
-        {nextPost && (
-          <a href={`/blog/${nextPost.data.slug}`} class={`group bg-[#f5f5f5] p-6 hover:bg-[#ebebeb] transition-colors ${!prevPost ? 'sm:col-start-2' : ''}`} style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">
+        <a href="#" onclick="event.preventDefault(); window.scrollTo({top:0,behavior:'smooth'})" class="group bg-[#f5f5f5] p-6 hover:bg-[#ebebeb] transition-colors text-center" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">
+          <div class="font-mono text-[9px] text-[#131313]/40 mb-2">BACK TO TOP &uarr;</div>
+          <div class="text-sm font-black uppercase leading-tight group-hover:text-[#39FF14] transition-colors">Return to Top</div>
+        </a>
+        {nextPost ? (
+          <a href={`/blog/${nextPost.data.slug}`} class="group bg-[#f5f5f5] p-6 hover:bg-[#ebebeb] transition-colors text-right" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">
             <div class="font-mono text-[9px] text-[#131313]/40 mb-2 text-right">NEXT &gt;&gt;</div>
             <div class="text-sm font-black uppercase leading-tight text-right group-hover:text-[#AC89FF] transition-colors">{nextPost.data.title}</div>
+          </a>
+        ) : (
+          <a href="#" onclick="event.preventDefault(); window.scrollTo({top:0,behavior:'smooth'})" class="group bg-[#f5f5f5] p-6 hover:bg-[#ebebeb] transition-colors text-right" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">
+            <div class="font-mono text-[9px] text-[#131313]/40 mb-2 text-right">BACK TO TOP &uarr;</div>
+            <div class="text-sm font-black uppercase leading-tight text-right group-hover:text-[#AC89FF] transition-colors">Return to Top</div>
           </a>
         )}
       </nav>
@@ -197,18 +225,32 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
       <!-- Article Body -->
       <article class="prose-extreme blog-prose mb-16 sm:mb-24 text-white relative z-10 max-w-none sm:max-w-none" style="max-width:72ch"><Content /></article>
 
-      <!-- Prev/Next Navigation -->
-      <nav class="border-t border-white/10 pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 gap-6 relative z-10">
-        {prevPost && (
+      <!-- Bottom Navigation -->
+      <nav class="border-t border-white/10 pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
+        {prevPost ? (
           <a href={`/blog/${prevPost.data.slug}`} class="group bg-[#111] p-6 border-l-4 border-[#ff51fa] hover:border-[#ff51fa] hover:bg-[#191919] transition-all x-glitch-hover">
             <div class="font-mono text-[9px] text-white/30 mb-2">&lt;&lt; PREVIOUS</div>
             <div class="text-sm font-black uppercase leading-tight group-hover:text-[#ff51fa] transition-colors">{prevPost.data.title}</div>
           </a>
+        ) : (
+          <a href="#" onclick="event.preventDefault(); window.scrollTo({top:0,behavior:'smooth'})" class="group bg-[#111] p-6 border-l-4 border-[#ff51fa] hover:border-[#ff51fa] hover:bg-[#191919] transition-all x-glitch-hover">
+            <div class="font-mono text-[9px] text-white/30 mb-2">BACK TO TOP &uarr;</div>
+            <div class="text-sm font-black uppercase leading-tight group-hover:text-[#ff51fa] transition-colors">Return to Top</div>
+          </a>
         )}
-        {nextPost && (
-          <a href={`/blog/${nextPost.data.slug}`} class={`group bg-[#111] p-6 border-r-4 border-[#8eff71] hover:bg-[#191919] transition-all x-glitch-hover ${!prevPost ? 'sm:col-start-2' : ''}`}>
+        <a href="#" onclick="event.preventDefault(); window.scrollTo({top:0,behavior:'smooth'})" class="group bg-[#111] p-6 border-t-4 sm:border-t-0 sm:border-l-4 lg:border-l-0 lg:border-t-4 border-[#ac89ff] hover:bg-[#191919] transition-all x-glitch-hover text-center">
+          <div class="font-mono text-[9px] text-white/30 mb-2">BACK TO TOP &uarr;</div>
+          <div class="text-sm font-black uppercase leading-tight group-hover:text-[#ac89ff] transition-colors">Return to Top</div>
+        </a>
+        {nextPost ? (
+          <a href={`/blog/${nextPost.data.slug}`} class="group bg-[#111] p-6 border-r-4 border-[#8eff71] hover:bg-[#191919] transition-all x-glitch-hover text-right">
             <div class="font-mono text-[9px] text-white/30 mb-2 text-right">NEXT &gt;&gt;</div>
             <div class="text-sm font-black uppercase leading-tight text-right group-hover:text-[#8eff71] transition-colors">{nextPost.data.title}</div>
+          </a>
+        ) : (
+          <a href="#" onclick="event.preventDefault(); window.scrollTo({top:0,behavior:'smooth'})" class="group bg-[#111] p-6 border-r-4 border-[#8eff71] hover:bg-[#191919] transition-all x-glitch-hover text-right">
+            <div class="font-mono text-[9px] text-white/30 mb-2 text-right">BACK TO TOP &uarr;</div>
+            <div class="text-sm font-black uppercase leading-tight text-right group-hover:text-[#8eff71] transition-colors">Return to Top</div>
           </a>
         )}
       </nav>

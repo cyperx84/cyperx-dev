@@ -606,7 +606,7 @@ const pageAttr = activeNav ?? 'home';
       position: fixed;
       bottom: 1.5rem;
       right: 1.5rem;
-      z-index: 9000;
+      z-index: 99999;
       width: 52px;
       height: 52px;
       background: #39FF14;
@@ -623,12 +623,14 @@ const pageAttr = activeNav ?? 'home';
       box-shadow: 0 0 18px #39FF1466;
       /* hidden state */
       opacity: 0;
+      visibility: hidden;
       pointer-events: none;
       transform: translateY(20px);
       transition: opacity 0.35s ease, transform 0.35s ease, background 0.2s, clip-path 0.3s, box-shadow 0.3s;
     }
     #back-to-top.visible {
       opacity: 1;
+      visibility: visible;
       pointer-events: auto;
       transform: translateY(0);
     }
@@ -661,6 +663,20 @@ const pageAttr = activeNav ?? 'home';
       color: #fff;
       box-shadow: 0 0 36px #ff51faaa;
       animation: none;
+    }
+    body[data-page="blog"] #back-to-top,
+    body[data-page="project"] #back-to-top,
+    body[data-page="projects"] #back-to-top {
+      bottom: 1.25rem;
+      right: 1.25rem;
+    }
+    @media (min-width: 640px) {
+      body[data-page="blog"] #back-to-top,
+      body[data-page="project"] #back-to-top,
+      body[data-page="projects"] #back-to-top {
+        bottom: 1.5rem;
+        right: 1.5rem;
+      }
     }
     @keyframes x-btn-pulse {
       0%,100% { box-shadow: 0 0 24px #8eff7188, 0 0 48px #ff51fa44; clip-path: polygon(10% 0%, 90% 5%, 100% 85%, 95% 100%, 5% 95%, 0% 15%); }
