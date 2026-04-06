@@ -37,7 +37,7 @@ const { project } = Astro.props;
       <!-- Header -->
       <header class="mb-10 sm:mb-16">
         {project.image && (
-          <div class="jag-img-wrap mb-8" style="height:360px;">
+          <div class="jag-img-wrap mb-8 project-hero-img" style="height:clamp(200px, 50vw, 360px);">
             <div class="jag-img-clip"><img src={project.image} alt={project.name} class="jag-img jag-loaded" loading="eager" fetchpriority="high" decoding="sync" width="1200" height="360" /></div>
             <svg class="jag-border" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
               <polygon points="2,0 14,6 25,0 38,5 52,0 65,3 80,0 92,4 100,2 98,16 100,32 97,48 100,64 98,80 100,95 94,100 80,97 65,100 48,96 32,100 18,98 0,96 3,82 0,65 4,48 0,32 2,16" class="jag-stroke-outer" style="stroke:#39FF14" />
@@ -108,7 +108,7 @@ const { project } = Astro.props;
       <!-- Header -->
       <header class="mb-10 sm:mb-16">
         {project.image && (
-          <div class="jag-img-wrap mb-8" style="height:360px;">
+          <div class="jag-img-wrap mb-8 project-hero-img" style="height:clamp(200px, 50vw, 360px);">
             <div class="jag-img-clip"><img src={project.image} alt={project.name} class="jag-img jag-loaded" loading="eager" fetchpriority="high" decoding="sync" width="1200" height="360" /></div>
             <svg class="jag-border" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
               <polygon points="2,0 14,6 25,0 38,5 52,0 65,3 80,0 92,4 100,2 98,16 100,32 97,48 100,64 98,80 100,95 94,100 80,97 65,100 48,96 32,100 18,98 0,96 3,82 0,65 4,48 0,32 2,16" class="jag-stroke-outer" style="stroke:#FF51FA" />
@@ -180,7 +180,7 @@ const { project } = Astro.props;
       <!-- Header -->
       <header class="mb-10 sm:mb-16 relative z-10">
         {project.image && (
-          <div class="jag-img-wrap mb-8 relative z-10" style="height:360px;">
+          <div class="jag-img-wrap mb-8 relative z-10 project-hero-img" style="height:clamp(200px, 50vw, 360px);">
             <div class="jag-img-clip"><img src={project.image} alt={project.name} class="jag-img jag-loaded" loading="eager" fetchpriority="high" decoding="sync" width="1200" height="360" /></div>
             <svg class="jag-border" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
               <polygon points="2,0 14,6 25,0 38,5 52,0 65,3 80,0 92,4 100,2 98,16 100,32 97,48 100,64 98,80 100,95 94,100 80,97 65,100 48,96 32,100 18,98 0,96 3,82 0,65 4,48 0,32 2,16" class="jag-stroke-outer" style="stroke:#8eff71" />
@@ -248,6 +248,23 @@ const { project } = Astro.props;
   .prose-dark code, .prose-light code, .prose-extreme code,
   .prose-dark strong, .prose-light strong, .prose-extreme strong {
     /* Handled by blog/[slug].astro global styles */
+  }
+
+  /* ══════════════════════════════════════════
+     RESPONSIVE HERO IMAGE
+  ══════════════════════════════════════════ */
+  .project-hero-img {
+    height: 200px !important;
+  }
+  @media (min-width: 640px) {
+    .project-hero-img {
+      height: 280px !important;
+    }
+  }
+  @media (min-width: 768px) {
+    .project-hero-img {
+      height: 360px !important;
+    }
   }
 
   /* ══════════════════════════════════════════

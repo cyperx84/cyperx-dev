@@ -230,7 +230,7 @@ const pageAttr = activeNav ?? 'home';
       >
         <span class="relative z-10 text-lg sm:text-xl leading-none">🔧</span>
       </button>
-      <button id="mobile-menu-btn" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Menu">
+      <button id="mobile-menu-btn" class="md:hidden flex flex-col gap-1.5 p-2 min-h-[44px] min-w-[44px] justify-center" aria-label="Menu">
         <span class="hamburger-line w-6 h-0.5 bg-[#39FF14] transition-all duration-300"></span>
         <span class="hamburger-line w-6 h-0.5 bg-[#39FF14] transition-all duration-300"></span>
         <span class="hamburger-line w-6 h-0.5 bg-[#39FF14] transition-all duration-300"></span>
@@ -261,7 +261,7 @@ const pageAttr = activeNav ?? 'home';
   <div id="mobile-menu" class="mobile-menu md:hidden fixed top-0 left-0 right-0 z-[55] transition-transform duration-300 ease-out" style="transform:translateY(-100%)">
     <div class="mobile-menu-inner pt-16 pb-8 px-6 flex flex-col gap-1 shadow-2xl">
       <!-- Close button -->
-      <button id="mobile-menu-close" class="absolute top-5 right-5 w-10 h-10 flex items-center justify-center text-2xl font-black opacity-60 hover:opacity-100 transition-opacity" aria-label="Close menu">✕</button>
+      <button id="mobile-menu-close" class="absolute top-5 right-5 w-11 h-11 flex items-center justify-center text-2xl font-black opacity-60 hover:opacity-100 transition-opacity" aria-label="Close menu">✕</button>
       {[
         ['terminal','BLOG','/blog'],
         ['shield','PROJECTS','/projects'],

@@ -163,7 +163,7 @@ const rest = posts.slice(1);
           return (
             <article class={`${spans[i]} group`} data-reveal style={`animation: x-drift ${7 + i}s ease-in-out infinite`}>
               <a href={`/blog/${post.data.slug}`} class={`block p-1 transition-all duration-500 hover:skew-y-1 x-glitch-hover overflow-hidden relative`} style={`background:${borderColors[i]}; clip-path:${clipPaths[i]}`}>
-                <div class="bg-white p-6 relative overflow-hidden" style={`clip-path:${clipPaths[i]}`}>
+                <div class="bg-white p-5 sm:p-6 relative overflow-hidden" style={`clip-path:${clipPaths[i]}`}>
                   <div class="x-shard-inner-fractal opacity-5"></div>
                   <div class="relative z-10">
                     <div class="mb-3 flex justify-between items-start">
@@ -335,6 +335,47 @@ const rest = posts.slice(1);
   .x-glitch-hover:hover::after {
     content: ""; position: absolute; inset: 0; background: inherit;
     animation: x-glitch-anim 0.3s infinite; z-index: 20; mix-blend-mode: hard-light; opacity: 0.8;
+  }
+
+  /* ── Mobile overrides (<640px) ── */
+  @media (max-width: 639px) {
+    /* Reduce x-drift amplitude on mobile to prevent horizontal micro-overflow */
+    @keyframes x-drift {
+      0%   { transform: translate(0,0) rotate(0deg) scale(1); }
+      33%  { transform: translate(3px,-2px) rotate(0.3deg) scale(1.01); }
+      66%  { transform: translate(-2px,3px) rotate(-0.3deg) scale(0.99); }
+      100% { transform: translate(0,0) rotate(0deg) scale(1); }
+    }
+
+    /* Light variant: soften clip-paths on cards to prevent content clipping */
+    .variant-light .x-shard-sidebar {
+      clip-path: polygon(3% 0%, 100% 0%, 97% 100%, 0% 100%);
+    }
+    .variant-light .x-shard-1 {
+      clip-path: polygon(0% 4%, 100% 0%, 96% 100%, 2% 95%);
+    }
+    .variant-light .x-shard-2 {
+      clip-path: polygon(3% 0%, 100% 4%, 97% 100%, 0% 96%);
+    }
+    .variant-light .x-shard-3 {
+      clip-path: polygon(1% 1%, 99% 0%, 100% 99%, 3% 100%);
+    }
+    .variant-light .x-shard-4 {
+      clip-path: polygon(0% 0%, 97% 3%, 100% 97%, 3% 100%);
+    }
+    .variant-light .x-shard-melt-intense {
+      clip-path: polygon(1% 1%, 99% 2%, 97% 45%, 100% 47%, 96% 85%, 80% 82%, 70% 100%, 50% 90%, 30% 95%, 15% 80%, 0% 90%, 2% 50%);
+    }
+
+    /* Dark variant: soften x-shard-sidebar on mobile */
+    .variant-dark .x-shard-sidebar {
+      clip-path: polygon(3% 0%, 100% 0%, 97% 100%, 0% 100%);
+    }
+
+    /* Extreme variant: soften x-shard-sidebar on mobile */
+    .variant-extreme .x-shard-sidebar {
+      clip-path: polygon(3% 0%, 100% 0%, 97% 100%, 0% 100%);
+    }
   }
 </style>
 </BaseLayout>

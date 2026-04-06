@@ -38,25 +38,25 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
   <div id="blog-progress" class="fixed top-0 left-0 h-[3px] z-[9999] transition-none" style="width:0%;"></div>
 
   <!-- Reading time indicator -->
-  <div id="reading-indicator" class="fixed top-28 sm:top-28 right-4 z-[100] font-mono text-[10px] px-3 py-1.5 opacity-0 transition-opacity duration-300" style="background:rgba(0,0,0,0.7); color:#39FF14;">
+  <div id="reading-indicator" class="fixed top-20 sm:top-28 right-3 sm:right-4 z-[100] font-mono text-[10px] px-2.5 py-1.5 opacity-0 transition-opacity duration-300" style="background:rgba(0,0,0,0.7); color:#39FF14;">
     0 min read
   </div>
 
   <!-- Floating Audio Player -->
-  <div id="audio-player" class="fixed bottom-0 left-0 right-0 z-40 backdrop-blur-md border-t px-4 py-2.5 hidden" data-theme="dark">
-    <div class="max-w-4xl mx-auto flex items-center gap-3">
-      <button id="play-btn" class="w-8 h-8 flex items-center justify-center border font-mono text-sm shrink-0 transition-colors">▶</button>
+  <div id="audio-player" class="fixed bottom-0 left-0 right-0 z-40 backdrop-blur-md border-t px-3 py-2 sm:px-4 sm:py-2.5 hidden" data-theme="dark">
+    <div class="max-w-4xl mx-auto flex items-center gap-2 sm:gap-3">
+      <button id="play-btn" class="w-10 h-10 sm:w-9 sm:h-9 flex items-center justify-center border font-mono text-sm shrink-0 transition-colors rounded-sm" aria-label="Play audio">▶</button>
       <div class="flex-1 min-w-0">
         <div id="audio-title" class="font-mono text-[8px] truncate mb-1"></div>
         <div class="flex items-center gap-2">
           <span id="audio-time" class="font-mono text-[9px] shrink-0">0:00</span>
-          <div class="flex-1 h-1 cursor-pointer" id="progress-bar">
-            <div id="progress-fill" class="h-full transition-none" style="width:0%"></div>
+          <div class="flex-1 h-6 sm:h-1 flex items-center cursor-pointer" id="progress-bar">
+            <div id="progress-fill" class="h-1 sm:h-full w-full rounded-full transition-none" style="width:0%"></div>
           </div>
           <span id="audio-duration" class="font-mono text-[9px] shrink-0">0:00</span>
         </div>
       </div>
-      <button id="speed-btn" class="px-2 py-1 border font-mono text-[8px] transition-colors shrink-0">1x</button>
+      <button id="speed-btn" class="min-w-[40px] min-h-[40px] px-3 py-2 sm:min-w-0 sm:min-h-0 sm:px-2 sm:py-1 border font-mono text-[10px] sm:text-[8px] transition-colors shrink-0 rounded-sm" aria-label="Playback speed">1x</button>
     </div>
       <audio id="blog-audio" preload="metadata" src={`/audio/blog/${post.data.slug}.mp3`}></audio>
   </div>
@@ -90,7 +90,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
       </header>
 
       <!-- Article Body -->
-      <article class="prose-dark blog-prose mb-16 sm:mb-24 text-[#e2e2e2]"><Content /></article>
+      <article class="prose-dark blog-prose mb-16 sm:mb-24 text-[#e2e2e2] max-w-none sm:max-w-none" style="max-width:72ch"><Content /></article>
 
       <!-- Prev/Next Navigation -->
       <nav class="border-t border-[#e2e2e2]/10 pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -141,7 +141,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
       </header>
 
       <!-- Article Body -->
-      <article class="prose-light blog-prose mb-16 sm:mb-24 text-[#131313]"><Content /></article>
+      <article class="prose-light blog-prose mb-16 sm:mb-24 text-[#131313] max-w-none sm:max-w-none" style="max-width:72ch"><Content /></article>
 
       <!-- Prev/Next Navigation -->
       <nav class="border-t border-[#131313]/10 pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -195,7 +195,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
       </header>
 
       <!-- Article Body -->
-      <article class="prose-extreme blog-prose mb-16 sm:mb-24 text-white relative z-10"><Content /></article>
+      <article class="prose-extreme blog-prose mb-16 sm:mb-24 text-white relative z-10 max-w-none sm:max-w-none" style="max-width:72ch"><Content /></article>
 
       <!-- Prev/Next Navigation -->
       <nav class="border-t border-white/10 pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 gap-6 relative z-10">
@@ -830,6 +830,20 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     /* Prevent sticky hover on mobile */
     a:hover, a:focus {
       /* Reset hover styles that stick on touch */
+    }
+  }
+
+  /* ── Responsive: mobile (<640px) overrides ── */
+  @media (max-width: 639px) {
+    /* Code blocks: smooth mobile scroll */
+    .blog-prose pre {
+      -webkit-overflow-scrolling: touch;
+      max-width: 100%;
+    }
+
+    /* Light variant: disable clip-path on nav cards to prevent content clipping */
+    .variant-light nav a[style*="clip-path"] {
+      clip-path: none !important;
     }
   }
 </style>

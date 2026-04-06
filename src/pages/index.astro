@@ -38,9 +38,9 @@ const posts = allPosts
           I build tools and systems that compound. Right now: AI agent fleets, automation pipelines, and whatever plumbing keeps the whole thing running — all orchestrated from an M4 Mac Mini and a phone.
         </p>
         <div class="hero-cta flex flex-wrap gap-4">
-          <a href="/projects" class="bg-[#39FF14] text-black px-8 py-3 font-black text-sm uppercase tracking-widest hover:scale-105 hover:bg-[#FF51FA] hover:text-white transition-all" style="clip-path:polygon(0 0,100% 0,95% 100%,5% 95%)">PROJECTS</a>
-          <a href="/blog" class="border-2 border-[#FF51FA]/40 text-[#FF51FA] px-8 py-3 font-black text-sm uppercase tracking-widest hover:border-[#FF51FA] hover:bg-[#FF51FA]/10 transition-all" style="clip-path:polygon(2% 5%,100% 0,98% 95%,0 100%)">BLOG</a>
-          <a href="/about" class="border-2 border-[#AC89FF]/30 text-[#AC89FF] px-8 py-3 font-black text-sm uppercase tracking-widest hover:border-[#AC89FF] hover:bg-[#AC89FF]/10 transition-all active:scale-95" style="clip-path:polygon(0 3%,100% 0,97% 100%,3% 97%)">ABOUT</a>
+          <a href="/projects" class="bg-[#39FF14] text-black px-8 py-3.5 font-black text-sm uppercase tracking-widest hover:scale-105 hover:bg-[#FF51FA] hover:text-white transition-all" style="clip-path:polygon(0 0,100% 0,95% 100%,5% 95%)">PROJECTS</a>
+          <a href="/blog" class="border-2 border-[#FF51FA]/40 text-[#FF51FA] px-8 py-3.5 font-black text-sm uppercase tracking-widest hover:border-[#FF51FA] hover:bg-[#FF51FA]/10 transition-all" style="clip-path:polygon(2% 5%,100% 0,98% 95%,0 100%)">BLOG</a>
+          <a href="/about" class="border-2 border-[#AC89FF]/30 text-[#AC89FF] px-8 py-3.5 font-black text-sm uppercase tracking-widest hover:border-[#AC89FF] hover:bg-[#AC89FF]/10 transition-all active:scale-95" style="clip-path:polygon(0 3%,100% 0,97% 100%,3% 97%)">ABOUT</a>
         </div>
       </section>
 
@@ -68,7 +68,7 @@ const posts = allPosts
           {posts.map((post, i) => {
             const accent = ["#FF51FA", "#AC89FF"][i];
             const shapes = ["shard-card-3", "x-shard-4"];
-            const offsets = ["", "mt-10 md:mt-16"];
+            const offsets = ["", "md:mt-16"];
             return (
               <a href={`/blog/${post.data.slug}`} class={`blog-card group block no-underline ${shapes[i]} ${offsets[i]} p-6 sm:p-8 hover:scale-[1.02] transition-transform relative`} style={`background:#0e0e0e;`}>
                 <svg class="card-svg-border" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
@@ -181,9 +181,9 @@ const posts = allPosts
           I build tools and systems that compound. Right now: AI agent fleets, automation pipelines, and whatever plumbing keeps the whole thing running.
         </p>
         <div class="hero-cta flex flex-wrap gap-4">
-          <a href="/projects" class="bg-[#FF51FA] text-white px-8 py-3 font-black text-sm uppercase tracking-widest hover:bg-[#39FF14] hover:text-black transition-all active:scale-95" style="clip-path:polygon(0 0,100% 5%,92% 100%,5% 95%)">PROJECTS</a>
-          <a href="/blog" class="border-2 border-[#131313] text-[#131313] px-8 py-3 font-black text-sm uppercase tracking-widest hover:bg-[#131313] hover:text-white transition-all active:scale-95" style="clip-path:polygon(3% 0,100% 0,97% 100%,0 95%)">BLOG</a>
-          <a href="/about" class="border-2 border-[#AC89FF]/50 text-[#AC89FF] px-8 py-3 font-black text-sm uppercase tracking-widest hover:border-[#AC89FF] hover:bg-[#AC89FF]/10 transition-all active:scale-95" style="clip-path:polygon(0 5%,97% 0,100% 95%,3% 100%)">ABOUT</a>
+          <a href="/projects" class="bg-[#FF51FA] text-white px-8 py-3.5 font-black text-sm uppercase tracking-widest hover:bg-[#39FF14] hover:text-black transition-all active:scale-95" style="clip-path:polygon(0 0,100% 5%,92% 100%,5% 95%)">PROJECTS</a>
+          <a href="/blog" class="border-2 border-[#131313] text-[#131313] px-8 py-3.5 font-black text-sm uppercase tracking-widest hover:bg-[#131313] hover:text-white transition-all active:scale-95" style="clip-path:polygon(3% 0,100% 0,97% 100%,0 95%)">BLOG</a>
+          <a href="/about" class="border-2 border-[#AC89FF]/50 text-[#AC89FF] px-8 py-3.5 font-black text-sm uppercase tracking-widest hover:border-[#AC89FF] hover:bg-[#AC89FF]/10 transition-all active:scale-95" style="clip-path:polygon(0 5%,97% 0,100% 95%,3% 100%)">ABOUT</a>
         </div>
       </section>
 
@@ -249,7 +249,7 @@ const posts = allPosts
             return (
               <a href={`/projects/${p.slug}`} class={`project-card group block no-underline ${shapes[i]} ${offsets[i]} hover:scale-[1.02] transition-transform overflow-visible relative`} style={`background:white; border-top:4px solid ${accent};`}>
                 {p.image && (
-                  <div class="jag-img-wrap" style="height:140px;">
+                  <div class="jag-img-wrap" style="height:clamp(100px, 20vw, 140px);">
                     <div class="jag-img-clip"><img src={p.image} alt={p.name} class="jag-img group-hover:scale-105" loading="lazy" decoding="async" width="600" height="140" /></div>
                     <svg class="jag-border" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
                       <polygon points="3,0 15,5 30,0 45,6 58,0 72,4 85,0 100,5 98,18 100,35 97,50 100,65 98,82 96,100 82,97 68,100 52,96 38,100 22,97 8,100 0,96 4,82 0,68 3,52 0,38 5,22" class="jag-stroke-outer" style={`stroke:${accent}; animation-delay:${i*0.5}s`} />
@@ -640,7 +640,7 @@ const posts = allPosts
 
 <script>
   // ── HERO ENTRANCE ──
-  function triggerHeroAnimations() {
+  function triggerHeroAnimations(isThemeSwitch = false) {
     const delays = { 'hero-sub': 0.1, 'hero-title': 0.2, 'hero-desc': 0.35, 'hero-cta': 0.5 };
     // Only target elements in the active (visible) variant
     const html = document.documentElement;
@@ -650,6 +650,12 @@ const posts = allPosts
     Object.entries(delays).forEach(([cls, delay]) => {
       const el = activeVariant.querySelector(`.${cls}`) || document.querySelector(`.${cls}`);
       if (!el) return;
+      if (isThemeSwitch) {
+        // Theme switch: just ensure visible, no re-animation
+        el.style.animation = 'none';
+        el.style.opacity = '1';
+        return;
+      }
       el.style.animation = 'none';
       el.style.opacity = '0';
       // Force reflow
@@ -657,9 +663,9 @@ const posts = allPosts
       el.style.animation = `fade-up 0.6s ${delay}s ease-out forwards`;
     });
   }
-  document.addEventListener('astro:page-load', triggerHeroAnimations);
-  // Re-trigger hero animations when theme changes
-  const heroThemeObs = new MutationObserver(() => triggerHeroAnimations());
+  document.addEventListener('astro:page-load', () => triggerHeroAnimations(false));
+  // Theme changes: keep hero visible, don't re-animate
+  const heroThemeObs = new MutationObserver(() => triggerHeroAnimations(true));
   heroThemeObs.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
   // ── CHAOS SCROLL SYSTEM ──
