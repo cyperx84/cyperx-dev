@@ -86,10 +86,17 @@ const { project } = Astro.props;
         </section>
       )}
 
-      <!-- Back -->
-      <a href="/projects" class="inline-flex items-center gap-3 font-mono text-sm font-black text-[#e2e2e2]/50 hover:text-[#39FF14] transition-colors group px-4 py-3 border border-white/10 hover:border-[#39FF14]/40 active:scale-95" style="clip-path:polygon(0 0,100% 0,97% 100%,3% 100%)">
-        <span class="group-hover:-translate-x-2 transition-transform text-lg">&larr;</span> ALL PROJECTS
-      </a>
+      <!-- Bottom Navigation -->
+      <nav class="border-t border-[#e2e2e2]/10 pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <a href="/projects" class="group bg-[#0e0e0e] p-6 border-l-4 border-[#39FF14] hover:bg-[#1f1f1f] transition-colors">
+          <div class="font-mono text-[9px] text-[#e2e2e2]/40 mb-2">&lt;&lt; ALL PROJECTS</div>
+          <div class="text-sm font-black uppercase leading-tight group-hover:text-[#39FF14] transition-colors">Back to Projects</div>
+        </a>
+        <a href="#" onclick="event.preventDefault(); window.scrollTo({top:0,behavior:'smooth'})" class="group bg-[#0e0e0e] p-6 border-r-4 border-[#AC89FF] hover:bg-[#1f1f1f] transition-colors text-right">
+          <div class="font-mono text-[9px] text-[#e2e2e2]/40 mb-2">BACK TO TOP &uarr;</div>
+          <div class="text-sm font-black uppercase leading-tight group-hover:text-[#AC89FF] transition-colors">Return to Top</div>
+        </a>
+      </nav>
     </main>
   </div>
 
@@ -158,9 +165,17 @@ const { project } = Astro.props;
       )}
 
       <!-- Back -->
-      <a href="/projects" class="inline-flex items-center gap-2 font-mono text-xs text-[#131313]/40 hover:text-[#FF51FA] transition-colors group">
-        <span class="group-hover:-translate-x-1 transition-transform">&lt;&lt;</span> ALL PROJECTS
-      </a>
+      <!-- Bottom Navigation -->
+      <nav class="border-t border-[#131313]/10 pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <a href="/projects" class="group bg-[#f5f5f5] p-6 hover:bg-[#ebebeb] transition-colors" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">
+          <div class="font-mono text-[9px] text-[#131313]/40 mb-2">&lt;&lt; ALL PROJECTS</div>
+          <div class="text-sm font-black uppercase leading-tight group-hover:text-[#FF51FA] transition-colors">Back to Projects</div>
+        </a>
+        <a href="#" onclick="event.preventDefault(); window.scrollTo({top:0,behavior:'smooth'})" class="group bg-[#f5f5f5] p-6 hover:bg-[#ebebeb] transition-colors text-right" style="clip-path:polygon(0 0,95% 0,100% 100%,5% 100%)">
+          <div class="font-mono text-[9px] text-[#131313]/40 mb-2">BACK TO TOP &uarr;</div>
+          <div class="text-sm font-black uppercase leading-tight group-hover:text-[#AC89FF] transition-colors">Return to Top</div>
+        </a>
+      </nav>
     </main>
   </div>
 
@@ -229,10 +244,17 @@ const { project } = Astro.props;
         </section>
       )}
 
-      <!-- Back -->
-      <a href="/projects" class="inline-flex items-center gap-3 font-mono text-sm font-black text-white/40 hover:text-[#8eff71] transition-colors group relative z-10 px-4 py-3 border border-white/10 hover:border-[#8eff71]/40 active:scale-95" style="clip-path:polygon(0 5%,97% 0,100% 95%,3% 100%)">
-        <span class="group-hover:-translate-x-2 transition-transform text-lg">&larr;</span> ALL PROJECTS
-      </a>
+      <!-- Bottom Navigation -->
+      <nav class="border-t border-white/10 pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 gap-6 relative z-10">
+        <a href="/projects" class="group bg-[#1a0a2e] p-6 border-l-4 border-[#8eff71] hover:bg-[#2a1a3e] transition-colors">
+          <div class="font-mono text-[9px] text-white/30 mb-2">&lt;&lt; ALL PROJECTS</div>
+          <div class="text-sm font-black uppercase leading-tight group-hover:text-[#8eff71] transition-colors">Back to Projects</div>
+        </a>
+        <a href="#" onclick="event.preventDefault(); window.scrollTo({top:0,behavior:'smooth'})" class="group bg-[#1a0a2e] p-6 border-r-4 border-[#ff51fa] hover:bg-[#2a1a3e] transition-colors text-right">
+          <div class="font-mono text-[9px] text-white/30 mb-2">BACK TO TOP &uarr;</div>
+          <div class="text-sm font-black uppercase leading-tight group-hover:text-[#ff51fa] transition-colors">Return to Top</div>
+        </a>
+      </nav>
     </main>
   </div>
 
