@@ -598,119 +598,54 @@ const pageAttr = activeNav ?? 'home';
     })();
   </script>
 
-  <!-- ── Back to Top Button ── -->
-  <button id="back-to-top" aria-label="Back to top">&#8593;</button>
-  <style>
-    /* Base — hidden until .visible */
-    #back-to-top {
-      position: fixed;
-      bottom: 1.5rem;
-      right: 1.5rem;
-      z-index: 99999;
-      width: 52px;
-      height: 52px;
-      background: #39FF14;
-      color: #000;
-      border: none;
-      cursor: pointer;
-      font-size: 1.5rem;
-      font-weight: 900;
-      line-height: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      clip-path: polygon(10% 0%, 90% 5%, 100% 85%, 95% 100%, 5% 95%, 0% 15%);
-      box-shadow: 0 0 18px #39FF1466;
-      /* hidden state */
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transform: translateY(20px);
-      transition: opacity 0.35s ease, transform 0.35s ease, background 0.2s, clip-path 0.3s, box-shadow 0.3s;
-    }
-    #back-to-top.visible {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-    #back-to-top:hover {
-      background: #FF51FA;
-      clip-path: polygon(5% 5%, 95% 0%, 100% 90%, 90% 100%, 0% 95%, 5% 10%);
-      box-shadow: 0 0 28px #FF51FA88;
-      transform: translateY(-4px);
-    }
-    /* Light theme */
-    body:has(.variant-light) #back-to-top {
-      background: #131313;
-      color: #fff;
-      box-shadow: 0 0 12px #13131333;
-    }
-    body:has(.variant-light) #back-to-top:hover {
-      background: #FF51FA;
-      color: #fff;
-      box-shadow: 0 0 28px #FF51FA66;
-    }
-    /* Extreme theme */
-    body:has(.variant-extreme) #back-to-top {
-      background: #8eff71;
-      color: #000;
-      box-shadow: 0 0 24px #8eff7188, 0 0 48px #ff51fa44;
-      animation: x-btn-pulse 3s ease-in-out infinite;
-    }
-    body:has(.variant-extreme) #back-to-top:hover {
-      background: #ff51fa;
-      color: #fff;
-      box-shadow: 0 0 36px #ff51faaa;
-      animation: none;
-    }
-    body[data-page="blog"] #back-to-top,
-    body[data-page="project"] #back-to-top,
-    body[data-page="projects"] #back-to-top {
-      bottom: 1.25rem;
-      right: 1.25rem;
-    }
-    @media (min-width: 640px) {
-      body[data-page="blog"] #back-to-top,
-      body[data-page="project"] #back-to-top,
-      body[data-page="projects"] #back-to-top {
-        bottom: 1.5rem;
-        right: 1.5rem;
-      }
-    }
-    @keyframes x-btn-pulse {
-      0%,100% { box-shadow: 0 0 24px #8eff7188, 0 0 48px #ff51fa44; clip-path: polygon(10% 0%, 90% 5%, 100% 85%, 95% 100%, 5% 95%, 0% 15%); }
-      50%      { box-shadow: 0 0 36px #ff51faaa, 0 0 60px #8eff7166; clip-path: polygon(5% 5%, 92% 0%, 100% 90%, 88% 100%, 8% 95%, 0% 12%); }
-    }
-  </style>
+  <!-- ── Back to Top (global, inline-only, no scoped CSS) ── -->
+  <button id="post-back-to-top" aria-label="Back to top" class="fixed right-3 sm:right-6 z-[100000] items-center justify-center w-10 h-10 sm:w-14 sm:h-14 text-lg sm:text-xl font-black border-2 border-current rounded-sm" style="display:none;bottom:24px;background:#39FF14;color:#000;clip-path:polygon(10% 0%,90% 5%,100% 85%,95% 100%,5% 95%,0% 15%);box-shadow:0 0 24px rgba(57,255,20,.35);cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none">↑</button>
   <script>
     (function() {
-      const btn = document.getElementById('back-to-top');
+      var btn = document.getElementById('post-back-to-top');
       if (!btn) return;
-      function updateBtn() {
-        if (window.scrollY > 100) {
-          btn.classList.add('visible');
+
+      function applyTheme() {
+        var html = document.documentElement;
+        if (html.classList.contains('theme-light')) {
+          btn.style.background = '#131313'; btn.style.color = '#fff';
+          btn.style.boxShadow = '0 0 20px rgba(19,19,19,.25)';
+        } else if (html.classList.contains('theme-extreme')) {
+          btn.style.background = '#8eff71'; btn.style.color = '#000';
+          btn.style.boxShadow = '0 0 24px rgba(142,255,113,.55), 0 0 40px rgba(255,81,250,.2)';
         } else {
-          btn.classList.remove('visible');
+          btn.style.background = '#39FF14'; btn.style.color = '#000';
+          btn.style.boxShadow = '0 0 24px rgba(57,255,20,.35)';
         }
       }
-      // Check on load in case page is pre-scrolled
-      updateBtn();
-      let ticking = false;
-      window.addEventListener('scroll', function() {
-        if (!ticking) {
-          requestAnimationFrame(function() {
-            updateBtn();
-            ticking = false;
-          });
-          ticking = true;
+
+      function updatePosition() {
+        var player = document.getElementById('audio-player');
+        if (player && getComputedStyle(player).display !== 'none' && player.offsetHeight > 0) {
+          btn.style.bottom = (player.offsetHeight + 28) + 'px';
+        } else {
+          btn.style.bottom = '24px';
         }
-      }, { passive: true });
-      btn.addEventListener('click', function() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
+      }
+
+      function updateVisibility() {
+        btn.style.display = window.scrollY > 160 ? 'flex' : 'none';
+        updatePosition();
+      }
+
+      btn.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+      btn.addEventListener('mouseenter', function() { btn.style.background = '#FF51FA'; btn.style.color = '#fff'; });
+      btn.addEventListener('mouseleave', function() { applyTheme(); });
+      new MutationObserver(function() { applyTheme(); updatePosition(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+      applyTheme();
+      updateVisibility();
+      window.addEventListener('scroll', updateVisibility, { passive: true });
+      window.addEventListener('resize', updatePosition, { passive: true });
+      document.addEventListener('astro:page-load', function() { applyTheme(); updateVisibility(); });
     })();
   </script>
+
 
   <!-- ── Global drip-border v2: clip image + SVG trace + theme entrance ── -->
   <style>
