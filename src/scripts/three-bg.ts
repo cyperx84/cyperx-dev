@@ -8,7 +8,6 @@ import {
   BoxGeometry,
   BufferAttribute,
   BufferGeometry,
-  Camera,
   Color,
   CylinderGeometry,
   DodecahedronGeometry,
@@ -16,7 +15,6 @@ import {
   Line,
   LineBasicMaterial,
   LineSegments,
-  Material,
   Mesh,
   MeshBasicMaterial,
   OctahedronGeometry,
@@ -33,6 +31,7 @@ import {
   Vector3,
   WebGLRenderer,
 } from 'three';
+import type { Camera, Material } from 'three';
 
 // Reusable Color object — avoids GC pressure in hot loops
 const tmpColor = new Color();

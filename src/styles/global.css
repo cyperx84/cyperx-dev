@@ -11,14 +11,14 @@
   src: url('/fonts/space-grotesk-v22-latin-regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
-  font-display: optional;
+  font-display: swap;
 }
 @font-face {
   font-family: 'Space Grotesk';
   src: url('/fonts/space-grotesk-v22-latin-700.woff2') format('woff2');
   font-weight: 700 900;
   font-style: normal;
-  font-display: optional;
+  font-display: swap;
 }
 
 /* Lazer84 — retro 80s brush (headlines in extreme mode) */
@@ -54,7 +54,7 @@
   src: url('/fonts/MonaspaceRadon-Italic.woff2') format('woff2');
   font-weight: 400;
   font-style: italic;
-  font-display: optional;
+  font-display: swap;
 }
 
 /* Monaspace Krypton ExtraBold Italic — bold-italic accent */
@@ -63,7 +63,7 @@
   src: url('/fonts/MonaspaceKrypton-ExtraBoldItalic.woff2') format('woff2');
   font-weight: 800;
   font-style: italic;
-  font-display: optional;
+  font-display: swap;
 }
 
 @theme {
