@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
+import fs from 'node:fs';
+import path from 'node:path';
 
 const allPosts = await getCollection('blog');
 const posts = allPosts.sort((a, b) => {
@@ -19,6 +21,9 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+// Check at build time whether an audio file exists for this post so we can
+// skip rendering the player entirely (avoids 404 network noise on missing files).
+const hasAudio = fs.existsSync(path.resolve(`public/audio/blog/${post.data.slug}.mp3`));
 const currentIndex = posts.findIndex(p => p.data.slug === post.data.slug);
 const prevPost = currentIndex > 0 ? posts[currentIndex - 1] : null;
 const nextPost = currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null;
@@ -42,7 +47,8 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     0 min read
   </div>
 
-  <!-- Floating Audio Player -->
+  <!-- Floating Audio Player — rendered only when an mp3 actually exists -->
+  {hasAudio && (
   <div id="audio-player" class="fixed bottom-0 left-0 right-0 z-40 backdrop-blur-md border-t px-3 py-2 sm:px-4 sm:py-2.5 hidden" data-theme="dark">
     <div class="max-w-4xl mx-auto flex items-center gap-2 sm:gap-3">
       <button id="play-btn" class="w-10 h-10 sm:w-9 sm:h-9 flex items-center justify-center border font-mono text-sm shrink-0 transition-colors rounded-sm" aria-label="Play audio">▶</button>
@@ -60,6 +66,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     </div>
       <audio id="blog-audio" preload="metadata" src={`/audio/blog/${post.data.slug}.mp3`}></audio>
   </div>
+  )}
 
   ════════════════════════════════════════ -->
 
@@ -131,11 +138,11 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
       <header class="mb-10 sm:mb-16 relative z-10 border-l-8 border-[#8eff71] pl-6 sm:pl-8">
         <div class="flex flex-wrap items-center gap-4 mb-4 font-mono text-[10px]">
           <span class="text-[#ff51fa] font-black">{post.data.date}</span>
-          <span class="text-white/30">·</span>
+          <span class="text-white/60">·</span>
           <span class="text-white/50" data-reading-time={post.data.readTime}>{post.data.readTime.toUpperCase()}</span>
-          <span class="text-white/30">·</span>
+          <span class="text-white/60">·</span>
           <span class="text-[#ac89ff] font-black">{post.data.category}</span>
-          <span class="text-white/30">·</span>
+          <span class="text-white/60">·</span>
           <span class="text-[#8eff71] font-black animate-pulse"></span>
         </div>
         <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-tight overflow-visible mb-6 x-vibrating-text">{post.data.title}</h1>
@@ -202,13 +209,13 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
       <nav class="border-t border-white/10 pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 gap-6 relative z-10">
         {prevPost && (
           <a href={`/blog/${prevPost.data.slug}`} class="group bg-[#111] p-6 border-l-4 border-[#ff51fa] hover:border-[#ff51fa] hover:bg-[#191919] transition-all x-glitch-hover">
-            <div class="font-mono text-[9px] text-white/30 mb-2">&lt;&lt; PREVIOUS</div>
+            <div class="font-mono text-[9px] text-white/60 mb-2">&lt;&lt; PREVIOUS</div>
             <div class="text-sm font-black uppercase leading-tight group-hover:text-[#ff51fa] transition-colors">{prevPost.data.title}</div>
           </a>
         )}
         {nextPost && (
           <a href={`/blog/${nextPost.data.slug}`} class="group bg-[#111] p-6 border-r-4 border-[#8eff71] hover:bg-[#191919] transition-all x-glitch-hover text-right">
-            <div class="font-mono text-[9px] text-white/30 mb-2 text-right">NEXT &gt;&gt;</div>
+            <div class="font-mono text-[9px] text-white/60 mb-2 text-right">NEXT &gt;&gt;</div>
             <div class="text-sm font-black uppercase leading-tight text-right group-hover:text-[#8eff71] transition-colors">{nextPost.data.title}</div>
           </a>
         )}
@@ -1019,9 +1026,10 @@ function initAudioPlayer() {
 
   applyTheme();
 
-  // Only reveal player if audio loads; stay hidden on error / missing file
+  // Player only rendered when audio exists (guarded at build time), so we can
+  // reveal it directly once metadata loads.
   player.classList.add('hidden');
-  audio.addEventListener('loadedmetadata', () => player.classList.remove('hidden'));
+  audio.addEventListener('loadedmetadata', () => player.classList.remove('hidden'), { once: true });
   audio.addEventListener('error', () => player.classList.add('hidden'));
 
   const speeds = [1, 1.25, 1.5, 2];

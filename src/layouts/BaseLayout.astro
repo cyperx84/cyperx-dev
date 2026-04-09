@@ -317,15 +317,21 @@ const pageAttr = activeNav ?? 'home';
       setTimeout(connectWhenReady, 300);
     }
 
-    // Init on first load
-    if (!(window as any).__lenisInit) {
+    // Desktop-only: Lenis is ~17KB and adds ~5s TBT on mobile; native touch
+    // scroll is smoother on phones anyway. Also skip for reduced-motion users.
+    const lenisAllowed = window.matchMedia('(min-width: 768px)').matches
+      && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (lenisAllowed && !(window as any).__lenisInit) {
       (window as any).__lenisInit = true;
       initLenis();
     }
-    // Re-init on Astro page transitions
-    document.addEventListener('astro:page-load', () => {
-      initLenis();
-    });
+    // Re-init on Astro page transitions (desktop only)
+    if (lenisAllowed) {
+      document.addEventListener('astro:page-load', () => {
+        initLenis();
+      });
+    }
 
     // Expose for cleanup
     (window as any).__lenisInstance = () => lenis;
