@@ -62,14 +62,16 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
   </div>
 
   ════════════════════════════════════════ -->
-  <div class="variant-dark bg-transparent text-[#e2e2e2] min-h-screen">
-    <main class="relative pt-36 sm:pt-44 pb-24 sm:pb-32 px-4 sm:px-6 lg:px-12 max-w-4xl mx-auto min-h-screen">
 
+  <!-- ════════════════════════════════════════
+       CHROME: HEADERS (one per variant, top)
+  ════════════════════════════════════════ -->
+  <div class="variant-dark bg-transparent text-[#e2e2e2]">
+    <div class="pt-36 sm:pt-44 px-4 sm:px-6 lg:px-12 max-w-4xl mx-auto">
       <!-- Back link -->
       <a href="/blog" class="inline-flex items-center gap-3 font-mono text-sm font-black text-[#39FF14] hover:text-[#FF51FA] transition-colors mb-8 sm:mb-12 group px-4 py-3 border border-[#39FF14]/30 hover:border-[#FF51FA] hover:bg-[#FF51FA]/5 active:scale-95" style="clip-path:polygon(0 0,100% 0,97% 100%,3% 100%)">
         <span class="group-hover:-translate-x-2 transition-transform text-lg">&larr;</span> BACK TO BLOG
       </a>
-
       <!-- Header -->
       <header class="mb-10 sm:mb-16 border-l-8 border-[#39FF14] pl-6 sm:pl-8">
         <div class="flex flex-wrap items-center gap-4 mb-4 font-mono text-[10px] text-[#e2e2e2]/50">
@@ -89,40 +91,15 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
           ))}
         </div>
       </header>
-
-      <!-- Article Body -->
-      <article class="prose-dark blog-prose mb-16 sm:mb-24 text-[#e2e2e2] max-w-none sm:max-w-none" style="max-width:72ch"><Content /></article>
-
-      <!-- Bottom Navigation -->
-      <nav class="border-t border-[#e2e2e2]/10 pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 gap-6">
-        {prevPost && (
-          <a href={`/blog/${prevPost.data.slug}`} class="group bg-[#0e0e0e] p-6 border-l-4 border-[#FF51FA] hover:bg-[#1f1f1f] transition-colors">
-            <div class="font-mono text-[9px] text-[#e2e2e2]/40 mb-2">&lt;&lt; PREVIOUS</div>
-            <div class="text-sm font-black uppercase leading-tight group-hover:text-[#FF51FA] transition-colors">{prevPost.data.title}</div>
-          </a>
-        )}
-        {nextPost && (
-          <a href={`/blog/${nextPost.data.slug}`} class="group bg-[#0e0e0e] p-6 border-r-4 border-[#AC89FF] hover:bg-[#1f1f1f] transition-colors text-right">
-            <div class="font-mono text-[9px] text-[#e2e2e2]/40 mb-2 text-right">NEXT &gt;&gt;</div>
-            <div class="text-sm font-black uppercase leading-tight text-right group-hover:text-[#AC89FF] transition-colors">{nextPost.data.title}</div>
-          </a>
-        )}
-      </nav>
-    </main>
+    </div>
   </div>
 
-
-  <!-- ════════════════════════════════════════
-       LIGHT VARIANT
-  ════════════════════════════════════════ -->
-  <div class="variant-light bg-white/90 text-[#131313] min-h-screen">
-    <main class="pt-36 sm:pt-44 pb-24 sm:pb-32 px-4 sm:px-6 lg:px-12 max-w-4xl mx-auto">
-
+  <div class="variant-light bg-white/90 text-[#131313]">
+    <div class="pt-36 sm:pt-44 px-4 sm:px-6 lg:px-12 max-w-4xl mx-auto">
       <!-- Back link -->
       <a href="/blog" class="inline-flex items-center gap-3 font-mono text-sm font-black text-[#131313] hover:text-[#FF51FA] transition-colors mb-8 sm:mb-12 group px-4 py-3 border-2 border-[#131313]/20 hover:border-[#FF51FA] hover:bg-[#FF51FA]/5 active:scale-95" style="clip-path:polygon(2% 0,100% 0,98% 100%,0 100%)">
         <span class="group-hover:-translate-x-2 transition-transform text-lg">&larr;</span> BACK TO BLOG
       </a>
-
       <!-- Header -->
       <header class="mb-10 sm:mb-16">
         <div class="flex flex-wrap items-center gap-4 mb-4 font-mono text-[10px] text-[#131313]/50">
@@ -140,41 +117,16 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
           ))}
         </div>
       </header>
-
-      <!-- Article Body -->
-      <article class="prose-light blog-prose mb-16 sm:mb-24 text-[#131313] max-w-none sm:max-w-none" style="max-width:72ch"><Content /></article>
-
-      <!-- Bottom Navigation -->
-      <nav class="border-t border-[#131313]/10 pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 gap-6">
-        {prevPost && (
-          <a href={`/blog/${prevPost.data.slug}`} class="group bg-[#f5f5f5] p-6 hover:bg-[#ebebeb] transition-colors" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">
-            <div class="font-mono text-[9px] text-[#131313]/40 mb-2">&lt;&lt; PREVIOUS</div>
-            <div class="text-sm font-black uppercase leading-tight group-hover:text-[#FF51FA] transition-colors">{prevPost.data.title}</div>
-          </a>
-        )}
-        {nextPost && (
-          <a href={`/blog/${nextPost.data.slug}`} class="group bg-[#f5f5f5] p-6 hover:bg-[#ebebeb] transition-colors text-right" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">
-            <div class="font-mono text-[9px] text-[#131313]/40 mb-2 text-right">NEXT &gt;&gt;</div>
-            <div class="text-sm font-black uppercase leading-tight text-right group-hover:text-[#AC89FF] transition-colors">{nextPost.data.title}</div>
-          </a>
-        )}
-      </nav>
-    </main>
+    </div>
   </div>
 
-
-  <!-- ════════════════════════════════════════
-       EXTREME VARIANT
-  ════════════════════════════════════════ -->
-  <div class="variant-extreme bg-transparent text-white min-h-screen overflow-x-hidden" style="cursor:crosshair">
-    <main class="relative pt-36 sm:pt-44 pb-24 sm:pb-32 px-4 sm:px-6 lg:px-12 max-w-4xl mx-auto min-h-screen">
-      <div class="fixed inset-0 x-fractal-bg -z-10"></div>
-
+  <div class="variant-extreme bg-transparent text-white overflow-x-hidden" style="cursor:crosshair">
+    <div class="fixed inset-0 x-fractal-bg -z-10"></div>
+    <div class="relative pt-36 sm:pt-44 px-4 sm:px-6 lg:px-12 max-w-4xl mx-auto">
       <!-- Back link -->
       <a href="/blog" class="inline-flex items-center gap-3 font-mono text-sm font-black text-[#8eff71] hover:text-[#ff51fa] transition-colors mb-8 sm:mb-12 group relative z-10 px-4 py-3 border border-[#8eff71]/40 hover:border-[#ff51fa] hover:bg-[#ff51fa]/10 active:scale-95" style="clip-path:polygon(0 5%,97% 0,100% 95%,3% 100%)">
         <span class="group-hover:-translate-x-2 transition-transform text-lg">&larr;</span> BACK TO BLOG
       </a>
-
       <!-- Header -->
       <header class="mb-10 sm:mb-16 relative z-10 border-l-8 border-[#8eff71] pl-6 sm:pl-8">
         <div class="flex flex-wrap items-center gap-4 mb-4 font-mono text-[10px]">
@@ -194,11 +146,59 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
           ))}
         </div>
       </header>
+    </div>
+  </div>
 
-      <!-- Article Body -->
-      <article class="prose-extreme blog-prose mb-16 sm:mb-24 text-white relative z-10 max-w-none sm:max-w-none" style="max-width:72ch"><Content /></article>
+  <!-- ════════════════════════════════════════
+       SHARED PROSE (rendered once)
+  ════════════════════════════════════════ -->
+  <main class="relative px-4 sm:px-6 lg:px-12 max-w-4xl mx-auto">
+    <article class="blog-prose mb-16 sm:mb-24 max-w-none sm:max-w-none relative z-10" style="max-width:72ch"><Content /></article>
+  </main>
 
-      <!-- Bottom Navigation -->
+  <!-- ════════════════════════════════════════
+       CHROME: BOTTOM NAVS (one per variant)
+  ════════════════════════════════════════ -->
+  <div class="variant-dark bg-transparent text-[#e2e2e2]">
+    <div class="pb-24 sm:pb-32 px-4 sm:px-6 lg:px-12 max-w-4xl mx-auto">
+      <nav class="border-t border-[#e2e2e2]/10 pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {prevPost && (
+          <a href={`/blog/${prevPost.data.slug}`} class="group bg-[#0e0e0e] p-6 border-l-4 border-[#FF51FA] hover:bg-[#1f1f1f] transition-colors">
+            <div class="font-mono text-[9px] text-[#e2e2e2]/40 mb-2">&lt;&lt; PREVIOUS</div>
+            <div class="text-sm font-black uppercase leading-tight group-hover:text-[#FF51FA] transition-colors">{prevPost.data.title}</div>
+          </a>
+        )}
+        {nextPost && (
+          <a href={`/blog/${nextPost.data.slug}`} class="group bg-[#0e0e0e] p-6 border-r-4 border-[#AC89FF] hover:bg-[#1f1f1f] transition-colors text-right">
+            <div class="font-mono text-[9px] text-[#e2e2e2]/40 mb-2 text-right">NEXT &gt;&gt;</div>
+            <div class="text-sm font-black uppercase leading-tight text-right group-hover:text-[#AC89FF] transition-colors">{nextPost.data.title}</div>
+          </a>
+        )}
+      </nav>
+    </div>
+  </div>
+
+  <div class="variant-light bg-white/90 text-[#131313]">
+    <div class="pb-24 sm:pb-32 px-4 sm:px-6 lg:px-12 max-w-4xl mx-auto">
+      <nav class="border-t border-[#131313]/10 pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {prevPost && (
+          <a href={`/blog/${prevPost.data.slug}`} class="group bg-[#f5f5f5] p-6 hover:bg-[#ebebeb] transition-colors" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">
+            <div class="font-mono text-[9px] text-[#131313]/40 mb-2">&lt;&lt; PREVIOUS</div>
+            <div class="text-sm font-black uppercase leading-tight group-hover:text-[#FF51FA] transition-colors">{prevPost.data.title}</div>
+          </a>
+        )}
+        {nextPost && (
+          <a href={`/blog/${nextPost.data.slug}`} class="group bg-[#f5f5f5] p-6 hover:bg-[#ebebeb] transition-colors text-right" style="clip-path:polygon(5% 0,100% 0,95% 100%,0 100%)">
+            <div class="font-mono text-[9px] text-[#131313]/40 mb-2 text-right">NEXT &gt;&gt;</div>
+            <div class="text-sm font-black uppercase leading-tight text-right group-hover:text-[#AC89FF] transition-colors">{nextPost.data.title}</div>
+          </a>
+        )}
+      </nav>
+    </div>
+  </div>
+
+  <div class="variant-extreme bg-transparent text-white overflow-x-hidden" style="cursor:crosshair">
+    <div class="relative pb-24 sm:pb-32 px-4 sm:px-6 lg:px-12 max-w-4xl mx-auto">
       <nav class="border-t border-white/10 pt-8 sm:pt-12 grid grid-cols-1 sm:grid-cols-2 gap-6 relative z-10">
         {prevPost && (
           <a href={`/blog/${prevPost.data.slug}`} class="group bg-[#111] p-6 border-l-4 border-[#ff51fa] hover:border-[#ff51fa] hover:bg-[#191919] transition-all x-glitch-hover">
@@ -213,14 +213,14 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
           </a>
         )}
       </nav>
-    </main>
+    </div>
   </div>
 
 </BaseLayout>
 
 <style is:global>
   /* ── Article prose styles ── */
-  .prose-dark h2 {
+  .theme-dark .blog-prose h2 {
     font-size: 1.5rem;
     font-weight: 900;
     text-transform: uppercase;
@@ -230,7 +230,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     margin-bottom: 1rem;
     font-style: italic;
   }
-  .prose-dark h3 {
+  .theme-dark .blog-prose h3 {
     font-size: 1.15rem;
     font-weight: 800;
     text-transform: uppercase;
@@ -239,24 +239,24 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     margin-top: 2rem;
     margin-bottom: 0.75rem;
   }
-  .prose-dark p {
+  .theme-dark .blog-prose p {
     margin-bottom: 1.25rem;
     line-height: 1.75;
     color: #baccb0;
   }
-  .prose-dark ul {
+  .theme-dark .blog-prose ul {
     margin: 1.25rem 0;
     padding-left: 1.5rem;
     list-style: none;
   }
-  .prose-dark ul li {
+  .theme-dark .blog-prose ul li {
     position: relative;
     padding-left: 1.25rem;
     margin-bottom: 0.5rem;
     color: #baccb0;
     line-height: 1.7;
   }
-  .prose-dark ul li::before {
+  .theme-dark .blog-prose ul li::before {
     content: '//';
     position: absolute;
     left: 0;
@@ -264,11 +264,11 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     font-family: monospace;
     font-size: 0.75rem;
   }
-  .prose-dark ul li strong {
+  .theme-dark .blog-prose ul li strong {
     color: #e2e2e2;
     font-weight: 800;
   }
-  .prose-dark code {
+  .theme-dark .blog-prose code {
     background: #1f1f1f;
     color: #39FF14;
     padding: 0.1em 0.4em;
@@ -276,12 +276,12 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     font-size: 0.85em;
     border: 1px solid #39FF14/20;
   }
-  .prose-dark strong {
+  .theme-dark .blog-prose strong {
     color: #e2e2e2;
     font-weight: 800;
   }
 
-  .prose-light h2 {
+  .theme-light .blog-prose h2 {
     font-size: 1.5rem;
     font-weight: 900;
     text-transform: uppercase;
@@ -293,7 +293,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     margin-bottom: 1rem;
     font-style: italic;
   }
-  .prose-light h3 {
+  .theme-light .blog-prose h3 {
     font-size: 1.15rem;
     font-weight: 800;
     text-transform: uppercase;
@@ -302,47 +302,47 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     margin-top: 2rem;
     margin-bottom: 0.75rem;
   }
-  .prose-light p {
+  .theme-light .blog-prose p {
     margin-bottom: 1.25rem;
     line-height: 1.75;
     color: #333;
   }
-  .prose-light ul {
+  .theme-light .blog-prose ul {
     margin: 1.25rem 0;
     padding-left: 1.5rem;
     list-style: none;
   }
-  .prose-light ul li {
+  .theme-light .blog-prose ul li {
     position: relative;
     padding-left: 1.25rem;
     margin-bottom: 0.5rem;
     color: #333;
     line-height: 1.7;
   }
-  .prose-light ul li::before {
+  .theme-light .blog-prose ul li::before {
     content: '→';
     position: absolute;
     left: 0;
     color: #FF51FA;
     font-size: 0.85rem;
   }
-  .prose-light ul li strong {
+  .theme-light .blog-prose ul li strong {
     color: #131313;
     font-weight: 800;
   }
-  .prose-light code {
+  .theme-light .blog-prose code {
     background: #f0f0f0;
     color: #FF51FA;
     padding: 0.1em 0.4em;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.85em;
   }
-  .prose-light strong {
+  .theme-light .blog-prose strong {
     color: #131313;
     font-weight: 800;
   }
 
-  .prose-extreme h2 {
+  .theme-extreme .blog-prose h2 {
     font-size: 1.5rem;
     font-weight: 900;
     text-transform: uppercase;
@@ -353,7 +353,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     font-style: italic;
     text-shadow: 0 0 20px rgba(142,255,113,0.5);
   }
-  .prose-extreme h3 {
+  .theme-extreme .blog-prose h3 {
     font-size: 1.15rem;
     font-weight: 800;
     text-transform: uppercase;
@@ -362,24 +362,24 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     margin-top: 2rem;
     margin-bottom: 0.75rem;
   }
-  .prose-extreme p {
+  .theme-extreme .blog-prose p {
     margin-bottom: 1.25rem;
     line-height: 1.75;
     color: rgba(255,255,255,0.8);
   }
-  .prose-extreme ul {
+  .theme-extreme .blog-prose ul {
     margin: 1.25rem 0;
     padding-left: 1.5rem;
     list-style: none;
   }
-  .prose-extreme ul li {
+  .theme-extreme .blog-prose ul li {
     position: relative;
     padding-left: 1.5rem;
     margin-bottom: 0.5rem;
     color: rgba(255,255,255,0.7);
     line-height: 1.7;
   }
-  .prose-extreme ul li::before {
+  .theme-extreme .blog-prose ul li::before {
     content: '>>';
     position: absolute;
     left: 0;
@@ -387,11 +387,11 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     font-family: monospace;
     font-size: 0.7rem;
   }
-  .prose-extreme ul li strong {
+  .theme-extreme .blog-prose ul li strong {
     color: #fff;
     font-weight: 800;
   }
-  .prose-extreme code {
+  .theme-extreme .blog-prose code {
     background: rgba(0,0,0,0.5);
     color: #8eff71;
     padding: 0.1em 0.4em;
@@ -399,7 +399,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     font-size: 0.85em;
     border: 1px solid rgba(142,255,113,0.3);
   }
-  .prose-extreme strong {
+  .theme-extreme .blog-prose strong {
     color: #fff;
     font-weight: 800;
   }
@@ -430,8 +430,9 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     opacity: 1;
     transform: scale(1.01);
   }
-  .prose-extreme .blog-prose img { filter: saturate(1.2) contrast(1.1); opacity: 0.9; }
-  .prose-dark .blog-prose img { filter: saturate(0.85) contrast(1.08); }
+  .theme-extreme .blog-prose { cursor: crosshair; }
+  .theme-extreme .blog-prose img { filter: saturate(1.2) contrast(1.1); opacity: 0.9; }
+  .theme-dark .blog-prose img { filter: saturate(0.85) contrast(1.08); }
 
   /* Legacy wrapper classes — kept for any cached pages */
   .blog-jag-outer { display: block; position: relative; }
@@ -479,21 +480,21 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     line-height: 1;
     font-weight: 900;
   }
-  .variant-dark .blog-prose blockquote::before { color: #39FF14; }
-  .variant-dark .blog-prose blockquote { border-left: 3px solid #39FF14; color: #d4f0d4; }
-  .variant-light .blog-prose blockquote::before { color: #FF51FA; }
-  .variant-light .blog-prose blockquote { border-left: 3px solid #FF51FA; color: #555; }
-  .variant-extreme .blog-prose blockquote::before { color: #8eff71; }
-  .variant-extreme .blog-prose blockquote { border-left: 3px solid #8eff71; color: rgba(255,255,255,0.85); }
+  .theme-dark .blog-prose blockquote::before { color: #39FF14; }
+  .theme-dark .blog-prose blockquote { border-left: 3px solid #39FF14; color: #d4f0d4; }
+  .theme-light .blog-prose blockquote::before { color: #FF51FA; }
+  .theme-light .blog-prose blockquote { border-left: 3px solid #FF51FA; color: #555; }
+  .theme-extreme .blog-prose blockquote::before { color: #8eff71; }
+  .theme-extreme .blog-prose blockquote { border-left: 3px solid #8eff71; color: rgba(255,255,255,0.85); }
 
   /* Reading progress bar colors per variant */
-  .variant-dark ~ #blog-progress { background: #39FF14; }
-  .variant-light ~ #blog-progress { background: #FF51FA; }
-  .variant-extreme ~ #blog-progress { background: #8eff71; box-shadow: 0 0 8px rgba(142,255,113,0.5); }
+  .theme-dark #blog-progress { background: #39FF14; }
+  .theme-light #blog-progress { background: #FF51FA; }
+  .theme-extreme #blog-progress { background: #8eff71; box-shadow: 0 0 8px rgba(142,255,113,0.5); }
 
   /* Reading indicator variant styling */
-  .variant-light ~ #reading-indicator { background: rgba(255,255,255,0.9) !important; color: #FF51FA !important; border: 1px solid rgba(0,0,0,0.1); }
-  .variant-extreme ~ #reading-indicator { background: rgba(0,0,0,0.8) !important; color: #8eff71 !important; box-shadow: 0 0 8px rgba(142,255,113,0.3); }
+  .theme-light #reading-indicator { background: rgba(255,255,255,0.9) !important; color: #FF51FA !important; border: 1px solid rgba(0,0,0,0.1); }
+  .theme-extreme #reading-indicator { background: rgba(0,0,0,0.8) !important; color: #8eff71 !important; box-shadow: 0 0 8px rgba(142,255,113,0.3); }
 
   /* Extreme animations */
   @keyframes x-drift {
@@ -538,54 +539,54 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
   ══════════════════════════════════════════ */
 
   /* ── prose-dark: Terminal/Hacker ── */
-  .prose-dark h2::before { content: '> '; color: #39FF14; font-family: 'JetBrains Mono', monospace; }
-  .prose-dark h3::before { content: '>> '; color: #FF51FA; font-family: 'JetBrains Mono', monospace; font-size: 0.9em; }
+  .theme-dark .blog-prose h2::before { content: '> '; color: #39FF14; font-family: 'JetBrains Mono', monospace; }
+  .theme-dark .blog-prose h3::before { content: '>> '; color: #FF51FA; font-family: 'JetBrains Mono', monospace; font-size: 0.9em; }
 
-  .prose-dark h2 {
+  .theme-dark .blog-prose h2 {
     font-family: 'JetBrains Mono', monospace;
     letter-spacing: 0.05em;
   }
-  .prose-dark h3 {
+  .theme-dark .blog-prose h3 {
     font-family: 'JetBrains Mono', monospace;
   }
 
-  .prose-dark p { color: #c8e6c0; }
+  .theme-dark .blog-prose p { color: #c8e6c0; }
 
-  .prose-dark code {
+  .theme-dark .blog-prose code {
     background: #000;
     color: #39FF14;
     border: 1px solid rgba(57,255,20,0.3);
     position: relative;
   }
-  .prose-dark :not(pre) > code::after { display: none; }
-  .prose-dark pre {
+  .theme-dark .blog-prose :not(pre) > code::after { display: none; }
+  .theme-dark .blog-prose pre {
     background: #000 !important;
     border: 1px solid rgba(57,255,20,0.2);
     border-left: 3px solid #39FF14;
     padding: 1.25rem;
     overflow-x: auto;
   }
-  .prose-dark pre code {
+  .theme-dark .blog-prose pre code {
     background: transparent;
     color: #39FF14;
     border: none;
   }
-  .prose-dark pre code::after { display: none; }
+  .theme-dark .blog-prose pre code::after { display: none; }
 
-  .prose-dark ul {
+  .theme-dark .blog-prose ul {
     border-left: 1px solid rgba(57,255,20,0.2);
     margin-left: 0.5rem;
   }
-  .prose-dark ul li { color: #c8e6c0; }
-  .prose-dark ul li::before { color: #39FF14; }
+  .theme-dark .blog-prose ul li { color: #c8e6c0; }
+  .theme-dark .blog-prose ul li::before { color: #39FF14; }
 
-  .prose-dark a {
+  .theme-dark .blog-prose a {
     color: #39FF14;
     text-decoration: none;
     border-bottom: 1px solid transparent;
     transition: border-color 0.2s ease, text-shadow 0.2s ease;
   }
-  .prose-dark a:hover {
+  .theme-dark .blog-prose a:hover {
     border-bottom-color: #39FF14;
     text-shadow: 0 0 8px rgba(57,255,20,0.6);
   }
@@ -594,7 +595,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     0%   { background-position: -200% 0; }
     100% { background-position: 200% 0; }
   }
-  .prose-dark hr {
+  .theme-dark .blog-prose hr {
     border: none;
     height: 1px;
     background: linear-gradient(90deg, transparent, #39FF14, #FF51FA, #AC89FF, transparent);
@@ -604,7 +605,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
   }
 
   /* ── prose-light: Magazine/Editorial ── */
-  .prose-light h2 {
+  .theme-light .blog-prose h2 {
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 900;
     font-size: 1.75rem;
@@ -613,55 +614,55 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     color: #111;
     margin-top: 3rem;
   }
-  .prose-light h3 {
+  .theme-light .blog-prose h3 {
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 800;
   }
 
-  .prose-light p {
+  .theme-light .blog-prose p {
     line-height: 1.85;
     color: #444;
     font-size: 1.05rem;
   }
 
-  .prose-light code {
+  .theme-light .blog-prose code {
     background: #f3efff;
     color: #7c3aed;
     border: none;
     padding: 0.15em 0.5em;
   }
-  .prose-light pre {
+  .theme-light .blog-prose pre {
     background: #f3efff !important;
     border: 1px solid rgba(124,58,237,0.15);
     border-left: 4px solid #AC89FF;
     padding: 1.25rem;
     overflow-x: auto;
   }
-  .prose-light pre code {
+  .theme-light .blog-prose pre code {
     background: transparent;
     color: #5b21b6;
   }
 
-  .prose-light ul li {
+  .theme-light .blog-prose ul li {
     transition: padding-left 0.2s ease;
   }
-  .prose-light ul li:hover {
+  .theme-light .blog-prose ul li:hover {
     padding-left: 2rem;
   }
-  .prose-light ul li::before { color: #FF51FA; }
+  .theme-light .blog-prose ul li::before { color: #FF51FA; }
 
-  .prose-light a {
+  .theme-light .blog-prose a {
     color: #FF51FA;
     text-decoration: none;
     border-bottom: 1px solid rgba(255,81,250,0.3);
     transition: color 0.2s ease, border-color 0.2s ease;
   }
-  .prose-light a:hover {
+  .theme-light .blog-prose a:hover {
     color: #39FF14;
     border-bottom-color: #39FF14;
   }
 
-  .prose-light hr {
+  .theme-light .blog-prose hr {
     border: none;
     position: relative;
     height: 2px;
@@ -670,7 +671,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     width: 80%;
     opacity: 0.4;
   }
-  .prose-light hr::after {
+  .theme-light .blog-prose hr::after {
     content: '◆';
     position: absolute;
     left: 50%;
@@ -688,17 +689,17 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     25%  { transform: translate(0.5px, -0.5px); text-shadow: 2px 0 #ff51fa, -2px 0 #8eff71, 0 0 20px rgba(142,255,113,0.5); }
     75%  { transform: translate(-0.5px, 0.5px); text-shadow: -2px 0 #ac89ff, 2px 0 #8eff71, 0 0 25px rgba(142,255,113,0.4); }
   }
-  .prose-extreme h2 {
+  .theme-extreme .blog-prose h2 {
     color: #8eff71;
     animation: prose-heading-vibrate 4s ease-in-out infinite;
     font-style: italic;
   }
-  .prose-extreme h3 {
+  .theme-extreme .blog-prose h3 {
     color: #ff51fa;
     text-shadow: 0 0 10px rgba(255,81,250,0.5);
   }
 
-  .prose-extreme p {
+  .theme-extreme .blog-prose p {
     color: rgba(255,255,255,0.85);
     text-shadow: 0 0 20px rgba(255,255,255,0.05);
   }
@@ -709,20 +710,20 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     66%  { border-color: #ac89ff; box-shadow: 0 0 8px rgba(172,137,255,0.3); }
     100% { border-color: #8eff71; box-shadow: 0 0 8px rgba(142,255,113,0.3); }
   }
-  .prose-extreme code {
+  .theme-extreme .blog-prose code {
     background: rgba(0,0,0,0.7);
     color: #8eff71;
     border: 1px solid #8eff71;
     animation: code-border-cycle 3s linear infinite;
   }
-  .prose-extreme pre {
+  .theme-extreme .blog-prose pre {
     background: rgba(0,0,0,0.8) !important;
     border: 1px solid #8eff71;
     animation: code-border-cycle 3s linear infinite;
     padding: 1.25rem;
     overflow-x: auto;
   }
-  .prose-extreme pre code {
+  .theme-extreme .blog-prose pre code {
     background: transparent;
     border: none;
     animation: none;
@@ -735,12 +736,12 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     66%  { border-color: #ac89ff; }
     100% { border-color: #8eff71; }
   }
-  .variant-extreme .blog-prose blockquote {
+  .theme-extreme .blog-prose blockquote {
     animation: blockquote-border-cycle 4s linear infinite;
   }
 
-  .prose-extreme ul li { color: rgba(255,255,255,0.7); }
-  .prose-extreme ul li::before {
+  .theme-extreme .blog-prose ul li { color: rgba(255,255,255,0.7); }
+  .theme-extreme .blog-prose ul li::before {
     color: #8eff71;
     text-shadow: 0 0 8px rgba(142,255,113,0.8);
   }
@@ -753,12 +754,12 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     0%   { filter: hue-rotate(0deg); }
     100% { filter: hue-rotate(360deg); }
   }
-  .prose-extreme a {
+  .theme-extreme .blog-prose a {
     color: #8eff71;
     text-decoration: none;
     position: relative;
   }
-  .prose-extreme a::after {
+  .theme-extreme .blog-prose a::after {
     content: '';
     position: absolute;
     bottom: -2px; left: 0;
@@ -767,7 +768,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     background-size: 200% 100%;
     animation: rainbow-underline 2s linear infinite;
   }
-  .prose-extreme a:hover {
+  .theme-extreme .blog-prose a:hover {
     animation: link-hue-cycle 1s linear infinite;
   }
 
@@ -776,7 +777,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
     50%  { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
-  .prose-extreme hr {
+  .theme-extreme .blog-prose hr {
     border: none;
     height: 4px;
     background: linear-gradient(90deg, #8eff71, #ff51fa, #ac89ff, #8eff71);
@@ -807,7 +808,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
       filter: brightness(0.8);
     }
     /* Blog links in prose */
-    .prose-dark a:active, .prose-light a:active, .prose-extreme a:active {
+    .theme-dark .blog-prose a:active, .theme-light .blog-prose a:active, .theme-extreme .blog-prose a:active {
       transform: scale(0.98);
       filter: brightness(1.2);
     }
@@ -919,9 +920,10 @@ function buildToc() {
   const prior = document.getElementById('blog-toc');
   if (prior) prior.remove();
 
-  const darkMain = document.querySelector('.variant-dark main');
-  if (!darkMain) return;
-  const h2s = Array.from(darkMain.querySelectorAll('.blog-prose h2'));
+  if (!document.documentElement.classList.contains('theme-dark')) return;
+  const prose = document.querySelector('.blog-prose');
+  if (!prose) return;
+  const h2s = Array.from(prose.querySelectorAll('h2'));
   if (h2s.length < 2) return;
 
   // Assign IDs
