@@ -10,6 +10,7 @@ const posts = allPosts.sort((a, b) => {
 });
 const featured = posts[0];
 const rest = posts.slice(1);
+const allTags = Array.from(new Set(posts.flatMap(p => p.data.tags))).sort();
 ---
 <BaseLayout title="CYPERX.DEV // BLOG" activeNav="blog">
 
@@ -25,8 +26,19 @@ const rest = posts.slice(1);
         <div class="mt-6 sm:mt-8 max-w-xl text-base sm:text-lg text-[#e2e2e2]/80 border-l-4 border-[#FF51FA] pl-6" data-reveal>Notes from building. Stuff I figured out, stuff I'm still working through. No fluff.</div>
       </section>
 
+      <!-- Tag Filter -->
+      <nav class="mb-10 sm:mb-14" aria-label="Filter posts by tag">
+        <div class="font-mono text-[10px] text-[#39FF14]/70 mb-3 tracking-widest uppercase">// FILTER BY TAG</div>
+        <div class="flex flex-wrap gap-2 blog-filter-bar" data-filter-bar>
+          <button type="button" data-filter-tag="" aria-pressed="true" class="blog-tag-pill px-3 py-1 font-mono text-[10px] uppercase border border-[#39FF14]/50 bg-[#39FF14] text-black">ALL</button>
+          {allTags.map(tag => (
+            <button type="button" data-filter-tag={tag} aria-pressed="false" class="blog-tag-pill px-3 py-1 font-mono text-[10px] uppercase border border-[#39FF14]/30 text-[#39FF14] hover:bg-[#39FF14]/10">#{tag}</button>
+          ))}
+        </div>
+      </nav>
+
       <!-- Featured Post -->
-      <article class="mb-16 sm:mb-24 group relative">
+      <article class="mb-16 sm:mb-24 group relative blog-post-card" data-post-tags={featured.data.tags.join(',')}>
         <div class="absolute -inset-1 bg-[#39FF14]/20 blur-xl group-hover:bg-[#39FF14]/40 transition-colors"></div>
         <a href={`/blog/${featured.data.slug}`} class="block relative bg-[#2a2a2a] x-shard-melt-intense overflow-hidden x-glitch-hover border-l-8 border-[#39FF14] p-6 sm:p-8 lg:p-12">
           <div class="x-shard-inner-fractal"></div>
@@ -37,7 +49,7 @@ const rest = posts.slice(1);
               <p class="text-[#baccb0] mb-4 sm:mb-6 text-sm sm:text-base">{featured.data.excerpt}</p>
               <div class="flex flex-wrap gap-2 mb-6">
                 {featured.data.tags.map(tag => (
-                  <span class="px-2 py-1 bg-[#1f1f1f] text-[8px] font-mono text-[#39FF14]">#{tag}</span>
+                  <button type="button" data-filter-tag={tag} class="blog-inline-tag px-2 py-1 bg-[#1f1f1f] text-[8px] font-mono text-[#39FF14] hover:bg-[#39FF14] hover:text-black cursor-pointer">#{tag}</button>
                 ))}
               </div>
             </div>
@@ -74,7 +86,7 @@ const rest = posts.slice(1);
           const xShards = ["x-shard-sidebar", "x-shard-3", "x-shard-4", "x-shard-sidebar", "x-shard-3"];
           const colors = ["#FF51FA", "#39FF14", "#AC89FF", "#FF51FA", "#39FF14"];
           return (
-            <article class={`${spans[i]} group`} data-reveal>
+            <article class={`${spans[i]} group blog-post-card`} data-reveal data-post-tags={post.data.tags.join(',')}>
               <a href={`/blog/${post.data.slug}`} class={`block bg-[#0e0e0e] ${xShards[i]} p-6 sm:p-8 ${borders[i]} overflow-hidden relative x-glitch-hover h-full flex flex-col justify-between hover:bg-[#1f1f1f] transition-all duration-500`}>
                 <div class="x-shard-inner-fractal"></div>
                 <div class="relative z-10">
@@ -88,7 +100,7 @@ const rest = posts.slice(1);
                   <p class="text-sm text-[#e2e2e2]/60 mb-4">{post.data.excerpt}</p>
                   <div class="flex flex-wrap gap-2">
                     {post.data.tags.map(tag => (
-                      <span class="px-2 py-1 bg-[#1f1f1f] text-[8px] font-mono text-[#e2e2e2]/40">#{tag}</span>
+                      <span role="button" tabindex="0" data-filter-tag={tag} class="blog-inline-tag px-2 py-1 bg-[#1f1f1f] text-[8px] font-mono text-[#e2e2e2]/40 hover:text-[#39FF14] cursor-pointer">#{tag}</span>
                     ))}
                   </div>
                 </div>
@@ -122,8 +134,19 @@ const rest = posts.slice(1);
         </div>
       </section>
 
+      <!-- Tag Filter -->
+      <nav class="mb-12" aria-label="Filter posts by tag">
+        <div class="font-mono text-[10px] text-[#FF51FA] mb-3 tracking-widest uppercase font-bold">// FILTER BY TAG</div>
+        <div class="flex flex-wrap gap-2 blog-filter-bar" data-filter-bar>
+          <button type="button" data-filter-tag="" aria-pressed="true" class="blog-tag-pill px-3 py-1 font-mono text-[10px] uppercase border-2 border-[#131313] bg-[#131313] text-[#39FF14]">ALL</button>
+          {allTags.map(tag => (
+            <button type="button" data-filter-tag={tag} aria-pressed="false" class="blog-tag-pill px-3 py-1 font-mono text-[10px] uppercase border-2 border-[#131313]/20 text-[#131313] hover:bg-[#131313] hover:text-[#39FF14]">#{tag}</button>
+          ))}
+        </div>
+      </nav>
+
       <!-- Featured -->
-      <article class="mb-16 group">
+      <article class="mb-16 group blog-post-card" data-post-tags={featured.data.tags.join(',')}>
         <div class="bg-[#ebebeb] p-1 transition-all group-hover:bg-[#39FF14] duration-500 x-glitch-hover overflow-hidden relative x-shard-melt-intense" style="">
           <div class="bg-white p-6 sm:p-8 lg:p-12 relative overflow-hidden" style="clip-path:polygon(10% 0, 100% 5%, 90% 100%, 0 85%)">
             <div class="x-shard-inner-fractal opacity-5"></div>
@@ -133,7 +156,7 @@ const rest = posts.slice(1);
             <div class="flex items-center justify-between flex-wrap gap-4">
               <div class="flex flex-wrap gap-2">
                 {featured.data.tags.map(tag => (
-                  <span class="bg-[#f0f0f0] text-[10px] font-mono px-2 py-1 text-[#131313]/60">#{tag}</span>
+                  <button type="button" data-filter-tag={tag} class="blog-inline-tag bg-[#f0f0f0] text-[10px] font-mono px-2 py-1 text-[#131313]/60 hover:bg-[#131313] hover:text-[#39FF14] cursor-pointer">#{tag}</button>
                 ))}
               </div>
               <div class="flex items-center gap-4">
@@ -161,7 +184,7 @@ const rest = posts.slice(1);
           const borderColors = ["#FF51FA", "#AC89FF", "#39FF14", "#FF51FA", "#AC89FF"];
           const xShards = ["x-shard-sidebar", "x-shard-3", "x-shard-4", "x-shard-sidebar", "x-shard-3"];
           return (
-            <article class={`${spans[i]} group`} data-reveal style={`animation: x-drift ${7 + i}s ease-in-out infinite`}>
+            <article class={`${spans[i]} group blog-post-card`} data-reveal data-post-tags={post.data.tags.join(',')} style={`animation: x-drift ${7 + i}s ease-in-out infinite`}>
               <a href={`/blog/${post.data.slug}`} class={`block p-1 transition-all duration-500 hover:skew-y-1 x-glitch-hover overflow-hidden relative`} style={`background:${borderColors[i]}; clip-path:${clipPaths[i]}`}>
                 <div class="bg-white p-5 sm:p-6 relative overflow-hidden" style={`clip-path:${clipPaths[i]}`}>
                   <div class="x-shard-inner-fractal opacity-5"></div>
@@ -175,7 +198,7 @@ const rest = posts.slice(1);
                     <div class="flex items-center justify-between">
                       <div class="flex flex-wrap gap-1">
                         {post.data.tags.slice(0, 2).map(tag => (
-                          <span class="bg-[#f0f0f0] text-[9px] font-mono px-2 py-1">#{tag}</span>
+                          <span role="button" tabindex="0" data-filter-tag={tag} class="blog-inline-tag bg-[#f0f0f0] text-[9px] font-mono px-2 py-1 hover:bg-[#131313] hover:text-[#39FF14] cursor-pointer">#{tag}</span>
                         ))}
                       </div>
                       <span class="font-mono text-[10px] opacity-60">{post.data.readTime}</span>
@@ -224,8 +247,19 @@ const rest = posts.slice(1);
         </div>
       </header>
 
+      <!-- Tag Filter -->
+      <nav class="mb-16 sm:mb-20" aria-label="Filter posts by tag">
+        <div class="font-mono text-xs text-[#8eff71] mb-4 tracking-[0.3em] uppercase font-black">// FILTER // TAG</div>
+        <div class="flex flex-wrap gap-3 blog-filter-bar" data-filter-bar>
+          <button type="button" data-filter-tag="" aria-pressed="true" class="blog-tag-pill px-4 py-2 font-mono text-xs font-black uppercase border-2 border-[#8eff71] bg-[#8eff71] text-black shadow-[0_0_20px_rgba(142,255,113,0.6)]">ALL</button>
+          {allTags.map(tag => (
+            <button type="button" data-filter-tag={tag} aria-pressed="false" class="blog-tag-pill px-4 py-2 font-mono text-xs font-black uppercase border-2 border-[#8eff71]/30 text-[#8eff71] hover:border-[#8eff71] hover:bg-[#8eff71]/10">#{tag}</button>
+          ))}
+        </div>
+      </nav>
+
       <!-- Featured -->
-      <article class="mb-16 sm:mb-24 group relative">
+      <article class="mb-16 sm:mb-24 group relative blog-post-card" data-post-tags={featured.data.tags.join(',')}>
         <div class="absolute -inset-8 bg-gradient-to-br from-[#8eff71] via-[#ff51fa] to-[#ac89ff] blur-[100px] opacity-20 group-hover:opacity-80 transition-opacity duration-1000"></div>
         <div class="relative bg-[#191919] border-4 border-[#8eff71]/50 x-shard-melt-intense shadow-[0_0_60px_rgba(142,255,113,0.3)] overflow-hidden x-glitch-hover">
           <div class="x-shard-inner-fractal"></div>
@@ -256,7 +290,7 @@ const rest = posts.slice(1);
           const borderColors = ["#ff51fa", "#8eff71", "#ac89ff", "#ff51fa", "#8eff71"];
           const xShards = ["x-shard-sidebar", "x-shard-3", "x-shard-4", "x-shard-sidebar", "x-shard-3"];
           return (
-            <article class={`${spans[i]} group`} data-reveal>
+            <article class={`${spans[i]} group blog-post-card`} data-reveal data-post-tags={post.data.tags.join(',')}>
               <a href={`/blog/${post.data.slug}`} class={`block bg-[#111] p-6 sm:p-8 border-4 overflow-hidden relative ${xShards[i]} x-glitch-hover hover:scale-[1.02] transition-all duration-500`} style={`border-color:${borderColors[i]}50; box-shadow:0 0 40px ${borderColors[i]}33`}>
                 <div class="x-shard-inner-fractal"></div>
                 <div class="relative z-10">
@@ -270,7 +304,7 @@ const rest = posts.slice(1);
                   <p class="text-sm text-[#ababab] leading-tight font-medium italic mb-4">{post.data.excerpt}</p>
                   <div class="flex flex-wrap gap-2 mb-4">
                     {post.data.tags.map(tag => (
-                      <span class="px-2 py-1 bg-black/50 text-[8px] font-mono" style={`color:${borderColors[i]}99`}>#{tag}</span>
+                      <span role="button" tabindex="0" data-filter-tag={tag} class="blog-inline-tag px-2 py-1 bg-black/50 text-[8px] font-mono cursor-pointer hover:bg-[#8eff71] hover:text-black" style={`color:${borderColors[i]}99`}>#{tag}</span>
                     ))}
                   </div>
                   <div class="flex items-center justify-between font-mono text-[10px] border-t border-white/10 pt-4">
@@ -377,5 +411,78 @@ const rest = posts.slice(1);
       clip-path: polygon(3% 0%, 100% 0%, 97% 100%, 0% 100%);
     }
   }
+
+  /* Tag filter active state */
+  .blog-tag-pill { transition: all 0.2s ease; }
+  .blog-tag-pill[aria-pressed="true"] {
+    background: #39FF14 !important;
+    color: #000 !important;
+    border-color: #39FF14 !important;
+    box-shadow: 0 0 12px rgba(57, 255, 20, 0.6);
+  }
+  .variant-light .blog-tag-pill[aria-pressed="true"] {
+    background: #131313 !important;
+    color: #39FF14 !important;
+    border-color: #131313 !important;
+    box-shadow: 0 0 0 2px #39FF14;
+  }
+  .variant-extreme .blog-tag-pill[aria-pressed="true"] {
+    background: #8eff71 !important;
+    color: #000 !important;
+    border-color: #8eff71 !important;
+    box-shadow: 0 0 24px rgba(142, 255, 113, 0.9);
+  }
+  .blog-post-card.is-hidden { display: none !important; }
 </style>
+
+<script is:inline>
+  (function () {
+    function applyFilter(tag) {
+      var cards = document.querySelectorAll('.blog-post-card');
+      cards.forEach(function (card) {
+        var tags = (card.getAttribute('data-post-tags') || '').split(',').map(function (t) { return t.trim(); }).filter(Boolean);
+        if (!tag || tags.indexOf(tag) !== -1) card.classList.remove('is-hidden');
+        else card.classList.add('is-hidden');
+      });
+      var pills = document.querySelectorAll('.blog-tag-pill');
+      pills.forEach(function (pill) {
+        var pillTag = pill.getAttribute('data-filter-tag') || '';
+        pill.setAttribute('aria-pressed', pillTag === (tag || '') ? 'true' : 'false');
+      });
+    }
+    function setTag(tag, opts) {
+      opts = opts || {};
+      var url = new URL(window.location.href);
+      if (tag) url.searchParams.set('tag', tag);
+      else url.searchParams.delete('tag');
+      if (!opts.skipHistory) history.replaceState(null, '', url.toString());
+      applyFilter(tag);
+    }
+    function currentTag() {
+      var pressed = document.querySelector('.blog-tag-pill[aria-pressed="true"]');
+      return pressed ? (pressed.getAttribute('data-filter-tag') || '') : '';
+    }
+    document.addEventListener('click', function (e) {
+      var el = e.target.closest('[data-filter-tag]');
+      if (!el) return;
+      e.preventDefault();
+      e.stopPropagation();
+      var tag = el.getAttribute('data-filter-tag') || '';
+      // Toggle off if clicking the already-active tag
+      if (tag && currentTag() === tag) tag = '';
+      setTag(tag);
+      var bar = document.querySelector('[data-filter-bar]');
+      if (bar) bar.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      var el = e.target.closest('[data-filter-tag][role="button"]');
+      if (!el) return;
+      e.preventDefault();
+      el.click();
+    });
+    var initial = new URL(window.location.href).searchParams.get('tag') || '';
+    applyFilter(initial);
+  })();
+</script>
 </BaseLayout>
