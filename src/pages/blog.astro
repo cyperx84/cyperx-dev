@@ -26,6 +26,11 @@ const allTags = Array.from(new Set(posts.flatMap(p => p.data.tags))).sort();
         <div class="mt-6 sm:mt-8 max-w-xl text-base sm:text-lg text-[#e2e2e2]/80 border-l-4 border-[#FF51FA] pl-6" data-reveal>Notes from building. Stuff I figured out, stuff I'm still working through. No fluff.</div>
       </section>
 
+      <!-- Search -->
+      <div class="mb-6">
+        <input type="search" placeholder="Search posts..." data-blog-search class="w-full max-w-md bg-[#0e0e0e] border border-[#39FF14]/30 text-[#e2e2e2] font-mono text-sm px-4 py-2 placeholder-[#39FF14]/40 focus:outline-none focus:border-[#39FF14] focus:shadow-[0_0_12px_rgba(57,255,20,0.3)] transition-all" />
+      </div>
+
       <!-- Tag Filter -->
       <nav class="mb-10 sm:mb-14" aria-label="Filter posts by tag">
         <div class="font-mono text-[10px] text-[#39FF14]/70 mb-3 tracking-widest uppercase">// FILTER BY TAG</div>
@@ -133,6 +138,11 @@ const allTags = Array.from(new Set(posts.flatMap(p => p.data.tags))).sort();
           <span>{posts.length} posts</span>
         </div>
       </section>
+
+      <!-- Search -->
+      <div class="mb-6">
+        <input type="search" placeholder="Search posts..." data-blog-search class="w-full max-w-md bg-[#f5f5f5] border-2 border-[#131313]/20 text-[#131313] font-mono text-sm px-4 py-2 placeholder-[#131313]/40 focus:outline-none focus:border-[#FF51FA] focus:shadow-[0_0_12px_rgba(255,81,250,0.2)] transition-all" />
+      </div>
 
       <!-- Tag Filter -->
       <nav class="mb-12" aria-label="Filter posts by tag">
@@ -246,6 +256,11 @@ const allTags = Array.from(new Set(posts.flatMap(p => p.data.tags))).sort();
           <span class="opacity-40 italic">// {posts.length} posts</span>
         </div>
       </header>
+
+      <!-- Search -->
+      <div class="mb-8">
+        <input type="search" placeholder="Search posts..." data-blog-search class="w-full max-w-md bg-black/50 border-2 border-[#8eff71]/30 text-white font-mono text-sm px-4 py-3 placeholder-[#8eff71]/40 focus:outline-none focus:border-[#8eff71] focus:shadow-[0_0_20px_rgba(142,255,113,0.4)] transition-all" />
+      </div>
 
       <!-- Tag Filter -->
       <nav class="mb-16 sm:mb-20" aria-label="Filter posts by tag">
@@ -435,15 +450,38 @@ const allTags = Array.from(new Set(posts.flatMap(p => p.data.tags))).sort();
     box-shadow: 0 0 24px rgba(142, 255, 113, 0.9);
   }
   .blog-post-card.is-hidden { display: none !important; }
+
+  /* Theme accent indicator on blog cards */
+  .blog-post-card > a { border-left: 3px solid transparent; }
+  .theme-dark .blog-post-card > a { border-left-color: #39FF14; }
+  .theme-light .blog-post-card > a { border-left-color: #FF51FA; }
+  .theme-extreme .blog-post-card > a { border-left-color: #8eff71; }
 </style>
 
 <script is:inline>
   (function () {
-    function applyFilter(tag) {
+    var searchTimer = null;
+
+    function getSearchQuery() {
+      var input = document.querySelector('[data-blog-search]:not([style*="display:none"])');
+      if (!input) input = document.querySelector('[data-blog-search]');
+      return input ? input.value.trim().toLowerCase() : '';
+    }
+
+    function applyFilter(tag, query) {
+      if (query === undefined) query = getSearchQuery();
       var cards = document.querySelectorAll('.blog-post-card');
       cards.forEach(function (card) {
         var tags = (card.getAttribute('data-post-tags') || '').split(',').map(function (t) { return t.trim(); }).filter(Boolean);
-        if (!tag || tags.indexOf(tag) !== -1) card.classList.remove('is-hidden');
+        var tagMatch = !tag || tags.indexOf(tag) !== -1;
+        var searchMatch = true;
+        if (query) {
+          var title = (card.querySelector('h2, h3') || {}).textContent || '';
+          var desc = (card.querySelector('p') || {}).textContent || '';
+          var haystack = (title + ' ' + desc).toLowerCase();
+          searchMatch = haystack.indexOf(query) !== -1;
+        }
+        if (tagMatch && searchMatch) card.classList.remove('is-hidden');
         else card.classList.add('is-hidden');
       });
       var pills = document.querySelectorAll('.blog-tag-pill');
@@ -452,30 +490,41 @@ const allTags = Array.from(new Set(posts.flatMap(p => p.data.tags))).sort();
         pill.setAttribute('aria-pressed', pillTag === (tag || '') ? 'true' : 'false');
       });
     }
-    function setTag(tag, opts) {
-      opts = opts || {};
+
+    function updateURL(tag, query) {
       var url = new URL(window.location.href);
       if (tag) url.searchParams.set('tag', tag);
       else url.searchParams.delete('tag');
-      if (!opts.skipHistory) history.replaceState(null, '', url.toString());
-      applyFilter(tag);
+      if (query) url.searchParams.set('q', query);
+      else url.searchParams.delete('q');
+      history.replaceState(null, '', url.toString());
     }
+
+    function setTag(tag, opts) {
+      opts = opts || {};
+      var query = getSearchQuery();
+      if (!opts.skipHistory) updateURL(tag, query);
+      applyFilter(tag, query);
+    }
+
     function currentTag() {
       var pressed = document.querySelector('.blog-tag-pill[aria-pressed="true"]');
       return pressed ? (pressed.getAttribute('data-filter-tag') || '') : '';
     }
+
+    // Tag clicks
     document.addEventListener('click', function (e) {
       var el = e.target.closest('[data-filter-tag]');
       if (!el) return;
       e.preventDefault();
       e.stopPropagation();
       var tag = el.getAttribute('data-filter-tag') || '';
-      // Toggle off if clicking the already-active tag
       if (tag && currentTag() === tag) tag = '';
       setTag(tag);
       var bar = document.querySelector('[data-filter-bar]');
       if (bar) bar.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
+
     document.addEventListener('keydown', function (e) {
       if (e.key !== 'Enter' && e.key !== ' ') return;
       var el = e.target.closest('[data-filter-tag][role="button"]');
@@ -483,8 +532,30 @@ const allTags = Array.from(new Set(posts.flatMap(p => p.data.tags))).sort();
       e.preventDefault();
       el.click();
     });
-    var initial = new URL(window.location.href).searchParams.get('tag') || '';
-    applyFilter(initial);
+
+    // Search input (debounced)
+    document.querySelectorAll('[data-blog-search]').forEach(function (input) {
+      input.addEventListener('input', function () {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(function () {
+          var tag = currentTag();
+          var query = getSearchQuery();
+          updateURL(tag, query);
+          applyFilter(tag, query);
+        }, 200);
+      });
+    });
+
+    // Init from URL
+    var params = new URL(window.location.href).searchParams;
+    var initialTag = params.get('tag') || '';
+    var initialQ = params.get('q') || '';
+    if (initialQ) {
+      document.querySelectorAll('[data-blog-search]').forEach(function (input) {
+        input.value = initialQ;
+      });
+    }
+    applyFilter(initialTag, initialQ);
   })();
 </script>
 </BaseLayout>

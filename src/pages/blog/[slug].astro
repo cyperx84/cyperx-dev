@@ -869,6 +869,80 @@ try {
       padding-right: 2rem;
     }
   }
+
+  /* ── Code copy button ── */
+  .code-copy-btn {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    font-family: monospace;
+    font-size: 10px;
+    padding: 2px 8px;
+    background: transparent;
+    cursor: pointer;
+    z-index: 10;
+    line-height: 1.6;
+    transition: opacity 0.2s;
+  }
+  .theme-dark .code-copy-btn {
+    border: 1px solid #39FF14;
+    color: #39FF14;
+  }
+  .theme-light .code-copy-btn {
+    border: 1px solid #FF51FA;
+    color: #FF51FA;
+  }
+  .theme-extreme .code-copy-btn {
+    border: 1px solid #8eff71;
+    color: #8eff71;
+  }
+
+  /* ── Resume reading toast ── */
+  .resume-toast {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: monospace;
+    font-size: 12px;
+    padding: 8px 14px;
+    margin-bottom: 16px;
+    border: 1px solid;
+  }
+  .theme-dark .resume-toast {
+    border-color: #39FF14;
+    color: #39FF14;
+    background: rgba(57,255,20,0.05);
+  }
+  .theme-light .resume-toast {
+    border-color: #FF51FA;
+    color: #FF51FA;
+    background: rgba(255,81,250,0.05);
+  }
+  .theme-extreme .resume-toast {
+    border-color: #8eff71;
+    color: #8eff71;
+    background: rgba(142,255,113,0.05);
+  }
+  .resume-toast-text { flex: 1; }
+  .resume-toast-go {
+    font-family: monospace;
+    font-size: 10px;
+    padding: 2px 10px;
+    background: transparent;
+    cursor: pointer;
+    border: 1px solid currentColor;
+    color: inherit;
+  }
+  .resume-toast-x {
+    font-family: monospace;
+    font-size: 16px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    padding: 0 4px;
+    line-height: 1;
+  }
 </style>
 
 <script>
@@ -958,6 +1032,75 @@ function initBlogPage() {
   buildToc();
 
   // (.x-fractal-bg deferred-load is handled centrally by BaseLayout)
+
+  // ── Code block copy buttons ──
+  document.querySelectorAll('.blog-prose pre').forEach(pre => {
+    if (pre.querySelector('.code-copy-btn')) return; // already injected
+    const wrapper = document.createElement('div');
+    wrapper.style.position = 'relative';
+    pre.parentNode.insertBefore(wrapper, pre);
+    wrapper.appendChild(pre);
+
+    const btn = document.createElement('button');
+    btn.className = 'code-copy-btn';
+    btn.textContent = 'Copy';
+    btn.setAttribute('aria-label', 'Copy code to clipboard');
+    btn.addEventListener('click', () => {
+      const code = pre.querySelector('code');
+      const text = (code || pre).textContent || '';
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+    wrapper.appendChild(btn);
+  });
+
+  // ── Reading progress persistence ──
+  const blogSlug = window.location.pathname.replace(/^\/blog\//, '').replace(/\/$/, '');
+  const storageKey = `cyperx-reading-${blogSlug}`;
+  const proseEl = document.querySelector('.blog-prose');
+
+  // Debounced scroll-position save (every 2s)
+  let _saveTimer = null;
+  function saveScrollPos() {
+    clearTimeout(_saveTimer);
+    _saveTimer = setTimeout(() => {
+      localStorage.setItem(storageKey, String(window.scrollY));
+    }, 2000);
+  }
+  window.addEventListener('scroll', saveScrollPos, { passive: true });
+
+  // Clear saved position when user reaches the bottom
+  function checkBottom() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (docHeight > 0 && scrollTop / docHeight > 0.97) {
+      localStorage.removeItem(storageKey);
+    }
+  }
+  window.addEventListener('scroll', checkBottom, { passive: true });
+
+  // Show "Resume reading?" toast if saved position exists
+  const savedY = localStorage.getItem(storageKey);
+  if (savedY && Number(savedY) > 200 && proseEl) {
+    // Remove any prior toast
+    const oldToast = document.getElementById('resume-toast');
+    if (oldToast) oldToast.remove();
+
+    const toast = document.createElement('div');
+    toast.id = 'resume-toast';
+    toast.className = 'resume-toast';
+    toast.innerHTML = `<span class="resume-toast-text">Resume reading?</span><button class="resume-toast-go">Resume</button><button class="resume-toast-x" aria-label="Dismiss">&times;</button>`;
+    proseEl.parentNode.insertBefore(toast, proseEl);
+
+    const dismiss = () => toast.remove();
+    toast.querySelector('.resume-toast-go').addEventListener('click', () => {
+      window.scrollTo({ top: Number(savedY), behavior: 'smooth' });
+      dismiss();
+    });
+    toast.querySelector('.resume-toast-x').addEventListener('click', dismiss);
+  }
 } // end initBlogPage
 
 function slugify(str) {

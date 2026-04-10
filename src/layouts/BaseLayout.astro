@@ -28,7 +28,7 @@ const defaultOgImage = 'https://cyperx.dev/og-image.png';
 
 const resolvedDescription = description ?? defaultDescription;
 const resolvedOgTitle = ogTitle ?? title;
-const resolvedOgDescription = ogDescription ?? defaultDescription;
+const resolvedOgDescription = ogDescription ?? description ?? defaultDescription;
 const resolvedOgImage = ogImage ?? defaultOgImage;
 const resolvedOgType = ogType ?? 'website';
 const pageAttr = activeNav ?? 'home';
@@ -63,6 +63,7 @@ const pageAttr = activeNav ?? 'home';
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="canonical" href={Astro.url.href} />
+  <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="CyperX.dev Blog" />
   <!-- Open Graph -->
   <meta property="og:type" content={resolvedOgType} />
   <meta property="og:title" content={resolvedOgTitle} />
