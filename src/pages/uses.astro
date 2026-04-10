@@ -1,0 +1,156 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const sections = [
+  { label: "EDITOR_TERMINAL", items: [
+    { name: "NeoVim", note: "main editor — custom Lua config" },
+    { name: "tmux", note: "session management" },
+    { name: "zsh", note: "shell" },
+    { name: "Ghostty", note: "GPU-accelerated terminal" },
+  ]},
+  { label: "NEOVIM_PLUGINS", items: [
+    { name: "Oil.nvim", note: "file explorer" },
+    { name: "Harpoon", note: "quick file switching" },
+    { name: "Telescope", note: "fuzzy finder" },
+    { name: "Yazi", note: "terminal file manager" },
+    { name: "Navigator", note: "tmux/nvim pane navigation" },
+  ]},
+  { label: "AI_TOOLS", items: [
+    { name: "Claude Code CLI", note: "runs inside NeoVim terminal" },
+  ]},
+  { label: "DEV_STACK", items: [
+    { name: "Astro", note: "static site framework" },
+    { name: "Tailwind CSS v4", note: "utility-first CSS" },
+    { name: "Three.js", note: "3D backgrounds" },
+    { name: "TypeScript", note: "type safety everywhere" },
+  ]},
+  { label: "DEPLOYMENT", items: [
+    { name: "Cloudflare Pages", note: "edge hosting" },
+    { name: "GitHub", note: "source control" },
+  ]},
+  { label: "FONTS", items: [
+    { name: "Space Grotesk", note: "body text" },
+    { name: "ZedMono Nerd Font", note: "monospace / code" },
+    { name: "Lazer84", note: "display / headers" },
+    { name: "Monaspace Radon & Krypton", note: "accent fonts" },
+  ]},
+  { label: "HARDWARE", items: [
+    { name: "Coming soon", note: "details pending" },
+  ]},
+];
+---
+
+<BaseLayout title="Uses — CyperX.dev" description="Tools, hardware, and software I use">
+
+  <!-- ════════════════════════════════════════
+       DARK VARIANT
+  ════════════════════════════════════════ -->
+  <div class="variant-dark bg-transparent text-[#e2e2e2] min-h-screen">
+    <main class="relative pt-28 sm:pt-36 pb-24 px-4 sm:px-6 max-w-5xl mx-auto">
+      <section class="mb-16">
+        <p class="font-mono text-[#39FF14] text-xs tracking-[0.5em] mb-6">// USES</p>
+        <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black italic tracking-tighter leading-none mb-4">
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#39FF14] via-[#AC89FF] to-[#FF51FA]">SETUP</span>
+        </h1>
+        <p class="font-mono text-[#baccb0] text-sm">Tools, hardware, and software I use daily.</p>
+      </section>
+      {sections.map((s) => (
+        <section class="mb-12">
+          <p class="font-mono text-[10px] text-[#AC89FF]/80 tracking-[0.4em] mb-4 border-b border-[#e2e2e2]/5 pb-2">{s.label}</p>
+          <div class="space-y-0">
+            {s.items.map((item) => (
+              <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-6 py-3 border-b border-[#e2e2e2]/5 last:border-b-0 hover:bg-[#111] px-2 transition-colors">
+                <span class="text-[#39FF14] font-mono text-sm font-bold min-w-[200px]">{item.name}</span>
+                <span class="text-[#baccb0] font-mono text-xs opacity-60">{item.note}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
+      <p class="font-mono text-[10px] text-[#e2e2e2]/25 tracking-widest mt-16">This page is a living document — updated as my setup evolves.</p>
+    </main>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       LIGHT VARIANT
+  ════════════════════════════════════════ -->
+  <div class="variant-light bg-white/90 text-[#131313] min-h-screen">
+    <main class="relative pt-28 sm:pt-36 pb-24 px-4 sm:px-6 max-w-5xl mx-auto">
+      <section class="mb-16">
+        <p class="font-mono text-[#FF51FA] text-xs tracking-[0.5em] mb-6">// USES</p>
+        <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black italic tracking-tighter leading-none mb-4">
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#FF51FA] via-[#AC89FF] to-[#39FF14]">SETUP</span>
+        </h1>
+        <p class="font-mono text-[#555] text-sm">Tools, hardware, and software I use daily.</p>
+      </section>
+      {sections.map((s) => (
+        <section class="mb-12">
+          <p class="font-mono text-[10px] text-[#AC89FF]/80 tracking-[0.4em] mb-4 border-b border-[#131313]/5 pb-2">{s.label}</p>
+          <div class="space-y-0">
+            {s.items.map((item) => (
+              <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-6 py-3 border-b border-[#131313]/5 last:border-b-0 hover:bg-[#f5f5f5] px-2 transition-colors">
+                <span class="text-[#FF51FA] font-mono text-sm font-bold min-w-[200px]">{item.name}</span>
+                <span class="text-[#555] font-mono text-xs opacity-60">{item.note}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
+      <p class="font-mono text-[10px] text-[#131313]/25 tracking-widest mt-16">This page is a living document — updated as my setup evolves.</p>
+    </main>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       EXTREME VARIANT
+  ════════════════════════════════════════ -->
+  <div class="variant-extreme bg-transparent text-white min-h-screen">
+    <div class="x-fractal-bg pointer-events-none"></div>
+    <div class="x-scanlines pointer-events-none"></div>
+    <main class="relative pt-28 sm:pt-36 pb-24 px-4 sm:px-6 max-w-5xl mx-auto">
+      <section class="mb-16 relative z-10">
+        <p class="font-mono text-[#8eff71] text-xs tracking-[0.5em] mb-6">// USES</p>
+        <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black italic tracking-tighter leading-none mb-4">
+          <span class="text-white uses-glitch">SETUP<span class="text-[#8eff71]">.</span></span>
+        </h1>
+        <p class="font-mono text-white/50 text-sm">Tools, hardware, and software I use daily.</p>
+      </section>
+      {sections.map((s) => (
+        <section class="mb-12 relative z-10">
+          <p class="font-mono text-[10px] text-[#ac89ff]/60 tracking-[0.4em] mb-4 border-b border-[#8eff71]/10 pb-2">{s.label}</p>
+          <div class="space-y-0 bg-black/40">
+            {s.items.map((item) => (
+              <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-6 py-3 border-b border-[#8eff71]/10 last:border-b-0 hover:bg-[#8eff71]/5 px-4 transition-colors">
+                <span class="text-[#8eff71] font-mono text-sm font-bold min-w-[200px]">{item.name}</span>
+                <span class="text-white/40 font-mono text-xs">{item.note}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
+      <p class="font-mono text-[10px] text-white/15 tracking-widest mt-16 relative z-10">This page is a living document — updated as my setup evolves.</p>
+    </main>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .uses-glitch {
+    animation: uses-vibrate 8s ease-in-out infinite;
+  }
+  @keyframes uses-vibrate {
+    0%, 90%, 100% { text-shadow: none; }
+    92% { text-shadow: 3px 0 #ff51fa, -3px 0 #8eff71; }
+    94% { text-shadow: -2px 0 #8eff71, 2px 0 #ff51fa; }
+    96% { text-shadow: 3px 0 #ff51fa, -3px 0 #8eff71; }
+    98% { text-shadow: none; }
+  }
+  .x-fractal-bg {
+    background: radial-gradient(ellipse at 20% 50%, #8eff7108 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, #ff51fa08 0%, transparent 60%);
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+  }
+  .x-scanlines {
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 4px);
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;
+  }
+</style>

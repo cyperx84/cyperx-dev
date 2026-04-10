@@ -14,10 +14,12 @@
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.1",
+    "@resvg/resvg-js": "^2.6.2",
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.0.7",
     "gsap": "^3.14.2",
     "lenis": "^1.3.20",
+    "satori": "^0.26.0",
     "tailwindcss": "^4.2.2",
     "three": "^0.183.2",
     "three-stdlib": "^2.36.1"

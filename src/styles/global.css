@@ -1713,3 +1713,114 @@ img.img-loaded {
   .site-footer .footer-link:active { color: #39FF14; }
   .mobile-menu-link:active { color: #39FF14; background: rgba(57,255,20,0.08); }
 }
+
+/* ===== Theme-variant code block styling for blog posts ===== */
+
+/* --- Dark theme code blocks --- */
+.theme-dark .blog-prose pre {
+  background: #0a0a0a;
+  border: 1px solid rgba(57, 255, 20, 0.2);
+  color: #e2e2e2;
+  border-radius: 4px;
+  padding: 1.25rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+/* --- Light theme code blocks --- */
+.theme-light .blog-prose pre {
+  background: #f5f5f5;
+  border: 1px solid rgba(255, 81, 250, 0.15);
+  color: #1a1a1a;
+  border-radius: 4px;
+  padding: 1.25rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+/* --- Extreme theme code blocks --- */
+.theme-extreme .blog-prose pre {
+  background: #0d001a;
+  border: 1px solid rgba(142, 255, 113, 0.3);
+  box-shadow: 0 0 20px rgba(142, 255, 113, 0.1);
+  color: #e0ffe0;
+  border-radius: 4px;
+  padding: 1.25rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+/* --- Inline code per theme --- */
+.theme-dark .blog-prose :not(pre) > code {
+  background: #1a1a1a;
+  color: #39FF14;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+.theme-light .blog-prose :not(pre) > code {
+  background: #f0f0f0;
+  color: #d63384;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+.theme-extreme .blog-prose :not(pre) > code {
+  background: #1a0033;
+  color: #8eff71;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+/* --- Selection color inside code blocks --- */
+.theme-dark .blog-prose pre ::selection {
+  background: #39FF14;
+  color: #000;
+}
+
+.theme-light .blog-prose pre ::selection {
+  background: #FF51FA;
+  color: #fff;
+}
+
+.theme-extreme .blog-prose pre ::selection {
+  background: #8eff71;
+  color: #000;
+}
+
+/* --- Scrollbar styling for code blocks (webkit) --- */
+.theme-dark .blog-prose pre::-webkit-scrollbar {
+  height: 6px;
+}
+.theme-dark .blog-prose pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+.theme-dark .blog-prose pre::-webkit-scrollbar-thumb {
+  background: rgba(57, 255, 20, 0.3);
+}
+
+.theme-light .blog-prose pre::-webkit-scrollbar {
+  height: 6px;
+}
+.theme-light .blog-prose pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+.theme-light .blog-prose pre::-webkit-scrollbar-thumb {
+  background: rgba(255, 81, 250, 0.3);
+}
+
+.theme-extreme .blog-prose pre::-webkit-scrollbar {
+  height: 6px;
+}
+.theme-extreme .blog-prose pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+.theme-extreme .blog-prose pre::-webkit-scrollbar-thumb {
+  background: rgba(142, 255, 113, 0.3);
+}

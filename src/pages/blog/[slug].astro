@@ -177,6 +177,36 @@ try {
   </main>
 
   <!-- ════════════════════════════════════════
+       COMMENTS (Giscus — GitHub Discussions)
+       ────────────────────────────────────────
+       TODO: Before comments work you must:
+       1. Enable GitHub Discussions on your repo (Settings → Features → Discussions)
+       2. Install the Giscus app: https://github.com/apps/giscus
+       3. Go to https://giscus.app, enter your repo, and replace
+          PLACEHOLDER_REPO_ID and PLACEHOLDER_CATEGORY_ID below.
+  ════════════════════════════════════════ -->
+  <section id="comments" class="relative px-4 sm:px-6 lg:px-12 max-w-4xl mx-auto pt-10 pb-12">
+    <div class="comments-border mb-8"></div>
+    <h2 class="font-mono text-lg font-black uppercase tracking-wider mb-6 comments-heading">// Comments</h2>
+    <script
+      src="https://giscus.app/client.js"
+      data-repo="cyperx84/cyperx-dev"
+      data-repo-id="PLACEHOLDER_REPO_ID"
+      data-category="Blog Comments"
+      data-category-id="PLACEHOLDER_CATEGORY_ID"
+      data-mapping="pathname"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="dark_dimmed"
+      data-lang="en"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async>
+    </script>
+  </section>
+
+  <!-- ════════════════════════════════════════
        CHROME: BOTTOM NAVS (one per variant)
   ════════════════════════════════════════ -->
   <div class="variant-dark bg-transparent text-[#e2e2e2]">
@@ -943,6 +973,19 @@ try {
     padding: 0 4px;
     line-height: 1;
   }
+
+  /* ══════════════════════════════════════════
+     COMMENTS SECTION (Giscus)
+  ══════════════════════════════════════════ */
+  .comments-border {
+    height: 2px;
+  }
+  .theme-dark .comments-border { background: linear-gradient(90deg, #39FF14, transparent); }
+  .theme-dark .comments-heading { color: #39FF14; }
+  .theme-light .comments-border { background: linear-gradient(90deg, #FF51FA, transparent); }
+  .theme-light .comments-heading { color: #FF51FA; }
+  .theme-extreme .comments-border { background: linear-gradient(90deg, #8eff71, #ff51fa, transparent); box-shadow: 0 0 8px rgba(142,255,113,0.4); }
+  .theme-extreme .comments-heading { color: #8eff71; text-shadow: 0 0 10px rgba(142,255,113,0.5); }
 </style>
 
 <script>
@@ -1101,6 +1144,35 @@ function initBlogPage() {
     });
     toast.querySelector('.resume-toast-x').addEventListener('click', dismiss);
   }
+  // ── Giscus: set theme based on current site theme ──
+  function getGiscusTheme() {
+    const html = document.documentElement;
+    if (html.classList.contains('theme-light')) return 'light';
+    if (html.classList.contains('theme-extreme')) return 'dark_high_contrast';
+    return 'dark_dimmed'; // default / theme-dark
+  }
+
+  // Set initial theme attribute on the Giscus script element
+  const giscusScript = document.querySelector('script[data-repo="cyperx84/cyperx-dev"]');
+  if (giscusScript) {
+    giscusScript.setAttribute('data-theme', getGiscusTheme());
+  }
+
+  // Send theme update to already-loaded Giscus iframe
+  function updateGiscusTheme() {
+    const iframe = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame');
+    if (iframe?.contentWindow) {
+      iframe.contentWindow.postMessage(
+        { giscus: { setConfig: { theme: getGiscusTheme() } } },
+        'https://giscus.app'
+      );
+    }
+  }
+
+  // Watch for theme changes on <html> and relay to Giscus
+  const giscusThemeObs = new MutationObserver(updateGiscusTheme);
+  giscusThemeObs.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
 } // end initBlogPage
 
 function slugify(str) {

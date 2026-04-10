@@ -29,7 +29,10 @@ const defaultOgImage = 'https://cyperx.dev/og-image.png';
 const resolvedDescription = description ?? defaultDescription;
 const resolvedOgTitle = ogTitle ?? title;
 const resolvedOgDescription = ogDescription ?? description ?? defaultDescription;
-const resolvedOgImage = ogImage ?? defaultOgImage;
+// Auto-generate OG image path for blog posts (use dynamic OG unless a custom heroImage was provided)
+const blogMatch = Astro.url.pathname.match(/^\/blog\/([^/]+)\/?$/);
+const autoBlogOg = blogMatch ? `https://cyperx.dev/og/${blogMatch[1]}.png` : null;
+const resolvedOgImage = (ogImage && ogImage !== defaultOgImage) ? ogImage : (autoBlogOg ?? ogImage ?? defaultOgImage);
 const resolvedOgType = ogType ?? 'website';
 const pageAttr = activeNav ?? 'home';
 ---
