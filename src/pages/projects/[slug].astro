@@ -371,9 +371,11 @@ const { project } = Astro.props;
   }
   .x-vibrating-text { animation: psychedelic-melt 6s ease-in-out infinite; text-shadow: 3px 0 #ff51fa, -3px 0 #8eff71; }
   .x-fractal-bg {
-    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCCF-Wu0arOTEDRI7pEIgN9zoNVdLKE4WsdOdqmG-mtDHqHKeMqx_pBPtjbjQ4HLpooT9zBpJxFZIdyqmNhwaR3F5bS0VU9SZlVRdaD5SIIexczbDXVJLbC3fYM2lj-LBSQE8z_t1hhuH-YwO4BAU9o7bwkQAjqbW5Q1Lla1YTPzZjwno57NJKB4OVSqJNG42o5Uyn6rRNAztZgkm42__gqzmM9KOWda7YxxqhQfjXKC-JYyYqX7MWlCNskOFkjixU_RUmSdE3msqg);
     background-size: 200%; animation: x-fractal-shift 20s linear infinite;
     opacity: 0.2; mix-blend-mode: screen; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  }
+  .x-fractal-bg.x-fractal-loaded {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCCF-Wu0arOTEDRI7pEIgN9zoNVdLKE4WsdOdqmG-mtDHqHKeMqx_pBPtjbjQ4HLpooT9zBpJxFZIdyqmNhwaR3F5bS0VU9SZlVRdaD5SIIexczbDXVJLbC3fYM2lj-LBSQE8z_t1hhuH-YwO4BAU9o7bwkQAjqbW5Q1Lla1YTPzZjwno57NJKB4OVSqJNG42o5Uyn6rRNAztZgkm42__gqzmM9KOWda7YxxqhQfjXKC-JYyYqX7MWlCNskOFkjixU_RUmSdE3msqg);
   }
   .x-glitch-hover { position: relative; }
 </style>

@@ -10,6 +10,7 @@ interface Props {
   ogDescription?: string;
   ogImage?: string;
   ogType?: string;
+  heroPreload?: string;
 }
 const {
   title = 'CYPERX.DEV',
@@ -19,6 +20,7 @@ const {
   ogDescription,
   ogImage,
   ogType,
+  heroPreload,
 } = Astro.props;
 
 const defaultDescription = 'CyperX — builder, breaker, automator. AI agent infrastructure, distributed fleets, and tools that compound over time.';
@@ -81,6 +83,22 @@ const pageAttr = activeNav ?? 'home';
   <link rel="preload" href="/fonts/space-grotesk-v22-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/space-grotesk-v22-latin-700.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/Lazer84.woff2" as="font" type="font/woff2" crossorigin />
+  {heroPreload && <link rel="preload" as="image" href={heroPreload} fetchpriority="high" />}
+  <!-- LCP fix: defer the heavy decorative fractal background until idle so
+       it never becomes the LCP element. Class attached after first paint. -->
+  <script is:inline>
+    (function(){
+      function load(){ document.querySelectorAll('.x-fractal-bg').forEach(function(el){ el.classList.add('x-fractal-loaded'); }); }
+      // Wait until window load + a beat so LCP has firmly resolved on a
+      // real content element before this decorative background paints.
+      // Long delay so the LCP candidate firmly resolves on a real text/image
+      // element before this decorative full-viewport background paints.
+      var go = function(){ setTimeout(load, 2500); };
+      if (document.readyState === 'complete') go();
+      else window.addEventListener('load', go);
+      document.addEventListener('astro:page-load', function(){ setTimeout(load, 2500); });
+    })();
+  </script>
   <!-- ZedMono/Monaspace not preloaded — accent/terminal fonts, font-display:swap handles them without blocking FCP -->
   <!-- JetBrains Mono removed — ZedMono NFM is the primary mono, JBM was only a fallback and never rendered -->
 

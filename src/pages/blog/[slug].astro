@@ -29,6 +29,18 @@ const prevPost = currentIndex > 0 ? posts[currentIndex - 1] : null;
 const nextPost = currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null;
 
 const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
+
+// Extract first inline image from the markdown body at build time so we can
+// preload it with fetchpriority=high — it's almost always the LCP element on
+// blog post pages.
+let firstProseImage: string | undefined;
+try {
+  const rawBody = (post as any).body as string | undefined;
+  if (rawBody) {
+    const m = rawBody.match(/!\[[^\]]*\]\((\/[^)]+)\)/);
+    if (m) firstProseImage = m[1];
+  }
+} catch {}
 ---
 <BaseLayout
   title={`CYPERX.DEV // ${post.data.title.toUpperCase()}`}
@@ -37,6 +49,7 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
   ogDescription={post.data.excerpt}
   ogImage={postOgImage}
   ogType="article"
+  heroPreload={firstProseImage}
 >
 
   <!-- Reading progress bar -->
@@ -441,6 +454,18 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
   .theme-extreme .blog-prose img { filter: saturate(1.2) contrast(1.1); opacity: 0.9; }
   .theme-dark .blog-prose img { filter: saturate(0.85) contrast(1.08); }
 
+  /* LCP: let the browser skip offscreen prose rendering until scrolled */
+  .blog-prose > * {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 600px;
+  }
+  /* But never skip the first few blocks — they are above the fold and
+     skipping them measurably hurts LCP. */
+  .blog-prose > :nth-child(-n+4) {
+    content-visibility: visible;
+    contain-intrinsic-size: auto;
+  }
+
   /* Legacy wrapper classes — kept for any cached pages */
   .blog-jag-outer { display: block; position: relative; }
   .blog-jag-wrap { display: block; }
@@ -531,9 +556,14 @@ const postOgImage = post.data.heroImage ?? 'https://cyperx.dev/og-image.png';
   }
   .x-vibrating-text { animation: psychedelic-melt 6s ease-in-out infinite; text-shadow: 3px 0 #ff51fa, -3px 0 #8eff71; }
   .x-fractal-bg {
-    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCCF-Wu0arOTEDRI7pEIgN9zoNVdLKE4WsdOdqmG-mtDHqHKeMqx_pBPtjbjQ4HLpooT9zBpJxFZIdyqmNhwaR3F5bS0VU9SZlVRdaD5SIIexczbDXVJLbC3fYM2lj-LBSQE8z_t1hhuH-YwO4BAU9o7bwkQAjqbW5Q1Lla1YTPzZjwno57NJKB4OVSqJNG42o5Uyn6rRNAztZgkm42__gqzmM9KOWda7YxxqhQfjXKC-JYyYqX7MWlCNskOFkjixU_RUmSdE3msqg);
     background-size: 200%; animation: x-fractal-shift 20s linear infinite;
     opacity: 0.2; mix-blend-mode: screen; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  }
+  /* LCP fix: defer the heavy remote image until after first paint by only
+     attaching it when JS adds .x-fractal-loaded. Pre-JS the div is empty
+     and not a LCP candidate. */
+  .x-fractal-bg.x-fractal-loaded {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCCF-Wu0arOTEDRI7pEIgN9zoNVdLKE4WsdOdqmG-mtDHqHKeMqx_pBPtjbjQ4HLpooT9zBpJxFZIdyqmNhwaR3F5bS0VU9SZlVRdaD5SIIexczbDXVJLbC3fYM2lj-LBSQE8z_t1hhuH-YwO4BAU9o7bwkQAjqbW5Q1Lla1YTPzZjwno57NJKB4OVSqJNG42o5Uyn6rRNAztZgkm42__gqzmM9KOWda7YxxqhQfjXKC-JYyYqX7MWlCNskOFkjixU_RUmSdE3msqg);
   }
   .x-glitch-hover { position: relative; }
   .x-glitch-hover:hover::after {
@@ -880,6 +910,19 @@ function initBlogPage() {
   });
   */
 
+  // ── LCP: first prose image gets eager+high priority, rest are lazy ──
+  const proseImgs = document.querySelectorAll<HTMLImageElement>('.blog-prose img');
+  proseImgs.forEach((img, i) => {
+    if (i === 0) {
+      img.setAttribute('loading', 'eager');
+      img.setAttribute('fetchpriority', 'high');
+      img.setAttribute('decoding', 'async');
+    } else {
+      img.setAttribute('loading', 'lazy');
+      img.setAttribute('decoding', 'async');
+    }
+  });
+
   // ── Fade in blog images on load ──
   document.querySelectorAll('.blog-prose img').forEach(img => {
     const el = img as HTMLImageElement;
@@ -913,6 +956,8 @@ function initBlogPage() {
 
   // ── Table of Contents (dark variant, desktop only, 2+ h2 headings) ──
   buildToc();
+
+  // (.x-fractal-bg deferred-load is handled centrally by BaseLayout)
 } // end initBlogPage
 
 function slugify(str) {

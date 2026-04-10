@@ -483,8 +483,22 @@ const posts = allPosts
     animation: logo-glitch-burst 0.25s steps(1) forwards, hero-glitch-solid-slow 8s ease-in-out 0.25s infinite;
   }
 
-  /* ── Hero text entrance — managed via JS reset on page-load ── */
-  .hero-sub, .hero-title, .hero-desc, .hero-cta { opacity: 0; }
+  /* ── Hero text entrance — pure-CSS, runs immediately after first paint ──
+     Previously we hid these with opacity:0 and waited for JS to reveal them,
+     which delayed LCP by a full JS-bundle parse. Now they paint visible
+     and only animate via transform (which doesn't affect LCP timestamp). */
+  .hero-sub, .hero-title, .hero-desc, .hero-cta {
+    animation: hero-rise 0.55s cubic-bezier(.17,.67,.4,1.1) both;
+  }
+  .hero-sub  { animation-delay: 0.05s; }
+  .hero-title{ animation-delay: 0.10s; }
+  .hero-desc { animation-delay: 0.20s; }
+  .hero-cta  { animation-delay: 0.30s; }
+  @keyframes hero-rise {
+    from { transform: translateY(20px); }
+    to   { transform: translateY(0); }
+  }
+  /* Legacy fade-up kept for compatibility with any inline JS overrides */
   .hero-anim { animation: fade-up 0.6s ease-out forwards; }
   @keyframes fade-up {
     from { opacity: 0; transform: translateY(30px); }
@@ -640,27 +654,21 @@ const posts = allPosts
 
 <script>
   // ── HERO ENTRANCE ──
-  function triggerHeroAnimations(isThemeSwitch = false) {
-    const delays = { 'hero-sub': 0.1, 'hero-title': 0.2, 'hero-desc': 0.35, 'hero-cta': 0.5 };
-    // Only target elements in the active (visible) variant
+  // First paint is handled by pure CSS (see .hero-sub/.hero-title/… in the
+  // <style> block above) — so on initial load we do nothing here. We only
+  // need to ensure visibility on subsequent theme switches / transitions.
+  function triggerHeroAnimations(_isThemeSwitch = false) {
+    const names = ['hero-sub', 'hero-title', 'hero-desc', 'hero-cta'];
     const html = document.documentElement;
     const theme = Array.from(html.classList).find(c => c.startsWith('theme-')) || 'theme-extreme';
     const variantClass = theme.replace('theme-', 'variant-');
     const activeVariant = document.querySelector('.' + variantClass) || document.querySelector('.variant-extreme') || document.body;
-    Object.entries(delays).forEach(([cls, delay]) => {
-      const el = activeVariant.querySelector(`.${cls}`) || document.querySelector(`.${cls}`);
+    names.forEach(cls => {
+      const el = activeVariant.querySelector(`.${cls}`) as HTMLElement | null;
       if (!el) return;
-      if (isThemeSwitch) {
-        // Theme switch: just ensure visible, no re-animation
-        el.style.animation = 'none';
-        el.style.opacity = '1';
-        return;
-      }
       el.style.animation = 'none';
-      el.style.opacity = '0';
-      // Force reflow
-      void (el as HTMLElement).offsetWidth;
-      el.style.animation = `fade-up 0.6s ${delay}s ease-out forwards`;
+      el.style.opacity = '1';
+      el.style.transform = '';
     });
   }
   document.addEventListener('astro:page-load', () => triggerHeroAnimations(false));
@@ -710,6 +718,11 @@ const posts = allPosts
 
   function animateIn(el: HTMLElement, seed: number) {
     if (prefersReducedMotion) return;
+    // LCP: if this element is already in (or above) the initial viewport,
+    // leave it visible — skipping the hide→animate cycle prevents a mid-
+    // paint flicker that Lighthouse counts as a late LCP.
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight * 0.95) return;
     const [init, final, dur] = pick(seed);
     el.style.opacity = '0';
     el.style.transform = init;

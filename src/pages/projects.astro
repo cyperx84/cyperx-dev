@@ -5,7 +5,7 @@ import { projects } from '../data/projects';
 const featured = projects[0];
 const rest = projects.slice(1);
 ---
-<BaseLayout title="CYPERX.DEV // PROJECTS" activeNav="projects">
+<BaseLayout title="CYPERX.DEV // PROJECTS" activeNav="projects" heroPreload={featured.image}>
 
   <!-- ════════════════════════════════════════
        DARK VARIANT

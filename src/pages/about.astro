@@ -319,11 +319,16 @@ const about = {
 </BaseLayout>
 
 <style is:global>
-  /* ── About scroll reveal base ── */
+  /* ── About scroll reveal base ──
+     LCP fix: lines paint visible by default. JS attaches `.al-pending`
+     only to off-screen lines, so above-the-fold content is never hidden
+     and the LCP element resolves at first paint. */
   .about-line {
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .about-line.al-pending {
     opacity: 0;
     transform: translateY(24px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   }
   .about-line.al-visible {
     opacity: 1;
@@ -381,13 +386,22 @@ const about = {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const el = entry.target as HTMLElement;
+          el.classList.remove('al-pending');
           el.classList.add('al-visible');
           observer.unobserve(el);
         }
       });
     }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
 
-    document.querySelectorAll('.about-line').forEach(el => observer.observe(el));
+    // Mark only off-screen lines as pending so above-the-fold content never
+    // gets hidden — first paint = final state for LCP.
+    document.querySelectorAll<HTMLElement>('.about-line').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top >= window.innerHeight * 0.95) {
+        el.classList.add('al-pending');
+      }
+      observer.observe(el);
+    });
   }
 
   // Run on initial load and after view transitions
