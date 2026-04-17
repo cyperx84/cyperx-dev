@@ -77,7 +77,7 @@ try {
       </div>
       <button id="speed-btn" class="min-w-[40px] min-h-[40px] px-3 py-2 sm:min-w-0 sm:min-h-0 sm:px-2 sm:py-1 border font-mono text-[10px] sm:text-[8px] transition-colors shrink-0 rounded-sm" aria-label="Playback speed">1x</button>
     </div>
-      <audio id="blog-audio" preload="metadata" src={`/audio/blog/${post.data.slug}.mp3`}></audio>
+      <audio id="blog-audio" preload="none" data-src={`/audio/blog/${post.data.slug}.mp3`}></audio>
   </div>
   )}
 
@@ -593,7 +593,7 @@ try {
      attaching it when JS adds .x-fractal-loaded. Pre-JS the div is empty
      and not a LCP candidate. */
   .x-fractal-bg.x-fractal-loaded {
-    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCCF-Wu0arOTEDRI7pEIgN9zoNVdLKE4WsdOdqmG-mtDHqHKeMqx_pBPtjbjQ4HLpooT9zBpJxFZIdyqmNhwaR3F5bS0VU9SZlVRdaD5SIIexczbDXVJLbC3fYM2lj-LBSQE8z_t1hhuH-YwO4BAU9o7bwkQAjqbW5Q1Lla1YTPzZjwno57NJKB4OVSqJNG42o5Uyn6rRNAztZgkm42__gqzmM9KOWda7YxxqhQfjXKC-JYyYqX7MWlCNskOFkjixU_RUmSdE3msqg);
+    background-image: url(/images/fractal-noise.webp);
   }
   .x-glitch-hover { position: relative; }
   .x-glitch-hover:hover::after {
@@ -1286,10 +1286,10 @@ function initAudioPlayer() {
 
   applyTheme();
 
-  // Player only rendered when audio exists (guarded at build time), so we can
-  // reveal it directly once metadata loads.
-  player.classList.add('hidden');
-  audio.addEventListener('loadedmetadata', () => player.classList.remove('hidden'), { once: true });
+  // Audio src is lazy (data-src, preload=none) to avoid 404s when the build-
+  // time gate is stale.  We reveal the player immediately (it was build-gated)
+  // and load the actual audio on first interaction.
+  player.classList.remove('hidden');
   audio.addEventListener('error', () => player.classList.add('hidden'));
 
   const speeds = [1, 1.25, 1.5, 2];
@@ -1301,6 +1301,11 @@ function initAudioPlayer() {
   }
 
   playBtn.addEventListener('click', () => {
+    // Lazy-load: move data-src → src on first interaction (avoids 404 on stale builds)
+    if (!audio.src && audio.dataset.src) {
+      audio.src = audio.dataset.src;
+      audio.preload = 'metadata';
+    }
     if (audio.paused) { audio.play(); playBtn.textContent = '⏸'; }
     else { audio.pause(); playBtn.textContent = '▶'; }
   });

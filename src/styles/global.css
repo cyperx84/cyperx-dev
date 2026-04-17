@@ -160,8 +160,28 @@ body {
   color: #000;
 }
 
-/* ── Material Icons ── */
+/* ── Material Symbols — self-hosted subset (10 icons, 2.9KB woff2) ── */
+@font-face {
+  font-family: 'Material Symbols Outlined';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/material-symbols-outlined.woff2') format('woff2');
+}
 .material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
@@ -789,11 +809,11 @@ body {
 /* LCP fix: load the heavy remote fractal image only after JS attaches the
    .x-fractal-loaded class — keeps the empty div from becoming the LCP. */
 .x-fractal-bg.x-fractal-loaded {
-  background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCCF-Wu0arOTEDRI7pEIgN9zoNVdLKE4WsdOdqmG-mtDHqHKeMqx_pBPtjbjQ4HLpooT9zBpJxFZIdyqmNhwaR3F5bS0VU9SZlVRdaD5SIIexczbDXVJLbC3fYM2lj-LBSQE8z_t1hhuH-YwO4BAU9o7bwkQAjqbW5Q1Lla1YTPzZjwno57NJKB4OVSqJNG42o5Uyn6rRNAztZgkm42__gqzmM9KOWda7YxxqhQfjXKC-JYyYqX7MWlCNskOFkjixU_RUmSdE3msqg);
+  background-image: url(/images/fractal-noise.webp);
 }
 .x-shard-inner-fractal {
   position: absolute; inset: 0;
-  background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCCF-Wu0arOTEDRI7pEIgN9zoNVdLKE4WsdOdqmG-mtDHqHKeMqx_pBPtjbjQ4HLpooT9zBpJxFZIdyqmNhwaR3F5bS0VU9SZlVRdaD5SIIexczbDXVJLbC3fYM2lj-LBSQE8z_t1hhuH-YwO4BAU9o7bwkQAjqbW5Q1Lla1YTPzZjwno57NJKB4OVSqJNG42o5Uyn6rRNAztZgkm42__gqzmM9KOWda7YxxqhQfjXKC-JYyYqX7MWlCNskOFkjixU_RUmSdE3msqg);
+  background-image: url(/images/fractal-noise.webp);
   background-size: cover; mix-blend-mode: overlay; opacity: 0.3; animation: x-fractal-shift 10s alternate infinite; pointer-events: none;
 }
 .x-glitch-hover { position: relative; }
@@ -1566,10 +1586,7 @@ footer {
   }
 }
 
-/* Fonts — ensure swap to prevent invisible text */
-.material-symbols-outlined {
-  font-display: swap;
-}
+/* font-display: swap is now in the @font-face declaration above */
 
 /* Image optimization + fade-in on load */
 /* NOTE: content-visibility: auto is intentionally NOT on img — it causes black placeholder boxes on replaced elements */

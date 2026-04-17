@@ -43,9 +43,8 @@ const pageAttr = activeNav ?? 'home';
   <script type="importmap">
     {"imports":{"three":"https://esm.sh/three@0.183.2","three/":"https://esm.sh/three@0.183.2/"}}
   </script>
-  <!-- DNS prefetch for CDN assets used in JS -->
-  <link rel="dns-prefetch" href="https://esm.sh" />
-  <link rel="preconnect" href="https://esm.sh" crossorigin />
+  <!-- esm.sh preconnect removed: three.js loads on idle callback, connection
+       warmup is premature and flagged as unused by Lighthouse/DevTools -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
@@ -106,9 +105,8 @@ const pageAttr = activeNav ?? 'home';
   <!-- ZedMono/Monaspace not preloaded — accent/terminal fonts, font-display:swap handles them without blocking FCP -->
   <!-- JetBrains Mono removed — ZedMono NFM is the primary mono, JBM was only a fallback and never rendered -->
 
-  <!-- Material Symbols — deferred, only 10 icons used -->
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_forward,construction,format_quote,hub,leak_add,open_in_new,person,radar,shield,terminal&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_forward,construction,format_quote,hub,leak_add,open_in_new,person,radar,shield,terminal&display=swap" rel="stylesheet" /></noscript>
+  <!-- Material Symbols — self-hosted subset (10 icons, 2.9KB woff2) -->
+  <!-- Was Google Fonts CDN (155KB transfer incl. connection overhead); now local + immutable-cached -->
   <ClientRouter />
   <style is:global>
     /* ── Page Transition: Glitch Wipe ── */
